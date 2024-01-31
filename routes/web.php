@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('vue');
 });
+
+Route::get('/index', [LoginController::class,'index']);
+route::get('/login', [LoginController::class,'login']);
+
+
+
