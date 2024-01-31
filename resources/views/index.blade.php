@@ -5,7 +5,12 @@
 
 
 
-<a class="btn btn-primary" href="{{action([App\Http\Controllers\LoginController::class,'login'])}}">   prueba</a>
+@if (Auth::check())
+{{Auth::user()->userName}} {{Auth::user()->user_type->type_name}}
+
+
+
+@endif
 
 
 

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,10 @@ Route::get('/', function () {
     return view('vue');
 });
 
-Route::get('/index', [LoginController::class,'index']);
-route::get('/login', [LoginController::class,'login']);
+Route::get('/index', [Controller::class,'index']);
+route::get('/login', [UsuarioController::class,'showlogin']);
+route::post('/login', [UsuarioController::class,'login']);
+route::get('/logout', [UsuarioController::class,'logout']);
 
 
 

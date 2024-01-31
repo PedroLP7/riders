@@ -4,9 +4,9 @@
 
 
 
-<form    method="POST">
+<form method="POST" action="{{action([App\Http\Controllers\UsuarioController::class,'login'])}}" method="POST">
     @csrf
-    @method('PUT')
+
     <div class="card">
         <div class="card-title mt-3 px-3 ">
 
@@ -17,9 +17,9 @@
 
         <div class="card-body">
             <div class="form-group row px-2">
-                <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                <label for="username" class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="nombre" name="nombre" value="">
+                  <input type="text" class="form-control" id="username" name="username" value="">
                 </div>
             </div>
             <div class="form-group row mt-3 px-2">
@@ -32,7 +32,7 @@
 
 
 
-
+            <button  class="btn btn-primary"type="submit">Aceptar</button>
 
           </form>
 

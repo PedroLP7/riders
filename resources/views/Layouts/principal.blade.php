@@ -11,7 +11,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{url('/')}}">Aprendiendo eloquent</a>
+          <a class="navbar-brand" href="{{url('/index')}}">Aprendiendo eloquent</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -31,10 +31,32 @@
               </li>
 
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                @if (Auth::check())
+                <li class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{Auth::user()->userName}} {{Auth::user()->surname1}}
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li> <a href="{{url('logout')}}" class="nav-link">Logout</a></li>
+
+                        </ul>
+                      </li>
+
+
+
+
+
+                @else
+                <li class="nav-item">
+                    <a href="{{url('login')}}" class="nav-link">Login</a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a href="{{url('register')}}" class="nav-link">Register</a>
+                </li>
+
           </div>
         </div>
       </nav>
