@@ -13,13 +13,13 @@ class UsuarioController extends Controller
 
     public function showlogin() {
 
-        $usuario = new usuario();
-        $usuario->username = 'Geraldain';
-        $usuario->pswrd = bcrypt('1234');
-        $usuario->user_type_id = '1';
-        $usuario->realName = 'Geraldine';
-        $usuario->surname1 = 'Jara';
-        $usuario->save();
+        // $usuario = new usuario();
+        // $usuario->username = 'Geraldain';
+        // $usuario->pswrd = bcrypt('1234');
+        // $usuario->user_type_id = '1';
+        // $usuario->realName = 'Geraldine';
+        // $usuario->surname1 = 'Jara';
+        // $usuario->save();
 
 
 
@@ -38,7 +38,7 @@ class UsuarioController extends Controller
 
         if($user !=null && Hash::check($password, $user->pswrd)){
         Auth::login($user);
-            $response = redirect('/index');
+            $response = redirect('/home');
         }else{
             $request->session()->flash('error', 'Usuario o contraseña incorrectos');
         $response = redirect('/login');

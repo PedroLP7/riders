@@ -21,9 +21,19 @@ Route::get('/', function () {
 });
 
 Route::get('/index', [Controller::class,'index']);
-route::get('/login', [UsuarioController::class,'showlogin']);
+route::get('/login', [UsuarioController::class,'showlogin'])->name('login');
 route::post('/login', [UsuarioController::class,'login']);
 route::get('/logout', [UsuarioController::class,'logout']);
 
 
+Route::middleware(['auth'])->group(function () {
 
+    // route::get('/home',function(){    prueba de francisco , pero prefiero usar el controlador, para tener todo mejor organizado
+
+    //     $user = Auth::user();
+    //     return view('home',compact('user'));
+    // });
+
+
+    route::get('/home', [Controller::class,'home']);
+});
