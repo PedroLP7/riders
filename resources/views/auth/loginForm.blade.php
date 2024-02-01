@@ -3,7 +3,7 @@
 
 
 
-
+@include('php_partials.mensajes')
 <form method="POST" action="{{action([App\Http\Controllers\UsuarioController::class,'login'])}}" method="POST">
     @csrf
 
@@ -13,7 +13,7 @@
 
         <h3>{{'Login'}}</h3>
         </div>
-        {{-- @include('php_partials.mensajes') --}}
+
 
         <div class="card-body">
             <div class="form-group row px-2">
