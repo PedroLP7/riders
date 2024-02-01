@@ -13,6 +13,15 @@ class UsuarioController extends Controller
 
     public function showlogin() {
 
+        $usuario = new usuario();
+        $usuario->username = 'Geraldain';
+        $usuario->pswrd = bcrypt('1234');
+        $usuario->user_type_id = '1';
+        $usuario->realName = 'Geraldine';
+        $usuario->surname1 = 'Jara';
+        $usuario->save();
+
+
 
         return view('auth.loginForm');
     }
