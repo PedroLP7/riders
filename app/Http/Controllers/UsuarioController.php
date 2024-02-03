@@ -39,9 +39,12 @@ class UsuarioController extends Controller
         if($user !=null && Hash::check($password, $user->pswrd)){
         Auth::login($user);
             $response = redirect('/home');
+            request()->session()->flash('mensaje', 'Bienvenido ' . $user->realName);
+
         }else{
             $request->session()->flash('error', 'Usuario o contraseña incorrectos');
-        $response = redirect('/login');
+            //  $request->session()->flash($username,$password);
+        $response = redirect('/login')->withInput();
         }
         return $response;
 
@@ -49,6 +52,7 @@ class UsuarioController extends Controller
 
 public function logout(){
     Auth::logout();
+    request()->session()->flash('mensaje', 'Sesión cerrada');
     return redirect('/index');
 
 }

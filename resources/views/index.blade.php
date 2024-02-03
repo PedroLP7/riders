@@ -3,7 +3,7 @@
 
 @section('contenido')
 
-
+@include('php_partials.mensajes')
 
 
 

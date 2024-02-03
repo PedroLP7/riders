@@ -3,8 +3,8 @@
 
 @section('contenido')
 
+@include('php_partials.mensajes')
 
- @include('php_partials.mensajes')
 @if (Auth::check())
 {{Auth::user()->userName}} {{Auth::user()->user_type->type_name}}
 
