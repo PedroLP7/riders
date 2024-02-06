@@ -10,9 +10,9 @@ CREATE TABLE user_type (
 ); 
 
 -- create user table
-CREATE TABLE user (
+CREATE TABLE usuario (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    userName VARCHAR(100) NOT NULL ,
+    userName VARCHAR(100) NOT NULL UNIQUE ,
     realName varchar(100),
     surname1 VARCHAR(100) NOT NULL ,
     surname2 VARCHAR(100),
@@ -73,6 +73,18 @@ CREATE TABLE food_order (
     REFERENCES charity_menu(id_menu)
 ); 
 
+
+
+
+-- Insertar tipos de usuario
+INSERT INTO user_type (type_name) VALUES ('Admin');
+INSERT INTO user_type (type_name) VALUES ('Rider');
+INSERT INTO user_type (type_name) VALUES ('Proveedor');
+INSERT INTO user_type (type_name) VALUES ('ComedorSocial');
+INSERT INTO user_type (type_name) VALUES ('Homeless');
+
+
+-- Insertar un usuario
 
 
 

@@ -3,9 +3,8 @@
 
 @section('contenido')
 
+@include('php_partials.mensajes')
 
-
-<a class="btn btn-primary" href="{{action([App\Http\Controllers\LoginController::class,'login'])}}">   prueba</a>
 
 
 

@@ -11,30 +11,70 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{url('/')}}">Aprendiendo eloquent</a>
+          <a class="navbar-brand" href="{{url('/index')}}">Index</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Datos
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{{url('cicle')}}">Cicles</a></li>
-                  <li><a class="dropdown-item" href="#">Cursos</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{{url('modul')}}">Moduls</a></li>
-                </ul>
-              </li>
+
+                @if (Auth::check()&&Auth::user()->user_type_id==1)
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                     Zona admin
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{url('admin')}}">UserList</a></li>
+                      <li><a class="dropdown-item" href="#">a</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{{url('modul')}}">Stats</a></li>
+                    </ul>
+                  </li>
+
+                @endif
+
+
 
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0 p-3">
+                @if (Auth::check())
+                <li class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          {{Auth::user()->realName}} {{Auth::user()->surname1}}
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li> <a href="{{url('logout')}}" class="nav-link">Logout</a></li>
+
+                        </ul>
+                      </li>
+
+
+
+
+
+                @else
+                <li class="nav-item">
+                    <a href="{{url('login')}}" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{url('register')}}" class="nav-link">Register</a>
+                </li>
+                @endif
+
+
+
+
+
+
+
+
+
           </div>
         </div>
       </nav>
