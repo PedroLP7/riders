@@ -19,9 +19,10 @@ class Controller extends BaseController
     public function home()
     {
         $user = Auth::user();
+
         //intentar gestionar esto
 
-        // session()->flash('error', 'no estas logueado');
+
 
 
 

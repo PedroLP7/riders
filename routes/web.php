@@ -34,6 +34,9 @@ Route::middleware(['auth'])->group(function () {
     //     return view('home',compact('user'));
     // });
 
-
+    // session()->flash('error', 'no estas logueado');
     route::get('/home', [Controller::class,'home']);
+
+    route::get('/admin', [UsuarioController::class,'admin']);
 });
+Route::resource('usuario', App\Http\Controllers\UsuarioController::class);

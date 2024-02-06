@@ -12,7 +12,7 @@ CREATE TABLE user_type (
 -- create user table
 CREATE TABLE usuario (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    userName VARCHAR(100) NOT NULL ,
+    userName VARCHAR(100) NOT NULL UNIQUE ,
     realName varchar(100),
     surname1 VARCHAR(100) NOT NULL ,
     surname2 VARCHAR(100),
@@ -58,13 +58,13 @@ CREATE TABLE food_order (
  id_order_status INT,
   -- add provider foreign key
 	FOREIGN KEY (id_provider)
-    REFERENCES usuario(user_id),
+    REFERENCES user(user_id),
     -- add rider foreign key
     FOREIGN KEY (id_rider)
-    REFERENCES usuario(user_id),
+    REFERENCES user(user_id),
       -- add customer foreign key
     FOREIGN KEY (id_customer)
-    REFERENCES usuario (user_id),
+    REFERENCES user (user_id),
       -- add order status foreign key
     FOREIGN KEY (id_order_status)
     REFERENCES order_status(status_id),
@@ -74,11 +74,17 @@ CREATE TABLE food_order (
 ); 
 
 
-INSERT INTO user_type (value) VALUES ('admin'), ('rider'), ('provider'), ('comedor');
 
-  
-  
-  
+
+-- Insertar tipos de usuario
+INSERT INTO user_type (type_name) VALUES ('Admin');
+INSERT INTO user_type (type_name) VALUES ('Rider');
+INSERT INTO user_type (type_name) VALUES ('Proveedor');
+INSERT INTO user_type (type_name) VALUES ('ComedorSocial');
+INSERT INTO user_type (type_name) VALUES ('Homeless');
+
+
+-- Insertar un usuario
 
 
 
