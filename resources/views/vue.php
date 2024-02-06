@@ -3,59 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro de Riders</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-    }
-
-    .app-container {
-      text-align: center;
-    }
-
-    .header {
-      background-color: #D6EADF;
-      padding: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .main button {
-      background-color: #FFA500;
-      border: none;
-      padding: 1rem 2rem;
-      margin-top: 1rem;
-      cursor: pointer;
-    }
-
-    .main button:hover {
-      background-color: #cc8400;
-    }
-
-    .collaboration {
-      margin-top: 1rem;
-    }
-
-    .collaboration p {
-      margin: 0;
-    }
-
-    .collaboration button {
-      background-color: #00ADB5;
-      color: white;
-      margin-top: 0.5rem;
-    }
-
-    .collaboration button:hover {
-      background-color: #007f87;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="../resources/css/styles.css">
+  <title>Registro de Riders</title> 
 </head>
 <body>
   <div id="app">
     <app-container></app-container>
-  </div>
-
-  <!-- Incluyendo Vue desde un CDN -->
+  </div> 
   <script src="https://unpkg.com/vue@2.6.12/dist/vue.js"></script>
   <script>
     Vue.component('app-container', {
@@ -63,26 +17,33 @@
         <div class="app-container">
           <header class="header">
             <nav>
-              <ul>
-                <li><a href="#quienes-somos">Quiénes somos?</a></li>
-                <li><a href="#iniciar-sesion">Iniciar Sesión</a></li>
-              </ul>
+              <div>
+                <a id="quienes" class="hyperlink" href="#quienes-somos">Quiénes somos?</a>
+                <a id="sesion" class="hyperlink" href="#iniciar-sesion">Iniciar Sesión</a>
+              </div>               
             </nav>
           </header>
           <main class="main">
-            <h1>Título empresa de entrega de comida</h1>
-            <button @click="registrateRider">Regístrate Rider!</button>
+            <div>
+            <h1 id="titulo">FoodLink</h1>
+            <h2 id="subtitulo">Una red de solidaridad</h2>
+            </div>
+            
+            <div class="button-container">
+            <button id="register"@click="registrateRider">Regístrate Rider</button>
+            <button id="sombraBoton" @click="registrateRider">Regístrate Rider</button>
+            </div>
             
             <div class="collaboration">
-              <div>
+              <div id="empresa">
                 <p>¿Eres una empresa y quieres colaborar?</p>
-                <button @click="registroEmpresa">Regístrate ahora!</button>
+                <a class="hyperlink" @click="registroEmpresa">Regístrate ahora!</a>
               </div>
-              <div>
+              <div id="comedor">
                 <p>¿Eres un comedor social?</p>
-                <button @click="registroComedor">Regístrate ahora!</button>
+                <a class="hyperlink" @click="registroComedor">Regístrate ahora!</a>
               </div>
-            </div>
+            </div>            
           </main>
         </div>
       `,
