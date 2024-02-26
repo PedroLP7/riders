@@ -15,7 +15,12 @@ class charity_menu extends Model
 
     public function providers()
     {
-        return $this->belongsToMany(provider::class, 'provider_has_menus','id_m', 'id_prov');
+        return $this->belongsToMany(provider::class, 'provider_has_menus','id_m', 'id_prov')->withPivot('quantity');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(booking::class, 'id_menu_fk');
     }
 
 }

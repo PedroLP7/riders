@@ -17,4 +17,8 @@ class communityK extends Model
     {
         return $this->hasOne(usuario::class, 'id_user');
     }
+    public function deliverys(){
+        return $this->hasMany(delivery::class, 'id_communityK_fk');
+
+       }
 }

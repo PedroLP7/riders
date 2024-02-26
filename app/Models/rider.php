@@ -15,4 +15,9 @@ class rider extends Model
     {
         return $this->hasOne(usuario::class, 'id_user');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(booking::class, 'id_rider_fk');
+    }
 }

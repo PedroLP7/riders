@@ -20,7 +20,11 @@ class provider extends Model
 
     public function menus()
     {
-        return $this->belongsToMany(charity_menu::class, 'provider_has_menus','id_prov', 'id_m');
+        return $this->belongsToMany(charity_menu::class, 'provider_has_menus','id_prov', 'id_m')->withPivot('quantity');
     }
-    //quitar la cantidad del menu y ponerlo en la tabla del medio en SQL , luego ponerle el withpivot para que la enseñe tambien :)
+
+    public function bookings()
+    {
+        return $this->hasMany(booking::class, 'id_provider_fk');
+    }
 }
