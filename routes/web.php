@@ -18,16 +18,12 @@ use App\Http\Controllers\CustomerController;
 |
 */
 Route::get('/customerform', function () {
-    return view('newHomelessPerson');
+    return view('addHomelessForm.newHomelessPerson');
 });
 Route::get('/', function () {
     return view('vue');
 });
 
-Route::get('/index', [Controller::class,'index']);
-route::get('/login', [UsuarioController::class,'showlogin'])->name('login');
-route::post('/login', [UsuarioController::class,'login']);
-route::get('/logout', [UsuarioController::class,'logout']);
 
 Route::post ('/createcustomer'[CustomerController::class], 'create');
 Route::middleware(['auth'])->group(function () {
