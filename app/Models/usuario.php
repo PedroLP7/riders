@@ -15,14 +15,31 @@ class usuario extends Authenticatable{
 
 
    protected $table = 'usuario';
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id_user';
     public $timestamps = false;
 
 
 
-    public function user_type()
+    public function type_user()
     {
-        return $this->belongsTo(user_type::class, 'user_type_id');
+        return $this->belongsTo(user_type::class, 'user_type');
+    }
+
+
+    public function rider()
+    {
+        return $this->hasOne(rider::class, 'id_rider');
+    }
+
+
+    public function provider()
+    {
+        return $this->hasOne(provider::class, 'id_provider');
+    }
+
+    public function communityK()
+    {
+        return $this->hasOne(communityK::class, 'id_communityK');
     }
 
 }
