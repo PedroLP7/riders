@@ -124,3 +124,33 @@ body {
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
 }
+
+/*Estilo Formilarios Registro
+-------------------------------------------------------------------------------------------------------*/
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .form-field {
+    margin-bottom: 20px;
+  }
+  
+  .form-field label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-field input,
+  .form-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
