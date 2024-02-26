@@ -1,54 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
 
-
 body {
     font-family: 'Outfit', sans-serif;  
     background-color: #1E1E1E;  
     color: #FFFEDE;
-  }
+}
 
-  .hyperlink{
+.hyperlink {
     color: inherit;
     text-decoration: none;
-    
-  }
+}
 
-  #sesion{
+#sesion {
     position: fixed;
     top: 2%;
     left: 72%;
-  }
+}
 
-  #quienes{
+#quienes {
     position: fixed;
     top: 2%;
     left: 40%;
-  }
+}
 
-  .app-container {
+.app-container {
     text-align: center;
-  }  
+}  
 
-  .header {    
+.header {    
     padding:1rem;
     margin-bottom: 2rem;
-  }
+}
 
-  .main{
+.main {
     position: relative;
-  }
+}
 
-  #titulo{
+#titulo {
     color: white;
     position: fixed;
     font-weight: bolder;
     font-size: 74px;
     top: 52%;
-    left: 50%;
+    left: 45%;
     transform: translate(-50%, -50%);
-  }
+    overflow: hidden;
+    white-space: nowrap;
+    animation: revealText 0.5s linear forwards;
+}
 
-  #subtitulo{
+#barra {
+  position: fixed;
+  background-image: url("../images/link.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 54.2%;
+  left: 55%;
+  width: 120px;
+  height: 120px;
+}
+
+#subtitulo {
     color: white;
     position: fixed;
     font-weight: bolder;   
@@ -57,20 +69,17 @@ body {
     top: 62%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-weight: 50;
-  }
+}
 
-  .button-container {
+.button-container {
     position: fixed; 
     display: inline-block; 
-    margin-top: 1rem;
     top: 70%;    
     left: 50%;
     transform: translate(-50%, -50%);
-    
-  }
-  
-  #register {    
+}
+
+#register {    
     background-color: #8BB481;       
     width: 270px;
     height: 70px;
@@ -84,9 +93,9 @@ body {
     cursor: pointer;
     position: relative; 
     z-index: 1; 
-  }
-  
-  #sombraBoton {
+}
+
+#sombraBoton {
     position: absolute;
     width: 270px;
     height: 70px;
@@ -96,37 +105,22 @@ body {
     border-radius: 40px;
     z-index: -1;
     border: none;
-  }
+}
 
-  #empresa{
-    margin-bottom: 25px;
-  }
-  
-  .main button:hover {
-    background-color: #cc8400;
-  }
-
-  .collaboration {
+.collaboration {
     margin-top: 1rem;
     width: 250%;
     position: fixed;
     top: 87%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin: 0;
-    padding: 8px;
-  }
+}
 
-  .collaboration p {  
-    margin: 0;
-  }
-
-  .collaboration button {
-    background-color: #00ADB5;
-    color: white;
-    margin-top: 0.5rem;
-  }
-
-  .collaboration button:hover {
-    background-color: #007f87;
-  }
+@keyframes revealText {
+    from {
+      clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
+    }
+    to {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
