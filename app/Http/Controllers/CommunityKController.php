@@ -22,6 +22,7 @@ class CommunityKController extends Controller
     {
 <<<<<<< HEAD
         //prueba
+>>>>>>> parent of 41e7822 (Revert "Merge branch 'laravel_models'")
     }
 
     /**
