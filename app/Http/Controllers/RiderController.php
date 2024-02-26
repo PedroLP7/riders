@@ -1,17 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\usuario;
+use App\Models\rider;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class RiderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
         //
     }
@@ -27,7 +34,15 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(usuario $usuario)
+    public function show(rider $rider)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(rider $rider)
     {
         //
     }
@@ -35,7 +50,7 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, usuario $usuario)
+    public function update(Request $request, rider $rider)
     {
         //
     }
@@ -43,7 +58,7 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(usuario $usuario)
+    public function destroy(rider $rider)
     {
         //
     }

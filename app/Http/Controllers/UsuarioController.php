@@ -2,95 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\usuario;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreUsuarioRequest;
+use App\Http\Requests\UpdateUsuarioRequest;
+use App\Models\Usuario;
 
 class UsuarioController extends Controller
 {
+    //Authenthicate
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('dashboard');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
 
-
-    public function showlogin() {
-
-        // $usuario = new usuario();
-        //   $usuario->username = 'Ivan';
-        //   $usuario->pswrd = bcrypt('1234');
-        //   $usuario->user_type_id = '2';
-        //   $usuario->realName = 'Ivan';
-        //   $usuario->surname1 = 'Martinez';
-        //   $usuario->save();
-
-
-
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
         return view('auth.loginForm');
     }
 
-
-
-    public function login(Request $request){
-
-
-        $username = $request->input('username');
-        $password = $request->input('password');
-
-        $user = usuario::where('username', $username)->first();
-
-        if($user !=null && Hash::check($password, $user->pswrd)){
-        Auth::login($user);
-            $response = redirect('/home');
-            request()->session()->flash('mensaje', 'Bienvenido ' . $user->realName);
-
-        }else{
-            $request->session()->flash('error', 'Usuario o contraseña incorrectos');
-            //  $request->session()->flash($username,$password);
-        $response = redirect('/login')->withInput();
-        }
-        return $response;
-
-}
-
-public function admin(){
-    if(Auth::user()->user_type_id != 1){
-      $response =  redirect('/home');
-    }else{
-        $riders = usuario::where('user_type_id', 2)->get();
-
-
-        $usuarios = usuario::all();
-        // session()->flash('mensaje', 'Bienvenido a la zona de administración');
-        $response =  view('adminZone.admin', compact('usuarios'));
-    }
-    return $response;
-}
-
-public function logout(){
-    Auth::logout();
-    request()->session()->flash('mensaje', 'Sesión cerrada');
-    return redirect('/index');
-
-}
-
-function destroy(Request $request ,usuario $usuario){
-    try {
-        $usuario->delete();
-        $request->session()->flash('mensaje', "Usuario $usuario->userName eliminado correctament");
-        $response = redirect()->action([UsuarioController::class, 'admin']);
-
-    } catch (\Throwable $th) {
-        $request->session()->flash('error', "No se puede eliminar el usuario $usuario->userName");
-        $response = redirect()->action([UsuarioController::class, 'admin']);
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreUsuarioRequest $request)
+    {
+        //
     }
 
-    return $response;
-}
+    /**
+     * Display the specified resource.
+     */
+    public function show(Usuario $usuario)
+    {
+        //
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Usuario $usuario)
+    {
+        //
+    }
 
-function edit(usuario $usuario){
-    return view('adminZone.edit', compact('usuario'));
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateUsuarioRequest $request, Usuario $usuario)
+    {
+        //
+    }
 
-
-
-}
-
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Usuario $usuario)
+    {
+        //
+    }
 }
