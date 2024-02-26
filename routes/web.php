@@ -40,3 +40,7 @@ Route::middleware(['auth'])->group(function () {
     route::get('/admin', [UsuarioController::class,'admin']);
 });
 Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
+
+route::get('/map', function(){
+    return view('testMapbox');
+});
