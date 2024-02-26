@@ -32,13 +32,8 @@ route::get('/logout', [UsuarioController::class,'logout']);
 Route::post ('/createcustomer'[CustomerController::class], 'create');
 Route::middleware(['auth'])->group(function () {
 
-    // route::get('/home',function(){    prueba de francisco , pero prefiero usar el controlador, para tener todo mejor organizado
 
-    //     $user = Auth::user();
-    //     return view('home',compact('user'));
-    // });
 
-    // session()->flash('error', 'no estas logueado');
     route::get('/home', [Controller::class,'home']);
 
     route::get('/admin', [UsuarioController::class,'admin']);
