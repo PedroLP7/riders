@@ -15,7 +15,9 @@ use App\Http\Controllers\UsuarioController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/customerform', function () {
+    return view('newHomelessPerson');
+});
 Route::get('/', function () {
     return view('vue');
 });
@@ -25,7 +27,7 @@ route::get('/login', [UsuarioController::class,'showlogin'])->name('login');
 route::post('/login', [UsuarioController::class,'login']);
 route::get('/logout', [UsuarioController::class,'logout']);
 
-
+Route::post ('/createcustomer'[App\Http\Controllers\Customer::class], 'create');
 Route::middleware(['auth'])->group(function () {
 
     // route::get('/home',function(){    prueba de francisco , pero prefiero usar el controlador, para tener todo mejor organizado

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user_type;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserTypeRequest;
+use App\Http\Requests\UpdateUserTypeRequest;
+use App\Models\UserType;
 
 class UserTypeController extends Controller
 {
@@ -26,7 +27,7 @@ class UserTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserTypeRequest $request)
     {
         //
     }
@@ -34,7 +35,7 @@ class UserTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(user_type $user_type)
+    public function show(UserType $userType)
     {
         //
     }
@@ -42,7 +43,7 @@ class UserTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(user_type $user_type)
+    public function edit(UserType $userType)
     {
         //
     }
@@ -50,7 +51,7 @@ class UserTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, user_type $user_type)
+    public function update(UpdateUserTypeRequest $request, UserType $userType)
     {
         //
     }
@@ -58,7 +59,7 @@ class UserTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(user_type $user_type)
+    public function destroy(UserType $userType)
     {
         //
     }
