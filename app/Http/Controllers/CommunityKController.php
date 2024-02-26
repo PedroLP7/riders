@@ -20,7 +20,7 @@ class CommunityKController extends Controller
      */
     public function create()
     {
-        //prueba
+        //
     }
 
     /**

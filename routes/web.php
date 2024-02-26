@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CustomerController;
 
@@ -25,7 +24,7 @@ Route::get('/', function () {
 });
 
 
-// Route::get ('/createcustomer'[CustomerController::class], 'create');
+
 Route::middleware(['auth'])->group(function () {
 
 
@@ -35,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
     route::get('/admin', [UsuarioController::class,'admin']);
 });
 Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
+// route::resource('menu', App\Http\Controllers\CharityMenuController::class);
+// route::resource('customer', App\Http\Controllers\CustomerController::class);
 
 route::get('/map', function(){
     return view('testMapbox');

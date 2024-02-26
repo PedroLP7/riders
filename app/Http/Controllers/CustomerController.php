@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\customer;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -23,7 +21,6 @@ class CustomerController extends Controller
     public function create()
     {
         //
-        return view('addHomelessForm.newHomelessPerson');
     }
 
     /**
@@ -32,21 +29,12 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         //
-        $customer = new Customer;
- 
-        //$customer->id_customer = $request-›input('id');
-        $customer->location = $request->input('address');
-        $customer->Xcoord = $request->input('x');
-        $customer->Ycoord = $request->input('y');
-        $customer->save();
- 
-        return redirect('');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(customer $customer)
     {
         //
     }
@@ -54,7 +42,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit(customer $customer)
     {
         //
     }
@@ -62,7 +50,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(Request $request, customer $customer)
     {
         //
     }
@@ -70,7 +58,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(customer $customer)
     {
         //
     }
