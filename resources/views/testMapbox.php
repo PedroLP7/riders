@@ -18,6 +18,7 @@ rel="stylesheet"
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
+<link rel="stylesheet" href="../resources/css/styles.css">
 </head>
 <body>
 <style>
@@ -64,6 +65,16 @@ body { margin: 0; padding: 0; }
 </div>
 </form>
 </div>
+
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Modal content goes here...</p>
+    <!-- Add any form fields or content you need for user input -->
+    <button id="addPinBtn">Add Pin</button>
+  </div>
+</div>
+
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';
     const map = new mapboxgl.Map({
@@ -73,16 +84,6 @@ body { margin: 0; padding: 0; }
         center: [2.173296,41.388002],
         zoom: 17
     });
-
-    const nav = new mapboxgl.NavigationControl();
-    map.addControl(nav);
-
-    var directions = new MapboxDirections({
-        accessToken: mapboxgl.accessToken,
-        unit: 'metric',
-    });
-
-    map.addControl(directions, 'top-left');
 
     // Create a default Marker and add it to the map.
     const marker1 = new mapboxgl.Marker()
@@ -373,6 +374,15 @@ body { margin: 0; padding: 0; }
         // Make the API call
         getIso();
         });
+
+// ----------------------------------------------------------------------------------------------------------------
+// crear pua
+// ----------------------------------------------------------------------------------------------------------------
+
+map.on('click', evt => {
+    console.log(evt.lngLat);
+});
+
 </script>
 
 </body>
