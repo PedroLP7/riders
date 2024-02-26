@@ -2,44 +2,17 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-
-class usuario extends Authenticatable{
-    use HasFactory,HasApiTokens,Notifiable;
-
-
-   protected $table = 'usuario';
+class Usuario extends Model
+{
+    use HasFactory;
+    protected $table = 'usuario';
     protected $primaryKey = 'id_user';
     public $timestamps = false;
-
-
-
-    public function type_user()
+    public function type()
     {
-        return $this->belongsTo(user_type::class, 'user_type');
+        return $this->belongsTo(UserType::class, "type_id");
     }
-
-
-    public function rider()
-    {
-        return $this->hasOne(rider::class, 'id_rider');
-    }
-
-
-    public function provider()
-    {
-        return $this->hasOne(provider::class, 'id_provider');
-    }
-
-    public function communityK()
-    {
-        return $this->hasOne(communityK::class, 'id_communityK');
-    }
-
 }
