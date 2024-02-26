@@ -6,6 +6,7 @@ use App\Models\rider;
 use App\Models\usuario;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class UsuarioController extends Controller
@@ -27,33 +28,35 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $usuario = new usuario();
-        $usuario->user_name=$request->user_name;
-        $pwd =bcrypt($request->password);
-        $usuario->pswd=$pwd;
-        $usuario->dni_cif=$request->dni_cif;
-        $usuario->real_name=$request->real_name;
-        $usuario->user_type=2;
-
-
-        $rider = new rider();
-        //no pilla bien el iduser , cambiarlo
-
-        $rider->id_rider = $usuario->id_user;
-        $rider->surname1 = $request->surname1;
-        $rider->surname2 = $request->surname2;
-        $rider->mail = $request->mail;
-        $rider->phone_number = $request->phone;
+       DB::beginTransaction();
         try {
+            $usuario = new usuario();
+            $usuario->user_name=$request->user_name;
+            $pwd =bcrypt($request->password);
+            $usuario->pswd=$pwd;
+            $usuario->dni_cif=$request->dni_cif;
+            $usuario->real_name=$request->real_name;
+            $usuario->user_type=2;
+
             $usuario->save();
+            $rider = new rider();
+            //no pilla bien el iduser , cambiarlo
+
+            $rider->id_rider = $usuario->id_user;
+            $rider->surname1 = $request->surname1;
+            $rider->surname2 = $request->surname2;
+            $rider->mail = $request->mail;
+            $rider->phone_number = $request->phone;
 
 
             $rider->save();
+            DB::commit();
             $response = response()
             ->json(['Rider creado'], 200);
 
         } catch (\Throwable $th) {
-            // Aquí capturamos y devolvemos el mensaje de error
+            DB::rollBack();
+
             return response()->json(['error' => 'Error al crear el rider: ' . $th->getMessage()], 500);
         }
 
