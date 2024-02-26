@@ -4,7 +4,7 @@
 
 
 @include('php_partials.mensajes')
-<form method="POST" action="{{action([App\Http\Controllers\UsuarioController::class,'login'])}}" >
+<form method="POST" action="{{action([App\Http\Controllers\UsuarioController::class,'authenticate'])}}" >
     @csrf
 
     <div class="card">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 use App\Models\Usuario;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class UsuarioController extends Controller
 {
