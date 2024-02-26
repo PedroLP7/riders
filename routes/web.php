@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,7 @@ route::get('/login', [UsuarioController::class,'showlogin'])->name('login');
 route::post('/login', [UsuarioController::class,'login']);
 route::get('/logout', [UsuarioController::class,'logout']);
 
-Route::post ('/createcustomer'[Customer::class], 'create');
+Route::post ('/createcustomer'[CustomerController::class], 'create');
 Route::middleware(['auth'])->group(function () {
 
     // route::get('/home',function(){    prueba de francisco , pero prefiero usar el controlador, para tener todo mejor organizado
