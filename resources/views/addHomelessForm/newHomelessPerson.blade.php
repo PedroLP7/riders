@@ -4,7 +4,8 @@
 
 @include('php_partials.mensajes')
 
-<form action="{{ action([App\Http\Controllers\CustomerController::class, 'store'}}" method="POST">
+<form action="{{ action([app\Http\Controllers\CustomerController::class, 'store']) }}" method="POST">
+
 @csrf   
 <div class="mb-3">
     <label for="idCustomer" class="form-label">ID</label>
@@ -24,3 +25,5 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+@endSection

@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,27 +17,20 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 Route::get('/customerform', function () {
-    return view('newHomelessPerson');
+    return view('addHomelessForm.newHomelessPerson');
 });
 Route::get('/', function () {
     return view('vue');
 });
 
-Route::get('/index', [Controller::class,'index']);
-route::get('/login', [UsuarioController::class,'showlogin'])->name('login');
-route::post('/login', [UsuarioController::class,'login']);
-route::get('/logout', [UsuarioController::class,'logout']);
 
-Route::post ('/createcustomer'[App\Http\Controllers\Customer::class], 'create');
+// route::get('/login', [UsuarioController::class,'showlogin'])->name('login');
+// route::post('/login', [UsuarioController::class,'login']);
+// route::get('/logout', [UsuarioController::class,'logout']);
+
+Route::resource ('customer', CustomerController::class);
 Route::middleware(['auth'])->group(function () {
 
-    // route::get('/home',function(){    prueba de francisco , pero prefiero usar el controlador, para tener todo mejor organizado
-
-    //     $user = Auth::user();
-    //     return view('home',compact('user'));
-    // });
-
-    // session()->flash('error', 'no estas logueado');
     route::get('/home', [Controller::class,'home']);
 
     route::get('/admin', [UsuarioController::class,'admin']);
