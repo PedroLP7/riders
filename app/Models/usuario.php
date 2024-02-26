@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
-{
-    use HasFactory;
+class Usuario extends Authenticable
+{  
+    use HasFactory, HasApiTokens, Notifiable;
     protected $table = 'usuario';
     protected $primaryKey = 'id_user';
     public $timestamps = false;

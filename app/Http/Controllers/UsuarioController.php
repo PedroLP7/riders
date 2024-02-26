@@ -8,6 +8,24 @@ use App\Models\Usuario;
 
 class UsuarioController extends Controller
 {
+    //Authenthicate
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('dashboard');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -22,6 +40,7 @@ class UsuarioController extends Controller
     public function create()
     {
         //
+        return view('auth.loginForm');
     }
 
     /**

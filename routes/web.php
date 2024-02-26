@@ -29,6 +29,7 @@ Route::get('/', function () {
 // route::get('/logout', [UsuarioController::class,'logout']);
 
 Route::resource ('customer', CustomerController::class);
+Route::resource ('usuario', UsuarioController::class);
 Route::middleware(['auth'])->group(function () {
 
     route::get('/home', [Controller::class,'home']);
