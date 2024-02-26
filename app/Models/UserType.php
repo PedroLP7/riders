@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class user_type extends Model
+class UserType extends Model
 {
     use HasFactory;
-
-
-    protected $table = 'user_type';
+    protected $table = 'customer';
     protected $primaryKey = 'type_id';
+    
     public $timestamps = false;
 
-
-    public function usuarios()
+    public function usuario()
     {
-        return $this->hasMany(Usuario::class, 'user_type_id');
+        return $this->hasOne(Usuario::class);
     }
 }
