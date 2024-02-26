@@ -25,7 +25,7 @@ Route::get('/', function () {
 });
 
 
-Route::post ('/createcustomer'[CustomerController::class], 'create');
+// Route::get ('/createcustomer'[CustomerController::class], 'create');
 Route::middleware(['auth'])->group(function () {
 
 
