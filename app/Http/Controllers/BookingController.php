@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\communityK;
+use App\Models\booking;
 use Illuminate\Http\Request;
 
-class CommunityKController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +20,7 @@ class CommunityKController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-        //prueba
+        //
     }
 
     /**
@@ -35,7 +34,7 @@ class CommunityKController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(communityK $communityK)
+    public function show(booking $booking)
     {
         //
     }
@@ -43,7 +42,7 @@ class CommunityKController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(communityK $communityK)
+    public function edit(booking $booking)
     {
         //
     }
@@ -51,7 +50,7 @@ class CommunityKController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, communityK $communityK)
+    public function update(Request $request, booking $booking)
     {
         //
     }
@@ -59,7 +58,7 @@ class CommunityKController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(communityK $communityK)
+    public function destroy(booking $booking)
     {
         //
     }

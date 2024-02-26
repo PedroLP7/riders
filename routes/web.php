@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -27,7 +28,7 @@ route::get('/login', [UsuarioController::class,'showlogin'])->name('login');
 route::post('/login', [UsuarioController::class,'login']);
 route::get('/logout', [UsuarioController::class,'logout']);
 
-Route::post ('/createcustomer'[App\Http\Controllers\Customer::class], 'create');
+Route::post ('/createcustomer'[Customer::class], 'create');
 Route::middleware(['auth'])->group(function () {
 
     // route::get('/home',function(){    prueba de francisco , pero prefiero usar el controlador, para tener todo mejor organizado
