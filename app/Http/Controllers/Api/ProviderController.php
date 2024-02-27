@@ -18,7 +18,7 @@ class ProviderController extends Controller
     public function index()
     {
         try {
-            $providers= usuario::with('provider')->where('user_type', 3)->get();
+            $providers= usuario::with('provider')->where('user_type_id', 3)->get();
             $response = ProviderResource::collection($providers);
         } catch (\Throwable $th) {
            $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
@@ -43,7 +43,7 @@ class ProviderController extends Controller
             $usuario->imgProfile=$request->imgProfile;
             // falta gestionar que coja el file , ya se hara, de momento coge un varchar
 
-            $usuario->user_type=2;
+            $usuario->user_type_id=2;
 
             $usuario->save();
            $provider = new provider();
@@ -89,7 +89,39 @@ class ProviderController extends Controller
      */
     public function update(Request $request, provider $provider)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $usuario = usuario::find($provider->id_provider);
+            $usuario->user_name=$request->user_name;
+
+            $usuario->dni_cif=$request->dni_cif;
+            $usuario->real_name=$request->real_name;
+
+            $usuario->imgProfile=$request->imgProfile;
+            // falta gestionar que coja el file , ya se hara, de momento coge un varchar
+
+
+
+            $usuario->save();
+
+
+
+
+            $provider->adress = $request->adress;
+
+
+
+            $provider->save();
+            DB::commit();
+            $response = response()
+            ->json(['updateado'], 200);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            $response= response()->json(['error' => 'Error al updatear el provider: ' . $th->getMessage()], 500);
+        }
+        return $response;
     }
 
     /**
