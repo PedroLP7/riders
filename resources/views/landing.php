@@ -78,7 +78,7 @@
                   <label for="phoneNumber">Número de Teléfono</label>
                   <input type="tel" class="form-control" id="phoneNumber">
                 </div>
-                <button type="submit" class="btn btn-primary">Registrar</button>
+                <button type="submit" @click="insertRider" class="btn btn-primary">Registrar</button>
                 <button type="button" class="btn btn-secondary" @click="showRiderForm = false">Cancelar</button>
               </form>
             </div>
@@ -104,7 +104,7 @@
           window.location.href = '/riders/resources/views/FormLogin.vue';
         },
         submitRiderForm() {
-          
+
           alert('Formulario enviado!');
           this.showRiderForm = false;
         }
