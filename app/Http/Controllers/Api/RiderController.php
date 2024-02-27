@@ -42,7 +42,7 @@ class RiderController extends Controller
             $usuario->imgProfile=$request->imgProfile;
             // falta gestionar que coja el file , ya se hara, de momento coge un varchar
 
-            $usuario->user_type=2;
+            $usuario->user_type_id=2;
 
             $usuario->save();
             $rider = new rider();

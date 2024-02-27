@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\usuario;
 use App\Models\provider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ProviderResource;
+
 
 class ProviderController extends Controller
 {
@@ -13,7 +17,13 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $providers= usuario::with('provider')->where('user_type', 3)->get();
+            $response = ProviderResource::collection($providers);
+        } catch (\Throwable $th) {
+           $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
+        }
+        return $response;
     }
 
     /**
@@ -21,7 +31,43 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $usuario = new usuario();
+            $usuario->user_name=$request->user_name;
+            $pwd =bcrypt($request->password);
+            $usuario->pswd=$pwd;
+            $usuario->dni_cif=$request->dni_cif;
+            $usuario->real_name=$request->real_name;
+            $usuario->isActive=1;
+            $usuario->imgProfile=$request->imgProfile;
+            // falta gestionar que coja el file , ya se hara, de momento coge un varchar
+
+            $usuario->user_type=2;
+
+            $usuario->save();
+           $provider = new provider();
+
+
+            $provider->id_provider = $usuario->id_user;
+            $provider->adress = $request->adress;
+
+
+            $provider->save();
+            DB::commit();
+            $response = response()
+            ->json(['Provider creado'], 200);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return response()->json(['error' => 'Error al crear el rider: ' . $th->getMessage()], 500);
+        }
+
+
+
+        return $response;
+
     }
 
     /**
@@ -29,7 +75,13 @@ class ProviderController extends Controller
      */
     public function show(provider $provider)
     {
-        //
+        try {
+            $provider = usuario::with('provider')->find($provider->id_provider);
+            return  new ProviderResource($provider);
+
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Error al mostrar el usuario: ' . $th->getMessage()], 500);
+        }
     }
 
     /**
