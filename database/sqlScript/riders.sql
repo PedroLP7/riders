@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: riders
+-- Host: 127.0.0.1    Database: riders
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.35
 create database riders;
 use riders;
 
@@ -142,6 +142,7 @@ CREATE TABLE `customer` (
   `location` varchar(300) DEFAULT NULL,
   `Xcoord` varchar(200) DEFAULT NULL,
   `Ycoord` varchar(200) DEFAULT NULL,
+  `isActive` tinyint DEFAULT NULL,
   PRIMARY KEY (`id_customer`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -152,7 +153,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (3,'direccion mendiga','hashahsasa','asasjsajasj');
+INSERT INTO `customer` VALUES (3,'direccion mendiga','hashahsasa','asasjsajasj',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,6 +313,8 @@ CREATE TABLE `usuario` (
   `dni_cif` varchar(9) DEFAULT NULL,
   `real_name` varchar(50) NOT NULL,
   `user_type` int DEFAULT NULL,
+  `isActive` tinyint DEFAULT NULL,
+  `imgProfile` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `dni_cif` (`dni_cif`),
@@ -326,7 +329,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'prueba1','1234',NULL,'antonio',1),(2,'provider1','1234',NULL,'jesus',1),(3,'mendigo1','1234',NULL,'ivan',1),(4,'community_1','1234','122','com',4);
+INSERT INTO `usuario` VALUES (1,'prueba1','1234',NULL,'antonio',1,NULL,NULL),(2,'provider1','1234',NULL,'jesus',1,NULL,NULL),(3,'mendigo1','1234',NULL,'ivan',1,NULL,NULL),(4,'community_1','1234','122','com',4,NULL,NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -339,4 +342,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-27 10:20:24
+-- Dump completed on 2024-02-27 10:29:10
