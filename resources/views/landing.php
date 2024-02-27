@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="../resources/css/styles.css">
   <title>Registro de Riders</title>
 </head>
-<body>
+<body class="landing">
   <div id="app" class="container-fluid">
     <app-container></app-container>
   </div>
@@ -30,6 +30,7 @@
               <h2 id="subtitulo">Una red de solidaridad</h2>
               <div class="button-container d-inline-block">
                 <button id="register" @click="registrateRider">Regístrate Rider</button>
+                <button id="sombraBoton" @click="registrateRider">Regístrate Rider</button>
               </div>
               <div class="collaboration">
                 <div id="empresa">
@@ -100,10 +101,10 @@
           alert('Registro para Comedores Sociales!');
         },
         login() {
-          window.location.href = '/riders/public/index';
+          window.location.href = '/riders/resources/views/FormLogin.vue';
         },
         submitRiderForm() {
-          // Aquí deberías implementar la lógica para manejar el envío del formulario.
+          
           alert('Formulario enviado!');
           this.showRiderForm = false;
         }

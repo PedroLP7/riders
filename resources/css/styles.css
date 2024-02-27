@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
 
 body {
-    font-family: 'Outfit', sans-serif;  
-    background-color: #1E1E1E;  
-    color: #FFFEDE;
+    font-family: 'Outfit', sans-serif;
+
+}
+
+.landing
+{
+  background-color: #1E1E1E;  
+  color: #FFFEDE;
 }
 
 .hyperlink {
@@ -169,3 +174,169 @@ body {
     border-radius: 50%;
     cursor: pointer;
   }
+
+ 
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px; 
+  border: 1px solid #888;
+  width: 50%; 
+  max-width: 600px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+
+@keyframes animatetop {
+  from {transform: translateY(-300px); opacity:0;} 
+  to {transform: translateY(0); opacity:1;}
+}
+
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  border: none; 
+  background-color: transparent; 
+  cursor: pointer; 
+  outline: none; 
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+
+#addPinBtn {
+  background-color: #4CAF50; 
+  color: white; 
+  padding: 12px 24px;
+  margin: 15px 0;
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
+
+#addPinBtn:hover {
+  background-color: #45a049; 
+}
+
+  /* ------------------------------------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------------------------------------ */
+  /* Styles Form login */
+  /* ------------------------------------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------------------------------------ */
+
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 100vh; /* Full height */
+    background-color: #000;
+    color: white;
+  }
+  
+  .back-button {
+    align-self: flex-start;
+    margin-bottom: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+  }
+  
+  h1 {
+    margin-bottom: 50px;
+  }
+  
+  .input-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 20px;
+    box-sizing: border-box;
+  }
+  
+  .forgot-password {
+    margin-bottom: 20px;
+    color: #aaa;
+    text-decoration: none;
+  }
+  
+  .login-button,
+  .google-button,
+  .facebook-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .login-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  
+  .social-login {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .google-button {
+    background-color: #dd4b39; /* Google Red */
+    color: white;
+  }
+  
+  .facebook-button {
+    background-color: #3b5998; /* Facebook Blue */
+    color: white;
+  }
+  
+  /* Simple fade-in animation */
+  .login-form {
+    animation: fadeIn 0.5s;
+    opacity: 1;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

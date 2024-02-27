@@ -30,6 +30,7 @@
               <h2 id="subtitulo">Una red de solidaridad</h2>
               <div class="button-container d-inline-block">
                 <button id="register" @click="registrateRider">Regístrate Rider</button>
+                <button id="sombraBoton" @click="registrateRider">Regístrate Rider</button>
               </div>
               <div class="collaboration">
                 <div id="empresa">
