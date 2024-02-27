@@ -3,6 +3,7 @@
 -- Host: 127.0.0.1    Database: riders
 -- ------------------------------------------------------
 -- Server version	8.0.35
+
 create database riders;
 use riders;
 
@@ -50,7 +51,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
-INSERT INTO `booking` VALUES (1,1,2,1,1,1,'HOY'),(2,1,2,1,1,1,'AYER'),(3,1,2,2,1,2,'HOY');
+INSERT INTO `booking` VALUES (1,24,2,1,1,1,'HOY'),(2,24,2,2,1,1,'AYER');
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +188,7 @@ CREATE TABLE `delivery` (
 
 LOCK TABLES `delivery` WRITE;
 /*!40000 ALTER TABLE `delivery` DISABLE KEYS */;
-INSERT INTO `delivery` VALUES (1,2,'3634-r45','4354.6776',3,NULL),(2,2,'677678','12.82',NULL,4);
+INSERT INTO `delivery` VALUES (1,1,'HOY HAS','ahora',3,NULL),(2,2,'a','ahora2',NULL,4);
 /*!40000 ALTER TABLE `delivery` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,7 +263,7 @@ CREATE TABLE `rider` (
   UNIQUE KEY `phone_number` (`phone_number`),
   UNIQUE KEY `mail` (`mail`),
   CONSTRAINT `rider_ibfk_1` FOREIGN KEY (`id_rider`) REFERENCES `usuario` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +272,7 @@ CREATE TABLE `rider` (
 
 LOCK TABLES `rider` WRITE;
 /*!40000 ALTER TABLE `rider` DISABLE KEYS */;
-INSERT INTO `rider` VALUES (1,'LOpez','perez','pedro@ssdsdsd','454545455'),(3,'RA','CISTA','hola','4734834');
+INSERT INTO `rider` VALUES (24,'LOP2','EZ2','HELOU2','692');
 /*!40000 ALTER TABLE `rider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,15 +313,15 @@ CREATE TABLE `usuario` (
   `pswd` varchar(500) NOT NULL,
   `dni_cif` varchar(9) DEFAULT NULL,
   `real_name` varchar(50) NOT NULL,
-  `user_type` int DEFAULT NULL,
+  `user_type_id` int DEFAULT NULL,
   `isActive` tinyint DEFAULT NULL,
   `imgProfile` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `dni_cif` (`dni_cif`),
-  KEY `user_type` (`user_type`),
-  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`user_type`) REFERENCES `user_type` (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_type` (`user_type_id`),
+  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -329,7 +330,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'prueba1','1234',NULL,'antonio',1,NULL,NULL),(2,'provider1','1234',NULL,'jesus',1,NULL,NULL),(3,'mendigo1','1234',NULL,'ivan',1,NULL,NULL),(4,'community_1','1234','122','com',4,NULL,NULL);
+INSERT INTO `usuario` VALUES (2,'provider1','1234',NULL,'jesus',3,NULL,NULL),(3,'mendigo1','1234',NULL,'ivan',5,NULL,NULL),(4,'community_1','1234','122','com',4,NULL,NULL),(24,'Alexander5','$2y$12$FNjW8v8I2pk5zwXxhf9yk.246egK6Pjw/MFxsP7AQAMiSUB.cBtWG','99','update2',2,0,'profile2');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -342,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-27 10:29:10
+-- Dump completed on 2024-02-27 13:01:31
