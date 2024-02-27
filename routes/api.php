@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\ProviderController;
+use App\Http\Controllers\Api\RiderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\CustomerController;
 
 /*
@@ -19,4 +22,12 @@ use App\Http\Controllers\Api\CustomerController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::apiResource ('customer', CustomerController::class);
+
+
+
+
+route::apiResource('usuario', UsuarioController::class);
+route::apiResource('rider', RiderController::class);
+route::apiResource('provider', ProviderController::class);

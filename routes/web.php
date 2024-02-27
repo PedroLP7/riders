@@ -20,12 +20,15 @@ Route::get('/customerform', function () {
     return view('addHomelessForm.newHomelessPerson');
 });
 Route::get('/', function () {
-    return view('vue');
+    return view('landing');
 });
 
 
 
+
+
 Route::middleware(['auth'])->group(function () {
+
 
 
 
