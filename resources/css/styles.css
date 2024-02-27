@@ -257,7 +257,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    height: 100vh; /* Full height */
+    height: 100vh; 
     background-color: #000;
     color: white;
   }
@@ -306,7 +306,7 @@ body {
   }
   
   .login-button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50; 
     color: white;
   }
   
@@ -316,7 +316,7 @@ body {
   }
   
   .google-button {
-    background-color: #dd4b39; /* Google Red */
+    background-color: #dd4b39; 
     color: white;
   }
   
