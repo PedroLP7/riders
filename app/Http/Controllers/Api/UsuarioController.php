@@ -20,7 +20,7 @@ class UsuarioController extends Controller
     public function index()
     {
         try {
-            $usuarios = usuario::with('type_user')->get();
+            $usuarios = usuario::with('user_type')->get();
             $response = UsuarioResource::collection($usuarios);
         } catch (\Throwable $th) {
            $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);

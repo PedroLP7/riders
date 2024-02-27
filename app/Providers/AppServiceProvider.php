@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\ProviderResource;
 use App\Http\Resources\RidersResource;
 use App\Http\Resources\UsuarioResource;
 use Illuminate\Pagination\Paginator;
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         UsuarioResource::withoutWrapping();
         RidersResource::withoutWrapping();
+        ProviderResource::withoutWrapping();
 
     }
 }

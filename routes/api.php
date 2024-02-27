@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProviderController;
 use App\Http\Controllers\Api\RiderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,4 @@ Route::apiResource ('customer', CustomerController::class);
 
 route::apiResource('usuario', UsuarioController::class);
 route::apiResource('rider', RiderController::class);
+route::apiResource('provider', ProviderController::class);
