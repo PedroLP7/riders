@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\UsuarioResource;
 use App\Models\rider;
 use App\Models\usuario;
+use App\Models\provider;
+use App\Models\communityK;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +19,14 @@ class UsuarioController extends Controller
      */
     public function index()
     {
+        try {
+            $usuarios = usuario::with('type_user')->get();
+            $response = UsuarioResource::collection($usuarios);
+        } catch (\Throwable $th) {
+           $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
+        }
+        return $response;
 
-        $usuarios = usuario::all();
-        return response()
-            ->json($usuarios, 200);
 
     }
 
@@ -28,41 +35,45 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-       DB::beginTransaction();
-        try {
-            $usuario = new usuario();
-            $usuario->user_name=$request->user_name;
-            $pwd =bcrypt($request->password);
-            $usuario->pswd=$pwd;
-            $usuario->dni_cif=$request->dni_cif;
-            $usuario->real_name=$request->real_name;
-            $usuario->user_type=2;
+    //    DB::beginTransaction();
+    //     try {
+    //         $usuario = new usuario();
+    //         $usuario->user_name=$request->user_name;
+    //         $pwd =bcrypt($request->password);
+    //         $usuario->pswd=$pwd;
+    //         $usuario->dni_cif=$request->dni_cif;
+    //         $usuario->real_name=$request->real_name;
+    //         $usuario->isActive=1;
+    //         $usuario->imgProfile=$request->imgProfile;
+    //         // falta gestionar que coja el file , ya se hara, de momento coge un varchar
 
-            $usuario->save();
-            $rider = new rider();
-            //no pilla bien el iduser , cambiarlo
+    //         $usuario->user_type=2;
 
-            $rider->id_rider = $usuario->id_user;
-            $rider->surname1 = $request->surname1;
-            $rider->surname2 = $request->surname2;
-            $rider->mail = $request->mail;
-            $rider->phone_number = $request->phone;
+    //         $usuario->save();
+    //         $rider = new rider();
 
 
-            $rider->save();
-            DB::commit();
-            $response = response()
-            ->json(['Rider creado'], 200);
-
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            return response()->json(['error' => 'Error al crear el rider: ' . $th->getMessage()], 500);
-        }
+    //         $rider->id_rider = $usuario->id_user;
+    //         $rider->surname1 = $request->surname1;
+    //         $rider->surname2 = $request->surname2;
+    //         $rider->mail = $request->mail;
+    //         $rider->phone_number = $request->phone;
 
 
+    //         $rider->save();
+    //         DB::commit();
+    //         $response = response()
+    //         ->json(['Rider creado'], 200);
 
-        return $response;
+    //     } catch (\Throwable $th) {
+    //         DB::rollBack();
+
+    //         return response()->json(['error' => 'Error al crear el rider: ' . $th->getMessage()], 500);
+    //     }
+
+
+
+    //     return $response;
 
 
 
@@ -73,7 +84,15 @@ class UsuarioController extends Controller
      */
     public function show(usuario $usuario)
     {
-        //
+        // try {
+        //     $usuario = usuario::with('rider')->find($usuario);
+        //     return UsuarioResource::collection($usuario);
+
+        // } catch (\Throwable $th) {
+        //     return response()->json(['error' => 'Error al mostrar el usuario: ' . $th->getMessage()], 500);
+        // }
+
+
     }
 
     /**
@@ -89,6 +108,18 @@ class UsuarioController extends Controller
      */
     public function destroy(usuario $usuario)
     {
-        //
+
+        try {
+
+
+            $usuario->delete();
+
+            return response()->json(['Usuario eliminado'], 200);
+        } catch (\Throwable $th) {
+            $usuario->isActive=0;
+            $usuario->save();
+
+            return response()->json(['message' => 'Usuario dado de baja '], 500);
+        }
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\RiderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsuarioController;
@@ -23,4 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource ('customer', CustomerController::class);
 
+
+
+
 route::apiResource('usuario', UsuarioController::class);
+route::apiResource('rider', RiderController::class);

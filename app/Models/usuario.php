@@ -17,9 +17,9 @@ class Usuario extends Authenticable
 
 
 
-    public function type_user()
+    public function user_type()
     {
-        return $this->belongsTo(user_type::class, 'user_type');
+        return $this->belongsTo(user_type::class, 'user_type_id');
     }
 
 
