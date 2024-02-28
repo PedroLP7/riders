@@ -43,7 +43,7 @@ class ProviderController extends Controller
             $usuario->imgProfile=$request->imgProfile;
             // falta gestionar que coja el file , ya se hara, de momento coge un varchar
 
-            $usuario->user_type_id=2;
+            $usuario->user_type_id=3;
 
             $usuario->save();
            $provider = new provider();
@@ -129,6 +129,17 @@ class ProviderController extends Controller
      */
     public function destroy(provider $provider)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $usuario = usuario::find($provider->id_provider);
+
+            $provider->delete();
+            $usuario->delete();
+            DB::commit();
+            return response()->json(['Usuario eliminado'], 200);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['error' => 'Error al eliminar el usuario: ' . $th->getMessage()], 500);
+        }
     }
 }
