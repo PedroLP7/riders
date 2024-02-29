@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Usuario;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
-use App\Models\Usuario;
 
 class UsuarioController extends Controller
 {
     //Authenthicate
-    public function authenticate(Request $request): RedirectResponse
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
- 
-            return redirect()->intended('dashboard');
-        }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+    public function authenticate(Request $request){
+        $username = $request->input("user_name");
+        $contrasenya = $request->input("pswd");
+        $user = Usuario::where('user_name', $username)->first();
+        if ($user != null && Hash::check($contrasenya, $user->pswd)) {
+        Auth::login($user);
+        $response = redirect ('/home');
+        } else {
+        $request->session()->flash('error',
+        'Usuari o contrasenya incorrectes');
+        $response = redirect('/usuario/create')->withInput();
     }
+        return $response;
+    }
+
     /**
      * Display a listing of the resource.
      */

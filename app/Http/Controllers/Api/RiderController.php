@@ -17,7 +17,7 @@ class RiderController extends Controller
     public function index()
     {
         try {
-            $riders = usuario::with('rider')->where('user_type', 2)->get();
+            $riders = usuario::with('rider')->where('user_type_id', 2)->get();
             $response = RidersResource::collection($riders);
         } catch (\Throwable $th) {
            $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
@@ -42,7 +42,7 @@ class RiderController extends Controller
             $usuario->imgProfile=$request->imgProfile;
             // falta gestionar que coja el file , ya se hara, de momento coge un varchar
 
-            $usuario->user_type=2;
+            $usuario->user_type_id=2;
 
             $usuario->save();
             $rider = new rider();
