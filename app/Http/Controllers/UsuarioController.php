@@ -18,13 +18,13 @@ class UsuarioController extends Controller
         $username = $request->input("user_name");
         $contrasenya = $request->input("pswd");
         $user = Usuario::where('user_name', $username)->first();
-        if ($user != null && Hash::check($contrasenya, $user->paswd)) {
+        if ($user != null && Hash::check($contrasenya, $user->pswd)) {
         Auth::login($user);
         $response = redirect ('/home');
         } else {
         $request->session()->flash('error',
         'Usuari o contrasenya incorrectes');
-        $response = redirect('/login')->withInput();
+        $response = redirect('/usuario/create')->withInput();
     }
         return $response;
     }
