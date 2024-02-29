@@ -1,7 +1,5 @@
-<template>
-Vue.component('app-container', {
-  template: `
-    <div class="app-container" id="LandingPage">
+<template>   
+    <div class="app-container" id="landing">
       <div class="row">
         <header class="col-12">
           <nav class="navbar justify-content-between">
