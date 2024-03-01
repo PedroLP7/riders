@@ -43,3 +43,7 @@ Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
 route::get('/map', function(){
     return view('testMapbox');
 });
+
+route::get('/notifTest', function(){
+    return view('notificationsTest');
+});
