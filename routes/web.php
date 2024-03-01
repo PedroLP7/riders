@@ -45,6 +45,10 @@ route::get('/map', function(){
     return view('testMapbox');
 });
 
+route::get('/notifTest', function(){
+    return view('notificationsTest');
+});
+
 Route::middleware(['auth'])->group(function () { 
     Route::get('/home', function (){ 
         $user = Auth::user();
