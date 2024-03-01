@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
     route::get('/admin', [UsuarioController::class,'admin']);
 });
 Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
+Route::post('auth', [App\Http\Controllers\UsuarioController::class, 'authenticate']);
 // route::resource('menu', App\Http\Controllers\CharityMenuController::class);
 // route::resource('customer', App\Http\Controllers\CustomerController::class);
 
@@ -46,4 +47,12 @@ route::get('/map', function(){
 
 route::get('/notifTest', function(){
     return view('notificationsTest');
+});
+
+Route::middleware(['auth'])->group(function () { 
+    Route::get('/home', function (){ 
+        $user = Auth::user();
+    
+    return view('home', compact('user'));
+    });
 });
