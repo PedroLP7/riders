@@ -1,6 +1,6 @@
 import './bootstrap';
+import * as bootstrap from 'bootstrap';
+import { createApp } from 'vue'
+import landing from '../Components/landing.vue'
 
-import{createApp} from 'vue';
-import usuari from './component/landing.vue'
-
-createApp(landing).mount('#LandingPage');
+createApp(landing).mount("#landing")

@@ -1,26 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\customer;
+use App\Http\Controllers\Controller;
+use App\Models\charity_menu;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class CharityMenuController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $charity_menu = charity_menu::all();
+        return response()->json($charity_menu);
     }
 
     /**
@@ -34,15 +28,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(customer $customer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(customer $customer)
+    public function show(charity_menu $charity_menu)
     {
         //
     }
@@ -50,7 +36,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, customer $customer)
+    public function update(Request $request, charity_menu $charity_menu)
     {
         //
     }
@@ -58,7 +44,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(customer $customer)
+    public function destroy(charity_menu $charity_menu)
     {
         //
     }

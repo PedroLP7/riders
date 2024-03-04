@@ -4,7 +4,7 @@
 
 
 @include('php_partials.mensajes')
-<form method="POST" action="{{action([App\Http\Controllers\UsuarioController::class,'login'])}}" >
+<form method="POST" action="{{action([App\Http\Controllers\UsuarioController::class,'authenticate'])}}" >
     @csrf
 
     <div class="card">
@@ -19,13 +19,13 @@
             <div class="form-group row px-2">
                 <label for="username" class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="username" name="username" value="{{old('username')}}">
+                  <input type="text" class="form-control" id="username" name="user_name" value="{{old('username')}}">
                 </div>
             </div>
             <div class="form-group row mt-3 px-2">
               <label for="password" class="col-sm-2 col-form-label">Password</label>
               <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" name="password" value="{{old('password')}}">
+                <input type="password" class="form-control" id="password" name="pswd" value="{{old('password')}}">
               </div>
             </div>
 
