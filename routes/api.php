@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProviderController;
 use App\Http\Controllers\Api\RiderController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UsuarioController;
@@ -31,3 +32,4 @@ Route::apiResource ('customer', CustomerController::class);
 route::apiResource('usuario', UsuarioController::class);
 route::apiResource('rider', RiderController::class);
 route::apiResource('provider', ProviderController::class);
+route::apiResource('booking', BookingController::class);
