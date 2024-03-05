@@ -17,7 +17,7 @@
           <label for="streetName">Calle:</label>
           <input id="streetName" v-model="mendigo.location" value="streetName" type="text" required>
         </div>
-        <button type="button" @click="insertMendigo, confirmAddMarker()">Confirmar Ubicación</button>
+        <button type="button"  @click="() => { insertMendigo(); confirmAddMarker(); }">Confirmar Ubicación</button>
       </form>
     </div>
   </div>
@@ -63,6 +63,9 @@ export default {
         .then(response => {
             console.log(response);
             me.mendigos = response.data;
+            me.mendigos.forEach((mendigo) => {
+            me.addMarker(mendigo); 
+        });
         })
         .catch(error => {
             me.isError = true;
@@ -71,7 +74,9 @@ export default {
         });
 
 
-    }
+    },
+    
+
   },
   created()
   {
