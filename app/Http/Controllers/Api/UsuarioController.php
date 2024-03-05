@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\UsuarioResource;
 use App\Models\rider;
 use App\Models\usuario;
 use App\Models\provider;
 use App\Models\communityK;
-
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\UsuarioResource;
 
 class UsuarioController extends Controller
 {
@@ -122,4 +123,30 @@ class UsuarioController extends Controller
             return response()->json(['message' => 'Usuario dado de baja '], 500);
         }
     }
+
+
+
+    public function getUsuario(Request $request)
+    {
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+            return response()->json([$user_id], 200);
+        } else {
+            return response()->json(['error' => 'Usuario no autenticado'], 401);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource ('customer', CustomerController::class);
 
-
+route::put('charity_menu/{charity_menu}/updateQuantity', [CharityMenuController::class, 'updateQuantity']);
 route::put('charity_menu/{charity_menu}/asignarProvider', [CharityMenuController::class, 'asignarProvider']);
 route::apiResource('charity_menu',CharityMenuController::class);
 route::apiResource('usuario', UsuarioController::class);
