@@ -46,7 +46,7 @@
                 <li class="nav-item">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          {{Auth::user()->realName}} {{Auth::user()->surname1}}
+                          {{Auth::user()->real_name}} {{Auth::user()->surname1}}
                         </a>
                         <ul class="dropdown-menu">
                           <li> <a href="{{url('logout')}}" class="nav-link">Logout</a></li>

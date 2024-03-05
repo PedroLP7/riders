@@ -20,7 +20,7 @@ Route::get('/customerform', function () {
     return view('addHomelessForm.newHomelessPerson');
 });
 Route::get('/', function () {
-    return view('landing');
+    return view('testMapbox');
 });
 
 
