@@ -3,9 +3,12 @@
         <div v-for="booking in bookings" :key="booking.id_booking" class="card" style="width: 18rem;">
             
             <div class="card-body">
-                <h5 class="card-title">{{ booking.rider.user.user_name }}</h5>
-                <p class="card-text">{{ booking.id_provider_fk }}</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title" v-for="rider in booking">
+                  <ul v-for="user in rider">rider: {{ user.real_name }}  </ul>
+                </h5>
+                <h5 class="card-title" v-for="provider in booking">
+                  <ul v-for="user in provider">provider: {{ user.real_name }}  </ul>
+                </h5>
             </div>
         </div>
     </div>
@@ -18,6 +21,7 @@ export default {
   data() {
     return {
       bookings: [],
+     rider: [],
     };
   },
 
