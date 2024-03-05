@@ -1,23 +1,22 @@
-
 <template>
   <div class="map-container" ref="mapContainer"></div>
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
       <span class="close" @click="closeModal">&times;</span>
-      <form @submit.prevent="addMarker">
+      <form @submit.prevent="confirmAddMarker">
         <div class="form-group">
           <label for="longitude">Longitud (x):</label>
-          <input id="longitude" v-model="longitude" type="text" required>
+          <input id="longitude" v-model="mendigo.Xcoord" value="markerLongitude" type="text" required>
         </div>
         <div class="form-group">
           <label for="latitude">Latitud (y):</label>
-          <input id="latitude" v-model="latitude" type="text" required>
+          <input id="latitude" v-model="mendigo.Ycoord" value="markerLatitude" type="text" required>
         </div>
         <div class="form-group">
           <label for="streetName">Calle:</label>
-          <input id="streetName" v-model="streetName" type="text" required>
+          <input id="streetName" v-model="mendigo.location" value="streetName" type="text" required>
         </div>
-        <button type="submit">Añadir Púa</button>
+        <button type="button" @click="insertMendigo">Confirmar Ubicación</button>
       </form>
     </div>
   </div>
@@ -26,62 +25,107 @@
 <script>
 import mapboxgl from 'mapbox-gl';
 import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 export default {
+  data(){   
+
+    return{
+      mendigo:{}
+    }
+  },
+  methods: {
+    
+    insertMendigo(){
+      const me = this;
+      alert('Formulario enviado!');
+      axios
+      .post('customer', me.mendigo)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            me.isError = true;
+                me.messageError = error.response.data.error;
+                console.log(error.response.data.error);
+        });
+
+    }
+  },
   setup() {
     const mapContainer = ref(null);
     const isModalOpen = ref(false);
-    const longitude = ref('');
-    const latitude = ref('');
-    const streetName = ref('');
+    const mendigo=({
+      Xcoord: '',
+      Ycoord: '',
+      location: '',
+    });
+    let map;
 
-    onMounted(() => {
+    onMounted(async () => {
       mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';
-      const map = new mapboxgl.Map({
+      map = new mapboxgl.Map({
         container: mapContainer.value,
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [2.173296, 41.388002],
-        zoom: 17,
+        zoom: 10,
       });
 
-      map.on('click', async (e) => {
-        longitude.value = e.lngLat.lng.toFixed(5);
-        latitude.value = e.lngLat.lat.toFixed(5);
+      // Añadir control de geolocalización al mapa para centrarlo en la ubicación del usuario
+      map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true,
+        showUserLocation: true,
+        fitBoundsOptions: { maxZoom: 10 },
+      }));
 
-        const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude.value},${latitude.value}.json?access_token=${mapboxgl.accessToken}`;
-        try {
-          const response = await fetch(geocodingUrl);
-          const data = await response.json();
-          streetName.value = data.features[0] ? data.features[0].place_name : 'Desconocido';
-          isModalOpen.value = true;
-        } catch (error) {
-          console.error('Error al realizar reverse geocoding:', error);
-        }
+      map.on('click', (e) => {
+        //document.getElementById("longitude").value = e.lngLat.lng.toFixed(5);
+        mendigo.Xcoord = e.lngLat.lng.toFixed(5);
+        mendigo.Ycoord = e.lngLat.lat.toFixed(5);
+        fetchStreetName(e.lngLat.lng, e.lngLat.lat);
       });
     });
+
+    async function fetchStreetName(longitude, latitude) {
+      const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxgl.accessToken}`;
+      try {
+        const response = await fetch(geocodingUrl);
+        const data = await response.json();
+        mendigo.location = data.features[0] ? data.features[0].place_name : 'Desconocido';
+        isModalOpen.value = true;
+      } catch (error) {
+        console.error('Error al realizar reverse geocoding:', error);
+      }
+    }
 
     function closeModal() {
       isModalOpen.value = false;
     }
 
-    function addMarker(event) {
+    function confirmAddMarker() {
       new mapboxgl.Marker()
-        .setLngLat([parseFloat(longitude.value), parseFloat(latitude.value)])
+        .setLngLat([parseFloat(markerLongitude.value), parseFloat(markerLatitude.value)])
         .addTo(map);
       closeModal();
     }
 
-    return { mapContainer, isModalOpen, closeModal, addMarker, longitude, latitude, streetName };
+    return { mapContainer, isModalOpen, closeModal, confirmAddMarker, mendigo};
   },
 };
 </script>
 
+
+
+
+
+
+
+
 <style scoped>
-.map-container { 
+.map-container {
   height: 100vh;
   width: 100vw;
 }
-
 
 .modal-overlay {
   position: fixed;
@@ -99,6 +143,7 @@ export default {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .close {
@@ -111,13 +156,16 @@ export default {
   margin-bottom: 1rem;
 }
 
-label {
+.form-group label {
   display: block;
+  margin-bottom: .5rem;
 }
 
-input[type="text"] {
+.form-group input[type="text"] {
   width: 100%;
   padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
@@ -127,5 +175,9 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 </style>
