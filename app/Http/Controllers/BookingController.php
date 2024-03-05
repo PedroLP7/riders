@@ -17,7 +17,7 @@ class BookingController extends Controller
     {
         //
         try {
-            $booking = booking::all();
+            $booking = booking::with('provider.user', 'rider.user', 'menu', 'status')->get();
             $response = BookingResource::collection($booking);
         } catch (\Throwable $th) {
             $response = response()->json(['error' => 'Error al mostrar la reserva: ' . $th->getMessage()], 500);

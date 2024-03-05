@@ -48,7 +48,9 @@ route::get('/map', function(){
 route::get('/notifTest', function(){
     return view('notificationsTest');
 });
-
+route::get('/updateBooking', function(){
+    return view('updateBookingStatus');
+});
 Route::middleware(['auth'])->group(function () { 
     Route::get('/home', function (){ 
         $user = Auth::user();
