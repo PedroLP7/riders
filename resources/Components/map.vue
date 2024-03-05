@@ -45,6 +45,7 @@ export default {
       .post('customer', me.mendigo)
         .then(response => {
             console.log(response);
+            this.selectMendigos();
         })
         .catch(error => {
             me.isError = true;
@@ -54,10 +55,9 @@ export default {
 
     },
 
-    selectMendigos()
+    async selectMendigos()
     {
-      const me = this;
-      alert('Formulario enviado!');
+      const me = this;      
       axios
       .get('customer')
         .then(response => {
@@ -75,13 +75,22 @@ export default {
 
 
     },
+
+    addMarker(mendigo) {
+      mendigo.Xcoord = e.lngLat.lng.toFixed(5);
+      mendigo.Ycoord = e.lngLat.lat.toFixed(5);
+      new mapboxgl.Marker()
+        .setLngLat([parseFloat(mendigo.Xcoord), parseFloat(mendigo.Ycoord)])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }) 
+        .setText(`Calle: ${mendigo.location}`))
+        .addTo(this.map);
+    },
     
 
   },
   created()
-  {
-    this.selectMendigos();
-
+  {   
+    this.selectMendigos();  
   },
   setup() {
     const mapContainer = ref(null);
@@ -102,19 +111,19 @@ export default {
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [2.17, 41.38],
         zoom: 15,
-      });
+      });      
       
 
-      // Añadir control de geolocalización al mapa para centrarlo en la ubicación del usuario
+   
       map.addControl(new mapboxgl.GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: true,
         showUserLocation: true,
         fitBoundsOptions: { maxZoom: 10 },
-      }));
+      }));           
 
-      map.on('click', (e) => {
-        //document.getElementById("longitude").value = e.lngLat.lng.toFixed(5);
+
+      map.on('click', (e) => {   
         mendigo.Xcoord = e.lngLat.lng.toFixed(5);
         mendigo.Ycoord = e.lngLat.lat.toFixed(5);
         fetchStreetName(e.lngLat.lng, e.lngLat.lat);
