@@ -1,3 +1,4 @@
+
 <template>
   <div class="map-container" ref="mapContainer"></div>
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
@@ -16,7 +17,7 @@
           <label for="streetName">Calle:</label>
           <input id="streetName" v-model="mendigo.location" value="streetName" type="text" required>
         </div>
-        <button type="button" @click="insertMendigo">Confirmar Ubicación</button>
+        <button type="button" @click="insertMendigo, confirmAddMarker()">Confirmar Ubicación</button>
       </form>
     </div>
   </div>
@@ -30,8 +31,9 @@ import axios from 'axios';
 export default {
   data(){   
 
-    return{
-      mendigo:{}
+    return{      
+      mendigo:{},
+      mendigos:{}
     }
   },
   methods: {
@@ -50,7 +52,31 @@ export default {
                 console.log(error.response.data.error);
         });
 
+    },
+
+    selectMendigos()
+    {
+      const me = this;
+      alert('Formulario enviado!');
+      axios
+      .get('customer')
+        .then(response => {
+            console.log(response);
+            me.mendigos = response.data;
+        })
+        .catch(error => {
+            me.isError = true;
+                me.messageError = error.response.data.error;
+                console.log(error.response.data.error);
+        });
+
+
     }
+  },
+  created()
+  {
+    this.selectMendigos();
+
   },
   setup() {
     const mapContainer = ref(null);
@@ -61,14 +87,18 @@ export default {
       location: '',
     });
     let map;
+    
+
 
     onMounted(async () => {
       mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';
       map = new mapboxgl.Map({
         container: mapContainer.value,
         style: 'mapbox://styles/mapbox/streets-v11',
-        zoom: 10,
+        center: [2.17, 41.38],
+        zoom: 15,
       });
+      
 
       // Añadir control de geolocalización al mapa para centrarlo en la ubicación del usuario
       map.addControl(new mapboxgl.GeolocateControl({
@@ -104,7 +134,7 @@ export default {
 
     function confirmAddMarker() {
       new mapboxgl.Marker()
-        .setLngLat([parseFloat(markerLongitude.value), parseFloat(markerLatitude.value)])
+        .setLngLat([parseFloat(mendigo.Xcoord), parseFloat(mendigo.Ycoord)])
         .addTo(map);
       closeModal();
     }
