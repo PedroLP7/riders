@@ -1,4 +1,3 @@
-
 <template>
   <div class="map-container" ref="mapContainer"></div>
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
@@ -7,21 +6,22 @@
       <form @submit.prevent="confirmAddMarker">
         <div class="form-group">
           <label for="longitude">Longitud (x):</label>
-          <input id="longitude" v-model="mendigo.Xcoord" value="markerLongitude" type="text" required>
+          <input id="longitude" v-model="mendigo.Xcoord" type="text" required>
         </div>
         <div class="form-group">
           <label for="latitude">Latitud (y):</label>
-          <input id="latitude" v-model="mendigo.Ycoord" value="markerLatitude" type="text" required>
+          <input id="latitude" v-model="mendigo.Ycoord" type="text" required>
         </div>
         <div class="form-group">
           <label for="streetName">Calle:</label>
-          <input id="streetName" v-model="mendigo.location" value="streetName" type="text" required>
+          <input id="streetName" v-model="mendigo.location" type="text" required>
         </div>
-        <button type="button"  @click="() => { insertMendigo(); confirmAddMarker(); }">Confirmar Ubicación</button>
+        <button type="button" @click="confirmAddMarker">Confirmar Ubicación</button>
       </form>
     </div>
   </div>
 </template>
+
 
 <script>
 import mapboxgl from 'mapbox-gl';
@@ -29,105 +29,83 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 export default {
-  data(){   
-
-    return{      
-      mendigo:{},
-      mendigos:{}
-    }
-  },
-  methods: {
-    
-    insertMendigo(){
-      const me = this;
-      alert('Formulario enviado!');
-      axios
-      .post('customer', me.mendigo)
-        .then(response => {
-            console.log(response);
-            this.selectMendigos();
-        })
-        .catch(error => {
-            me.isError = true;
-                me.messageError = error.response.data.error;
-                console.log(error.response.data.error);
-        });
-
-    },
-
-    async selectMendigos()
-    {
-      const me = this;      
-      axios
-      .get('customer')
-        .then(response => {
-            console.log(response);
-            me.mendigos = response.data;
-            me.mendigos.forEach((mendigo) => {
-            me.addMarker(mendigo); 
-        });
-        })
-        .catch(error => {
-            me.isError = true;
-                me.messageError = error.response.data.error;
-                console.log(error.response.data.error);
-        });
-
-
-    },
-
-    addMarker(mendigo) {
-      mendigo.Xcoord = e.lngLat.lng.toFixed(5);
-      mendigo.Ycoord = e.lngLat.lat.toFixed(5);
-      new mapboxgl.Marker()
-        .setLngLat([parseFloat(mendigo.Xcoord), parseFloat(mendigo.Ycoord)])
-        .setPopup(new mapboxgl.Popup({ offset: 25 }) 
-        .setText(`Calle: ${mendigo.location}`))
-        .addTo(this.map);
-    },
-    
-
-  },
-  created()
-  {   
-    this.selectMendigos();  
-  },
   setup() {
     const mapContainer = ref(null);
     const isModalOpen = ref(false);
-    const mendigo=({
+    const mendigo = ref({
       Xcoord: '',
       Ycoord: '',
       location: '',
     });
-    let map;
-    
+    const mendigos = ref([]);
 
+    let map;
+
+    const selectMendigos = async () => {
+      try {
+        const response = await axios.get('customer'); 
+        mendigos.value = response.data;
+        mendigos.value.forEach((m) => {
+          addMarker(m);
+        });
+      } catch (error) {
+        console.error('Error al obtener los mendigos:', error);
+      }
+    };
+
+    const addMarker = (m) => {
+      const lng = parseFloat(m.Xcoord);
+      const lat = parseFloat(m.Ycoord);
+      if (!isNaN(lng) && !isNaN(lat)) {
+        new mapboxgl.Marker()
+          .setLngLat([lng, lat])
+          .setPopup(new mapboxgl.Popup({ offset: 25 })
+          .setText(`Calle: ${m.location}`))
+          .addTo(map);
+          insertMendigo();
+      } else {
+        console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
+      }
+    };
+
+    const insertMendigo = async () => {
+      try {       
+        await axios.post('customer', mendigo.value); 
+        //alert('Formulario enviado!');       
+      } catch (error) {
+        console.error('Error al insertar mendigo:', error);
+      }
+    };
 
     onMounted(async () => {
       mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';
       map = new mapboxgl.Map({
         container: mapContainer.value,
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [2.17, 41.38],
+        center: [2.17, 41.38], 
         zoom: 15,
-      });      
-      
+      });
 
-   
-      map.addControl(new mapboxgl.GeolocateControl({
-        positionOptions: { enableHighAccuracy: true },
-        trackUserLocation: true,
-        showUserLocation: true,
-        fitBoundsOptions: { maxZoom: 10 },
-      }));           
+      map.addControl(
+      new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },      
+      trackUserLocation: true,
+      showUserLocation: true,      
+      fitBoundsOptions: {
+        maxZoom: 15 
+      }
+    })
+  );
 
-
-      map.on('click', (e) => {   
-        mendigo.Xcoord = e.lngLat.lng.toFixed(5);
-        mendigo.Ycoord = e.lngLat.lat.toFixed(5);
+      map.on('click', (e) => {
+        mendigo.value.Xcoord = e.lngLat.lng.toFixed(5);
+        mendigo.value.Ycoord = e.lngLat.lat.toFixed(5);
         fetchStreetName(e.lngLat.lng, e.lngLat.lat);
       });
+
+      await selectMendigos();
     });
 
     async function fetchStreetName(longitude, latitude) {
@@ -135,7 +113,7 @@ export default {
       try {
         const response = await fetch(geocodingUrl);
         const data = await response.json();
-        mendigo.location = data.features[0] ? data.features[0].place_name : 'Desconocido';
+        mendigo.value.location = data.features[0] ? data.features[0].place_name : 'Desconocido';
         isModalOpen.value = true;
       } catch (error) {
         console.error('Error al realizar reverse geocoding:', error);
@@ -147,16 +125,16 @@ export default {
     }
 
     function confirmAddMarker() {
-      new mapboxgl.Marker()
-        .setLngLat([parseFloat(mendigo.Xcoord), parseFloat(mendigo.Ycoord)])
-        .addTo(map);
+      addMarker(mendigo.value);      
       closeModal();
     }
 
-    return { mapContainer, isModalOpen, closeModal, confirmAddMarker, mendigo};
+    return { mapContainer, isModalOpen, closeModal, confirmAddMarker, mendigo };
   },
 };
 </script>
+
+
 
 
 
