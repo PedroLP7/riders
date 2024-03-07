@@ -51,8 +51,16 @@ route::get('/notifTest', function(){
     return view('notificationsTest');
 });
 
+route::get('/updateBooking', function(){
+    return view('updateBookingStatus');
+});
+Route::middleware(['auth'])->group(function () { 
+    Route::get('/home', function (){ 
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/provider/home', function (){
+
         $user = Auth::user();
 
     return view('provider.homeProv', compact('user'));
