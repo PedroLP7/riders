@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CharityMenuController;
 use App\Http\Controllers\Api\ProviderController;
 use App\Http\Controllers\Api\RiderController;
 use App\Http\Controllers\BookingController;
@@ -26,9 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource ('customer', CustomerController::class);
 
-
-
-
+route::put('charity_menu/{charity_menu}/updateQuantity', [CharityMenuController::class, 'updateQuantity']);
+route::put('charity_menu/{charity_menu}/asignarProvider', [CharityMenuController::class, 'asignarProvider']);
+route::apiResource('charity_menu',CharityMenuController::class);
 route::apiResource('usuario', UsuarioController::class);
 route::apiResource('rider', RiderController::class);
 route::apiResource('provider', ProviderController::class);

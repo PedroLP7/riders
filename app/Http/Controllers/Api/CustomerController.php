@@ -39,7 +39,7 @@ class CustomerController extends Controller
         $customer->location = $request->input('location');
         $customer->Xcoord = $request->input('Xcoord');
         $customer->Ycoord = $request->input('Ycoord');
-        $customer->isActive = $request->input('isActive');
+        $customer->isActive = 1;
     
         try {
             $customer->save();
