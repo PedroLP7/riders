@@ -21,11 +21,11 @@
             </div>
             <div v-else>No DATA</div>
              <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered'">
-              <button @click="sendPostRequest(booking.id_booking)" class="btn btn-success"> {{ buttonContent(booking.status.status_name)
+              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success"> {{ buttonContent(booking.status.status_name)
                 }}</button>
             </div>
             <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
-              <button @click="sendPostRequest(booking.id_booking)" class="btn btn-danger">No encuentro al sin-techo</button>
+              <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al sin-techo</button>
             </div>
           </div>
 
@@ -64,7 +64,7 @@ export default {
           console.error('Error fetching booking data', error);
         });
     },
-    sendPostRequest(id) {
+    sendPostRequest(id, cancelButton) {
       const me = this;
       let postData;
       for (let index = 0; index < me.bookings.length; index++) {
@@ -73,6 +73,10 @@ export default {
          if (me.bookings[index].id_status_fk == 1) {
             me.bookings[index].id_status_fk = 2;
           } else if (me.bookings[index].id_status_fk == 2) {
+            me.bookings[index].id_status_fk = 3;
+          }
+
+          if(cancelButton){
             me.bookings[index].id_status_fk = 3;
           }
           postData = me.bookings[index];
