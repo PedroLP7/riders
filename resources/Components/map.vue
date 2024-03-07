@@ -69,8 +69,7 @@ export default {
 
     const insertMendigo = async () => {
       try {       
-        await axios.post('customer', mendigo.value); 
-        //alert('Formulario enviado!');       
+        await axios.post('customer', mendigo.value);           
       } catch (error) {
         console.error('Error al insertar mendigo:', error);
       }
@@ -81,22 +80,27 @@ export default {
       map = new mapboxgl.Map({
         container: mapContainer.value,
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [2.17, 41.38], 
+        center: [2.17, 41.38],
         zoom: 15,
+    });
+
+      const geolocateControl = new mapboxgl.GeolocateControl({
+            positionOptions: {
+              enableHighAccuracy: true
+            },
+            trackUserLocation: true,
+            showUserLocation: true,
+            fitBoundsOptions: {
+              maxZoom: 15
+            }
       });
 
-      map.addControl(
-      new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true
-      },      
-      trackUserLocation: true,
-      showUserLocation: true,      
-      fitBoundsOptions: {
-        maxZoom: 15 
-      }
-    })
-  );
+      map.addControl(geolocateControl);
+
+      map.on('load', () => {
+    
+        geolocateControl.trigger();
+      });
 
       map.on('click', (e) => {
         mendigo.value.Xcoord = e.lngLat.lng.toFixed(5);
@@ -126,7 +130,7 @@ export default {
     function confirmAddMarker() {
       addMarker(mendigo.value);      
       closeModal();
-      insertMendigo();
+        insertMendigo();
     }
 
     return { mapContainer, isModalOpen, closeModal, confirmAddMarker, mendigo };
