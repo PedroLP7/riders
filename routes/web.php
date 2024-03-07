@@ -20,7 +20,7 @@ Route::get('/customerform', function () {
     return view('addHomelessForm.newHomelessPerson');
 });
 Route::get('/', function () {
-    return view('testMapbox');
+    return view('landing');
 });
 
 
@@ -49,10 +49,10 @@ route::get('/notifTest', function(){
     return view('notificationsTest');
 });
 
-Route::middleware(['auth'])->group(function () { 
-    Route::get('/home', function (){ 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', function (){
         $user = Auth::user();
-    
+
     return view('home', compact('user'));
     });
 });
