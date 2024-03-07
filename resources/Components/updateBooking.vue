@@ -59,6 +59,7 @@ export default {
         .then(response => {
           console.log(response)
           me.bookings = response.data
+
         })
         .catch(error => {
           console.error('Error fetching booking data', error);
@@ -77,7 +78,7 @@ export default {
           }
 
           if(cancelButton){
-            me.bookings[index].id_status_fk = 3;
+            me.bookings[index].id_status_fk = 4;
           }
           postData = me.bookings[index];
         }
@@ -91,6 +92,7 @@ export default {
       axios.put('/booking/' + id, postData, id)
         .then(response => {
           console.log('PUT request successful', response);
+          this.fetchBookings();
           // Handle the response as needed
         })
         .catch(error => {
