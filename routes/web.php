@@ -44,18 +44,25 @@ Route::post('auth', [App\Http\Controllers\UsuarioController::class, 'authenticat
 Route::get('logout', [App\Http\Controllers\UsuarioController::class, 'logout']);
 
 
-route::get('/map', function(){
-    return view('testMapbox');
-});
+
+
 
 route::get('/notifTest', function(){
     return view('notificationsTest');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function (){
+    Route::get('/provider/home', function (){
         $user = Auth::user();
 
-    return view('home', compact('user'));
+    return view('provider.homeProv', compact('user'));
     });
+
+
+    route::get('/rider.homeRid', function(){
+        return view('testMapbox');
+    });
+
+
+
 });

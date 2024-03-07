@@ -20,7 +20,12 @@ class UsuarioController extends Controller
         $user = Usuario::where('user_name', $username)->first();
         if ($user != null && Hash::check($contrasenya, $user->pswd)) {
         Auth::login($user);
-        $response = redirect ('/home');
+        if(Auth::user()->user_type->type_name == 'Rider'){
+            $response = redirect('/map');
+        } else {
+            $response = redirect('/provider/home');
+        }
+
         } else {
         $request->session()->flash('error',
         'Usuari o contrasenya incorrectes');
