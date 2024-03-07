@@ -25,7 +25,7 @@ Route::get('/', function () {
 
 
 route::get('/loginForm', function(){
-    return view('home');
+    return view('FormLogin');
 })->name('login');
 
 
@@ -36,12 +36,12 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    route::get('/home', [Controller::class,'home']);
 
-    route::get('/admin', [UsuarioController::class,'admin']);
 });
 Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
+Route::GET('usuario/create', [App\Http\Controllers\UsuarioController::class, 'create']);
 Route::post('auth', [App\Http\Controllers\UsuarioController::class, 'authenticate']);
+Route::get('logout', [App\Http\Controllers\UsuarioController::class, 'logout']);
 
 
 route::get('/map', function(){
@@ -52,10 +52,10 @@ route::get('/notifTest', function(){
     return view('notificationsTest');
 });
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/home', function (){
-//         $user = Auth::user();
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', function (){
+        $user = Auth::user();
 
-//     return view('home', compact('user'));
-//     });
-// });
+    return view('home', compact('user'));
+    });
+});
