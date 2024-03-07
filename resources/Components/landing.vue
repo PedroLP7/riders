@@ -91,7 +91,7 @@ export default{
       alert('Registro para Comedores Sociales!');
     },
     login() {
-      window.location.href = '/riders/resources/views/FormLogin.php';
+      window.location.href ="/riders/public/usuario/create";
     },
     insertRider() {
         const me = this;
