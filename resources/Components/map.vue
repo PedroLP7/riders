@@ -28,6 +28,7 @@ import mapboxgl from 'mapbox-gl';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
+
 export default {
   setup() {
     const mapContainer = ref(null);
