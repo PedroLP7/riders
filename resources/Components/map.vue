@@ -61,8 +61,7 @@ export default {
           .setLngLat([lng, lat])
           .setPopup(new mapboxgl.Popup({ offset: 25 })
           .setText(`Calle: ${m.location}`))
-          .addTo(map);
-          insertMendigo();
+          .addTo(map);        
       } else {
         console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
       }
@@ -127,6 +126,7 @@ export default {
     function confirmAddMarker() {
       addMarker(mendigo.value);      
       closeModal();
+      insertMendigo();
     }
 
     return { mapContainer, isModalOpen, closeModal, confirmAddMarker, mendigo };
