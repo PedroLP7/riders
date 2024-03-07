@@ -21,7 +21,7 @@ class UsuarioController extends Controller
         if ($user != null && Hash::check($contrasenya, $user->pswd)) {
         Auth::login($user);
         if(Auth::user()->user_type->type_name == 'Rider'){
-            $response = redirect('/map');
+            $response = redirect('/rider/home');
         } else {
             $response = redirect('/provider/home');
         }

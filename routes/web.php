@@ -16,9 +16,7 @@ use App\Http\Controllers\CustomerController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/customerform', function () {
-    return view('addHomelessForm.newHomelessPerson');
-});
+
 Route::get('/', function () {
     return view('landing');
 });
@@ -43,7 +41,9 @@ Route::GET('usuario/create', [App\Http\Controllers\UsuarioController::class, 'cr
 Route::post('auth', [App\Http\Controllers\UsuarioController::class, 'authenticate']);
 Route::get('logout', [App\Http\Controllers\UsuarioController::class, 'logout']);
 
-
+Route::get('/customerform', function () {
+    return view('addHomelessForm.newHomelessPerson');
+});
 
 
 
@@ -59,8 +59,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    route::get('/rider.homeRid', function(){
-        return view('testMapbox');
+    route::get('/rider/home', function(){
+        return view('rider.homeRid');
     });
 
 
