@@ -1,9 +1,6 @@
-@extends('Layouts.principal')
 
-
-@section('contenido')
-
-@include('php_partials.mensajes')
+@vite(['resources/css/app.css','resources/css/app.scss', 'resources/js/app.js'])
+<link rel="stylesheet" href="../../resources/css/styles.css">
 
 @if (Auth::check())
 {{Auth::user()->userName}} {{Auth::user()->user_type->type_name}}
@@ -13,6 +10,11 @@
 @endif
 
 
+<div id="provider">
 
 
-@endsection
+</div>
+
+
+
+
