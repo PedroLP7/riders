@@ -341,3 +341,19 @@ body {
     }
   }
   
+  /* ------------------------------------------------------------------------------------------------ */
+  /* Styles for the navbar*/
+  /* ------------------------------------------------------------------------------------------------ */
+
+#navbar {
+  top: -70px;
+  position: relative;
+  width: 90%;
+  margin: 0 auto; /* Add this line for horizontal centering */
+  z-index: 1000;
+}
+
+.mapboxgl-ctrl-logo {
+  display: none;
+}
+
