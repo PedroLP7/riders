@@ -30,12 +30,11 @@ route::get('/loginForm', function(){
 
 
 Route::middleware(['auth'])->group(function () {
-
-
-
-
-
 });
+
+
+
+
 Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
 Route::GET('usuario/create', [App\Http\Controllers\UsuarioController::class, 'create']);
 Route::post('auth', [App\Http\Controllers\UsuarioController::class, 'authenticate']);
@@ -51,8 +50,15 @@ route::get('/notifTest', function(){
     return view('notificationsTest');
 });
 
+route::get('/updateBooking', function(){
+    return view('updateBookingStatus');
+});
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/provider/home', function (){
+
         $user = Auth::user();
 
     return view('provider.homeProv', compact('user'));
@@ -66,3 +72,5 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
+
+
