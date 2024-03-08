@@ -1,5 +1,6 @@
 <template>
     <div>
+    HOLA QUE TAL
         <H1>PACKS EN CAMINO</H1>
 
         <div class="card mt-3" style="width: 18rem;" v-for="menu in user.provider.menus">

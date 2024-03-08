@@ -9,6 +9,6 @@ import bookings from '../Components/bookings.vue'
 createApp(landing).mount("#landing")
 createApp(map).mount("#mapbox")
 createApp(provider).mount("#provider")
-createApp(bookings).mount("#bookings")
+// createApp(bookings).mount("#bookings")
 
 
