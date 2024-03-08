@@ -21,10 +21,19 @@ use App\Http\Controllers\Api\CustomerController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+
     return $request->user();
 });
 
 Route::apiResource ('customer', CustomerController::class);
+
+
+Route::middleware(['web', 'auth'])->group(function () {
+
+Route::get('usuario/getUsuario', [UsuarioController::class, 'getUsuario']);
+
+});
+
 
 route::put('charity_menu/{charity_menu}/updateQuantity', [CharityMenuController::class, 'updateQuantity']);
 route::put('charity_menu/{charity_menu}/asignarProvider', [CharityMenuController::class, 'asignarProvider']);

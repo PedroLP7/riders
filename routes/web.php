@@ -22,9 +22,7 @@ Route::get('/', function () {
 });
 
 
-route::get('/loginForm', function(){
-    return view('FormLogin');
-})->name('login');
+
 
 
 
@@ -37,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
-Route::GET('usuario/create', [App\Http\Controllers\UsuarioController::class, 'create']);
+Route::GET('usuario/create', [App\Http\Controllers\UsuarioController::class, 'create'])->name('login');;
 Route::post('auth', [App\Http\Controllers\UsuarioController::class, 'authenticate']);
 Route::get('logout', [App\Http\Controllers\UsuarioController::class, 'logout']);
 

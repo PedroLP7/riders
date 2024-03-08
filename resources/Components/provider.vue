@@ -1,24 +1,37 @@
-<template >
+<template>
     <div>
 
 
-<h1 id="titulo">Packs disponibles</h1>
+        <h1 id="titulo">Packs disponibles</h1>
+
+        <button class="btn btn-primary" type="button">Nuevo Menu</button>
+        <div class="card mt-3" style="width: 18rem;" v-for="menu in user.provider.menus">
+
+            <div class="card-body">
+                <h5 class="card-title">Menu {{ menu.id_menu }} </h5>
+                <img src="../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu">
+                <p class="card-text"> item1 :{{ menu.item1 }}
+                    <br>
+                    item 2 :{{ menu.item2 }}
+                    <br>
+                    item 3 :{{ menu.item3 }}
+                    <br>
+                    cantidad : {{ menu.pivot.quantity }}
+                    id : {{  idUser }}
+
+                </p>
 
 
-        <div class="card" style="width: 18rem;">
-  <img src="../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-
-  </div>
-</div>
+            </div>
+        </div>
 
 
 
 
-<button class="btn btn-primary" type="button">Nuevo Menu</button>
+
+
+
+
 
 
 
@@ -26,6 +39,8 @@
 
 
     </div>
+
+    <!-- <div> {{  provider.id_user }}  {{ provider.user_name }}  </div> -->
 </template>
 <script>
 import axios from 'axios'
@@ -33,18 +48,35 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            packs: []
+            user: {},
+            idUser:{},
         }
     },
     created() {
-        this.getPacks()
+        this.getidUser()
+
     },
     methods: {
-        getPacks() {
-            axios.get('charity_menu')
+        getUser() {
+            const me = this;
+            const idUser = me.idUser
+            axios.get('provider/' + idUser)
                 .then(response => {
-                    this.packs = response.data
+                    me.user = response.data
                     console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getidUser() {
+            const me = this;
+
+            axios.get('usuario/getUsuario')
+                .then(response => {
+                    me.idUser = response.data
+                    console.log(response.data)
+                    me.getUser()
                 })
                 .catch(error => {
                     console.log(error)
@@ -54,6 +86,4 @@ export default {
 
 }
 </script>
-<style >
-
-</style>
+<style></style>
