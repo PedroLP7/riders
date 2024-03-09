@@ -19,7 +19,7 @@ rel="stylesheet"
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
-<link rel="stylesheet" href="../resources/css/styles.css">
+<link rel="stylesheet" href="../../resources/css/styles.css">
 </head>
 <body>
 
@@ -33,6 +33,7 @@ body { margin: 0; padding: 0; }
 
 <div id="mapbox"></div>
 <div id="navbar"></div>
+
 
 
 </body>
