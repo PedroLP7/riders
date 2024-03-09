@@ -13,5 +13,5 @@
 <div id="provider"></div>
 
 
-{{-- <div id="bookings"></div> --}}
+
 

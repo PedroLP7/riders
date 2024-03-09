@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="container">
 
 
-        <h1 id="titulo">Packs disponibles</h1>
+        <h1 id="titulo">PACKS DISPONIBLES</h1>
 
         <button class="btn btn-primary" type="button">Nuevo Menu</button>
         <div class="card mt-3" style="width: 18rem;" v-for="menu in user.provider.menus">
@@ -38,18 +38,29 @@
 
 
 
+
     </div>
+    <div class="container" id="bookings">
+    <bookings v-if="showComponente" :usuario="idUser"/>
+ </div>
 
     <!-- <div> {{  provider.id_user }}  {{ provider.user_name }}  </div> -->
 </template>
 <script>
+ import bookings from '../Components/bookings.vue'
 import axios from 'axios'
 
+
 export default {
+    name: 'provider',
+    components: {
+        bookings
+    },
     data() {
         return {
             user: {},
             idUser:{},
+            showComponente: true
         }
     },
     created() {
