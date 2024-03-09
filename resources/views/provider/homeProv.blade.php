@@ -15,3 +15,5 @@
 
 
 
+<a class="btn btn-primary" href="{{url('logout')}}"> LOGOUT TEMPORAL</a>
+
