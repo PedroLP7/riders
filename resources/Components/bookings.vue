@@ -98,6 +98,7 @@ export default {
         .catch(error => {
           console.error('Error making PUT request', error);
           // Handle the error
+                          
         });
       this.reloadComponent();
     },

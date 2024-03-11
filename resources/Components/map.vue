@@ -34,17 +34,39 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 export default {
+  methods: {
+    getidUser() {
+            const me = this;
+
+            axios.get('usuario/getUsuario')
+                .then(response => {
+                    me.idUser = response.data
+                    console.log(response.data)                   
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+    },     
+   
+  },
+  created()
+  {
+    this.getidUser();
+  },
   setup() {
     const mapContainer = ref(null);
     const isModalOpen = ref(false);
     const isMarkerOptionsModalOpen = ref(false);
     const mendigo = ref({
+      id_customer: '',
       Xcoord: '',
       Ycoord: '',
       location: '',
     });
     const selectedMarker = ref(null);
     let map;
+
+    
 
     onMounted(async () => {
       mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';
@@ -90,8 +112,9 @@ export default {
     const selectMendigos = async () => {
       try {
         const response = await axios.get('customer');
-        response.data.forEach((m) => {
-          addMarker(m);
+        response.data.forEach((m) => {         
+          window.onload='';
+          addMarker(m);         
         });
       } catch (error) {
         console.error('Error al obtener los mendigos:', error);
@@ -117,14 +140,40 @@ export default {
       }
     };
 
-    const removeMarker = () => {
-      if (selectedMarker.value) {
-        selectedMarker.value.marker.remove();
-        // LLamar delete
-        isMarkerOptionsModalOpen.value = false;
-      }
-    };
+    const deleteUser= async() =>
+    {
+      const me = this;
 
+      axios.delete('customer/' + selectedMarker.value.data.id_customer)
+          .then(response => {
+              me.idUser = response.data
+              console.log(response.data)                   
+          })
+          .catch(error => {
+              console.log(error)
+          })
+
+
+    }
+
+
+    const removeMarker = async () => 
+    {
+      if (selectedMarker.value && selectedMarker.value.data.id_customer) {
+      try {    
+        deleteUser();
+        console.log(selectedMarker.value.data.id_customer)   
+        isMarkerOptionsModalOpen.value = false;   
+        selectedMarker.value.marker.remove();        
+      } catch (error) {
+        console.error('Error al desactivar mendigo:', error);
+        alert("Error al desactivar el mendigo.");
+      }
+  }
+};
+
+
+  
     const fetchStreetName = async (longitude, latitude) => {
       const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxgl.accessToken}`;
       try {
@@ -146,7 +195,7 @@ export default {
     const insertMendigo = async () => {
       try {
         await axios.post('customer', mendigo.value);
-        selectMendigos(); // Refrescar los marcadores
+        selectMendigos(); 
       } catch (error) {
         console.error('Error al insertar mendigo:', error);
       }
