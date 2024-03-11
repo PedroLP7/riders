@@ -19,7 +19,7 @@ class CustomerController extends Controller
     {
         //
         try {
-            $customer = Customer::all();
+            $customer = Customer::where('isActive', 1)->get();
             $response = CustomerResource::collection($customer);
         } catch (\Throwable $th) {
            $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
