@@ -77,12 +77,12 @@ class CustomerController extends Controller
         try {
 
 
-            $customer->delete();
+            $customer->isActive=0;
+            $customer->save();
 
             return response()->json(['Usuario eliminado'], 200);
         } catch (\Throwable $th) {
-            $customer->isActive=0;
-            $customer->save();
+
 
             return response()->json(['message' => 'Usuario dado de baja '], 500);
         }
