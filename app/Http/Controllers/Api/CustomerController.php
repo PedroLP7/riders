@@ -27,7 +27,7 @@ class CustomerController extends Controller
         return $response;
 
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -40,7 +40,7 @@ class CustomerController extends Controller
         $customer->Xcoord = $request->input('Xcoord');
         $customer->Ycoord = $request->input('Ycoord');
         $customer->isActive = 1;
-    
+
         try {
             $customer->save();
             $response = response()->json(['bien insertado'], 200)
@@ -50,7 +50,7 @@ class CustomerController extends Controller
             $mensaje = Utilidad::errorMessage($ex);
             $response = response()->json(['error' => $mensaje], 400);
         }
-    
+
         return $response;
     }
     /**
@@ -74,6 +74,17 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        try {
+
+
+            $customer->delete();
+
+            return response()->json(['Usuario eliminado'], 200);
+        } catch (\Throwable $th) {
+            $customer->isActive=0;
+            $customer->save();
+
+            return response()->json(['message' => 'Usuario dado de baja '], 500);
+        }
     }
 }
