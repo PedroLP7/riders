@@ -136,6 +136,16 @@ class UsuarioController extends Controller
         }
     }
 
+    public function getUsuarioType($id){
+        try {
+            $usuarios = usuario::where('id_user','=', $id)->with('user_type')->get();
+            $response = UsuarioResource::collection($usuarios);
+        } catch (\Throwable $th) {
+           $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
+        }
+        return $response;
+    }
+
 
 
 
