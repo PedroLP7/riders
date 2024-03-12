@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="bookings !== null">
+    <div v-if="bookings !== null && usuario !== null && type !== null">
       <div v-for="booking in bookings" :key="booking.id_booking">
         <div class="card" style="width: 18rem;">
           <div class="card-header">
@@ -21,7 +21,7 @@
             </div>
             <div v-else>No DATA</div>
             <!-- if rider  -->
-            <div v-if="type.type_id == 2">
+            <div v-if="type.user_type.type_id == 2">
               <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
               
               <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">{{
@@ -35,16 +35,13 @@
             </div>
             <!-- if provider -->
             <div v-else>
-              <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered'">
+              <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
               
               <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">{{
       buttonContent(booking.status.id_status)
                 }}</button>
             </div>
-            <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
-              <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
-                sin-techo</button>
-            </div>
+            
             </div>
           </div>
 
@@ -63,8 +60,8 @@ export default {
   data() {
     return {
       bookings: null,
-      usuario: {},
-      type: {}
+      usuario: null,
+      type: null,
     };
   },
 
@@ -92,7 +89,7 @@ export default {
               console.error('Error fetching user data', error);
             });
 
-            axios.get('/api/usuario/getUsuarioType/' + me.usuario )
+            axios.get('/usuario/getUsuarioType/' + me.usuario )
             .then(response => {
               console.log(response)
               me.type = response.data

@@ -143,7 +143,7 @@ class UsuarioController extends Controller
         } catch (\Throwable $th) {
            $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
         }
-        return $response;
+        return $response[0];
     }
 
 
