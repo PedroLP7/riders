@@ -35,6 +35,8 @@ Route::get('usuario/getUsuario', [UsuarioController::class, 'getUsuario']);
 
 });
 
+Route::get('booking/showBookingByUserId/{id}', [BookingController::class, 'showWithId']);
+Route::get('usuario/getUsuarioType/{id}', [ UsuarioController::class, 'getUsuarioType']);
 
 route::put('charity_menu/{charity_menu}/updateQuantity', [CharityMenuController::class, 'updateQuantity']);
 route::put('charity_menu/{charity_menu}/asignarProvider', [CharityMenuController::class, 'asignarProvider']);

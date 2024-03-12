@@ -10,7 +10,7 @@ import navbar from '../Components/navbar.vue'
 
 import provider from '../Components/provider.vue'
 
-
+import booking from '../Components/bookings.vue'
 
 
 
@@ -18,6 +18,7 @@ createApp(landing).mount("#landing")
 createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")
+createApp(booking).mount("#updateBookingComponent")
 
 
 

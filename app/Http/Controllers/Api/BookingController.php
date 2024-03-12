@@ -26,6 +26,16 @@ class BookingController extends Controller
 
     }
 
+    public function showWithId($id)
+    {
+        $bookings = Booking::where('id_rider_fk', $id)
+        ->orWhere('id_provider_fk', $id)
+        ->with('provider.user', 'rider.user', 'menu', 'status')
+        ->get();
+
+        return BookingResource::collection($bookings);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
