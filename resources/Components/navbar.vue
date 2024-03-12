@@ -1,7 +1,7 @@
 <template>
     <nav id="navContainer">
         <ul>
-            <div class="menu-indicator" :style="{ left: positionToMove, width: sliderWidth }"></div>
+            <div class="menu-indicator homepage-indicator" :style="{ left: positionToMove, width: sliderWidth }"></div>
             <li class="menu-item" v-for="link in links" :key="link.id" @click="sliderIndicator(link.id)" :ref="'menu-item_' + link.id">
                 <a href="#" class="menu-link">
                     <i class="menu-icon" :class="link.icon"></i>
@@ -19,7 +19,9 @@
                 sliderPosition: 0,
                 selectedElementWidth: 0,
                 selectedIndex: 0,
+                currentPageId: 1,
                 links: [
+                    // rider data
                     {
                         id: 1,
                         icon: "home",
@@ -39,7 +41,24 @@
                         id: 4,
                         icon: "profile",
                         text: "Perfil",
-                    }
+                    },
+
+                    // provider data
+                    {
+                        id: 5,
+                        icon: "home",
+                        text: "Inicio",
+                    },
+                    {
+                        id: 6,
+                        icon: "track",
+                        text: "Track",
+                    },
+                    {
+                        id: 7,
+                        icon: "profile",
+                        text: "Profile",
+                    },
                 ]
             }
         },
@@ -50,6 +69,7 @@
                 this.sliderPosition = el.offsetLeft;
                 this.selectedElementWidth = el.offsetWidth;
                 this.selectedIndex = id;
+                this.currentPageId = id;
 
                 if (id === 1) {
                     this.homeRoute();
@@ -59,20 +79,35 @@
                     this.savedRoute();
                 } else if (id === 4) {
                     this.profileRoute();
+                } else if (id === 5) {
+                    this.providerHomeRoute();
+                } else if (id === 6) {
+                    this.providerTrackRoute();
+                } else if (id === 7) {
+                    this.providerProfileRoute();
                 }
             },
 
-            homeRoute() {
+            riderHomeRoute() {
                 window.location.href = "/riders/public/rider/home";
             },
-            searchRoute() {
+            riderSearchRoute() {
                 window.location.href = "/riders/public/rider/search";
             },
-            savedRoute() {
+            riderSavedRoute() {
                 window.location.href = "/riders/public/rider/saved";
             },
-            profileRoute() {
+            riderProfileRoute() {
                 window.location.href = "/riders/public/rider/profile";
+            },
+            providerHomeRoute() {
+                window.location.href = "/providers/public/provider/home";
+            },
+            providerTrackRoute() {
+                window.location.href = "/providers/public/provider/track";
+            },
+            providerProfileRoute() {
+                window.location.href = "/providers/public/provider/profile";
             }
         },
 
@@ -82,6 +117,9 @@
             },
             sliderWidth() {
                 return this.selectedElementWidth + "px";
+            },
+            isHomePage() {
+                return this.currentPageId === 1;
             }
         }
     }
@@ -110,13 +148,18 @@
         padding: 0;
         overflow: hidden;
     }
+
     .menu-indicator {
-        position: absolute;
-        height: 50px;
-        width: 140px;
-        border-radius: 50px;
-        background-color: var(--accent-color);
-        transition: all ease 0.5s;
+    position: absolute;
+    height: 50px;
+    width: 140px;
+    border-radius: 50px;
+    background-color: var(--accent-color);
+    transition: all ease 0.5s;
+    }
+
+    .menu-indicator.homepage-indicator {
+        opacity: 1; /* Always visible on homepage */
     }
 
     .menu-item {
