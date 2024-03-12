@@ -9,7 +9,7 @@
 
             <div class="card-body">
                 <h5 class="card-title">Menu {{ menu.id_menu }} </h5>
-                <img src="../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu">
+                <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu">
                 <p class="card-text"> item1 :{{ menu.item1 }}
                     <br>
                     item 2 :{{ menu.item2 }}
@@ -28,9 +28,9 @@
 
 
 
+                 <button class="btn btn-primary">Crear Menu</button>
 
-
-        <button @click="showBook()">Show bookings</button>
+        <button class="btn btn-primary" @click="showBook()">Show bookings</button>
 
 
 
@@ -52,9 +52,9 @@
     <!-- <div> {{  provider.id_user }}  {{ provider.user_name }}  </div> -->
 </template>
 <script>
- import bookings from '../Components/bookings.vue'
+ import bookings from './bookings.vue'
 
- import navbar from '../Components/navbar.vue'
+ import navbar from '../../Components/navbar.vue'
 import axios from 'axios'
 
 
@@ -120,4 +120,4 @@ export default {
 
 }
 
-</style>
+</style>./provider/bookings.vue

@@ -8,9 +8,9 @@ import landing from '../Components/landing.vue'
 import map from '../Components/map.vue'
 import navbar from '../Components/navbar.vue'
 
-import provider from '../Components/provider.vue'
+import provider from '../Components/provider/provider.vue'
 
-import booking from '../Components/bookings.vue'
+// import booking from '../Components/bookings.vue'
 
 
 
