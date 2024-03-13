@@ -32,7 +32,7 @@ body { margin: 0; padding: 0; }
 </style>
 
 <div id="mapbox"></div>
-<div id="navbar"></div>
+<!-- <div id="navbar"></div> -->
 
 
 
