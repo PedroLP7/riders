@@ -67,9 +67,19 @@ Route::middleware(['auth'])->group(function () {
         return view('rider.homeRid');
     });
 
+
     route::get('/viewProviders', function(){
         return view('rider.viewProvider');
     });
+
+
+    route::get('/provider/createMenu', function(){
+        return view('provider.createMenu');
+    });
+
+
+
+
 
 });
 

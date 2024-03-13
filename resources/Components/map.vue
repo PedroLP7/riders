@@ -26,32 +26,31 @@
       <button type="button" @click="removeMarker">Remover PUA</button>
     </div>
   </div>
+  <div class="container" id="navbar">
+    <navbar v-if="showComponente"/>
+  </div>
 </template>
 
 <script>
 import mapboxgl from 'mapbox-gl';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import navbar from './navbar.vue';
 
 export default {
-  methods: {
-    getidUser() {
-            const me = this;
 
-            axios.get('usuario/getUsuario')
-                .then(response => {
-                    me.idUser = response.data
-                    console.log(response.data)                   
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-    },     
+  data() {
+    return {
+      showComponente: true,
+    }
+  },
+
+  methods: {
    
   },
   created()
   {
-    this.getidUser();
+
   },
   setup() {
     const mapContainer = ref(null);
@@ -112,8 +111,8 @@ export default {
     const selectMendigos = async () => {
       try {
         const response = await axios.get('customer');
-        response.data.forEach((m) => {         
-          window.onload='';
+        response.data.forEach((m) => {        
+          
           addMarker(m);         
         });
       } catch (error) {
@@ -152,24 +151,20 @@ export default {
           .catch(error => {
               console.log(error)
           })
-
-
     }
 
 
     const removeMarker = async () => 
     {
-      if (selectedMarker.value && selectedMarker.value.data.id_customer) {
       try {    
-        deleteUser();
-        console.log(selectedMarker.value.data.id_customer)   
-        isMarkerOptionsModalOpen.value = false;   
-        selectedMarker.value.marker.remove();        
+          deleteUser();         
+          console.log(selectedMarker.value.data.id_customer)   
+          isMarkerOptionsModalOpen.value = false;   
+          selectedMarker.value.marker.remove();        
       } catch (error) {
         console.error('Error al desactivar mendigo:', error);
         alert("Error al desactivar el mendigo.");
-      }
-  }
+      }  
 };
 
 
@@ -194,8 +189,7 @@ export default {
 
     const insertMendigo = async () => {
       try {
-        await axios.post('customer', mendigo.value);
-        selectMendigos(); 
+        await axios.post('customer', mendigo.value);            
       } catch (error) {
         console.error('Error al insertar mendigo:', error);
       }
@@ -241,4 +235,73 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px; 
+  border: 1px solid #888;
+  width: 50%; 
+  max-width: 600px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+
+@keyframes animatetop {
+  from {transform: translateY(-300px); opacity:0;} 
+  to {transform: translateY(0); opacity:1;}
+}
+
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  border: none; 
+  background-color: transparent; 
+  cursor: pointer; 
+  outline: none; 
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+
+#addPinBtn {
+  background-color: #4CAF50; 
+  color: white; 
+  padding: 12px 24px;
+  margin: 15px 0;
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
+
+#addPinBtn:hover {
+  background-color: #45a049; 
+}
+
 </style>
