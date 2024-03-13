@@ -68,6 +68,13 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
+    route::get('/provider/createMenu', function(){
+        return view('provider.createMenu');
+    });
+
+
+
+
 
 });
 

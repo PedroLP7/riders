@@ -349,6 +349,7 @@ body {
   top: -70px;
   position: relative;
   width: 90%;
+  height: 65px;
   margin: 0 auto; /* Add this line for horizontal centering */
   z-index: 1000;
 }

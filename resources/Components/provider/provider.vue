@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container " id="menus">
 
 
         <h1 id="titulo">PACKS DISPONIBLES</h1>
@@ -9,7 +9,7 @@
 
             <div class="card-body">
                 <h5 class="card-title">Menu {{ menu.id_menu }} </h5>
-                <img src="../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu">
+                <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu">
                 <p class="card-text"> item1 :{{ menu.item1 }}
                     <br>
                     item 2 :{{ menu.item2 }}
@@ -28,9 +28,9 @@
 
 
 
+                 <button  @click="showCreateMenu()" class="btn btn-primary">Crear Menu</button>
 
-
-
+        <button class="btn btn-primary" @click="showBook()">Show bookings</button>
 
 
 
@@ -41,26 +41,35 @@
 
     </div>
     <div class="container" id="bookings">
-    <bookings v-if="showComponente" :usuario="idUser"/>
+    <bookings v-if="showBookings" :usuario="idUser"/>
  </div>
+ <div class="container" id="navbar">
+    <navbar v-if="showComponente"/>
+ </div>
+
+
 
     <!-- <div> {{  provider.id_user }}  {{ provider.user_name }}  </div> -->
 </template>
 <script>
- import bookings from '../Components/bookings.vue'
+ import bookings from './bookings.vue'
+
+ import navbar from '../../Components/navbar.vue'
 import axios from 'axios'
 
 
 export default {
     name: 'provider',
     components: {
-        bookings
+        bookings,
+        navbar
     },
     data() {
         return {
             user: {},
             idUser:{},
-            showComponente: true
+            showComponente: true,
+            showBookings : false,
         }
     },
     created() {
@@ -92,9 +101,28 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
-        }
+        },
+        showBook() {
+            this.showBookings = true;
+            document.getElementById('menus').classList.add('ocultar');
+
+
+
+        },
+        showCreateMenu(){
+        window.location.href = "createMenu";
+        console.log('crear menu');
     }
+    },
+
 
 }
 </script>
-<style></style>
+<style>
+
+.ocultar {
+    display: none;
+
+}
+
+</style>./provider/bookings.vue

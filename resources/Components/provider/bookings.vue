@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="bookings !== null">
+    <div v-if="bookings !== null && usuario !== null && type !== null">
       <div v-for="booking in bookings" :key="booking.id_booking">
         <div class="card" style="width: 18rem;">
           <div class="card-header">
@@ -20,12 +20,28 @@
               <div> <b> Estado: </b> {{ booking.status.status_name }} </div>
             </div>
             <div v-else>No DATA</div>
-             <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered'">
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success"> {{ buttonContent(booking.status.status_name)
+            <!-- if rider  -->
+            <div v-if="type.user_type.type_id == 2">
+              <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
+
+              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">{{
+      buttonContent(booking.status.id_status)
                 }}</button>
             </div>
             <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
-              <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al sin-techo</button>
+              <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
+                sin-techo</button>
+            </div>
+            </div>
+            <!-- if provider -->
+            <div v-else>
+              <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
+
+              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">{{
+      buttonContent(booking.status.id_status)
+                }}</button>
+            </div>
+
             </div>
           </div>
 
@@ -44,6 +60,8 @@ export default {
   data() {
     return {
       bookings: null,
+      usuario: null,
+      type: null,
     };
   },
 
@@ -55,15 +73,38 @@ export default {
   methods: {
     fetchBookings() {
       const me = this;
-      axios.get('/booking')
+
+      axios.get('/usuario/getUsuario')
         .then(response => {
           console.log(response)
-          me.bookings = response.data
+          me.usuario = response.data
+
+          axios.get('/booking/showBookingByUserId/' + me.usuario )
+            .then(response => {
+              console.log(response)
+              me.bookings = response.data
+
+            })
+            .catch(error => {
+              console.error('Error fetching user data', error);
+            });
+
+            axios.get('/usuario/getUsuarioType/' + me.usuario )
+            .then(response => {
+              console.log(response)
+              me.type = response.data
+
+            })
+            .catch(error => {
+              console.error('Error fetching user type', error);
+            });
 
         })
         .catch(error => {
-          console.error('Error fetching booking data', error);
+          console.error('Error fetching bookingD data', error);
         });
+
+
     },
     sendPostRequest(id, cancelButton) {
       const me = this;
@@ -71,13 +112,13 @@ export default {
       for (let index = 0; index < me.bookings.length; index++) {
 
         if (me.bookings[index].id_booking == id) {
-         if (me.bookings[index].id_status_fk == 1) {
+          if (me.bookings[index].id_status_fk == 1) {
             me.bookings[index].id_status_fk = 2;
           } else if (me.bookings[index].id_status_fk == 2) {
             me.bookings[index].id_status_fk = 3;
           }
 
-          if(cancelButton){
+          if (cancelButton) {
             me.bookings[index].id_status_fk = 4;
           }
           postData = me.bookings[index];
@@ -98,7 +139,7 @@ export default {
         .catch(error => {
           console.error('Error making PUT request', error);
           // Handle the error
-                          
+
         });
       this.reloadComponent();
     },
@@ -106,13 +147,13 @@ export default {
       this.$forceUpdate();
       this.fetchBookings(); // Optionally, you can fetch fresh data after reloading
     },
-    buttonContent(statusName) {
+    buttonContent(id) {
       // Define your conditions and return the appropriate content
-      if (statusName === 'Booked') {
+      if (id === 1) {
         return 'El rider ha llegado';
-      } else if (statusName === 'On its way') {
+      } else if (id === 2) {
         return 'Entregar';
-      } else if (statusName === 'Not delivered') {
+      } else if (id === 4) {
         return 'Default Button Content';
       }
     },
