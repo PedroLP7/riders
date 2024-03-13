@@ -2,7 +2,7 @@
     <nav id="navContainer">
         <ul>
             <div class="menu-indicator homepage-indicator" :style="{ left: positionToMove, width: sliderWidth }"></div>
-            <li class="menu-item" v-for="link in links" :key="link.id" @click="sliderIndicator(link.id)" :ref="'menu-item_' + link.id">
+            <li v-for="link in filteredLinks" :key="link.id" @click="sliderIndicator(link.id)" :ref="'menu-item_' + link.id" class="menu-item">
                 <a href="#" class="menu-link">
                     <i class="menu-icon" :class="link.icon"></i>
                     <span>{{ link.text }}</span>
@@ -13,116 +13,171 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                sliderPosition: 0,
-                selectedElementWidth: 0,
-                selectedIndex: 0,
-                currentPageId: 1,
-                links: [
-                    // rider data
-                    {
-                        id: 1,
-                        icon: "home",
-                        text: "Inicio",
-                    },
-                    {
-                        id: 2,
-                        icon: "search",
-                        text: "Buscar",
-                    },
-                    {
-                        id: 3,
-                        icon: "pin",
-                        text: "Guardados",
-                    },
-                    {
-                        id: 4,
-                        icon: "profile",
-                        text: "Perfil",
-                    },
+import axios from 'axios';
 
-                    // provider data
-                    {
-                        id: 5,
-                        icon: "home",
-                        text: "Inicio",
-                    },
-                    {
-                        id: 6,
-                        icon: "track",
-                        text: "Track",
-                    },
-                    {
-                        id: 7,
-                        icon: "profile",
-                        text: "Profile",
-                    },
-                ]
+export default {
+    data() {
+        return {
+            usuario: {},
+            type: {},
+            sliderPosition: 0,
+            selectedElementWidth: 0,
+            selectedIndex: 0,
+            currentPageId: 1,
+            links: [
+                // rider data
+                {
+                    id: 1,
+                    icon: "home",
+                    text: "Inicio",
+                    userType: [2]
+                },
+                {
+                    id: 2,
+                    icon: "search",
+                    text: "Buscar",
+                    userType: [2]
+                },
+                {
+                    id: 3,
+                    icon: "pin",
+                    text: "Guardados",
+                    userType: [2]
+                },
+                {
+                    id: 4,
+                    icon: "profile",
+                    text: "Perfil",
+                    userType: [2]
+                },
+
+                // provider data
+                {
+                    id: 5,
+                    icon: "home",
+                    text: "Inicio",
+                    userType: [3]
+                },
+                {
+                    id: 6,
+                    icon: "track",
+                    text: "Track",
+                    userType: [3]
+                },
+                {
+                    id: 7,
+                    icon: "profile",
+                    text: "Profile",
+                    userType: [3]
+                },
+            ]
+        }
+    },
+
+    created() {
+        this.checkUser();
+    },
+
+    methods: {
+        checkUser() {
+            const me = this;
+
+            axios.get('/usuario/getUsuario')
+                .then(response => {
+                    console.log(response)
+                    me.usuario = response.data
+
+                    axios.get('/usuario/getUsuarioType/' + me.usuario)
+                        .then(response => {
+                            console.log(response)
+                            me.type = response.data
+
+                        })
+                        .catch(error => {
+                            console.error('Error fetching user type', error);
+                        });
+
+                })
+                .catch(error => {
+                    console.error('Error fetching bookingD data', error);
+                });
+        },
+
+        sliderIndicator(id) {
+            let el = this.$refs['menu-item_' + id][0];
+            this.sliderPosition = el.offsetLeft;
+            this.selectedElementWidth = el.offsetWidth;
+            this.selectedIndex = id;
+            this.currentPageId = id;
+
+            if (id === 1) {
+                this.homeRoute();
+            } else if (id === 2) {
+                this.searchRoute();
+            } else if (id === 3) {
+                this.savedRoute();
+            } else if (id === 4) {
+                this.profileRoute();
+            } else if (id === 5) {
+                this.providerHomeRoute();
+            } else if (id === 6) {
+                this.providerTrackRoute();
+            } else if (id === 7) {
+                this.providerProfileRoute();
             }
         },
 
-        methods: {
-            sliderIndicator(id) {
-                let el = this.$refs['menu-item_' + id][0];
-                this.sliderPosition = el.offsetLeft;
-                this.selectedElementWidth = el.offsetWidth;
-                this.selectedIndex = id;
-                this.currentPageId = id;
-
-                if (id === 1) {
-                    this.homeRoute();
-                } else if (id === 2) {
-                    this.searchRoute();
-                } else if (id === 3) {
-                    this.savedRoute();
-                } else if (id === 4) {
-                    this.profileRoute();
-                } else if (id === 5) {
-                    this.providerHomeRoute();
-                } else if (id === 6) {
-                    this.providerTrackRoute();
-                } else if (id === 7) {
-                    this.providerProfileRoute();
-                }
-            },
-
-            riderHomeRoute() {
-                window.location.href = "/riders/public/rider/home";
+        riderHomeRoute() {
+                // window.location.href = "/riders/public/rider/home";
+                this.isRiderHome = true;
             },
             riderSearchRoute() {
-                window.location.href = "/riders/public/rider/search";
+                // window.location.href = "/riders/public/rider/search";
+                this.isRiderSearch = true;
             },
             riderSavedRoute() {
-                window.location.href = "/riders/public/rider/saved";
+                // window.location.href = "/riders/public/rider/saved";
+                this.isRiderSaved = true;
             },
             riderProfileRoute() {
-                window.location.href = "/riders/public/rider/profile";
+                // window.location.href = "/riders/public/rider/profile";
+                this.isRiderProfile = true;
             },
             providerHomeRoute() {
-                window.location.href = "/providers/public/provider/home";
+                // window.location.href = "/providers/public/provider/home";
+                this.isProviderHome = true;
             },
             providerTrackRoute() {
-                window.location.href = "/providers/public/provider/track";
+                // window.location.href = "/providers/public/provider/track";
+                this.isProviderTrack = true;
+                
             },
             providerProfileRoute() {
-                window.location.href = "/providers/public/provider/profile";
+                // window.location.href = "/providers/public/provider/profile";
+                this.isProviderProfile = true;
             }
         },
 
-        computed: {
-            positionToMove() {
-                return this.sliderPosition + "px";
-            },
-            sliderWidth() {
-                return this.selectedElementWidth + "px";
-            },
-            isHomePage() {
-                return this.currentPageId === 1;
-            }
+
+    computed: {
+        positionToMove() {
+            return this.sliderPosition + "px";
+        },
+        sliderWidth() {
+            return this.selectedElementWidth + "px";
+        },
+        isHomePage() {
+            return this.currentPageId === 1;
+        },
+        filteredLinks() {
+            const userType = this.type.user_type_id; // Suponiendo que aquí tienes el user_type_id
+
+            return this.links.filter(link => {
+                return link.userType.includes(userType);
+            });
         }
     }
+}
 </script>
 
 <style>
