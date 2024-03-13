@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div v-if="bookings !== null && usuario !== null && type !== null">
       <div v-for="booking in bookings" :key="booking.id_booking">
         <div class="card" style="width: 18rem;">

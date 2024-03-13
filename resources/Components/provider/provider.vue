@@ -4,7 +4,8 @@
 
         <h1 id="titulo">PACKS DISPONIBLES</h1>
 
-        <button class="btn btn-primary" type="button">Nuevo Menu</button>
+        <button class="btn btn-primary" @click="showCreateMenu()" type="button">Nuevo Menu</button>
+        <button class="btn btn-primary" @click="showBook()">Show bookings</button>
         <div class="card mt-3" style="width: 18rem;" v-for="menu in user.provider.menus">
 
             <div class="card-body">
@@ -17,20 +18,21 @@
                     item 3 :{{ menu.item3 }}
                     <br>
                     cantidad : {{ menu.pivot.quantity }}
-                    id : {{  idUser }}
+                    <!-- id : {{  idUser }} -->
 
                 </p>
 
 
             </div>
+            <button class="btn btn-primary">Editar menu</button>
         </div>
 
 
 
 
-                 <button  @click="showCreateMenu()" class="btn btn-primary">Crear Menu</button>
 
-        <button class="btn btn-primary" @click="showBook()">Show bookings</button>
+
+
 
 
 
@@ -44,7 +46,7 @@
     <bookings v-if="showBookings" :usuario="idUser"/>
  </div>
  <div class="container" id="navbar">
-    <navbar v-if="showComponente"/>
+    <navbar v-if="showComponente" :prueba="showBookings"/>
  </div>
 
 
@@ -125,4 +127,4 @@ export default {
 
 }
 
-</style>./provider/bookings.vue
+</style>

@@ -26,14 +26,25 @@
       <button type="button" @click="removeMarker">Remover PUA</button>
     </div>
   </div>
+  <div class="container" id="navbar">
+    <navbar v-if="showComponente"/>
+  </div>
 </template>
 
 <script>
 import mapboxgl from 'mapbox-gl';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import navbar from './navbar.vue';
 
 export default {
+
+  data() {
+    return {
+      showComponente: true,
+    }
+  },
+
   methods: {
    
   },
