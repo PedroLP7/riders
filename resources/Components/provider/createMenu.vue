@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <form action="{{ action([App\Http\Controllers\CustomerController::class, 'store']) }}" method="POST">
+        <form >
 
 
             <div class="mb-3">
@@ -20,7 +20,7 @@
                 <label class="form-label" for="quantity">quantity</label>
                 <input type="text" class="form-control" id="quantity" name="quantity" v-model="menu.quantity" >
             </div>
-
+            <button  type="button" @click="goBack()" class="btn btn-danger">Cancelar</button>
             <button type="button" @click="createMenu()" class="btn btn-primary">Submit</button>
         </form>
 
@@ -64,6 +64,7 @@ export default {
             axios.post('charity_menu',requestData)
             .then(response => {
                 console.log(response.data)
+                window.location.href = '/riders/public/provider/home'
             })
             .catch(error => {
                 console.log(error)
@@ -82,7 +83,10 @@ export default {
                 console.log(error)
             })
     },
+    goBack() {
+        window.location.href = '/riders/public/provider/home'
 
+    }
     },
 
     created() {
