@@ -35,23 +35,11 @@ import axios from 'axios';
 
 export default {
   methods: {
-    getidUser() {
-            const me = this;
-
-            axios.get('usuario/getUsuario')
-                .then(response => {
-                    me.idUser = response.data
-                    console.log(response.data)                   
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-    },     
    
   },
   created()
   {
-    this.getidUser();
+
   },
   setup() {
     const mapContainer = ref(null);
@@ -112,8 +100,8 @@ export default {
     const selectMendigos = async () => {
       try {
         const response = await axios.get('customer');
-        response.data.forEach((m) => {         
-          window.onload='';
+        response.data.forEach((m) => {        
+          
           addMarker(m);         
         });
       } catch (error) {
@@ -152,24 +140,20 @@ export default {
           .catch(error => {
               console.log(error)
           })
-
-
     }
 
 
     const removeMarker = async () => 
     {
-      if (selectedMarker.value && selectedMarker.value.data.id_customer) {
       try {    
-        deleteUser();
-        console.log(selectedMarker.value.data.id_customer)   
-        isMarkerOptionsModalOpen.value = false;   
-        selectedMarker.value.marker.remove();        
+          deleteUser();         
+          console.log(selectedMarker.value.data.id_customer)   
+          isMarkerOptionsModalOpen.value = false;   
+          selectedMarker.value.marker.remove();        
       } catch (error) {
         console.error('Error al desactivar mendigo:', error);
         alert("Error al desactivar el mendigo.");
-      }
-  }
+      }  
 };
 
 
@@ -194,8 +178,7 @@ export default {
 
     const insertMendigo = async () => {
       try {
-        await axios.post('customer', mendigo.value);
-        selectMendigos(); 
+        await axios.post('customer', mendigo.value);            
       } catch (error) {
         console.error('Error al insertar mendigo:', error);
       }
