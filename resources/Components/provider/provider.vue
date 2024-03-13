@@ -28,7 +28,7 @@
 
 
 
-                 <button class="btn btn-primary">Crear Menu</button>
+                 <button  @click="showCreateMenu()" class="btn btn-primary">Crear Menu</button>
 
         <button class="btn btn-primary" @click="showBook()">Show bookings</button>
 
@@ -108,8 +108,13 @@ export default {
 
 
 
-        }
+        },
+        showCreateMenu(){
+        window.location.href = "createMenu";
+        console.log('crear menu');
     }
+    },
+
 
 }
 </script>

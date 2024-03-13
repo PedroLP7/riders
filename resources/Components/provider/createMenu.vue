@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-    name: 'crearMenu',
+    name: 'createMenu',
 
 
 }
