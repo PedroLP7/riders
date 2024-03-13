@@ -127,9 +127,37 @@ export default {
             }
         },
 
-        // Define tus métodos para rutas aquí
+        riderHomeRoute() {
+                // window.location.href = "/riders/public/rider/home";
+                this.isRiderHome = true;
+            },
+            riderSearchRoute() {
+                // window.location.href = "/riders/public/rider/search";
+                this.isRiderSearch = true;
+            },
+            riderSavedRoute() {
+                // window.location.href = "/riders/public/rider/saved";
+                this.isRiderSaved = true;
+            },
+            riderProfileRoute() {
+                // window.location.href = "/riders/public/rider/profile";
+                this.isRiderProfile = true;
+            },
+            providerHomeRoute() {
+                // window.location.href = "/providers/public/provider/home";
+                this.isProviderHome = true;
+            },
+            providerTrackRoute() {
+                // window.location.href = "/providers/public/provider/track";
+                this.isProviderTrack = true;
+                
+            },
+            providerProfileRoute() {
+                // window.location.href = "/providers/public/provider/profile";
+                this.isProviderProfile = true;
+            }
+        },
 
-    },
 
     computed: {
         positionToMove() {

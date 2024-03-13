@@ -44,7 +44,7 @@
     <bookings v-if="showBookings" :usuario="idUser"/>
  </div>
  <div class="container" id="navbar">
-    <navbar v-if="showComponente"/>
+    <navbar v-if="showComponente" :prueba="showBookings"/>
  </div>
 
 
