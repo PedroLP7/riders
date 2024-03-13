@@ -1,8 +1,12 @@
-@extends('layouts.principal')
 
-@section('contenido')
-
-<div id="createMenu"></div>
+@vite(['resources/css/app.css','resources/css/app.scss', 'resources/js/app.js'])
 
 
-@endsection
+<div id="createMenu" class="container">
+
+
+</div>
+
+
+
+

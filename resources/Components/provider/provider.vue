@@ -125,4 +125,4 @@ export default {
 
 }
 
-</style>./provider/bookings.vue
+</style>
