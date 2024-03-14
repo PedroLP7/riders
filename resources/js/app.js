@@ -11,13 +11,19 @@ import bookings from '../Components/provider/bookings.vue';
 
 
 
+import viewProvider from '../Components/showAvailableProviders.vue'
+
 
 
 createApp(landing).mount("#landing")
 createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")
+
  createApp(bookings).mount("#updateBookingComponent")
 createApp(createMenu).mount("#createMenu")
+createApp(booking).mount("#updateBookingComponent")
+createApp(viewProvider).mount("#viewProvider")
+
 
 

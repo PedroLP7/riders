@@ -16,6 +16,7 @@
 import axios from 'axios';
 
 export default {
+// props: prueba = Boolean,
     data() {
         return {
             usuario: {},
@@ -145,7 +146,7 @@ export default {
             providerTrackRoute() {
                 // window.location.href = "/providers/public/provider/track";
                 this.isProviderTrack = true;
-                
+
             },
             providerProfileRoute() {
                 // window.location.href = "/providers/public/provider/profile";

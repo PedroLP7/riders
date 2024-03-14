@@ -4,7 +4,8 @@
 
         <h1 id="titulo">PACKS DISPONIBLES</h1>
 
-        <button class="btn btn-primary" type="button">Nuevo Menu</button>
+        <button class="btn btn-primary" @click="showCreateMenu()" type="button">Nuevo Menu</button>
+        <button class="btn btn-primary" @click="showBook()">Show bookings</button>
         <div class="card mt-3" style="width: 18rem;" v-for="menu in user.provider.menus">
 
             <div class="card-body">
@@ -17,20 +18,21 @@
                     item 3 :{{ menu.item3 }}
                     <br>
                     cantidad : {{ menu.pivot.quantity }}
-                    id : {{  idUser }}
+                    <!-- id : {{  idUser }} -->
 
                 </p>
 
 
             </div>
+            <button class="btn btn-primary">Editar menu</button>
         </div>
 
 
 
 
-                 <button  @click="showCreateMenu()" class="btn btn-primary">Crear Menu</button>
 
-        <button class="btn btn-primary" @click="showBook()">Show bookings</button>
+
+
 
 
 
@@ -67,9 +69,11 @@ export default {
     data() {
         return {
             user: {},
-            idUser:{},
+
             showComponente: true,
             showBookings : false,
+            userp:{},
+
         }
     },
     created() {
@@ -77,9 +81,9 @@ export default {
 
     },
     methods: {
-        getUser() {
+        getProvider() {
             const me = this;
-            const idUser = me.idUser
+            const idUser = me.userp.id_user
             axios.get('provider/' + idUser)
                 .then(response => {
                     me.user = response.data
@@ -94,9 +98,10 @@ export default {
 
             axios.get('usuario/getUsuario')
                 .then(response => {
-                    me.idUser = response.data
+                    me.userp= response.data
                     console.log(response.data)
-                    me.getUser()
+                    console.log(me.userp.id_user);
+                     me.getProvider()
                 })
                 .catch(error => {
                     console.log(error)

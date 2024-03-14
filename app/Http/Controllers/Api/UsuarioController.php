@@ -129,7 +129,7 @@ class UsuarioController extends Controller
     public function getUsuario(Request $request)
     {
         if (Auth::check()) {
-            $userid = Auth::user()->id_user;
+            $userid = Auth::user();
             return response()->json($userid, 200);
         } else {
             return response()->json(['error' => 'Usuario no autenticado'], 401);
@@ -144,6 +144,19 @@ class UsuarioController extends Controller
            $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
         }
         return $response[0];
+    }
+
+    public function getUsuariosWithType($id){
+
+        try {
+            $usuarios = usuario::where('user_type_id','=', $id)
+            ->with('provider', 'rider', 'communityK')
+            ->get();
+            $response = UsuarioResource::collection($usuarios);
+        } catch (\Throwable $th) {
+           $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
+        }
+        return $response;
     }
 
 
