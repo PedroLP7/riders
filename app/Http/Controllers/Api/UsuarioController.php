@@ -129,7 +129,7 @@ class UsuarioController extends Controller
     public function getUsuario(Request $request)
     {
         if (Auth::check()) {
-            $userid = Auth::user()->id_user;
+            $userid = Auth::user();
             return response()->json($userid, 200);
         } else {
             return response()->json(['error' => 'Usuario no autenticado'], 401);

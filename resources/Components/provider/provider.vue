@@ -69,9 +69,11 @@ export default {
     data() {
         return {
             user: {},
-            idUser:{},
+
             showComponente: true,
             showBookings : false,
+            userp:{},
+
         }
     },
     created() {
@@ -79,9 +81,9 @@ export default {
 
     },
     methods: {
-        getUser() {
+        getProvider() {
             const me = this;
-            const idUser = me.idUser
+            const idUser = me.userp.id_user
             axios.get('provider/' + idUser)
                 .then(response => {
                     me.user = response.data
@@ -96,9 +98,10 @@ export default {
 
             axios.get('usuario/getUsuario')
                 .then(response => {
-                    me.idUser = response.data
+                    me.userp= response.data
                     console.log(response.data)
-                    me.getUser()
+                    console.log(me.userp.id_user);
+                     me.getProvider()
                 })
                 .catch(error => {
                     console.log(error)
