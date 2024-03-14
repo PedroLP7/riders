@@ -20,7 +20,8 @@ createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")
 
- createApp(bookings).mount("#updateBookingComponent")
+//  createApp(bookings).mount("#updateBookingComponent")
+createApp(bookings).mount("#bookings")
 createApp(createMenu).mount("#createMenu")
 createApp(viewProvider).mount("#viewProvider")
 

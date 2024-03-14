@@ -77,6 +77,9 @@ Route::middleware(['auth'])->group(function () {
         return view('provider.createMenu');
     });
 
+  route::get('/provider/bookings', function(){
+        return view('provider.bookings');
+    });
 
 
 

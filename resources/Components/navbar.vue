@@ -14,11 +14,11 @@
 
 <script>
 import axios from 'axios';
-import bookings from './provider/bookings.vue';
+
 
 export default {
 props:{
-showBookings : Boolean
+
 },
     data() {
         return {
@@ -81,7 +81,7 @@ showBookings : Boolean
 
     created() {
         this.checkUser();
-        // this.showBookings();
+
     },
 
     methods: {
@@ -99,10 +99,7 @@ showBookings : Boolean
                             console.error('Error fetching user type', error);
                         });
         },
-// showBookings(){
-//     console.log(this.bookings)
 
-// },
 
         sliderIndicator(id) {
             let el = this.$refs['menu-item_' + id][0];
@@ -145,20 +142,21 @@ showBookings : Boolean
                 this.isRiderProfile = true;
             },
             providerHomeRoute() {
-                // window.location.href = "/providers/public/provider/home";
+                window.location.href = "/riders/public/provider/home";
                 this.isProviderHome = true;
+
+
             },
-            providerTrackRoute(showBookings) {
-                // window.location.href = "/providers/public/provider/track";
+            providerTrackRoute() {
+                 window.location.href = "/riders/public/provider/bookings";
                 this.isProviderTrack = true;
-               showBookings=true;
-               this.$emit('update:bookings', showBookings);
+
 
                 console.log(bookings);
 
             },
             providerProfileRoute() {
-                // window.location.href = "/providers/public/provider/profile";
+                // window.location.href = "/riders/public/provider/profile";
                 this.isProviderProfile = true;
             }
         },

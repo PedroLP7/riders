@@ -46,7 +46,7 @@
     <bookings v-if="showBookings" :usuario="idUser"/>
  </div>
  <div class="container" id="navbar">
-    <navbar v-if="showComponente" :showBookings="showBookings"  @update:bookings="showBookingComponent"/>
+    <navbar v-if="showComponente" />
  </div>
 
 
@@ -71,7 +71,7 @@ export default {
             user: {},
 
             showComponente: true,
-            showBookings : false,
+
             userp:{},
 
         }
@@ -108,24 +108,13 @@ export default {
                     console.log(error)
                 })
         },
-        showBook() {
-            this.showBookings = true;
-            document.getElementById('menus').classList.add('ocultar');
 
 
-
-        },
-        showBookingComponent(updatedBookings) {
-            console.log(this.showBookings);
-            this.showBookings = updatedBookings;
-            console.log(this.showBookings);
-
-
-        },
         showCreateMenu(){
         window.location.href = "createMenu";
         console.log('crear menu');
-    }
+    },
+
     },
 
 
