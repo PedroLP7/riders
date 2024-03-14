@@ -22,7 +22,6 @@ createApp(provider).mount("#provider")
 
  createApp(bookings).mount("#updateBookingComponent")
 createApp(createMenu).mount("#createMenu")
-createApp(booking).mount("#updateBookingComponent")
 createApp(viewProvider).mount("#viewProvider")
 
 
