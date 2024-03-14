@@ -88,15 +88,11 @@ export default {
                     console.log(response)
                     me.usuario = response.data
                     me.type = me.usuario.user_type_id
-
+                    console.log(me.type)
+                })
                         .catch(error => {
                             console.error('Error fetching user type', error);
                         });
-
-                })
-                .catch(error => {
-                    console.error('Error fetching bookingD data', error);
-                });
         },
 
         sliderIndicator(id) {
@@ -166,7 +162,7 @@ export default {
             return this.currentPageId === 1;
         },
         filteredLinks() {
-            const userType = this.type.user_type_id; // Suponiendo que aquí tienes el user_type_id
+            const userType = this.type; // Suponiendo que aquí tienes el user_type_id
 
             return this.links.filter(link => {
                 return link.userType.includes(userType);
