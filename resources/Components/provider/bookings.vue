@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div v-if="bookings !== null && usuario !== null && type !== null">
+    <div v-if="bookings !== null && usuario !== null">
       <div v-for="booking in bookings" :key="booking.id_booking">
         <div class="card" style="width: 18rem;">
           <div class="card-header">
@@ -22,7 +22,7 @@
             </div>
             <div v-else>No DATA</div>
             <!-- if rider  -->
-            <div v-if="type.user_type.type_id == 2">
+            <div v-if="usuario.user_type_id == 2">
               <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
 
               <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">{{
@@ -80,7 +80,7 @@ export default {
           console.log(response)
           me.usuario = response.data
 
-          axios.get('/booking/showBookingByUserId/' + me.usuario )
+          axios.get('/booking/showBookingByUserId/' + me.usuario.id_user )
             .then(response => {
               console.log(response)
               me.bookings = response.data
@@ -90,19 +90,9 @@ export default {
               console.error('Error fetching user data', error);
             });
 
-            axios.get('/usuario/getUsuarioType/' + me.usuario )
-            .then(response => {
-              console.log(response)
-              me.type = response.data
-
-            })
-            .catch(error => {
-              console.error('Error fetching user type', error);
-            });
-
         })
         .catch(error => {
-          console.error('Error fetching bookingD data', error);
+          console.error('Error fetching booking data', error);
         });
 
 
