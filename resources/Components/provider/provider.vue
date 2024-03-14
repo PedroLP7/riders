@@ -101,6 +101,7 @@ export default {
                     me.userp= response.data
                     console.log(response.data)
                     console.log(me.userp.id_user);
+
                      me.getProvider()
                 })
                 .catch(error => {
@@ -115,6 +116,7 @@ export default {
 
         },
         showBookingComponent(updatedBookings) {
+            console.log(this.showBookings);
             this.showBookings = updatedBookings;
             console.log(this.showBookings);
 
