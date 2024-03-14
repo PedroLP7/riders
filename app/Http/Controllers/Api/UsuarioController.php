@@ -146,6 +146,19 @@ class UsuarioController extends Controller
         return $response[0];
     }
 
+    public function getUsuariosWithType($id){
+
+        try {
+            $usuarios = usuario::where('user_type_id','=', $id)
+            ->with('provider', 'rider', 'communityK')
+            ->get();
+            $response = UsuarioResource::collection($usuarios);
+        } catch (\Throwable $th) {
+           $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
+        }
+        return $response;
+    }
+
 
 
 
