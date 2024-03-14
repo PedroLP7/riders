@@ -86,13 +86,8 @@ export default {
                 .then(response => {
                     console.log(response)
                     me.usuario = response.data
+                    me.type = me.usuario.user_type_id
 
-                    axios.get('/usuario/getUsuarioType/' + me.usuario)
-                        .then(response => {
-                            console.log(response)
-                            me.type = response.data
-
-                        })
                         .catch(error => {
                             console.error('Error fetching user type', error);
                         });
