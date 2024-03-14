@@ -46,12 +46,12 @@
     <bookings v-if="showBookings" :usuario="idUser"/>
  </div>
  <div class="container" id="navbar">
-    <navbar v-if="showComponente" :prueba="showBookings"/>
+    <navbar v-if="showComponente" :showBookings="showBookings"  @update:bookings="showBookingComponent"/>
  </div>
 
 
 
-    <!-- <div> {{  provider.id_user }}  {{ provider.user_name }}  </div> -->
+
 </template>
 <script>
  import bookings from './bookings.vue'
@@ -111,6 +111,12 @@ export default {
             this.showBookings = true;
             document.getElementById('menus').classList.add('ocultar');
 
+
+
+        },
+        showBookingComponent(updatedBookings) {
+            this.showBookings = updatedBookings;
+            console.log(this.showBookings);
 
 
         },

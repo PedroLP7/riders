@@ -14,11 +14,15 @@
 
 <script>
 import axios from 'axios';
+import bookings from './provider/bookings.vue';
 
 export default {
-// props: prueba = Boolean,
+props:{
+showBookings : Boolean
+},
     data() {
         return {
+
             usuario: {},
             type: {},
             sliderPosition: 0,
@@ -77,6 +81,7 @@ export default {
 
     created() {
         this.checkUser();
+        // this.showBookings();
     },
 
     methods: {
@@ -94,6 +99,10 @@ export default {
                             console.error('Error fetching user type', error);
                         });
         },
+// showBookings(){
+//     console.log(this.bookings)
+
+// },
 
         sliderIndicator(id) {
             let el = this.$refs['menu-item_' + id][0];
@@ -139,9 +148,13 @@ export default {
                 // window.location.href = "/providers/public/provider/home";
                 this.isProviderHome = true;
             },
-            providerTrackRoute() {
+            providerTrackRoute(showBookings) {
                 // window.location.href = "/providers/public/provider/track";
                 this.isProviderTrack = true;
+               showBookings=true;
+               this.$emit('update:bookings', showBookings);
+
+                console.log(bookings);
 
             },
             providerProfileRoute() {
