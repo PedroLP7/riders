@@ -4,26 +4,25 @@
     <div class="modal" @click.stop>
       <span class="close" @click="closeModal">&times;</span>
       <form @submit.prevent="confirmAddMarker">
-        <div class="form-group">
-          <label for="longitude">Longitud (x):</label>
-          <input id="longitude" v-model="mendigo.Xcoord" type="text" required>
+        <div class="form-group">      
         </div>
-        <div class="form-group">
-          <label for="latitude">Latitud (y):</label>
-          <input id="latitude" v-model="mendigo.Ycoord" type="text" required>
+        <div class="form-group">         
         </div>
         <div class="form-group">
           <label for="streetName">Calle:</label>
-          <input id="streetName" v-model="mendigo.location" type="text" required>
+          <div id="streetName" class="street-name">{{ mendigo.location }}</div>
         </div>
-        <button type="button" @click="confirmAddMarker">Confirmar Ubicación</button>
+        <button type="button" @click="confirmAddMarker">Guardar</button>
       </form>
     </div>
   </div>
   <div v-if="isMarkerOptionsModalOpen" class="modal-overlay" @click="closeMarkerOptionsModal">
-    <div class="modal" @click.stop>
+    <div class="modal-small" @click.stop>
       <span class="close" @click="closeMarkerOptionsModal">&times;</span>
-      <button type="button" @click="removeMarker">Remover PUA</button>
+      <div class="modal-content">
+        <button type="button" class="modal-small-button" @click="removeMarker">Borrar Marcador</button>
+        <button type="button" class="modal-small-button" @click="createOrder">Crear Pedido</button>
+      </div>
     </div>
   </div>
   <div class="container" id="navbar">
@@ -166,21 +165,32 @@ export default {
         alert("Error al desactivar el mendigo.");
       }  
 };
-
-
-  
+      
     const fetchStreetName = async (longitude, latitude) => {
-      const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxgl.accessToken}`;
+      const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxgl.accessToken}&types=address`;
       try {
         const response = await fetch(geocodingUrl);
         const data = await response.json();
-        mendigo.value.location = data.features[0] ? data.features[0].place_name : 'Desconocido';
+        let streetName = 'Desconocido';
+        if (data.features && data.features.length > 0) {
+      
+          const streetFeature = data.features.find(feature => feature.place_type.includes('address'));
+          if (streetFeature) {
+      
+            streetName = streetFeature.text;
+          } else {
+         
+            streetName = data.features[0].text;
+          }
+        }
+        mendigo.value.location = streetName;
+        console.log(data);
         isModalOpen.value = true;
       } catch (error) {
         console.error('Error al realizar reverse geocoding:', error);
       }
-    };
-
+    }
+    ;
     const confirmAddMarker = () => {
       addMarker(mendigo.value);
       isModalOpen.value = false;
@@ -223,85 +233,111 @@ export default {
   width: 100vw;
 }
 
+body {
+  font-family: 'Outfit', sans-serif;
+}
+
 button {
   cursor: pointer;
   padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: white;
+  background-color: #8BB481;;
+  color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
+  align-items: center;
 }
 
 button:hover {
   background-color: #0056b3;
 }
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  display: flex;
-  align-items: center;
-  justify-content: center; 
-  overflow: auto; 
-  background-color: rgba(0,0,0,0.4);
-}
 
+.modal {
+  display: flex;
+  flex-direction: row; 
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 20%;
+  background-color: #1E1E1E;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  overflow: hidden; 
+}
 
 .modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border-radius: 10px; 
-  border: 1px solid #888;
-  width: 50%; 
-  max-width: 600px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  animation-name: animatetop;
-  animation-duration: 0.4s;
+  display: flex; 
+  flex-direction: row; 
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
+  width: 100%;
+  color: #E2973E;
 }
 
 
-@keyframes animatetop {
-  from {transform: translateY(-300px); opacity:0;} 
-  to {transform: translateY(0); opacity:1;}
+button {
+  margin-top: 20px; 
+  align-self: center; 
 }
 
 
 .close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  border: none; 
-  background-color: transparent; 
-  cursor: pointer; 
-  outline: none; 
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: #6c757d;
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: 0;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #343a40;
+  cursor: pointer;
   text-decoration: none;
 }
 
+.modal-small {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%; 
+  min-height: 5%; 
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  overflow: hidden;
+  align-items: center;
+}
 
-#addPinBtn {
-  background-color: #4CAF50; 
-  color: white; 
-  padding: 12px 24px;
-  margin: 15px 0;
+.modal-small-button {
+  cursor: pointer;
+  padding: 0.5rem 1rem; 
+  background-color: #8BB481; 
+  color: white;
   border: none; 
-  border-radius: 5px; 
-  cursor: pointer; 
-  font-size: 16px; 
+  border-radius: 32px;
+  font-size: 16px;
+  margin: 10px 0; 
+  width: 80%; 
+  text-align: center;
 }
 
-#addPinBtn:hover {
-  background-color: #45a049; 
+.modal-small-button:hover {
+  background-color: #8BB481;
 }
+
+
 
 </style>
