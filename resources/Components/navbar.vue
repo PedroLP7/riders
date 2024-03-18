@@ -156,7 +156,7 @@ props:{
 
             },
             providerProfileRoute() {
-                // window.location.href = "/riders/public/provider/profile";
+                window.location.href = "/riders/public/provider/profile";
                 this.isProviderProfile = true;
             }
         },
