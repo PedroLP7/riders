@@ -5,7 +5,7 @@
 
 
 <label for="">usuario</label>
-<input type="text" name="usuario" id="usuario"  placeholder="usuario" required>
+
 
 
 
