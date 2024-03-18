@@ -8,6 +8,7 @@
 
         <div>
             <p>{{ user.user_name }}</p>
+            <img src="../../images/lets-icons--user-alt-fill.svg" alt="profileimg" id="profileimg">
             <a class="btn btn-primary" @click="logout()">Logout</a>
             <a class="btn btn-primary" href="">Editar Perfil</a>
 
@@ -129,6 +130,12 @@ export default {
 <style>
 .ocultar {
     display: none;
+
+}
+
+#profileimg{
+    width: 100px;
+    height: 100px;
 
 }
 </style>
