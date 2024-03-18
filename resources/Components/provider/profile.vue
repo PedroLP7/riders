@@ -1,15 +1,134 @@
-<template lang="">
-    <div>
+<template>
+    <div class="container " id="profile">
+
+
 
         PERFIL
 
+
+        <div>
+            <p>{{ user.user_name }}</p>
+            <a class="btn btn-primary" @click="logout()">Logout</a>
+            <a class="btn btn-primary" href="">Editar Perfil</a>
+
+
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Tus estadisticas </h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Repartos este mes</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Personas añadidas este mes </h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Pedidos este mes</h6>
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div>AJUSTES</div>
+        <div class="card" style="width: 18rem;">
+  <div class="card-body">
+
+    <h6 class="card-subtitle mb-2 text-body-secondary">Cambiar idioma</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Notificaciones</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Ayuda</h6>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+    <div class="container" id="navbar">
+        <navbar v-if="showComponente" />
     </div>
 </template>
 <script>
+import navbar from '../../Components/navbar.vue';
+import axios from 'axios';
+
 export default {
+    name: 'profile',
+    components: {
+
+        navbar
+    },
+    data() {
+        return {
+            user: {},
+
+            showComponente: true,
+
+            userp: {},
+
+        }
+    },
+    created() {
+        this.getidUser()
+
+    },
+    methods: {
+        getProvider() {
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('provider/' + idUser)
+                .then(response => {
+                    me.user = response.data
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getidUser() {
+            const me = this;
+
+            axios.get('usuario/getUsuario')
+                .then(response => {
+                    me.userp = response.data
+                    console.log(response.data)
+                    console.log(me.userp.id_user);
+
+                    me.getProvider()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
+
+        showCreateMenu() {
+            window.location.href = "createMenu";
+            console.log('crear menu');
+        },
+        logout(){
+            window.location.href = "/riders/public/logout";
+        }
+
+    },
+
 
 }
 </script>
-<style lang="">
+<style>
+.ocultar {
+    display: none;
 
+}
 </style>

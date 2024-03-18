@@ -56,7 +56,7 @@ export default {
         item2: me.menu.item2,
         item3: me.menu.item3,
         quantity: me.menu.quantity,
-        provider_id: me.provider_id
+        provider_id: me.provider_id.id_user,
     };
 
             console.log(me.menu);
@@ -76,7 +76,7 @@ export default {
         axios.get('usuario/getUsuario')
             .then(response => {
                 me.provider_id = response.data
-                // console.log(response.data)
+                console.log(response.data)
 
             })
             .catch(error => {

@@ -18,7 +18,7 @@
 
     <div id="provider"></div>
 
-    <a class="btn btn-primary" href="{{url('logout')}}"> LOGOUT TEMPORAL</a>
+    {{-- <a class="btn btn-primary" href="{{url('logout')}}"> LOGOUT TEMPORAL</a> --}}
 </body>
 </html>
 
