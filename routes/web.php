@@ -77,8 +77,17 @@ Route::middleware(['auth'])->group(function () {
         return view('provider.createMenu');
     });
 
+
     route::get('/rider/addKitchen', function(){
         return view('rider.addCommunityK');
+
+  route::get('/provider/bookings', function(){
+        return view('provider.bookings');
+    });
+
+    route::get('/provider/profile', function(){
+        return view('provider.profile');
+
     });
 
 

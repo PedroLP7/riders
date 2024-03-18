@@ -49,26 +49,37 @@
         </div>
       </div>
     </div>
+        <div class="container" id="navbar">
+        <navbar v-if="showComponente" />
+        </div>
   </div>
 
 </template>
 
 <script>
 import axios from 'axios';
+import navbar from '../../Components/navbar.vue'
 
 export default {
+    name: 'bookings',
+    components: {
 
+         navbar
+    },
   data() {
     return {
       bookings: null,
       usuario: null,
       type: null,
+    showComponente: true,
     };
   },
 
   created() {
 
-    this.fetchBookings();
+        this.fetchBookings();
+
+
 
   },
   methods: {

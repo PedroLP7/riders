@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.css" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 @vite(['resources/css/app.css','resources/css/app.scss', 'resources/js/app.js', 'resources/css/styles.css'])
 <title>Display a popup on click</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -32,7 +34,7 @@ body { margin: 0; padding: 0; }
 </style>
 
 <div id="mapbox"></div>
-<!-- <div id="navbar"></div> -->
+
 
 
 
