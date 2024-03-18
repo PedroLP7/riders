@@ -8,6 +8,8 @@ import provider from '../Components/provider/provider.vue'
 import createMenu from '../Components/provider/createMenu.vue';
 import bookings from '../Components/provider/bookings.vue';
 import profile from '../Components/provider/profile.vue';
+import editProfile from '../Components/provider/editProfile.vue';
+
 
 
 
@@ -26,6 +28,7 @@ createApp(bookings).mount("#bookings")
 createApp(createMenu).mount("#createMenu")
 createApp(viewProvider).mount("#viewProvider")
 createApp(profile).mount("#profile")
+createApp(editProfile).mount("#editProfile")
 
 
 

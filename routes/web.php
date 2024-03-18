@@ -86,6 +86,9 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
+    route::get('/provider/edit', function(){
+        return view('provider.editProfile');
+    });
 
 
 });

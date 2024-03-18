@@ -10,7 +10,7 @@
             <p>{{ user.user_name }}</p>
             <img src="../../images/lets-icons--user-alt-fill.svg" alt="profileimg" id="profileimg">
             <a class="btn btn-primary" @click="logout()">Logout</a>
-            <a class="btn btn-primary" href="">Editar Perfil</a>
+            <a class="btn btn-primary" @click="editarPerfil()">Editar Perfil</a>
 
 
             <div class="card" style="width: 18rem;">
@@ -120,6 +120,9 @@ export default {
         },
         logout(){
             window.location.href = "/riders/public/logout";
+        },
+        editarPerfil(){
+            window.location.href = "/riders/public/provider/edit";
         }
 
     },
