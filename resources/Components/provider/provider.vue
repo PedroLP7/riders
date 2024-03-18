@@ -2,9 +2,10 @@
     <div class="container " id="menus">
 
 
-        <h1 id="titulo">PACKS DISPONIBLES</h1>
+        <h1 id="titulo">Packs disponibles</h1>
 
-        <button class="btn btn-primary" @click="showCreateMenu()" type="button">Nuevo Menu</button>
+        <button class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
+        
         <button class="btn btn-primary" @click="showBook()">Show bookings</button>
         <div class="card mt-3" style="width: 18rem;" v-for="menu in user.provider.menus">
 
@@ -121,10 +122,45 @@ export default {
 }
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
 .ocultar {
     display: none;
+}
 
+* {
+    font-family: "Outfit", sans-serif;
+}
+
+*::selection {
+    background-color: #475941;
+}
+
+body {
+    background-color: #1E1E1E;
+}
+
+#navbar {
+    position: fixed;
+    top: 90%;
+}
+
+#titulo {
+    color: #8F8F8F;
+    font-weight: bold;
+}
+
+#crearPack {
+    position: fixed;
+    width: 50%;
+    height: 7%;
+    top: 81%;
+    right: 5%;
+    z-index: 999;
+    border: none;
+    background-color: #8bb481ba;
+    backdrop-filter: blur(9px);
+    color: #1E1E1E;
 }
 
 </style>
