@@ -81,6 +81,10 @@ Route::middleware(['auth'])->group(function () {
         return view('provider.bookings');
     });
 
+    route::get('/provider/profile', function(){
+        return view('provider.profile');
+    });
+
 
 
 
