@@ -4,10 +4,12 @@
     font-family: "Outfit", sans-serif;
 }
 
+*::selection {
+    background-color: #475941;
+}
+
 body {
     background-color: #1E1E1E;
-    position: relative;
-    min-height: 100vh;
 }
 
 .card {
@@ -16,11 +18,11 @@ body {
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 102%;
-    height: 72%;
+    width: 100%;
+    height: 73%;
     border: none;
-    margin-left: -1px;
     border-radius: 60px 60px 0 0;
+    box-shadow: 0 -2px 26.9px 1px rgba(0, 0, 0, 0.17);
 }
 
 .card-title {
@@ -36,20 +38,63 @@ body {
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: center;
 }
 
 .form-control {
-    width: 78%;
+    width: 90%;
+    height: 65px;
+    border-radius: 50px;
+    border: none;
+    background-color: #444444;
+    line-height: 65px;
+    padding-left: 40px;
+    color: #8F8F8F;
+    font-size: 17px;
+    flex: 1;
+}
+
+.form-control::placeholder {
+    line-height: 65px;
+    color: #8F8F8F;
+    opacity: 38%;
+    font-size: 17px;
+}
+
+.form-control:focus {
+    background-color: rgba(103, 127, 97, 0.17);
+    color: #677F61;
+    font-weight: 400;
+    font-size: 17px;
+    border: none;
+    box-shadow: none;
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+    color: #a13232;
+}
+
+.eye-active, .eye-unactive {
+    position: absolute;
+    cursor: pointer;
+    right: 15%;
+    color: #1E1E1E;
 }
 
 .form-group row px-2 {
     background-color: transparent;
+    height: 60px;
 }
 
 form h3 {
     color: #393939;
     font-weight: 700;
-    font-size: 64px;
-    margin-top: 5%;
-    margin-left: 2%;
+    font-size: 54px;
+    margin-top: 10%;
+    margin-left: 5%;
 }
