@@ -8,7 +8,8 @@
         </div>
         <div class="form-group">         
         </div>
-        <div class="form-group">         
+        <div class="form-group">
+         
           <div id="streetName" class="street-name">{{ mendigo.location }}</div>
         </div>
         <button type="button" @click="confirmAddMarker">Guardar</button>
@@ -252,36 +253,47 @@ button:hover {
 
 .modal {
   display: flex;
-  flex-direction: row; 
+  flex-direction: column; /* Cambio para alinear los elementos internos en columna */
   position: fixed;
   z-index: 1050;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  width: 20%;
-  height: 20%;
+  transform: translate(-50%, -50%);  
+  min-width: 40%;
+  max-width: 40%;
+  min-height: 12%;
+  max-height: 17%;
   background-color: #1E1E1E;
   color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 20px;
-  overflow: hidden; 
+  overflow: visible;
+  align-items: center; 
 }
 
 .modal-content {
   display: flex; 
   flex-direction: row; 
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;  
   text-align: center;
   width: 100%;
   color: #E2973E;
 }
 
-
 button {
-  margin-top: 20px; 
-  align-self: center; 
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #8BB481;
+  color: black;
+  border: none;
+  border-radius: 20px;
+  margin-top: 10%;
+  width: 100%; 
+  top: 80%;
+  align-self: center;  
+  text-align: center;
+  margin-bottom: 1%;
 }
 
 
