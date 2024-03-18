@@ -80,6 +80,7 @@ Route::middleware(['auth'])->group(function () {
 
     route::get('/rider/addKitchen', function(){
         return view('rider.addCommunityK');
+    });    
 
   route::get('/provider/bookings', function(){
         return view('provider.bookings');
@@ -88,11 +89,10 @@ Route::middleware(['auth'])->group(function () {
     route::get('/provider/profile', function(){
         return view('provider.profile');
 
-    });
-
-
-
+    }); 
 
 });
+
+
 
 
