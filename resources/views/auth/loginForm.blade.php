@@ -28,7 +28,10 @@
             </div>
           </div>
 
-          <button class="btn btn-primary"type="submit">Aceptar</button>
+          <div class="button-container d-inline-block">
+            <button id="signIn" type="submit">Iniciar Sesión</button>
+            <button id="sombraBoton" type="submit">Iniciar Sesión</button>
+          </div>
       </div>
     </div>
 
