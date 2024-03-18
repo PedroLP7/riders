@@ -8,8 +8,7 @@
         </div>
         <div class="form-group">         
         </div>
-        <div class="form-group">
-          <label for="streetName">Calle:</label>
+        <div class="form-group">         
           <div id="streetName" class="street-name">{{ mendigo.location }}</div>
         </div>
         <button type="button" @click="confirmAddMarker">Guardar</button>
@@ -313,7 +312,7 @@ button {
   transform: translate(-50%, -50%);
   width: 20%; 
   min-height: 5%; 
-  background-color: #ffffff;
+  background-color: #1E1E1E;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 20px;
@@ -336,7 +335,8 @@ button {
 
 .modal-small-button:hover {
   background-color: #8BB481;
-}
+ }
+
 
 
 
