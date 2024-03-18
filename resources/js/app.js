@@ -10,7 +10,7 @@ import bookings from '../Components/provider/bookings.vue';
 
 
 
-
+import createCommunityKitchen from '../Components/addCommunityKForm.vue'
 import viewProvider from '../Components/showAvailableProviders.vue'
 
 
@@ -23,6 +23,6 @@ createApp(provider).mount("#provider")
  createApp(bookings).mount("#updateBookingComponent")
 createApp(createMenu).mount("#createMenu")
 createApp(viewProvider).mount("#viewProvider")
-
+createApp(createCommunityKitchen).mount("#createCommunityK")
 
 

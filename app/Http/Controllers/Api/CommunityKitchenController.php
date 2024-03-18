@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\communityKResource;
 use App\Models\usuario;
 use App\Clases\Utilidad;
 use App\Models\communityK;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 
 class CommunityKitchenController extends Controller
@@ -17,6 +19,13 @@ class CommunityKitchenController extends Controller
     public function index()
     {
         //
+        try {
+            $kitchen = communityK::all();
+            $response = communityKResource::collection($kitchen);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar la reserva: ' . $th->getMessage()], 500);
+        }
+        return $response;
     }
 
     /**
@@ -26,7 +35,6 @@ class CommunityKitchenController extends Controller
     {
         //
         $community = new communityK();
-        $community->id_communityK = $request->input('id_communityK');
         $community->adress = $request->input('adress');
         $community->needs_food = $request->input('needs_food');
         
@@ -38,15 +46,16 @@ class CommunityKitchenController extends Controller
             $usuario->pswd=$pwd;
             $usuario->dni_cif=$request->dni_cif;
             $usuario->real_name=$request->real_name;
+            $usuario->user_type_id=4;
             $usuario->isActive=1;
             $usuario->imgProfile=$request->imgProfile;
             // falta gestionar que coja el file , ya se hara, de momento coge un varchar
 
-            $usuario->user_type=2;
+            
 
             $usuario->save();
             $community = new communityK();
-            $community->id_communityK = $request->input('id_communityK');
+            $community->id_communityK = $usuario->id_user;
             $community->adress = $request->input('adress');
             $community->needs_food = $request->input('needs_food');
 
@@ -54,7 +63,7 @@ class CommunityKitchenController extends Controller
             $community->save();
             DB::commit();
             $response = response()
-            ->json(['Rider creado'], 200);
+            ->json(['Comedor social creado'], 200);
 
         } catch (\Throwable $th) {
             DB::rollBack();
