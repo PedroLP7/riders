@@ -6,6 +6,7 @@
 
         <button class="btn btn-primary" @click="showCreateMenu()" type="button">Nuevo Menu</button>
 
+
         <div class="card mt-3" style="width: 18rem;" v-for="menu in user.provider.menus">
 
             <div class="card-body">
@@ -19,6 +20,7 @@
                     <br>
                     cantidad : {{ menu.pivot.quantity }}
                     idmenu : {{ menu.id_menu }}
+
 
                 </p>
 
