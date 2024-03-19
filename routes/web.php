@@ -90,6 +90,12 @@ Route::middleware(['auth'])->group(function () {
         return view('provider.editProfile');
     });
 
+    route::get('/provider/editMenu/{idMenu}', function($idMenu){
+        return view('provider.editMenu',compact('idMenu'));
+    });
+
+
+
 
 });
 

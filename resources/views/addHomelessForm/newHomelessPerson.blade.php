@@ -6,7 +6,7 @@
 
 <form action="{{ action([App\Http\Controllers\CustomerController::class, 'store']) }}" method="POST">
 
-@csrf   
+@csrf
   <div class="mb-3">
     <label for="location" class="form-label" >Address</label>
     <input type="text" class="form-control" id="location" name="address">
