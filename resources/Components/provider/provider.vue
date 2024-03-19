@@ -7,44 +7,47 @@
         <button class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
         
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
-        <div id="cards-container">
-        <div class="card mt-3" v-for="menu in user.provider.menus">
+        <div id="cards-container-showPack">
 
-            <div class="card-body">
-                <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu">
-                <h5 class="card-title">Pack #{{ menu.id_menu }} </h5>
-                <p class="card-text"> 
-                    item1 :{{ menu.item1 }}
-                    
-                    item 2 :{{ menu.item2 }}
-                    
-                    item 3 :{{ menu.item3 }}
-                    
-                    cantidad : {{ menu.pivot.quantity }}
-                    <!-- id : {{  idUser }} -->
-                </p>
+            <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus">
+                <div class="card-body" id="card-body-showPack">
+                    <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
+                    <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
+                    <p class="card-text" id="card-text-showPack"> 
+                        item1 :{{ menu.item1 }}
+                        
+                        item 2 :{{ menu.item2 }}
+                        
+                        item 3 :{{ menu.item3 }}
+                        
+                        cantidad : {{ menu.pivot.quantity }}  
+                        <!-- preguntar a pedro si esto puede estar en otra parte -->
+
+                        <!-- id : {{  idUser }} -->
+                    </p>
 
 
+                </div>
+                <button class="btn btn-primary" id="botonEditar">Editar</button>
             </div>
-            <button class="btn btn-primary" id="botonEditar">Editar</button>
-        </div>
+
         </div>
     </div>
-    <div class="container" id="bookings">
-    <bookings v-if="showBookings" :usuario="idUser"/>
- </div>
- <div class="container" id="navbar">
-    <navbar v-if="showComponente" />
- </div>
 
-
-
+    <div class="container-parte-inferior">
+        <div class="container" id="bookings">
+            <bookings v-if="showBookings" :usuario="idUser"/>
+        </div>
+        <div class="container" id="navbar">
+            <navbar v-if="showComponente" />
+        </div>
+    </div>
 
 </template>
 <script>
  import bookings from './bookings.vue'
 
- import navbar from '../../Components/navbar.vue'
+import navbar from '../../Components/navbar.vue'
 import axios from 'axios'
 
 
@@ -117,7 +120,7 @@ export default {
 
 * {
     font-family: "Outfit", sans-serif;
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 *::selection {
@@ -126,6 +129,10 @@ export default {
 
 body {
     background-color: #1E1E1E;
+}
+
+.container-parte-inferior {
+    height: 200px;
 }
 
 #navbar {
@@ -143,28 +150,34 @@ body {
     align-items: center;
     justify-content: center;
     position: fixed;
-    width: 40%;
-    height: 6%;
+    width: 210px;
+    height: 68px;
     top: 81%;
-    right: 5%;
+    right: 4%;
     z-index: 999;
     border: none;
     border-radius: 19px;
     background-color: #8bb481ba;
-    backdrop-filter: blur(9px);
+    backdrop-filter: blur(3px);
     color: #1E1E1E;
     font-weight: bold;
     font-size: 24px;
 }
 
-#cards-container {
+@media (max-height: 740px) {
+    #crearPack {
+        top: 78%;
+    }
+}
+
+#cards-container-showPack {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
-.card {
+#card-showPack {
     background-color: #393939;
     width: 90%;
     height: 129px;
@@ -182,7 +195,7 @@ body {
     margin-top: 0.8rem !important;
 }
 
-.card-body {
+#card-body-showPack {
     background-color: #393939;
     border: none;
     width: 374px;
@@ -194,7 +207,7 @@ body {
     border-radius: 26px;
 }
 
-#imgmenu {
+#imgmenu-showPack {
     position: absolute;
     left: 10px;
     height: 85%;
@@ -202,7 +215,7 @@ body {
     border-radius: 19px;
 }
 
-.card-title {
+#card-title-showPack {
     position: absolute;
     top: 14px;
     left: 44%;
@@ -211,7 +224,7 @@ body {
     margin-left: 15px;
 }
 
-.card-text {
+#card-text-showPack {
     position: absolute;
     left: 44%;
     top: 43px;
@@ -221,13 +234,39 @@ body {
     margin-right: 30px;
 }
 
+@media (max-width: 412px) {
+    #card-title-showPack {
+        margin-left: 25px;
+    }
+
+    #card-text-showPack {
+        margin-left: 25px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 380px) {
+    #imgmenu-showPack {
+        display: none;
+    }
+
+    #card-title-showPack {
+        left: 5%;
+    }
+
+    #card-text-showPack {
+        left: 5%;
+    }
+}
+
+
 #botonEditar {
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    width: 50px;
-    height: 15px;
+    width: 70px;
+    height: 25px;
     border-radius: 50px;
     border: none;
     bottom: 0;
