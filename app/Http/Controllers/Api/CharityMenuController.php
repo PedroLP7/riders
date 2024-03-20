@@ -124,5 +124,18 @@ class CharityMenuController extends Controller
     }
 
 
+    public function showCosas(charity_menu $charity_menu)
+    {
+        try {
+            $charity_menu = charity_menu::with('providers')->find($charity_menu->id_menu);
+            $response=  new CharityMenuResource($charity_menu);
+        } catch (\Throwable $th) {
+          $response=response()->json(['error' => 'Error al obtener los datos'], 500);
+        }
+
+         return $response;
+    }
+
+
 
 }
