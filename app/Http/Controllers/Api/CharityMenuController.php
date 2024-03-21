@@ -70,6 +70,7 @@ class CharityMenuController extends Controller
         $charity_menu->item1 = $request->item1;
         $charity_menu->item2 = $request->item2;
         $charity_menu->item3 = $request->item3;
+        $charity_menu->providers()->updateExistingPivot($request->provider_id, ['quantity' => $request->quantity]);
 
         try {
             $charity_menu->save();
@@ -122,6 +123,9 @@ class CharityMenuController extends Controller
         }
         return $response;
     }
+
+
+
 
 
 
