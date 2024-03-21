@@ -41,7 +41,7 @@
 
                 <h6 class="card-subtitle mb-2 text-body-secondary">Cambiar idioma</h6>
                 <h6 class="card-subtitle mb-2 text-body-secondary">Notificaciones</h6>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Ayuda</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary"> <button  @click="openModal()" class="btn btn-primary">Ayuda</button></h6>
 
 
 
@@ -64,6 +64,32 @@
 
 
 
+
+ <!-- modal insert -->
+<div class="modal fade" id="modalAyuda" tabindex="-1" aria-labelledby="modalAyuda" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
     <div class="container" id="navbar">
         <navbar v-if="showComponente" />
     </div>
@@ -74,8 +100,10 @@
 import navbar from '../../Components/navbar.vue';
 import axios from 'axios';
 import chart1 from '../../Components/provider/chart1.vue';
+import * as bootstrap from 'bootstrap';
 
 export default {
+
     name: 'profile',
     components: {
         chart1,
@@ -137,7 +165,15 @@ export default {
         },
         editarPerfil() {
             window.location.href = "/riders/public/provider/edit";
-        }
+        },
+        openModal() {
+            const myModal = new bootstrap.Modal(document.getElementById('modalAyuda'), {
+
+            });
+            myModal.show();
+
+        },
+
 
     },
 
