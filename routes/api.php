@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DeliveryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RiderController;
@@ -49,3 +50,8 @@ route::apiResource('rider', RiderController::class);
 route::apiResource('provider', ProviderController::class);
 route::apiResource('booking', BookingController::class);
 route::apiResource('communityk', CommunityKitchenController::class);
+route::apiResource('delivery', DeliveryController::class);
+
+Route::get('deliveriesByCustomer', [ DeliveryController::class, 'deliveriesByCustomer']);
+
+

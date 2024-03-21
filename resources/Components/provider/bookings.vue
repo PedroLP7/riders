@@ -131,12 +131,12 @@ export default {
 
       console.log(postData);
 
-      // Make a PUT request to API booking
+      
       axios.put('/booking/' + id, postData, id)
         .then(response => {
           console.log('PUT request successful', response);
           this.fetchBookings();
-          // Handle the response as needed
+          
         })
         .catch(error => {
           console.error('Error making PUT request', error);
@@ -147,10 +147,10 @@ export default {
     },
     reloadComponent() {
       this.$forceUpdate();
-      this.fetchBookings(); // Optionally, you can fetch fresh data after reloading
+      this.fetchBookings(); 
     },
     buttonContent(id) {
-      // Define your conditions and return the appropriate content
+      
       if (id === 1) {
         return 'El rider ha llegado';
       } else if (id === 2) {

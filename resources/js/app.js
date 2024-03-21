@@ -8,8 +8,12 @@ import provider from '../Components/provider/provider.vue'
 import createMenu from '../Components/provider/createMenu.vue';
 import bookings from '../Components/provider/bookings.vue';
 import profile from '../Components/provider/profile.vue';
+
+import recurringCustomer from '../Components/recurringCustomer.vue';
+
 import editProfile from '../Components/provider/editProfile.vue';
 import editMenu from '../Components/provider/editMenu.vue';
+
 
 
 
@@ -31,8 +35,12 @@ createApp(viewProvider).mount("#viewProvider")
 
 createApp(createCommunityKitchen).mount("#createCommunityK")
 createApp(profile).mount("#profile")
+
+createApp(recurringCustomer).mount("#recurringCustomer")
+
 createApp(editProfile).mount("#editProfile")
 createApp(editMenu).mount("#editMenu")
+
 
 
 
