@@ -11,14 +11,13 @@
     <!-- @if (Auth::check())
     {{Auth::user()->user_name}} {{Auth::user()->user_type->type_name}}
 
-    <h2>Bienvenido/a {{Auth::user()->user_name}} tu rol es de {{Auth::user()->user_type->type_name}}</h2>
 
     @endif -->
 
 
     <div id="provider"></div>
 
-    {{-- <a class="btn btn-primary" href="{{url('logout')}}"> LOGOUT TEMPORAL</a> --}}
+
 </body>
 </html>
 

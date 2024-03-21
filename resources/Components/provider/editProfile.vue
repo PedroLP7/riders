@@ -4,7 +4,7 @@
         <form >
 
             <div class="mb-3">
-                <label for="user_name" class="form-item1">Username</label>
+                <label for="user_name" class="form-label">Username</label>
                 <input type="text"  class="form-control" id="item1" name="user_name" v-model="user.user_name">
             </div>
             <div class="mb-3">
@@ -26,7 +26,7 @@
 
 
             <button  type="button" @click="goBack()"  class="btn btn-danger">Cancelar</button>
-            <button type="button"  class="btn btn-primary">Submit</button>
+            <button type="button" @click="updateProvider()"  class="btn btn-primary">Submit</button>
 
 
 
@@ -88,7 +88,26 @@ export default {
         },
 
         goBack(){
-            window.location.href = "/riders/public/provider/home";
+            window.location.href = "/riders/public/provider/profile";
+        },
+        updateProvider(){
+            const me = this;
+            const data ={
+                user_name: me.user.user_name,
+                dni_cif: me.user.dni_cif,
+                real_name: me.user.real_name,
+                adress: me.user.provider.adress
+            }
+            const idUser = me.userp.id_user
+            axios.put('provider/' + idUser, data)
+                .then(response => {
+                    console.log(response.data)
+                    me.goBack()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
         }
 
 
@@ -108,5 +127,12 @@ export default {
     height: 100px;
 
 }
+
+
+.form-label{
+    color: aliceblue   ;
+}
+
+
 </style>
 

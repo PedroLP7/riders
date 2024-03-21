@@ -52,6 +52,10 @@ route::get('/updateBooking', function(){
     return view('updateBookingStatus');
 });
 
+route::get('/recurringCustomer', function(){
+    return view('rider.recurringCustomer');
+});
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -108,3 +112,6 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    route::get('/provider/chart', function(){
+        return view('provider.chart');
+    });
