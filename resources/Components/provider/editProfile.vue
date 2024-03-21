@@ -25,7 +25,7 @@
             </div>
 
 
-            <button  type="button"  class="btn btn-danger">Cancelar</button>
+            <button  type="button" @click="goBack()"  class="btn btn-danger">Cancelar</button>
             <button type="button"  class="btn btn-primary">Submit</button>
 
 
@@ -87,17 +87,10 @@ export default {
                 })
         },
 
-
-        showCreateMenu() {
-            window.location.href = "createMenu";
-            console.log('crear menu');
-        },
-        logout(){
-            window.location.href = "/riders/public/logout";
-        },
-        editarPerfil(){
-            window.location.href = "/riders/public/provider/edit";
+        goBack(){
+            window.location.href = "/riders/public/provider/home";
         }
+
 
     },
 
