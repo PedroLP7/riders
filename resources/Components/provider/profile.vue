@@ -22,7 +22,13 @@
 
 
 
+                    <div class="" id="chart">
+                        <chart1 />
+                    </div>
+
+
                 </div>
+
             </div>
 
 
@@ -31,16 +37,16 @@
 
         <div>AJUSTES</div>
         <div class="card" style="width: 18rem;">
-  <div class="card-body">
+            <div class="card-body">
 
-    <h6 class="card-subtitle mb-2 text-body-secondary">Cambiar idioma</h6>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Notificaciones</h6>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Ayuda</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Cambiar idioma</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Notificaciones</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Ayuda</h6>
 
 
 
-  </div>
-</div>
+            </div>
+        </div>
 
 
 
@@ -54,19 +60,27 @@
 
 
     </div>
+
+
 
 
     <div class="container" id="navbar">
         <navbar v-if="showComponente" />
     </div>
+
+
 </template>
 <script>
 import navbar from '../../Components/navbar.vue';
 import axios from 'axios';
+import chart1 from '../../Components/provider/chart1.vue';
 
 export default {
     name: 'profile',
     components: {
+        chart1,
+
+
 
         navbar
     },
@@ -118,10 +132,10 @@ export default {
             window.location.href = "createMenu";
             console.log('crear menu');
         },
-        logout(){
+        logout() {
             window.location.href = "/riders/public/logout";
         },
-        editarPerfil(){
+        editarPerfil() {
             window.location.href = "/riders/public/provider/edit";
         }
 
@@ -136,7 +150,7 @@ export default {
 
 }
 
-#profileimg{
+#profileimg {
     width: 100px;
     height: 100px;
 

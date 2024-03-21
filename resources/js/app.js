@@ -37,3 +37,5 @@ createApp(editMenu).mount("#editMenu")
 
 
 
+import chart1 from '../Components/provider/chart1.vue'
+createApp(chart1).mount("#chart")

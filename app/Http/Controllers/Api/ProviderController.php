@@ -97,8 +97,7 @@ class ProviderController extends Controller
             $usuario->dni_cif=$request->dni_cif;
             $usuario->real_name=$request->real_name;
 
-            $usuario->imgProfile=$request->imgProfile;
-            // falta gestionar que coja el file , ya se hara, de momento coge un varchar
+
 
 
 

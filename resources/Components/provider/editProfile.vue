@@ -26,7 +26,7 @@
 
 
             <button  type="button" @click="goBack()"  class="btn btn-danger">Cancelar</button>
-            <button type="button"  class="btn btn-primary">Submit</button>
+            <button type="button" @click="updateProvider()"  class="btn btn-primary">Submit</button>
 
 
 
@@ -89,6 +89,25 @@ export default {
 
         goBack(){
             window.location.href = "/riders/public/provider/profile";
+        },
+        updateProvider(){
+            const me = this;
+            const data ={
+                user_name: me.user.user_name,
+                dni_cif: me.user.dni_cif,
+                real_name: me.user.real_name,
+                adress: me.user.provider.adress
+            }
+            const idUser = me.userp.id_user
+            axios.put('provider/' + idUser, data)
+                .then(response => {
+                    console.log(response.data)
+                    me.goBack()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
         }
 
 

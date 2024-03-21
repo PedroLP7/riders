@@ -108,3 +108,6 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    route::get('/provider/chart', function(){
+        return view('provider.chart');
+    });
