@@ -1,6 +1,7 @@
 <template>
     <div>
         <form>
+            <h1>Editando pack {{ ' '+ menu.id_menu}}</h1>
             <div class="mb-3">
                 <label for="item1" class="form-item1">item1</label>
                 <input
