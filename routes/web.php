@@ -80,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
 
     route::get('/rider/addKitchen', function(){
         return view('rider.addCommunityK');
-    });    
+    });
 
   route::get('/provider/bookings', function(){
         return view('provider.bookings');
@@ -88,10 +88,22 @@ Route::middleware(['auth'])->group(function () {
 
     route::get('/provider/profile', function(){
         return view('provider.profile');
+    });
 
-    }); 
 
-});
+    route::get('/provider/edit', function(){
+        return view('provider.editProfile');
+    });
+
+    route::get('/provider/editMenu/{idMenu}', function($idMenu){
+        return view('provider.editMenu',compact('idMenu'));
+    });
+
+
+
+    });
+
+
 
 
 

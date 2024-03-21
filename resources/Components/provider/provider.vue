@@ -5,7 +5,7 @@
         <h1 id="titulo">Packs disponibles</h1>
 
         <button class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
-        
+
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
         <div id="cards-container-showPack">
 
@@ -13,14 +13,14 @@
                 <div class="card-body" id="card-body-showPack">
                     <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
                     <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
-                    <p class="card-text" id="card-text-showPack"> 
+                    <p class="card-text" id="card-text-showPack">
                         item1 :{{ menu.item1 }}
-                        
+
                         item 2 :{{ menu.item2 }}
-                        
+
                         item 3 :{{ menu.item3 }}
-                        
-                        cantidad : {{ menu.pivot.quantity }}  
+
+                        cantidad : {{ menu.pivot.quantity }}
                         <!-- preguntar a pedro si esto puede estar en otra parte -->
 
                         <!-- id : {{  idUser }} -->
@@ -30,7 +30,7 @@
                 </div>
                 <button class="btn btn-primary" id="botonEditar">Editar</button>
             </div>
-
+            <button @click="editMenu(menu.id_menu)" class="btn btn-primary">Editar menu </button>
         </div>
     </div>
 
@@ -45,10 +45,11 @@
 
 </template>
 <script>
- import bookings from './bookings.vue'
+import bookings from './bookings.vue'
 
 import navbar from '../../Components/navbar.vue'
 import axios from 'axios'
+import editMenu from './editMenu.vue'
 
 
 export default {
@@ -63,7 +64,7 @@ export default {
 
             showComponente: true,
 
-            userp:{},
+            userp: {},
 
         }
     },
@@ -89,11 +90,11 @@ export default {
 
             axios.get('usuario/getUsuario')
                 .then(response => {
-                    me.userp= response.data
+                    me.userp = response.data
                     console.log(response.data)
                     console.log(me.userp.id_user);
 
-                     me.getProvider()
+                    me.getProvider()
                 })
                 .catch(error => {
                     console.log(error)
@@ -101,12 +102,22 @@ export default {
         },
 
 
-        showCreateMenu(){
-        window.location.href = "createMenu";
-        console.log('crear menu');
-    },
+        showCreateMenu() {
+            window.location.href = "createMenu";
+            console.log('crear menu');
+        },
+        editMenu(menuId) {
+    window.location.href = `editMenu/${menuId}`;
+    console.log('editar menu');
+},
+
 
     },
+
+
+
+
+
 
 
 }
@@ -284,5 +295,4 @@ body {
     background-color: #8BB481;
     border-color: none;
 }
-
 </style>
