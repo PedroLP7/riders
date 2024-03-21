@@ -16,9 +16,9 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Tus estadisticas </h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Repartos este mes</h6>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Personas añadidas este mes </h6>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Pedidos este mes</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Repartos este mes  : 9</h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Personas añadidas este mes  :8 </h6>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Pedidos este mes : +12%</h6>
 
 
 
