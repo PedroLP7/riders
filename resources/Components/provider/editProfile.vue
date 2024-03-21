@@ -4,7 +4,7 @@
         <form >
 
             <div class="mb-3">
-                <label for="user_name" class="form-item1">Username</label>
+                <label for="user_name" class="form-label">Username</label>
                 <input type="text"  class="form-control" id="item1" name="user_name" v-model="user.user_name">
             </div>
             <div class="mb-3">
@@ -88,7 +88,7 @@ export default {
         },
 
         goBack(){
-            window.location.href = "/riders/public/provider/home";
+            window.location.href = "/riders/public/provider/profile";
         }
 
 
@@ -108,5 +108,12 @@ export default {
     height: 100px;
 
 }
+
+
+.form-label{
+    color: aliceblue   ;
+}
+
+
 </style>
 
