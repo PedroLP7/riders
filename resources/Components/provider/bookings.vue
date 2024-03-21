@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="container " id="bookings">
+
+    <h1 id="titulo">Pedidos en curso</h1>
 
     <div v-if="bookings !== null && usuario !== null">
       <div v-for="booking in bookings" :key="booking.id_booking">
@@ -163,4 +165,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
