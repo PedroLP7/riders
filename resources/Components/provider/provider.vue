@@ -143,6 +143,8 @@ body {
 #titulo {
     color: #8F8F8F;
     font-weight: bold;
+    margin-top: 20%;
+    margin-left: 2%;
 }
 
 #crearPack {
