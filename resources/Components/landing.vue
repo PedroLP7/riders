@@ -1,7 +1,7 @@
 <template>
     <div class="app-container" id="landing">
       <div class="row">
-        <header class="col-12">
+        <header class="col-12" v-if="!showRiderForm">
           <nav class="navbar justify-content-between">
             <a id="quienes" class="hyperlink" href="#quienes-somos">Quiénes somos?</a>
             <a id="sesion" class="hyperlink" @click="login" href="#iniciar-sesion">Iniciar Sesión</a>
