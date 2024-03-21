@@ -44,7 +44,8 @@ export default {
     }
   },
 
-  methods: {
+  methods: 
+  {   
    
   },
   created()
@@ -62,8 +63,12 @@ export default {
       location: '',
     });
     const selectedMarker = ref(null);
-    let map;
+    let map;   
 
+    const createOrder = async () =>
+    {
+      window.location.href ="/riders/public/viewProviders";
+    }
     
 
     onMounted(async () => {
@@ -221,7 +226,8 @@ export default {
       mendigo,
       isMarkerOptionsModalOpen,
       closeMarkerOptionsModal,
-      removeMarker
+      removeMarker,
+      createOrder
     };
   },
 };
@@ -319,11 +325,13 @@ button {
   flex-direction: column;
   position: fixed;
   z-index: 1050;
+  min-width: 40%;
+  max-width: 40%;
+  min-height: 12%;
+  max-height: 17%;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  width: 20%; 
-  min-height: 5%; 
+  transform: translate(-50%, -50%); 
   background-color: #1E1E1E;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);

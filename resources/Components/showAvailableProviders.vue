@@ -45,6 +45,14 @@
   </script>
   
   <style scoped>
-  /* Your scoped CSS styles go here */
+    body{
+      background-color: #1E1E1E;
+      color: #1E1E1E;
+    }
+
+    .class
+    {
+      background-color: #1E1E1E;
+    }
   </style>
   
