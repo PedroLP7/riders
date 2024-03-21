@@ -70,6 +70,7 @@ class CharityMenuController extends Controller
         $charity_menu->item1 = $request->item1;
         $charity_menu->item2 = $request->item2;
         $charity_menu->item3 = $request->item3;
+        $charity_menu->providers()->updateExistingPivot($request->provider_id, ['quantity' => $request->quantity]);
 
         try {
             $charity_menu->save();
@@ -124,17 +125,7 @@ class CharityMenuController extends Controller
     }
 
 
-    public function showCosas(charity_menu $charity_menu)
-    {
-        try {
-            $charity_menu = charity_menu::with('providers')->find($charity_menu->id_menu);
-            $response=  new CharityMenuResource($charity_menu);
-        } catch (\Throwable $th) {
-          $response=response()->json(['error' => 'Error al obtener los datos'], 500);
-        }
 
-         return $response;
-    }
 
 
 

@@ -19,7 +19,7 @@
                     item 3 :{{ menu.item3 }}
                     <br>
                     cantidad : {{ menu.pivot.quantity }}
-                    idmenu : {{ menu.id_menu }}
+                    <!-- idmenu : {{ menu.id_menu }} -->
 
 
                 </p>
