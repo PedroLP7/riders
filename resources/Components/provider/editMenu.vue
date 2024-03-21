@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="edit-menu-container">
         <form>
             <div class="mb-3">
                 <label for="item1" class="form-item1">item1</label>
@@ -52,18 +52,27 @@
             </button>
         </form>
     </div>
+
+    <div class="container" id="navbar">
+        <navbar v-if="showComponente" />
+    </div>
 </template>
 <script>
 import axios from "axios";
+import navbar from '../../Components/navbar.vue'
 import provider from "./provider.vue";
 
 export default {
+    components: {
+        navbar,
+    },
     data() {
         return {
             idMenu: {},
             menu: {},
             provider: {},
             cantidad: {},
+            showComponente: true,
         };
     },
     methods: {
@@ -137,4 +146,13 @@ export default {
     },
 };
 </script>
-<style></style>
+<style>
+#edit-menu-container {
+    position: absolute;
+    background-color: #000000;
+    height: 75%;
+    width: 90%;
+    top: 10%;
+    border-radius: 26px;
+}
+</style>
