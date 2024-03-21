@@ -28,9 +28,9 @@
 
 
                 </div>
-                <button class="btn btn-primary" id="botonEditar">Editar</button>
+                <button @click="editMenu(menu.id_menu)" class="btn btn-primary" id="botonEditar">Editar</button>
             </div>
-            <button @click="editMenu(menu.id_menu)" class="btn btn-primary">Editar menu </button>
+
         </div>
     </div>
 
