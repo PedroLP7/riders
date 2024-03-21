@@ -196,9 +196,9 @@ export default {
 #items-container {
     height: 40%;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas con el mismo ancho */
-    grid-template-rows: 1fr; /* Una fila */
-    grid-gap: 10px; /* Espacio entre los elementos */
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 2fr;
+    grid-gap: 10px; 
 }
 
 .mb-3 edit-pack {
@@ -207,8 +207,8 @@ export default {
 
 #item1-container {
     height: 100%;
-    grid-column: 1 / 2; /* Ítem 1 ocupa la primera columna */
-    grid-row: 1; /* Ítem 1 ocupa la única fila */
+    grid-column: 1 / 2; 
+    grid-row: 1; 
 }
 
 #item1-container input {
@@ -219,10 +219,16 @@ export default {
     color: white;
 }
 
-#item2-container, #item3-container {
+#item2-container {
     height: 50%;
-    grid-column: 2 / 3; /* Ítems 2 y 3 ocupan la segunda columna */
-    grid-row: 1; /* Ítems 2 y 3 ocupan la única fila */
+    grid-column: 2 / 2;
+    grid-row: 1 / 2; 
+}
+
+#item3-container {
+    height: 50%;
+    grid-column: 2 / 2; 
+    grid-row: 2 / 2; 
 }
 
 #item2-container input, #item3-container input {
