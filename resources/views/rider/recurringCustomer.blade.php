@@ -5,7 +5,7 @@
  
 
   @section('contenido')
-    <div id="bookings">
+    <div id="recurringCustomer">
 
     </div>
    
