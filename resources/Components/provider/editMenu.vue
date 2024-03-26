@@ -196,9 +196,8 @@ export default {
 #items-container {
     height: 40%;
     display: grid;
-    grid-template-columns: 1fr 1fr; 
-    grid-template-rows: 2fr;
-    grid-gap: 10px; 
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .mb-3 edit-pack {
@@ -206,9 +205,10 @@ export default {
 }
 
 #item1-container {
-    height: 100%;
-    grid-column: 1 / 2; 
-    grid-row: 1; 
+    height: 200%;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    margin-right: 2%;
 }
 
 #item1-container input {
@@ -220,15 +220,18 @@ export default {
 }
 
 #item2-container {
-    height: 50%;
+    height: 98%;
     grid-column: 2 / 2;
-    grid-row: 1 / 2; 
+    grid-row: 1 / 2;
+    margin-left: 2%;
 }
 
 #item3-container {
-    height: 50%;
-    grid-column: 2 / 2; 
-    grid-row: 2 / 2; 
+    height: 98%;
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+    margin-left: 2%;
+    margin-top: 2%;
 }
 
 #item2-container input, #item3-container input {
@@ -237,6 +240,13 @@ export default {
     height: 100%;
     border: none;
     color: white;
+}
+
+#item1-container input, #item2-container input, #item3-container input{
+    font-size: 32px;
+    font-weight: 500;
+    border-radius: 12px;
+    text-align: start;
 }
 
 </style>
