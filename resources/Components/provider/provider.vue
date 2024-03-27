@@ -8,35 +8,36 @@
 
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
         <div id="cards-container-showPack">
+            <div v-if="user">
+                <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus">
+                    <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)">
+                        <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
+                        <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
+                        <p class="card-text" id="card-text-showPack">
+                            item1 :{{ menu.item1 }}
 
-            <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus">
-                <div class="card-body" id="card-body-showPack">
-                    <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
-                    <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
-                    <p class="card-text" id="card-text-showPack">
-                        item1 :{{ menu.item1 }}
+                            item 2 :{{ menu.item2 }}
 
-                        item 2 :{{ menu.item2 }}
+                            item 3 :{{ menu.item3 }}
 
-                        item 3 :{{ menu.item3 }}
+                            cantidad : {{ menu.pivot.quantity }}
+                            <!-- preguntar a pedro si esto puede estar en otra parte -->
 
-                        cantidad : {{ menu.pivot.quantity }}
-                        <!-- preguntar a pedro si esto puede estar en otra parte -->
-
-                        <!-- id : {{  idUser }} -->
-                    </p>
+                            <!-- id : {{  idUser }} -->
+                        </p>
 
 
+                    </div>
+                    <button v-if="!this.id" @click="editMenu(menu.id_menu)" class="btn btn-primary"
+                        id="botonEditar">Editar</button>
                 </div>
-                <button @click="editMenu(menu.id_menu)" class="btn btn-primary" id="botonEditar">Editar</button>
             </div>
-
         </div>
     </div>
 
     <div class="container-parte-inferior">
-        <div class="container" id="bookings">
-            <bookings v-if="showBookings" :usuario="idUser"/>
+        <div class="container" id="bookings" v-if="!this.id">
+            <bookings v-if="showBookings" :usuario="idUser" />
         </div>
         <div class="container" id="navbar">
             <navbar v-if="showComponente" />
@@ -58,14 +59,17 @@ export default {
         bookings,
         navbar
     },
+    props: {
+        id: Number,
+    },
     data() {
         return {
-            user: {},
-
+            user: null,
             showComponente: true,
-
             userp: {},
-
+            provider: null,
+            menus: null,
+            selectedMenu: null,
         }
     },
     created() {
@@ -75,7 +79,14 @@ export default {
     methods: {
         getProvider() {
             const me = this;
-            const idUser = me.userp.id_user
+            let idUser;
+            if (me.id) {
+                console.log("child component provider id to search: " + me.id)
+                idUser = me.id
+            } else {
+                idUser = me.userp.id_user
+            }
+
             axios.get('provider/' + idUser)
                 .then(response => {
                     me.user = response.data
@@ -100,16 +111,19 @@ export default {
                     console.log(error)
                 })
         },
-
-
+        selectMenu(id_menu) {
+            this.selectedMenu = id_menu;
+            console.log("My selected menu:" + this.selectedMenu)
+            
+        },
         showCreateMenu() {
             window.location.href = "createMenu";
             console.log('crear menu');
         },
         editMenu(menuId) {
-    window.location.href = `editMenu/${menuId}`;
-    console.log('editar menu');
-},
+            window.location.href = `editMenu/${menuId}`;
+            console.log('editar menu');
+        },
 
 
     },
@@ -294,5 +308,8 @@ body {
     color: #1E1E1E;
     background-color: #8BB481;
     border-color: none;
+}
+card-body:active{
+    border-color: #8BB481 1px;
 }
 </style>
