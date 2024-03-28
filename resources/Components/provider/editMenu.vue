@@ -50,6 +50,7 @@
                     min="1" 
                     step="1"
                     v-model="cantidad.pivot.quantity"
+                    placeholder="nº Packs"
                 />
                 <div class="button-container d-inline-block" id="buton-container-confirmar">
                     <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar">Editar</button>
@@ -270,6 +271,15 @@ export default {
     font-weight: 500;
     border-radius: 50px;
     text-align: center;
+}
+
+.form-control::placeholder {
+    color: #88888890;
+}
+
+.form-control:focus {
+  border-color: #8BB481;
+  box-shadow: inset 0 0 4px #8bb481, 0 0 4px #8bb481;
 }
 
 #boton-confirmar {
