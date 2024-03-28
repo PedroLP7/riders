@@ -8,10 +8,15 @@
     @vite(['resources/css/app.css','resources/css/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="bookings" class="container">
+    <div id="bookings" class="container"></div>
 
-
-    </div>
+    <style>
+        #bookings {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
 </body>
 </html>
 

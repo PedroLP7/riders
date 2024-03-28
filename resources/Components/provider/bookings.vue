@@ -1,18 +1,18 @@
 <template>
-  <div class="container " id="bookings">
+    <h1 id="titulo-bookings">Pedidos en curso</h1>
 
-    <h1 id="titulo">Pedidos en curso</h1>
+    <div v-if="bookings !== null && usuario !== null" id="container-bookings">
+      <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
+        <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
 
-    <div v-if="bookings !== null && usuario !== null">
-      <div v-for="booking in bookings" :key="booking.id_booking">
-        <div class="card" style="width: 18rem;">
-          <div class="card-header">
-            <h5 class="card-title">Booking {{ booking.id_booking }}</h5>
-          </div>
-          <div class="card-body">
+          <div class="card-header" id="booking-card-header">
             <div v-if="booking.rider && booking.rider.user">
-              <div><b> Rider: </b> {{ booking.rider.user.real_name }} </div>
+              <div id="titulo-card-booking">Rider: {{ booking.rider.user.real_name }} </div>
             </div>
+            <h5 id="subtitulo-card-booking">Booking {{ booking.id_booking }}</h5>
+          </div>
+
+          <div class="card-body" id="booking-card-body">
             <div v-if="booking.provider && booking.provider.user">
               <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
             </div>
@@ -27,9 +27,9 @@
             <div v-if="usuario.user_type_id == 2">
               <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
 
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">{{
-      buttonContent(booking.status.id_status)
-                }}</button>
+              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+              {{ buttonContent(booking.status.id_status) }}
+              </button>
             </div>
             <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
               <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
@@ -40,9 +40,8 @@
             <div v-else>
               <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
 
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">{{
-      buttonContent(booking.status.id_status)
-                }}</button>
+              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                {{buttonContent(booking.status.id_status)}}</button>
             </div>
 
             </div>
@@ -50,11 +49,10 @@
 
         </div>
       </div>
-    </div>
+    <!-- </div> -->
         <div class="container" id="navbar">
         <navbar v-if="showComponente" />
         </div>
-  </div>
 
 </template>
 
@@ -166,5 +164,55 @@ export default {
 </script>
 
 <style>
+  #titulo-bookings {
+    width: 100%;
+    color: #8F8F8F;
+    font-weight: bold;
+    margin-top: 20%;
+    margin-left: 2%;
+  }
+
+  #container-bookings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 20%;
+    width: 100%;
+  }
+
+  #booking-card {
+    background-color: #393939;
+    border: none;
+    width: 90%;
+    margin-top: 10px;
+    --bs-card-bg: none;
+    border-radius: 26px;
+  }
+
+  #booking-card-header {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #booking-card-body {
+    background-color: transparent;
+    border-top-style: dashed;
+    border-width: 1px;
+    border-color: #8F8F8F;
+  }
+
+  #titulo-card-booking {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 28px;
+  }
+
+  #subtitulo-card-booking {
+    color: #8F8F8F;
+    font-size: 15px;
+  }
 
 </style>
