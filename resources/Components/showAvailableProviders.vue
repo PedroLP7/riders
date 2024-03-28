@@ -8,16 +8,15 @@ const dataSteps = {
   activeColor: '#65a30d',
   passiveColor: '#84cc16',
 };
-const method1 = () => {
-  stepProgress.nextStep;
-};
 </script>
 <template>
   <div class="row">
     <div class="col-12">
       <stepProgressBar :data="dataSteps" ref="stepProgress" />
-      <button @click="stepProgress.previousStep">Previous Step</button>
-      <button @click="stepProgress.nextStep">Next Step</button>
+      <div v-if="this.showPreviousButton" @click="returnToInitialState()">
+        <button @click="stepProgress.previousStep">Previous Step</button>
+      </div>
+    
     </div>
   </div>
 
@@ -45,16 +44,19 @@ const method1 = () => {
                       <div class="card-body">
                         <h1>Seleccione el menu a recoger en bar/restaurante {{ prov.real_name }}</h1>
 
-                        <provider :id="this.idSelectedProvider" @selectedM="handleSelectedMenu" />
-
+                        <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu" />
+                        <div v-if="showQuantity">
+                          <p>Cantidad que desea recoger:</p>
+                          <quantity @quantity-updated="handleQuantityUpdated" />
+                        </div>
                         <form action="">
                           <input type="text" id="menu" @change="stepProgress.nextStep" style="hidden"> </input>
-
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal" @click="stepProgress.nextStep">
-                            Reservar
-                          </button>
-
+                          <div @click="hidePreviousButton()">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                              data-bs-target="#exampleModal" @click="stepProgress.nextStep">
+                              Reservar
+                            </button>
+                          </div>
                           <!-- Modal -->
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
@@ -66,11 +68,33 @@ const method1 = () => {
                                     aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  <h2>Su reserva esta apunto de ser confirmada</h2>
+                                  <h2>Su reserva está a punto de ser confirmada</h2>
+                                  <h2>Pack seleccionado:</h2>
+                                  <provider :id="this.idSelectedProvider" :id_menu_selected="this.idSelectedMenu"
+                                    :find="true" @selectedM="handleSelectedMenu" />
+                                  <h2>Restaurante seleccionado:</h2>
+                                  <div v-for="prov in providers">
+                                    <div v-if="this.idSelectedProvider == prov.id_user">
+                                      <div class="card" :key="prov.id_user" style="width: 300px;">
+                                        <img src="../images/resto.jpeg" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                          <h5 v-if="idSelectedProvider">provider:</h5>
+                                          <h5 class="card-title">{{ prov.real_name }}</h5>
+                                          <p class="card-text">Direccion: {{
+        prov.provider.adress }}</p>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                  <button type="button" class="btn btn-primary">Confirmar</button>
+                                  <button @click="stepProgress.stepZero" style="border: none; background-color: none;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                      @click="returnToInitialState()">Cancelar</button>
+                                  </button>
+                                  <button type="button" class="btn btn-primary"
+                                    @click="createBooking()">Confirmar</button>
                                 </div>
                               </div>
                             </div>
@@ -98,28 +122,102 @@ const method1 = () => {
 <script>
 import axios from 'axios';
 import provider from './provider/provider.vue'
+import quantity from './quantity.vue'
 
 
 export default {
   components: {
     provider,
-    stepProgressBar
+    stepProgressBar,
+    quantity
   },
   data() {
     return {
       providers: [],
       myModal: {},
       idSelectedProvider: null,
+      idSelectedMenu: null,
       showMenu: false,
+      showQuantity: false,
+      recievedQuantity: null,
+      showPreviousButton: false,
+      usuario: null,
+      booking: {
+        id_rider_fk: "",
+        id_provider_fk: "",
+        id_menu_fk: "",
+        menu_quantity: "",
+        id_status_fk: "",
+        curr_date: "",
+      }
     };
   },
 
   created() {
     this.fetchProviders();
-
+    this.fetchUser();
   },
 
   methods: {
+    hidePreviousButton(){
+      this.showPreviousButton = false;
+    },
+    returnToInitialState() {
+      this.idSelectedProvider = null,
+        this.idSelectedMenu = null,
+        this.showMenu = false,
+        this.showQuantity = false,
+        this.recievedQuantity = null
+      this.dataSteps.currentStep = 1
+
+    },
+    fetchUser() {
+      const me = this;
+      axios.get('/usuario/getUsuario')
+        .then(response => {
+          console.log(response)
+          me.usuario = response.data
+
+        })
+        .catch(error => {
+          console.error('Error fetching loged in yser data', error);
+        });
+
+    },
+    createBooking() {
+      const me = this;
+      if (me.usuario) {
+        me.booking.id_rider_fk = me.usuario.id_user;
+      }
+
+      me.booking.id_provider_fk = me.idSelectedProvider;
+      me.booking.id_menu_fk = me.idSelectedMenu;
+      me.booking.menu_quantity = me.recievedQuantity;
+      me.booking.id_status_fk = 1;
+      me.booking.curr_date = me.getCurrentDate();
+
+      axios.post('/booking', me.booking)
+        .then(response => {
+          console.log('Booking created successfully:', response.data);
+          // Do something with the response if needed
+        })
+        .catch(error => {
+          console.error('Error creating booking:', error);
+        });
+
+    },
+    getCurrentDate() {
+      const currentDate = new Date();
+
+      // Extract year, month, and day
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const day = String(currentDate.getDate()).padStart(2, '0');
+
+      // Format the date as YYYY-MM-DD
+      const formattedDate = `${year}-${month}-${day}`;
+      return formattedDate;
+    },
     fetchProviders() {
       const me = this;
 
@@ -132,12 +230,19 @@ export default {
           console.error('Error fetching user type', error);
         });
     },
+    handleQuantityUpdated(quantity) {
+      console.log('Quantity updated to:', quantity);
+      this.recievedQuantity = quantity
+      // Handle the updated quantity here
+    },
     handleSelectedMenu(selectedMenu) {
       // This method will be triggered when the child emits the event
       console.log('Selected Menu in parent:', selectedMenu);
       document.getElementById("menu").value = selectedMenu;
-      //this.currentStep++;
+      this.idSelectedMenu = selectedMenu;
       console.log("step:" + this.stepProgress);
+      this.showQuantity = true;
+      console.log("show quantity: " + this.showQuantity);
 
       // Do whatever you want with the selectedMenu data here
     },
@@ -145,6 +250,7 @@ export default {
       this.idSelectedProvider = providerId
       console.log(this.idSelectedProvider);
       this.showMenu = true;
+      this.showPreviousButton = true;
 
     },
   },

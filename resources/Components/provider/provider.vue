@@ -2,34 +2,39 @@
     <div class="container " id="menus">
 
 
-        <h1 id="titulo">Packs disponibles</h1>
+        <h1 id="titulo" v-if="!this.id_menu_selected">Packs disponibles</h1>
 
-        <button class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
+        <button v-if="!this.id" class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
 
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
         <div id="cards-container-showPack">
             <div v-if="user">
-                <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus">
-                    <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)">
-                        <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
-                        <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
-                        <p class="card-text" id="card-text-showPack">
-                            item1 :{{ menu.item1 }}
+                <div v-for="menu in user.provider.menus">
+                    <div class="card mt-3" id="card-showPack"
+                        v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
 
-                            item 2 :{{ menu.item2 }}
+                        <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)">
+                            <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
+                            <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
+                            <p class="card-text" id="card-text-showPack">
+                                item1 :{{ menu.item1 }}
 
-                            item 3 :{{ menu.item3 }}
+                                item 2 :{{ menu.item2 }}
 
-                            cantidad : {{ menu.pivot.quantity }}
-                            <!-- preguntar a pedro si esto puede estar en otra parte -->
+                                item 3 :{{ menu.item3 }}
 
-                            <!-- id : {{  idUser }} -->
-                        </p>
+                                cantidad : {{ menu.pivot.quantity }}
+                                <!-- preguntar a pedro si esto puede estar en otra parte -->
 
+                                <!-- id : {{  idUser }} -->
+                            </p>
+
+
+                        </div>
+                        <button v-if="!this.id" @click="editMenu(menu.id_menu)" class="btn btn-primary"
+                            id="botonEditar">Editar</button>
 
                     </div>
-                    <button v-if="!this.id" @click="editMenu(menu.id_menu)" class="btn btn-primary"
-                        id="botonEditar">Editar</button>
                 </div>
             </div>
         </div>
@@ -39,7 +44,7 @@
         <div class="container" id="bookings" v-if="!this.id">
             <bookings v-if="showBookings" :usuario="idUser" />
         </div>
-        <div class="container" id="navbar">
+        <div class="container" id="navbar" v-if="!this.id">
             <navbar v-if="showComponente" />
         </div>
     </div>
@@ -61,6 +66,7 @@ export default {
     },
     props: {
         id: Number,
+        id_menu_selected: Number,
     },
     data() {
         return {
@@ -114,7 +120,7 @@ export default {
         selectMenu(id_menu) {
             this.selectedMenu = id_menu;
             console.log("My selected menu:" + this.selectedMenu)
-            
+
         },
         showCreateMenu() {
             window.location.href = "createMenu";
@@ -309,7 +315,8 @@ body {
     background-color: #8BB481;
     border-color: none;
 }
-card-body:active{
+
+card-body:active {
     border-color: #8BB481 1px;
 }
 </style>

@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, ref, computed } from 'vue';
+import iconDone from './icons/iconDone.vue'
 const props = defineProps({
     data: Object,
 });
@@ -13,7 +14,7 @@ const cssStyle = computed(() => {
     };
 })
 const nextStep = () => {
-    if (data.value.currentStep < data.value.steps.length) { }
+    if (data.value.currentStep < 3) { }
     data.value.currentStep++;
 };
 
@@ -22,10 +23,17 @@ const previousStep = () => {
         data.value.currentStep--;
     }
 };
+const stepZero = () => {
+    
+        data.value.currentStep = 0;
+    
+};
+
 
 defineExpose({
     nextStep,
-    previousStep
+    previousStep,
+    stepZero,
 })
 
 </script>
@@ -34,9 +42,12 @@ defineExpose({
         <ul class="steps-list">
             <li class="step" v-for="(step, index) in data.steps" :key="index" :class="(index == data.currentStep) ?
         'step-active' : '', (index < data.currentStep) ? 'step-done' : ''">
-                <div class="step-bubble" v-if="index == 0">Provider</div>
-                <div class="step-bubble" v-if="index == 1">Menu</div>
-                <div class="step-bubble" v-if="index == 2">Confirmacion</div>
+                <div class="step-bubble">
+                    <div class="step-count">{{ index + 1 }}</div>
+                    <iconDone />
+                </div>
+               
+
                 <div class="step-line"></div>
                 <div class="line-fill"></div>
             </li>
@@ -79,6 +90,17 @@ defineExpose({
     justify-content: center;
 }
 
+.step-done-icon {
+    display: none;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+}
+
+.step-done .step-done-icon {
+    display: block;
+}
+
 .step-line {
     width: 100%;
     height: 5px;
@@ -113,4 +135,15 @@ defineExpose({
 .step-done .line-fill {
     width: 100%;
 }
+
+.step-count {
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    display: none;
+}
+.step-active .step-count{
+    display: block;
+}
+
 </style>
