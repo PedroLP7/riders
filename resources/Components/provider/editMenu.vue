@@ -1,4 +1,5 @@
 <template>
+    <button type="button" @click="goBack()" id="boton-cancelar-editar"></button>
     <div id="edit-menu-container">
         <form id="edit-form">
             <img src="../../images/menuEdit.png" id="editMenuImg" alt="imagen menu">
@@ -40,21 +41,21 @@
                 </div>
             </div>
             
-            <div class="mb-3">
-                <label class="form-label" for="adress">cantidad</label>
+            <div class="bottom-container">
                 <input
-                    type="text"
+                    type="number"
                     class="form-control"
-                    id="quantity"
+                    id="pack-quantity"
                     name="quantity"
+                    min="1" 
+                    step="1"
                     v-model="cantidad.pivot.quantity"
                 />
+                <div class="button-container d-inline-block" id="buton-container-confirmar">
+                    <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar">Editar</button>
+                    <!-- <button id="sombraBoton">Editar</button> -->
+                </div>
             </div>
-
-            <button type="button" @click="goBack()" class="btn btn-danger">Cancelar</button>
-            <button type="button" @click="updateMenu()" class="btn btn-primary">
-                Submit
-            </button>
         </form>
     </div>
 
@@ -163,7 +164,7 @@ export default {
     align-items: center;
     position: absolute;
     background-color: #000000;
-    height: 75%;
+    height: 77%;
     width: 90%;
     top: 10%;
     border-radius: 26px;
@@ -196,9 +197,9 @@ export default {
 #items-container {
     height: 40%;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas con el mismo ancho */
-    grid-template-rows: 1fr; /* Una fila */
-    grid-gap: 10px; /* Espacio entre los elementos */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-top: 30px;
 }
 
 .mb-3 edit-pack {
@@ -206,9 +207,10 @@ export default {
 }
 
 #item1-container {
-    height: 100%;
-    grid-column: 1 / 2; /* Ítem 1 ocupa la primera columna */
-    grid-row: 1; /* Ítem 1 ocupa la única fila */
+    height: 200%;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    margin-right: 2%;
 }
 
 #item1-container input {
@@ -219,10 +221,19 @@ export default {
     color: white;
 }
 
-#item2-container, #item3-container {
-    height: 50%;
-    grid-column: 2 / 3; /* Ítems 2 y 3 ocupan la segunda columna */
-    grid-row: 1; /* Ítems 2 y 3 ocupan la única fila */
+#item2-container {
+    height: 98%;
+    grid-column: 2 / 2;
+    grid-row: 1 / 2;
+    margin-left: 2%;
+}
+
+#item3-container {
+    height: 98%;
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+    margin-left: 2%;
+    margin-top: 2%;
 }
 
 #item2-container input, #item3-container input {
@@ -233,4 +244,61 @@ export default {
     color: white;
 }
 
+#item1-container input, #item2-container input, #item3-container input{
+    font-size: 32px;
+    font-weight: 500;
+    border-radius: 12px;
+    text-align: start;
+}
+
+.bottom-container {
+    display: flex;
+    margin-top: 40px;
+    width: 100%;
+    height: 10%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#pack-quantity {
+    background-color: #1E1E1E;
+    width: 45%;
+    height: 65px;
+    border: none;
+    color: white;
+    font-size: 32px;
+    font-weight: 500;
+    border-radius: 50px;
+    text-align: center;
+}
+
+#boton-confirmar {
+    background-color: #8BB481;
+    height: 70px;
+    color: white;
+    border: 3px solid #393939;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+#buton-container-confirmar {
+    width: 52%;
+}
+
+#boton-cancelar-editar {
+    position: relative;
+    right: 41%;
+    top: 3%;
+    width: 40px;
+    height: 40px;
+    background-image: url("../../images/mingcute_arrow-up-line.png");
+    background-color: transparent;
+    border: none;
+}
 </style>
