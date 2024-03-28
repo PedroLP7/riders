@@ -1,4 +1,5 @@
 <template>
+    <button type="button" @click="goBack()" id="boton-cancelar-editar"></button>
     <div id="edit-menu-container">
         <form id="edit-form">
             <img src="../../images/menuEdit.png" id="editMenuImg" alt="imagen menu">
@@ -50,7 +51,6 @@
                     step="1"
                     v-model="cantidad.pivot.quantity"
                 />
-                <!-- <button type="button" @click="goBack()" class="btn btn-danger">Cancelar</button> -->
                 <div class="button-container d-inline-block" id="buton-container-confirmar">
                     <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar">Editar</button>
                     <!-- <button id="sombraBoton">Editar</button> -->
@@ -289,5 +289,16 @@ export default {
 
 #buton-container-confirmar {
     width: 52%;
+}
+
+#boton-cancelar-editar {
+    position: relative;
+    right: 41%;
+    top: 3%;
+    width: 40px;
+    height: 40px;
+    background-image: url("../../images/mingcute_arrow-up-line.png");
+    background-color: transparent;
+    border: none;
 }
 </style>
