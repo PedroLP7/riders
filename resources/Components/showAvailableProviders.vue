@@ -65,10 +65,14 @@ const dataSteps = {
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="!showMessage">Confirmación de su reserva</h1>
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="showMessage">Estado de su reserva</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="!showMessage">Confirmación
+                                    de su reserva</h1>
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="showMessage">Estado de su
+                                    reserva</h1>
+                                  <div  @click="stepProgress.stepZero">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                      @click="returnToInitialState()"></button>
+                                  </div>
                                 </div>
                                 <div class="modal-body">
                                   <div v-if="!this.showMessage">
@@ -94,13 +98,13 @@ const dataSteps = {
                                   </div>
                                   <div v-if="this.showMessage">
 
-                                    <div v-if="this.messageType == 'insert'" class="alert alert-success" role="alert">
+                                    <div v-if="this.messageType == 'i'" class="alert alert-success" role="alert">
                                       Su reserva ha sido tramitada correctamente
                                     </div>
-                                    
-                                      <div v-if="this.messageType == 'e'" class="alert alert-danger" role="alert">
+
+                                    <div v-if="this.messageType == 'e'" class="alert alert-danger" role="alert">
                                       Su reserva no ha podido ser tramitada, vuelva a probar mas tarde.
-                                   
+
                                     </div>
                                   </div>
                                 </div>
@@ -187,7 +191,9 @@ export default {
         this.idSelectedMenu = null,
         this.showMenu = false,
         this.showQuantity = false,
-        this.recievedQuantity = null
+        this.recievedQuantity = null,
+        this.showMessage = false,
+        this.messageType = 0
 
 
     },

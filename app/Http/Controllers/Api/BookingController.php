@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BookingResource;
 use Illuminate\Database\QueryException;
+use Response;
 
 class BookingController extends Controller
 {
@@ -51,9 +52,7 @@ class BookingController extends Controller
 
         try {
             $booking->save();
-            $response = response()->json(['bien insertado'], 200)
-                ->response()
-                ->setStatusCode(201);
+            $response = response()->json(['bien insertado'], 200);
         } catch (QueryException $ex) {
             $mensaje = Utilidad::errorMessage($ex);
             $response = response()->json(['error' => $mensaje], 400);
