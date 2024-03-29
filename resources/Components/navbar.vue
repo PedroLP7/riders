@@ -185,7 +185,7 @@ props:{
 
 <style>
     :root {
-    --background-color: #000000;
+    --background-color: #000000d1;
     --text-selected: #000000;
     --text-unselected: #8F8F8F;
     --accent-color: #8BB481;
@@ -197,6 +197,7 @@ props:{
         align-items: center;
         justify-content: center;
         background-color: var(--background-color);
+        backdrop-filter: blur(9px);
         overflow: hidden;
         border-radius: 50px;
     }

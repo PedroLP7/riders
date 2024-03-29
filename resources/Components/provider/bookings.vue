@@ -1,8 +1,8 @@
 <template>
+  <div v-if="bookings !== null && usuario !== null" class="container" >
     <h1 id="titulo-bookings">Pedidos en curso</h1>
-
-    <div v-if="bookings !== null && usuario !== null" id="container-bookings">
-      <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
+    <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
+      <div class="cards-container-bookings">
         <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
 
           <div class="card-header" id="booking-card-header">
@@ -13,46 +13,58 @@
           </div>
 
           <div class="card-body" id="booking-card-body">
-            <div v-if="booking.provider && booking.provider.user">
-              <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
-            </div>
-            <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-              <div> <b>Menu: </b> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }} </div>
-            </div>
-            <div v-if="booking.status && booking.status.status_name">
-              <div> <b> Estado: </b> {{ booking.status.status_name }} </div>
-            </div>
-            <div v-else>No DATA</div>
-            <!-- if rider  -->
-            <div v-if="usuario.user_type_id == 2">
-              <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
+            <div class="info-pack-tracking">
+              <!-- <div v-if="booking.provider && booking.provider.user">
+                <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
+              </div> -->
 
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
-              {{ buttonContent(booking.status.id_status) }}
-              </button>
-            </div>
-            <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
-              <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
-                sin-techo</button>
-            </div>
-            </div>
-            <!-- if provider -->
-            <div v-else>
-              <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
+              <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+                <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }} </div>
+              </div>
 
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
-                {{buttonContent(booking.status.id_status)}}</button>
+              <div v-if="booking.status && booking.status.status_name">
+                <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+              </div>
+
+              <div v-else>No DATA</div>
+            </div>
+
+            <div class="alerta-estado-rider">
+              <!-- if rider  -->
+              <div v-if="usuario.user_type_id == 2">
+                <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
+
+                <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                {{ buttonContent(booking.status.id_status) }}
+                </button>
+              </div>
+              <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
+                <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
+                  sin-techo</button>
+              </div>
+              </div>
+              <!-- if provider -->
+              <div v-else>
+                <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
+
+                <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                  {{buttonContent(booking.status.id_status)}}</button>
+              </div>
             </div>
 
             </div>
           </div>
 
         </div>
+    </div>
+  </div>
+  <!-- </div> -->
+
+  <div class="container-navbar-inferior">
+      <div class="container" id="navbar">
+          <navbar v-if="showComponente" />
       </div>
-    <!-- </div> -->
-        <div class="container" id="navbar">
-        <navbar v-if="showComponente" />
-        </div>
+  </div>
 
 </template>
 
@@ -61,158 +73,189 @@ import axios from 'axios';
 import navbar from '../../Components/navbar.vue'
 
 export default {
-    name: 'bookings',
-    components: {
+  name: 'bookings',
+  components: {
 
-         navbar
-    },
-  data() {
-    return {
-      bookings: null,
-      usuario: null,
-      type: null,
-    showComponente: true,
-    };
+       navbar
   },
+data() {
+  return {
+    bookings: null,
+    usuario: null,
+    type: null,
+  showComponente: true,
+  };
+},
 
-  created() {
+created() {
 
-        this.fetchBookings();
+      this.fetchBookings();
 
+
+
+},
+methods: {
+  fetchBookings() {
+    const me = this;
+
+    axios.get('/usuario/getUsuario')
+      .then(response => {
+        console.log(response)
+        me.usuario = response.data
+
+        axios.get('/booking/showBookingByUserId/' + me.usuario.id_user )
+          .then(response => {
+            console.log(response)
+            me.bookings = response.data
+
+          })
+          .catch(error => {
+            console.error('Error fetching user data', error);
+          });
+
+      })
+      .catch(error => {
+        console.error('Error fetching booking data', error);
+      });
 
 
   },
-  methods: {
-    fetchBookings() {
-      const me = this;
+  sendPostRequest(id, cancelButton) {
+    const me = this;
+    let postData;
+    for (let index = 0; index < me.bookings.length; index++) {
 
-      axios.get('/usuario/getUsuario')
-        .then(response => {
-          console.log(response)
-          me.usuario = response.data
-
-          axios.get('/booking/showBookingByUserId/' + me.usuario.id_user )
-            .then(response => {
-              console.log(response)
-              me.bookings = response.data
-
-            })
-            .catch(error => {
-              console.error('Error fetching user data', error);
-            });
-
-        })
-        .catch(error => {
-          console.error('Error fetching booking data', error);
-        });
-
-
-    },
-    sendPostRequest(id, cancelButton) {
-      const me = this;
-      let postData;
-      for (let index = 0; index < me.bookings.length; index++) {
-
-        if (me.bookings[index].id_booking == id) {
-          if (me.bookings[index].id_status_fk == 1) {
-            me.bookings[index].id_status_fk = 2;
-          } else if (me.bookings[index].id_status_fk == 2) {
-            me.bookings[index].id_status_fk = 3;
-          }
-
-          if (cancelButton) {
-            me.bookings[index].id_status_fk = 4;
-          }
-          postData = me.bookings[index];
+      if (me.bookings[index].id_booking == id) {
+        if (me.bookings[index].id_status_fk == 1) {
+          me.bookings[index].id_status_fk = 2;
+        } else if (me.bookings[index].id_status_fk == 2) {
+          me.bookings[index].id_status_fk = 3;
         }
 
+        if (cancelButton) {
+          me.bookings[index].id_status_fk = 4;
+        }
+        postData = me.bookings[index];
       }
 
+    }
 
-      console.log(postData);
 
-      
-      axios.put('/booking/' + id, postData, id)
-        .then(response => {
-          console.log('PUT request successful', response);
-          this.fetchBookings();
-          
-        })
-        .catch(error => {
-          console.error('Error making PUT request', error);
-          // Handle the error
+    console.log(postData);
 
-        });
-      this.reloadComponent();
-    },
-    reloadComponent() {
-      this.$forceUpdate();
-      this.fetchBookings(); 
-    },
-    buttonContent(id) {
-      
-      if (id === 1) {
-        return 'El rider ha llegado';
-      } else if (id === 2) {
-        return 'Entregar';
-      } else if (id === 4) {
-        return 'Default Button Content';
-      }
-    },
+    
+    axios.put('/booking/' + id, postData, id)
+      .then(response => {
+        console.log('PUT request successful', response);
+        this.fetchBookings();
+        
+      })
+      .catch(error => {
+        console.error('Error making PUT request', error);
+        // Handle the error
+
+      });
+    this.reloadComponent();
   },
+  reloadComponent() {
+    this.$forceUpdate();
+    this.fetchBookings(); 
+  },
+  buttonContent(id) {
+    
+    if (id === 1) {
+      return 'El rider ha llegado';
+    } else if (id === 2) {
+      return 'Entregar';
+    } else if (id === 4) {
+      return 'Default Button Content';
+    }
+  },
+},
 };
 </script>
 
 <style>
-  #titulo-bookings {
-    width: 100%;
-    color: #8F8F8F;
-    font-weight: bold;
-    margin-top: 20%;
-    margin-left: 2%;
-  }
+.cards-container-bookings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
 
-  #container-bookings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 20%;
-    width: 100%;
-  }
+.container-navbar-inferior {
+  height: 100px;
+}
 
-  #booking-card {
-    background-color: #393939;
-    border: none;
-    width: 90%;
-    margin-top: 10px;
-    --bs-card-bg: none;
-    border-radius: 26px;
-  }
+#titulo-bookings {
+  width: 100%;
+  color: #8F8F8F;
+  font-weight: bold;
+  margin-top: 20%;
+  margin-left: 2%;
+}
 
-  #booking-card-header {
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+#container-bookings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 20%;
+  width: 100%;
+}
 
-  #booking-card-body {
-    background-color: transparent;
-    border-top-style: dashed;
-    border-width: 1px;
-    border-color: #8F8F8F;
-  }
+#booking-card {
+  background-color: #393939;
+  border: none;
+  width: 95%;
+  margin-top: 10px;
+  --bs-card-bg: none;
+  border-radius: 26px;
+}
 
-  #titulo-card-booking {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 28px;
-  }
+#booking-card-header {
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  #subtitulo-card-booking {
-    color: #8F8F8F;
-    font-size: 15px;
-  }
+#booking-card-body {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-top-style: dashed;
+  border-width: 2px;
+  border-color: #8F8F8F;
+  padding: 20px;
+}
+
+.info-pack-tracking {
+  display: flex;
+  justify-content: space-between;
+  color: #8F8F8F;
+}
+
+.info-pack-tracking b{
+  font-size: 22px;
+}
+
+.alerta-estado-rider {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#titulo-card-booking {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 28px;
+}
+
+#subtitulo-card-booking {
+  color: #8F8F8F;
+  font-size: 15px;
+}
 
 </style>

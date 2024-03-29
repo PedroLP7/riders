@@ -169,8 +169,8 @@ body {
     z-index: 999;
     border: none;
     border-radius: 19px;
-    background-color: #8bb481ba;
-    backdrop-filter: blur(3px);
+    background-color: #8bb4818f;
+    backdrop-filter: blur(9px);
     color: #1E1E1E;
     font-weight: bold;
     font-size: 24px;
@@ -187,11 +187,12 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: 5%;
 }
 
 #card-showPack {
     background-color: transparent;
-    width: 90%;
+    width: 95%;
     height: 129px;
     flex-direction: row;
     --bs-card-spacer-y: 0;
