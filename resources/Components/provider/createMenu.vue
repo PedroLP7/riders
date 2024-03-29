@@ -229,6 +229,7 @@ export default {
 .form-control:focus {
     border-color: #8BB481;
     box-shadow: inset 0 0 4px #8bb481, 0 0 4px #8bb481;
+    transition: ease-out 0.8s;
 }
 
 #boton-confirmar {
