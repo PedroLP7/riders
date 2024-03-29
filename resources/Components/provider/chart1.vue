@@ -1,4 +1,7 @@
 <template>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <div>
       <canvas ref="chartCanvas"></canvas>
     </div>
@@ -11,54 +14,55 @@ export default {
   mounted() {
     // Datos para el gráfico
     const chartData = {
-      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      labels: ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
       datasets: [{
-        label: 'Pedidos por mes',
-        data: [120, 150, 180, 200, 250, 280, 300, 280, 250, 220, 180, 150], // Datos ficticios para cada mes
+        data: [120, 200, 140, 300, 250, 180, 400, 280, 350, 320, 180, 250], // Datos ficticios para cada mes
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          '#B4DAAA'
+
         ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 2
+        borderRadius: 10,
+        barThickness: 15
       }]
     };
 
     // Opciones para el gráfico
     const options = {
+      plugins: {
+        title: {
+          display: false // Desactiva la visualización del título
+        },
+        legend: {
+          display: false // Desactiva la visualización de la leyenda
+        },
+        
+      },
       scales: {
         x :{
             ticks: {
             font: {
-              size: 5 // Tamaño de la fuente de los meses
+              family: 'Outfit', // Fuente de los meses
+              weight: 'bold', // Peso de la fuente de los meses
+              size: 15 // Tamaño de la fuente de los meses
             }
         }
     },
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          ticks: {
+            font: {
+              family: 'Outfit',
+              weight: 'bold', 
+              size: 15 
+            }
+          },
+        }
+      },
+      
+      elements: {
+        bar: {
+          borderRadius: 10, // Radio de borde general
+          borderSkipped: '' // Aplica el radio de borde solo en la parte inferior de las barras
         }
       }
     };
