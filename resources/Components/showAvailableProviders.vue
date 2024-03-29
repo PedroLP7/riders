@@ -15,8 +15,10 @@ const dataSteps = {
       <stepProgressBar :data="dataSteps" ref="stepProgress" />
       <div v-if="this.showPreviousButton" @click="returnToInitialState()">
         <button @click="stepProgress.previousStep">Previous Step</button>
+
       </div>
-    
+      <button @click="stepProgress.nextStep">Next Step</button>
+
     </div>
   </div>
 
@@ -63,32 +65,47 @@ const dataSteps = {
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmación de su reserva</h1>
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="!showMessage">Confirmación de su reserva</h1>
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="showMessage">Estado de su reserva</h1>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                  <h2>Su reserva está a punto de ser confirmada</h2>
-                                  <h2>Pack seleccionado:</h2>
-                                  <provider :id="this.idSelectedProvider" :id_menu_selected="this.idSelectedMenu"
-                                    :find="true" @selectedM="handleSelectedMenu" />
-                                  <h2>Restaurante seleccionado:</h2>
-                                  <div v-for="prov in providers">
-                                    <div v-if="this.idSelectedProvider == prov.id_user">
-                                      <div class="card" :key="prov.id_user" style="width: 300px;">
-                                        <img src="../images/resto.jpeg" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                          <h5 v-if="idSelectedProvider">provider:</h5>
-                                          <h5 class="card-title">{{ prov.real_name }}</h5>
-                                          <p class="card-text">Direccion: {{
+                                  <div v-if="!this.showMessage">
+                                    <h2>Su reserva está a punto de ser confirmada</h2>
+                                    <h2>Pack seleccionado:</h2>
+                                    <provider :id="this.idSelectedProvider" :id_menu_selected="this.idSelectedMenu"
+                                      :find="true" @selectedM="handleSelectedMenu" />
+                                    <h2>Restaurante seleccionado:</h2>
+                                    <div v-for=" prov  in  providers ">
+                                      <div v-if="this.idSelectedProvider == prov.id_user">
+                                        <div class="card" :key="prov.id_user" style="width: 300px;">
+                                          <img src="../images/resto.jpeg" class="card-img-top" alt="...">
+                                          <div class="card-body">
+                                            <h5 v-if="idSelectedProvider">provider:</h5>
+                                            <h5 class="card-title">{{ prov.real_name }}</h5>
+                                            <p class="card-text">Direccion: {{
         prov.provider.adress }}</p>
 
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
+                                  <div v-if="this.showMessage">
+
+                                    <div v-if="this.messageType == 'insert'" class="alert alert-success" role="alert">
+                                      Su reserva ha sido tramitada correctamente
+                                    </div>
+                                    
+                                      <div v-if="this.messageType == 'e'" class="alert alert-danger" role="alert">
+                                      Su reserva no ha podido ser tramitada, vuelva a probar mas tarde.
+                                   
+                                    </div>
+                                  </div>
                                 </div>
-                                <div class="modal-footer">
+
+                                <div v-if="!showMessage" class="modal-footer">
                                   <button @click="stepProgress.stepZero" style="border: none; background-color: none;">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                       @click="returnToInitialState()">Cancelar</button>
@@ -96,6 +113,7 @@ const dataSteps = {
                                   <button type="button" class="btn btn-primary"
                                     @click="createBooking()">Confirmar</button>
                                 </div>
+
                               </div>
                             </div>
                           </div>
@@ -142,6 +160,8 @@ export default {
       recievedQuantity: null,
       showPreviousButton: false,
       usuario: null,
+      showMessage: false,
+      messageType: false,
       booking: {
         id_rider_fk: "",
         id_provider_fk: "",
@@ -159,7 +179,7 @@ export default {
   },
 
   methods: {
-    hidePreviousButton(){
+    hidePreviousButton() {
       this.showPreviousButton = false;
     },
     returnToInitialState() {
@@ -168,7 +188,7 @@ export default {
         this.showMenu = false,
         this.showQuantity = false,
         this.recievedQuantity = null
-      this.dataSteps.currentStep = 1
+
 
     },
     fetchUser() {
@@ -200,9 +220,13 @@ export default {
         .then(response => {
           console.log('Booking created successfully:', response.data);
           // Do something with the response if needed
+          me.messageType = "i";
+          me.showMessage = true;
         })
         .catch(error => {
           console.error('Error creating booking:', error);
+          me.messageType = "e";
+          me.showMessage = true;
         });
 
     },
@@ -225,9 +249,11 @@ export default {
         .then(response => {
           console.log(response);
           this.providers = response.data;
+
         })
         .catch(error => {
           console.error('Error fetching user type', error);
+
         });
     },
     handleQuantityUpdated(quantity) {

@@ -14,8 +14,10 @@ const cssStyle = computed(() => {
     };
 })
 const nextStep = () => {
-    if (data.value.currentStep < 3) { }
-    data.value.currentStep++;
+    if (data.value.currentStep < data.value.steps.length) {
+        data.value.currentStep++;
+     }
+    
 };
 
 const previousStep = () => {
@@ -92,13 +94,13 @@ defineExpose({
 
 .step-done-icon {
     display: none;
-    color: #fff;
     width: 30px;
     height: 30px;
 }
 
 .step-done .step-done-icon {
     display: block;
+   
 }
 
 .step-line {
