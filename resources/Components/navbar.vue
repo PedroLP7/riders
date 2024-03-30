@@ -126,23 +126,27 @@ props:{
         },
 
         riderHomeRoute() {
-                // window.location.href = "/riders/public/rider/home";
+                window.location.href = "/riders/public/rider/home";
                 this.isRiderHome = true;
             },
             riderSearchRoute() {
-                // window.location.href = "/riders/public/rider/search";
+                window.location.href = "/riders/public/viewProviders";
                 this.isRiderSearch = true;
             },
             riderSavedRoute() {
-                // window.location.href = "/riders/public/rider/saved";
+                window.location.href = "/riders/public/rider/saved";
                 this.isRiderSaved = true;
             },
             riderProfileRoute() {
-                // window.location.href = "/riders/public/rider/profile";
+                window.location.href = "/riders/public/rider/profile";
                 this.isRiderProfile = true;
             },
+
+
+
             providerHomeRoute() {
                 window.location.href = "/riders/public/provider/home";
+                
                 this.isProviderHome = true;
 
 
