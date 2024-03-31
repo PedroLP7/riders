@@ -52,9 +52,9 @@
                     v-model="cantidad.pivot.quantity"
                     placeholder="nº Packs"
                 />
-                <div class="button-container d-inline-block" id="buton-container-confirmar">
+                <div class="button-container d-inline-block" id="boton-container-confirmar">
                     <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar">Editar</button>
-                    <!-- <button id="sombraBoton">Editar</button> -->
+                    <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar-sombra">Editar</button>
                 </div>
             </div>
         </form>
@@ -285,9 +285,9 @@ export default {
 
 #boton-confirmar {
     background-color: #8BB481;
-    height: 70px;
+    height: 67px;
     color: white;
-    border: 3px solid #393939;
+    border: 3px solid #000000;
     border-radius: 40px;
     font-family: 'Outfit', sans-serif;
     font-weight: bold;
@@ -298,7 +298,25 @@ export default {
     width: 100%;
 }
 
-#buton-container-confirmar {
+#boton-confirmar-sombra {
+    position: absolute;
+    background-color: #677F61;
+    height: 70px;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 0;
+    width: 100%;
+    left: -0.6%;
+    top: 0%;
+}
+
+#boton-container-confirmar {
+    position: relative;
     width: 52%;
 }
 
