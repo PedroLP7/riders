@@ -311,8 +311,8 @@ export default {
     cursor: pointer;
     z-index: 0;
     width: 100%;
-    left: -0.6%;
-    top: 0%;
+    top: 1%;
+    left: -1%;
 }
 
 #boton-container-confirmar {
