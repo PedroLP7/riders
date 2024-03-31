@@ -23,8 +23,9 @@
             <div class="bottom-container">
                 <input type="number" class="form-control" id="pack-quantity" name="quantity" v-model="menu.quantity" min="1" step="1" placeholder="nº Packs" required>
                 
-                <div class="button-container d-inline-block" id="buton-container-confirmar">
-                    <button type="button" @click="createMenu()" class="btn btn-primary" id="boton-confirmar">Crear</button>
+                <div class="button-container d-inline-block" id="boton-container-confirmar">
+                    <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar">Crear</button>
+                    <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar-sombra">Crear</button>
                 </div>
             </div>
         </form>
@@ -234,9 +235,9 @@ export default {
 
 #boton-confirmar {
     background-color: #8BB481;
-    height: 70px;
+    height: 67px;
     color: white;
-    border: 3px solid #393939;
+    border: 3px solid #000000;
     border-radius: 40px;
     font-family: 'Outfit', sans-serif;
     font-weight: bold;
@@ -247,7 +248,25 @@ export default {
     width: 100%;
 }
 
-#buton-container-confirmar {
+#boton-confirmar-sombra {
+    position: absolute;
+    background-color: #677F61;
+    height: 70px;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 0;
+    width: 100%;
+    top: 1%;
+    left: -1%;
+}
+
+#boton-container-confirmar {
+    position: relative;
     width: 52%;
 }
 
