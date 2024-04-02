@@ -15,7 +15,7 @@
                         v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
 
 
-                        <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus">
+                        <div class="card mt-3" id="card-showPack" >
                             <div class="quantityBubble">
                                 {{ menu.pivot.quantity }}
                             </div>
