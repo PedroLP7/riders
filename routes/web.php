@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CustomerController;
 
@@ -103,6 +104,9 @@ Route::middleware(['auth'])->group(function () {
         return view('provider.editMenu',compact('idMenu'));
     });
 
+    route::get('/rider/viewMenu/{idProvider}', function($idProvider){
+        return view('rider.viewProvidersMenus',compact('idProvider'));
+    });
 
 
     });

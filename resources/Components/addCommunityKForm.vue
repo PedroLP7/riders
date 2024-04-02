@@ -1,6 +1,6 @@
 <template>
     <div>
-      <form @submit.prevent="insertRider">
+      <form @submit.prevent="insertKitchen">
         <div class="form-group">
           <label for="userName">Nombre de usuario</label>
           <input
@@ -133,7 +133,7 @@
       };
     },
     methods: {
-      insertRider() {
+      insertKitchen() {
         // Implement your logic to insert rider here
         const me = this;
 

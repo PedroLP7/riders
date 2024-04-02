@@ -2,18 +2,23 @@
     <div class="container " id="menus">
 
 
-        <h1 id="titulo">Packs disponibles</h1>
+        <h1 id="titulo" v-if="!this.id_menu_selected">Packs disponibles</h1>
 
-        <button class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
+        <button v-if="!this.id" class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
 
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
         <div id="cards-container-showPack">
+            <div v-if="user">
+                <div v-for="menu in user.provider.menus">
+                    <div class="card mt-3" id="card-showPack"
+                        v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
 
-            <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus">
+
+            <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus" >
                 <div class="quantityBubble">
                     {{ menu.pivot.quantity }}
                 </div>
-                <div class="card-body" id="card-body-showPack">
+                <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)>
                     <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
                     <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
                     <div class="contenedor-texto">
@@ -28,16 +33,16 @@
                 <button @click="editMenu(menu.id_menu)" class="btn btn-primary" id="botonEditar">Editar</button>
                 <button class="btn btn-primary" id="botonEliminar">Eliminar</button>    
 
-            </div>
 
+            </div>
         </div>
     </div>
 
     <div class="container-parte-inferior">
-        <div class="container" id="bookings">
-            <bookings v-if="showBookings" :usuario="idUser"/>
+        <div class="container" id="bookings" v-if="!this.id">
+            <bookings v-if="showBookings" :usuario="idUser" />
         </div>
-        <div class="container" id="navbar">
+        <div class="container" id="navbar" v-if="!this.id">
             <navbar v-if="showComponente" />
         </div>
     </div>
@@ -57,14 +62,18 @@ export default {
         bookings,
         navbar
     },
+    props: {
+        id: Number,
+        id_menu_selected: Number,
+    },
     data() {
         return {
-            user: {},
-
+            user: null,
             showComponente: true,
-
             userp: {},
-
+            provider: null,
+            menus: null,
+            selectedMenu: null,
         }
     },
     created() {
@@ -74,7 +83,14 @@ export default {
     methods: {
         getProvider() {
             const me = this;
-            const idUser = me.userp.id_user
+            let idUser;
+            if (me.id) {
+                console.log("child component provider id to search: " + me.id)
+                idUser = me.id
+            } else {
+                idUser = me.userp.id_user
+            }
+
             axios.get('provider/' + idUser)
                 .then(response => {
                     me.user = response.data
@@ -99,16 +115,19 @@ export default {
                     console.log(error)
                 })
         },
+        selectMenu(id_menu) {
+            this.selectedMenu = id_menu;
+            console.log("My selected menu:" + this.selectedMenu)
 
-
+        },
         showCreateMenu() {
             window.location.href = "createMenu";
             console.log('crear menu');
         },
         editMenu(menuId) {
-    window.location.href = `editMenu/${menuId}`;
-    console.log('editar menu');
-},
+            window.location.href = `editMenu/${menuId}`;
+            console.log('editar menu');
+        },
 
 
     },
@@ -323,6 +342,10 @@ body {
     border-color: none;
 }
 
+
+card-body:active {
+    border-color: #8BB481 1px;
+
 #botonEliminar {
     display: flex;
     justify-content: center;
@@ -346,5 +369,6 @@ body {
     color: #1E1E1E;
     background-color: #8BB481;
     border-color: none;
+
 }
 </style>
