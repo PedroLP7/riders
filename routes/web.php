@@ -25,6 +25,9 @@ Route::get('/', function () {
 
 
 
+route::get('/prueba', function(){
+    return view('adminZone.admin');
+});
 
 
 
@@ -116,6 +119,12 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+
     route::get('/provider/chart', function(){
         return view('provider.chart');
     });
+
+
+
+
+
