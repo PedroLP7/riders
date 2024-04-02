@@ -7,7 +7,7 @@
 
           <div class="card-header" id="booking-card-header">
             <div v-if="booking.rider && booking.rider.user">
-              <div id="titulo-card-booking">Rider: {{ booking.rider.user.real_name }} </div>
+              <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name}} </div>
             </div>
             <h5 id="subtitulo-card-booking">Booking {{ booking.id_booking }}</h5>
           </div>
@@ -143,12 +143,12 @@ methods: {
 
     console.log(postData);
 
-    
+
     axios.put('/booking/' + id, postData, id)
       .then(response => {
         console.log('PUT request successful', response);
         this.fetchBookings();
-        
+
       })
       .catch(error => {
         console.error('Error making PUT request', error);
@@ -159,10 +159,10 @@ methods: {
   },
   reloadComponent() {
     this.$forceUpdate();
-    this.fetchBookings(); 
+    this.fetchBookings();
   },
   buttonContent(id) {
-    
+
     if (id === 1) {
       return 'El rider ha llegado';
     } else if (id === 2) {
