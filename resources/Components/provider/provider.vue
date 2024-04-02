@@ -4,7 +4,8 @@
 
         <h1 id="titulo" v-if="!this.id_menu_selected">Packs disponibles</h1>
 
-        <button v-if="!this.id" class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear Pack</button>
+        <button v-if="!this.id" class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear
+            Pack</button>
 
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
         <div id="cards-container-showPack">
@@ -14,36 +15,41 @@
                         v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
 
 
-            <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus" >
-                <div class="quantityBubble">
-                    {{ menu.pivot.quantity }}
-                </div>
-                <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)>
-                    <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
-                    <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
-                    <div class="contenedor-texto">
-                        <p class="card-text" id="card-text-showPack">
-                        Este pack incluye: {{ menu.item1 }}, {{ menu.item2 }}, {{ menu.item3 }}
+                        <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus">
+                            <div class="quantityBubble">
+                                {{ menu.pivot.quantity }}
+                            </div>
+                            <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)">
+                                <img src="../../images/menu.png" class="card-img-top" alt="imgmenu"
+                                    id="imgmenu-showPack">
+                                <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
+                                <div class="contenedor-texto">
+                                    <p class="card-text" id="card-text-showPack">
+                                        Este pack incluye: {{ menu.item1 }}, {{ menu.item2 }}, {{ menu.item3 }}
 
-                        <!-- id : {{  idUser }} -->
-                        </p>
+                                        <!-- id : {{  idUser }} -->
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button @click="editMenu(menu.id_menu)" class="btn btn-primary"
+                                id="botonEditar">Editar</button>
+                            <button class="btn btn-primary" id="botonEliminar">Eliminar</button>
+
+
+                        </div>
                     </div>
                 </div>
 
-                <button @click="editMenu(menu.id_menu)" class="btn btn-primary" id="botonEditar">Editar</button>
-                <button class="btn btn-primary" id="botonEliminar">Eliminar</button>    
-
-
+                <div class="container-parte-inferior">
+                    <div class="container" id="bookings" v-if="!this.id">
+                        <bookings v-if="showBookings" :usuario="idUser" />
+                    </div>
+                    <div class="container" id="navbar" v-if="!this.id">
+                        <navbar v-if="showComponente" />
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container-parte-inferior">
-        <div class="container" id="bookings" v-if="!this.id">
-            <bookings v-if="showBookings" :usuario="idUser" />
-        </div>
-        <div class="container" id="navbar" v-if="!this.id">
-            <navbar v-if="showComponente" />
         </div>
     </div>
 
@@ -286,9 +292,9 @@ body {
 }
 
 #card-text-showPack {
-  text-overflow: ellipsis;
-  color: #8F8F8F;
-  font-size: 15px;
+    text-overflow: ellipsis;
+    color: #8F8F8F;
+    font-size: 15px;
 }
 
 @media (max-width: 412px) {
@@ -343,8 +349,9 @@ body {
 }
 
 
-card-body:active {
+.card-body:active {
     border-color: #8BB481 1px;
+}
 
 #botonEliminar {
     display: flex;
