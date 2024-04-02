@@ -109,11 +109,11 @@ props:{
             this.currentPageId = id;
 
             if (id === 1) {
-                this.homeRoute();
+                this.riderHomeRoute();
             } else if (id === 2) {
-                this.searchRoute();
+                this.riderSearchRoute();
             } else if (id === 3) {
-                this.savedRoute();
+                this.riderSavedRoute();
             } else if (id === 4) {
                 this.profileRoute();
             } else if (id === 5) {
@@ -130,7 +130,7 @@ props:{
                 this.isRiderHome = true;
             },
             riderSearchRoute() {
-                window.location.href = "/riders/public/viewProviders";
+                window.location.href = "/riders/public/rider/viewProviders";
                 this.isRiderSearch = true;
             },
             riderSavedRoute() {

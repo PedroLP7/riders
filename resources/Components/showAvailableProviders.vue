@@ -42,6 +42,7 @@ const dataSteps = {
                       </div>
                     </div>
                   </div>
+
                   <div v-if="showMenu">
                     <div class="card">
                       <div class="card-body">
@@ -60,6 +61,7 @@ const dataSteps = {
                               Reservar
                             </button>
                           </div>
+
                           <!-- Modal -->
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
@@ -129,6 +131,7 @@ const dataSteps = {
                 </div>
               </div>
             </div>
+            <navbar />
           </div>
         </div>
       </div>
@@ -148,13 +151,14 @@ const dataSteps = {
 import axios from 'axios';
 import provider from './provider/provider.vue'
 import quantity from './quantity.vue'
-
+import navbar from './navbar.vue';
 
 export default {
   components: {
     provider,
     stepProgressBar,
-    quantity
+    quantity,
+    navbar
   },
   data() {
     return {

@@ -76,7 +76,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
 
-    route::get('/viewProviders', function(){
+    route::get('/rider/viewProviders', function(){
         return view('rider.viewProvider');
     });
 
