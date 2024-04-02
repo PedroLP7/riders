@@ -15,10 +15,11 @@
                         v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
 
 
-                        <div class="card mt-3" id="card-showPack" >
+                        <div class="card mt-3" id="card-showPack">
                             <div class="quantityBubble">
                                 {{ menu.pivot.quantity }}
                             </div>
+
                             <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)">
                                 <img src="../../images/menu.png" class="card-img-top" alt="imgmenu"
                                     id="imgmenu-showPack">
@@ -32,9 +33,9 @@
                                 </div>
                             </div>
 
-                            <button @click="editMenu(menu.id_menu)" class="btn btn-primary"
+                            <button v-if="!this.id" @click="editMenu(menu.id_menu)" class="btn btn-primary"
                                 id="botonEditar">Editar</button>
-                            <button class="btn btn-primary" id="botonEliminar">Eliminar</button>
+                            <button v-if="!this.id" class="btn btn-primary" id="botonEliminar">Eliminar</button>
 
 
                         </div>
@@ -50,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 
 </template>
