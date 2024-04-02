@@ -34,9 +34,13 @@
 import mapboxgl from 'mapbox-gl';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import navbar from './navbar.vue';
+import navbar from '../Components/navbar.vue';
 
 export default {
+  name: 'Map',
+  components: {
+    navbar
+    },
 
   data() {
     return {

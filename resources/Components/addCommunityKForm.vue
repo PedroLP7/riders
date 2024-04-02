@@ -98,12 +98,24 @@
         <button type="button" class="btn btn-secondary" @click="showRiderForm = false">Cancelar</button>
       </form>
     </div>
+
+
+      <div class="container" id="navbar">
+          <navbar v-if="showComponente" />
+      </div>
   </template>
   
   <script>
   import axios from 'axios';
+  import navbar from '../Components/navbar.vue';
+  
   export default {
     name: "HomePage",
+
+    components: {
+      navbar
+    },
+
     data() {
       return {
         usuario: {

@@ -126,23 +126,27 @@ props:{
         },
 
         riderHomeRoute() {
-                // window.location.href = "/riders/public/rider/home";
+                window.location.href = "/riders/public/rider/home";
                 this.isRiderHome = true;
             },
             riderSearchRoute() {
-                // window.location.href = "/riders/public/rider/search";
+                window.location.href = "/riders/public/viewProviders";
                 this.isRiderSearch = true;
             },
             riderSavedRoute() {
-                // window.location.href = "/riders/public/rider/saved";
+                window.location.href = "/riders/public/rider/saved";
                 this.isRiderSaved = true;
             },
             riderProfileRoute() {
-                // window.location.href = "/riders/public/rider/profile";
+                window.location.href = "/riders/public/rider/profile";
                 this.isRiderProfile = true;
             },
+
+
+
             providerHomeRoute() {
                 window.location.href = "/riders/public/provider/home";
+                
                 this.isProviderHome = true;
 
 
@@ -185,7 +189,7 @@ props:{
 
 <style>
     :root {
-    --background-color: #000000;
+    --background-color: #000000d1;
     --text-selected: #000000;
     --text-unselected: #8F8F8F;
     --accent-color: #8BB481;
@@ -197,6 +201,7 @@ props:{
         align-items: center;
         justify-content: center;
         background-color: var(--background-color);
+        backdrop-filter: blur(9px);
         overflow: hidden;
         border-radius: 50px;
     }

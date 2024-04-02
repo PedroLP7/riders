@@ -13,29 +13,27 @@
                     <div class="card mt-3" id="card-showPack"
                         v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
 
-                        <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)">
-                            <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
-                            <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
-                            <p class="card-text" id="card-text-showPack">
-                                item1 :{{ menu.item1 }}
 
-                                item 2 :{{ menu.item2 }}
+            <div class="card mt-3" id="card-showPack" v-for="menu in user.provider.menus" >
+                <div class="quantityBubble">
+                    {{ menu.pivot.quantity }}
+                </div>
+                <div class="card-body" id="card-body-showPack" @click="$emit('selectedM', menu.id_menu)>
+                    <img src="../../images/menu.png" class="card-img-top" alt="imgmenu" id="imgmenu-showPack">
+                    <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
+                    <div class="contenedor-texto">
+                        <p class="card-text" id="card-text-showPack">
+                        Este pack incluye: {{ menu.item1 }}, {{ menu.item2 }}, {{ menu.item3 }}
 
-                                item 3 :{{ menu.item3 }}
-
-                                cantidad : {{ menu.pivot.quantity }}
-                                <!-- preguntar a pedro si esto puede estar en otra parte -->
-
-                                <!-- id : {{  idUser }} -->
-                            </p>
-
-
-                        </div>
-                        <button v-if="!this.id" @click="editMenu(menu.id_menu)" class="btn btn-primary"
-                            id="botonEditar">Editar</button>
-
+                        <!-- id : {{  idUser }} -->
+                        </p>
                     </div>
                 </div>
+
+                <button @click="editMenu(menu.id_menu)" class="btn btn-primary" id="botonEditar">Editar</button>
+                <button class="btn btn-primary" id="botonEliminar">Eliminar</button>    
+
+
             </div>
         </div>
     </div>
@@ -174,6 +172,8 @@ body {
 #titulo {
     color: #8F8F8F;
     font-weight: bold;
+    margin-top: 20%;
+    margin-left: 2%;
 }
 
 #crearPack {
@@ -188,8 +188,8 @@ body {
     z-index: 999;
     border: none;
     border-radius: 19px;
-    background-color: #8bb481ba;
-    backdrop-filter: blur(3px);
+    background-color: #8bb4818f;
+    backdrop-filter: blur(9px);
     color: #1E1E1E;
     font-weight: bold;
     font-size: 24px;
@@ -206,11 +206,12 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: 5%;
 }
 
 #card-showPack {
-    background-color: #393939;
-    width: 90%;
+    background-color: transparent;
+    width: 95%;
     height: 129px;
     flex-direction: row;
     --bs-card-spacer-y: 0;
@@ -220,6 +221,21 @@ body {
     border-radius: 26px;
     margin-right: 7px;
     margin-left: 7px;
+}
+
+.quantityBubble {
+    position: absolute;
+    background-color: #8BB481;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 100%;
+    right: -10px;
+    top: -10px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .mt-3 {
@@ -255,7 +271,11 @@ body {
     margin-left: 15px;
 }
 
-#card-text-showPack {
+.contenedor-texto {
+    display: block;
+    height: 35%;
+    width: 50%;
+    overflow: hidden;
     position: absolute;
     left: 44%;
     top: 43px;
@@ -263,6 +283,12 @@ body {
     font-size: 15px;
     margin-left: 15px;
     margin-right: 30px;
+}
+
+#card-text-showPack {
+  text-overflow: ellipsis;
+  color: #8F8F8F;
+  font-size: 15px;
 }
 
 @media (max-width: 412px) {
@@ -316,7 +342,33 @@ body {
     border-color: none;
 }
 
+
 card-body:active {
     border-color: #8BB481 1px;
+
+#botonEliminar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 70px;
+    height: 25px;
+    border-radius: 50px;
+    border: none;
+    bottom: 0;
+    right: 75px;
+    background-color: #8BB481;
+    color: #1E1E1E;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#botonEliminar:hover {
+    color: #1E1E1E;
+    background-color: #8BB481;
+    border-color: none;
+
 }
 </style>
