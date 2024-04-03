@@ -24,10 +24,8 @@ Route::get('/', function () {
 
 
 
+route::get('/admin/home', [UsuarioController::class, 'index']);
 
-route::get('/prueba', function(){
-    return view('adminZone.admin');
-});
 
 
 

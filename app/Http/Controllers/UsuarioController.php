@@ -39,7 +39,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = Usuario::all();
+        return view('adminZone.home', compact('usuarios'));
     }
 
     /**
