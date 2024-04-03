@@ -11,33 +11,29 @@ const dataSteps = {
 </script>
 <template>
 
-  <div class="row">
-    <div class="col-12">
+  <div>
       <stepProgressBar :data="dataSteps" ref="stepProgress" />
       <div v-if="this.showPreviousButton" @click="returnToInitialState()">
         <button @click="stepProgress.previousStep">Previous Step</button>
 
       </div>
       <button @click="stepProgress.nextStep">Next Step</button>
-
-    </div>
   </div>
 
-  <div class="row">
-    <div class="col-12">
-      <div>
-        <div class="card">
-          <div class="card-body">
+
+        <div class="restaurants-container">
             <div v-if="providers !== null">
               <div v-for="prov in providers">
                 <div v-if="!idSelectedProvider || idSelectedProvider === prov.id_user">
                   <div @click="stepProgress.nextStep">
-                    <div class="card" style="width: 18rem;" @click="viewMenu(prov.id_user)" :key="prov.id_user">
-                      <img v-if="!idSelectedProvider" src="../images/resto.jpeg" class="card-img-top" alt="...">
+                    <div class="card" id="restaurant-card" @click="viewMenu(prov.id_user)" :key="prov.id_user">
+                      <img v-if="!idSelectedProvider" src="../images/resto.jpeg" class="card-img-top" id="restaurant-img" alt="..."
+                           style=" border-top-left-radius: 22px; border-top-right-radius: 22px;"
+                      >
                       <div class="card-body">
                         <h5 v-if="idSelectedProvider">provider:</h5>
-                        <h5 class="card-title">{{ prov.real_name }}</h5>
-                        <p class="card-text" v-if="!idSelectedProvider">Direccion: {{ prov.provider.adress }}</p>
+                        <h1 class="restaurant-name-card">{{ prov.real_name }}</h1>
+                        <p class="restaurant-adress-card" v-if="!idSelectedProvider">{{ prov.provider.adress }}</p>
 
                       </div>
                     </div>
@@ -86,7 +82,7 @@ const dataSteps = {
                                     <h2>Restaurante seleccionado:</h2>
                                     <div v-for=" prov  in  providers ">
                                       <div v-if="this.idSelectedProvider == prov.id_user">
-                                        <div class="card" :key="prov.id_user" style="width: 300px;">
+                                        <div class="card" :key="prov.id_user">
                                           <img src="../images/resto.jpeg" class="card-img-top" alt="...">
                                           <div class="card-body">
                                             <h5 v-if="idSelectedProvider">provider:</h5>
@@ -113,7 +109,7 @@ const dataSteps = {
                                 </div>
 
                                 <div v-if="!showMessage" class="modal-footer">
-                                  <button @click="stepProgress.stepZero" style="border: none; background-color: none;">
+                                  <button @click="stepProgress.stepZero">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                       @click="returnToInitialState()">Cancelar</button>
                                   </button>
@@ -131,19 +127,16 @@ const dataSteps = {
                 </div>
               </div>
             </div>
-            <navbar />
-          </div>
         </div>
+
+
+
+
+  <div class="container-parte-inferior">
+      <div class="container" id="navbar-showAvailableProviders" v-if="!this.id">
+          <navbar v-if="showComponente" />
       </div>
-
-    </div>
-
   </div>
-
-
-
-
-
 
 </template>
 
@@ -162,6 +155,7 @@ export default {
   },
   data() {
     return {
+      showComponente: true,
       providers: [],
       myModal: {},
       idSelectedProvider: null,
@@ -297,6 +291,49 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Your scoped CSS styles go here */
+<style>
+  #navbar-showAvailableProviders {
+    position: fixed;
+    top: 90%;
+    padding-left: 0px;
+    padding-right: 25px;
+  }
+
+  .restaurants-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  #restaurant-card {
+    background-color: #141414;
+    border: none;
+    border-radius: 22px;
+    width: 400px;
+  }
+
+  .card {
+    margin-bottom: 2%;
+  }
+
+  .card-img {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+  
+  }
+
+  .card-img-top {
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .restaurant-name-card {
+    color: #FFFFFF;
+  }
+
+  .restaurant-adress-card {
+    color: #8F8F8F;
+  }
 </style>
