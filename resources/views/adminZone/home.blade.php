@@ -132,14 +132,14 @@
         <td>{{$usuario->location}}</td>
         <td>{{$usuario->fed}}</td>
         <td>
-            {{-- <form method="GET" action="{{action( [App\Http\Controllers\UsuarioController::class,'edit'],['usuario' => $usuario->user_id] )}}">
+            <form method="GET" action="{{action( [App\Http\Controllers\UsuarioController::class,'edit'],['usuario' => $usuario->id_user] )}}">
                 @csrf
 
 
 
                 <button class="btn btn-primary" type="submit">Editar</button>
 
-            </form> --}}
+            </form>
 
         </td>
         <td>

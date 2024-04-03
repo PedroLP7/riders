@@ -8,13 +8,13 @@
 
 
 
-<form  action="{{action([App\Http\Controllers\UsuarioController::class,'update'],$usuario->user_id)}}"  method="POST">
+<form  action="{{action([App\Http\Controllers\UsuarioController::class,'update'],$usuario->id_user)}}"  method="POST">
     @csrf
     @method('PUT')
     <div class="card">
         <div class="card-title mt-3 px-3 ">
 
-            <H2>Editando el usuario {{$usuario->userName}}</H2>
+            <H2>Editando el usuario {{$usuario->user_name}}</H2>
 
         </div>
         @include('php_partials.mensajes')
