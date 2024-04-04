@@ -4,49 +4,6 @@
 
 @include('php_partials.mensajes')
 
-{{-- <div class="card">
-
-    <h5 class="card-title">Filter by</h5>
-    <div class="card-body">
-        <form action=" {{ action( [App\Http\Controllers\UsuarioController::class,'admin'] )}}">
-
-            @csrf
-            <div class="form-row">
-                <div class="col-1">
-
-
-
-                <div class="custom-control custom checkbox">
-                    <input type="checkbox" class="custom-control-input"id="ridersbuscar" name="Usuarios" value="" >
-                    <label class="custom-control-label" for="ridersbuscar">Riders</label>
-                </div>
-
-                <div class="custom-control custom checkbox">
-                    <input type="checkbox" class="custom-control-input"id="customer" name="customer" value="" >
-                    <label class="custom-control-label" for="customer">Customer</label>
-                </div>
-
-                <div class="custom-control custom checkbox">
-                    <input type="checkbox" class="custom-control-input"id="providers" name="providers" value="" >
-                    <label class="custom-control-label" for="providers">Provider</label>
-                </div>
-
-
-
-
-
-
-
-                </div>
-                <div class="col-1">
-                    <button type="submit"class="btn btn-secondary">Search</i></button>
-
-
-                </div>
-            </div>
-                </form>
-
-    </div> --}}
 
 
 
@@ -55,11 +12,6 @@
 
 
 
-
-
-
-
-</div>
 
 <table class="table">
       <tr>
@@ -79,7 +31,7 @@
 
     <tbody>
 
-        @foreach ($usuarios as $usuario)
+        @foreach ($riders as $usuario)
        <td>{{$usuario->id_user}}</td>
        <td>{{$usuario->user_name}}</td>
        <td>{{$usuario->real_name}}</td>

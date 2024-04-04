@@ -36,18 +36,18 @@
                 @if (Auth::check()&&Auth::user()->user_type_id==1)
                 <li class="nav-item dropdown  ">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                     Datos Maestros
+                     Admin Functions
                     </a>
                     <ul class="dropdown-menu danger">
-                      <li><a class="dropdown-item" href="{{url('/usuaris/create')}}">All users</a></li>
-                      <li><a class="dropdown-item" href="{{url('/usuaris')}}">Riders</a></li>
-                      <li><a class="dropdown-item" href="{{url('modul')}}">Providers</a></li>
-                        <li><a class="dropdown-item" href="{{url('modul')}}">Pointers</a></li>
-                        <li><a class="dropdown-item" href="{{url('modul')}}">CommunityKitchens</a></li>
+                      <li><a class="dropdown-item" href="{{url('/admin/home')}}">All users</a></li>
+                      <li><a class="dropdown-item" href="{{url('/admin/riders')}}">Riders</a></li>
+                      <li><a class="dropdown-item" href="{{url('admin/providers')}}">Providers</a></li>
+                        <li><a class="dropdown-item" href="{{url('admin/pointers')}}">Pointers</a></li>
+                        <li><a class="dropdown-item" href="{{url('admin/communityK')}}">CommunityKitchens</a></li>
                       <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{url('modul')}}">Bookings</a></li>
-                        <li><a class="dropdown-item" href="{{url('modul')}}">Deliverys</a></li>
-                        <li><a class="dropdown-item" href="{{url('modul')}}">Stats</a></li>
+                        <li><a class="dropdown-item" href="{{url('admin/bookings')}}">Bookings</a></li>
+                        <li><a class="dropdown-item" href="{{url('admin/deliverys')}}">Deliverys</a></li>
+                        <li><a class="dropdown-item" href="{{url('admin/stats')}}">Stats</a></li>
 
 
 

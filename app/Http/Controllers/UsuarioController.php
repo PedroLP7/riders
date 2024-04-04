@@ -22,9 +22,10 @@ class UsuarioController extends Controller
         Auth::login($user);
         if(Auth::user()->user_type->type_name == 'Rider'){
             $response = redirect('/rider/home');
-        } else {
+        } else if(Auth::user()->user_type->type_name == 'Proveedor'){
             $response = redirect('/provider/home');
-        }
+        }else if(Auth::user()->user_type->type_name == 'Admin'){
+            $response = redirect('/admin/home');
 
         } else {
         $request->session()->flash('error',
@@ -33,7 +34,7 @@ class UsuarioController extends Controller
     }
         return $response;
     }
-
+    }
     /**
      * Display a listing of the resource.
      */

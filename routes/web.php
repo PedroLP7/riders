@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\RiderController;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
@@ -20,17 +21,15 @@ use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('landing');
-});
-
-
-
-route::get('/admin/home', [UsuarioController::class, 'index']);
+})->name('home');
 
 
 
 
-Route::middleware(['auth'])->group(function () {
-});
+
+
+
+
 
 
 
@@ -66,12 +65,12 @@ Route::middleware(['auth'])->group(function () {
         $user = Auth::user();
 
     return view('provider.homeProv', compact('user'));
-    });
+    })->name('providerHome');
 
 
     route::get('/rider/home', function(){
         return view('rider.homeRid');
-    });
+    })->name('riderHome');
 
 
     route::get('/rider/viewProviders', function(){
@@ -108,6 +107,26 @@ Route::middleware(['auth'])->group(function () {
     route::get('/rider/viewMenu/{idProvider}', function($idProvider){
         return view('rider.viewProvidersMenus',compact('idProvider'));
     });
+
+
+
+        Route::middleware(['CheckAdmin'])->group(function () {
+            route::get('/admin/home', [UsuarioController::class, 'index']);
+            route::get('/admin/riders', [RiderController::class, 'index']);
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     });
