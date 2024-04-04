@@ -1,7 +1,7 @@
 <template>
     <div class="app-container" id="landing">
       <div class="row">
-        <header class="col-12">
+        <header class="col-12" v-if="!showRiderForm">
           <nav class="navbar justify-content-between">
             <a id="quienes" class="hyperlink" href="#quienes-somos">Quiénes somos?</a>
             <a id="sesion" class="hyperlink" @click="login" href="#iniciar-sesion">Iniciar Sesión</a>
@@ -10,11 +10,11 @@
       </div>
       <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
         <main class="col-12 text-center" v-if="!showRiderForm">
-          <h1 id="titulo">Food</h1>
+          <h1 id="titulo-foodLink">Food</h1>
           <h2 id="subtitulo">Una red de solidaridad</h2>
           <div class="button-container d-inline-block">
-            <button id="register" @click="registrateRider">Regístrate Rider</button>
-            <button id="sombraBoton" @click="registrateRider">Regístrate Rider</button>
+            <button id="register" @click="registrateRider">Regístrate Rider!</button>
+            <button id="sombraBoton" @click="registrateRider">Regístrate Rider!</button>
           </div>
           <div class="collaboration">
             <div id="empresa">
@@ -64,6 +64,7 @@
             </div>
             <button @click="insertRider()" class="btn btn-primary">Registrar</button>
             <button type="button" class="btn btn-secondary" @click="showRiderForm = false">Cancelar</button>
+
           </form>
         </div>
       </div>
@@ -91,7 +92,7 @@ export default{
       alert('Registro para Comedores Sociales!');
     },
     login() {
-      window.location.href = '/riders/resources/views/FormLogin.php';
+      window.location.href ="/riders/public/usuario/create";
     },
     insertRider() {
         const me = this;
@@ -115,4 +116,3 @@ export default{
 
 
 </script>
-

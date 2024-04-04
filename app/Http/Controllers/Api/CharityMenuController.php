@@ -32,8 +32,11 @@ class CharityMenuController extends Controller
         $charity_menu->item1 = $request->item1;
         $charity_menu->item2 = $request->item2;
         $charity_menu->item3 = $request->item3;
+
         try {
             $charity_menu->save();
+            $charity_menu->providers()->attach($request->provider_id, ['quantity' => $request->quantity]);
+
             $response = response()->json(['message' => 'Menu creado correctamente']);
         } catch (\Throwable $th) {
             $response = response()->json(['error' => 'Error al crear el menu'], 500);
@@ -67,6 +70,8 @@ class CharityMenuController extends Controller
         $charity_menu->item1 = $request->item1;
         $charity_menu->item2 = $request->item2;
         $charity_menu->item3 = $request->item3;
+        $charity_menu->providers()->updateExistingPivot($request->provider_id, ['quantity' => $request->quantity]);
+
         try {
             $charity_menu->save();
             $response = response()->json(['message' => 'Menu actualizado correctamente']);
@@ -92,22 +97,7 @@ class CharityMenuController extends Controller
     }
 
 
-    public function asignarProvider(Request $request, charity_menu $charity_menu){
 
-
-        try {
-            $charity_menu->providers()->attach($request->provider_id, ['quantity' => $request->quantity]);
-            $response = response()->json(['message' => 'Provider asignado a este menu']);
-        } catch (\Throwable $th) {
-            $response = response()->json(['error' => 'Error al asignar el provider'], 500);
-        }
-
-
-
-
-
-        return $response;
-    }
 
 
 
@@ -133,6 +123,9 @@ class CharityMenuController extends Controller
         }
         return $response;
     }
+
+
+
 
 
 

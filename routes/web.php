@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CustomerController;
 
@@ -16,43 +17,114 @@ use App\Http\Controllers\CustomerController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/customerform', function () {
-    return view('addHomelessForm.newHomelessPerson');
-});
+
 Route::get('/', function () {
-    return view('testMapbox');
+    return view('landing');
 });
 
 
+
+
+route::get('/prueba', function(){
+    return view('adminZone.admin');
+});
 
 
 
 Route::middleware(['auth'])->group(function () {
-
-
-
-
-    route::get('/home', [Controller::class,'home']);
-
-    route::get('/admin', [UsuarioController::class,'admin']);
 });
+
+
+
+
 Route::resource('usuario', App\Http\Controllers\UsuarioController::class);
+Route::GET('usuario/create', [App\Http\Controllers\UsuarioController::class, 'create'])->name('login');;
 Route::post('auth', [App\Http\Controllers\UsuarioController::class, 'authenticate']);
-// route::resource('menu', App\Http\Controllers\CharityMenuController::class);
-// route::resource('customer', App\Http\Controllers\CustomerController::class);
+Route::get('logout', [App\Http\Controllers\UsuarioController::class, 'logout']);
 
-route::get('/map', function(){
-    return view('testMapbox');
+Route::get('/customerform', function () {
+    return view('addHomelessForm.newHomelessPerson');
 });
+
+
 
 route::get('/notifTest', function(){
     return view('notificationsTest');
 });
 
-Route::middleware(['auth'])->group(function () { 
-    Route::get('/home', function (){ 
-        $user = Auth::user();
-    
-    return view('home', compact('user'));
-    });
+route::get('/updateBooking', function(){
+    return view('updateBookingStatus');
 });
+
+route::get('/recurringCustomer', function(){
+    return view('rider.recurringCustomer');
+});
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/provider/home', function (){
+
+        $user = Auth::user();
+
+    return view('provider.homeProv', compact('user'));
+    });
+
+
+    route::get('/rider/home', function(){
+        return view('rider.homeRid');
+    });
+
+
+    route::get('/rider/viewProviders', function(){
+        return view('rider.viewProvider');
+    });
+
+
+    route::get('/provider/createMenu', function(){
+        return view('provider.createMenu');
+    });
+
+
+    route::get('/rider/addKitchen', function(){
+        return view('rider.addCommunityK');
+    });
+
+  route::get('/provider/bookings', function(){
+        return view('provider.bookings');
+    });
+
+    route::get('/provider/profile', function(){
+        return view('provider.profile');
+    });
+
+
+    route::get('/provider/edit', function(){
+        return view('provider.editProfile');
+    });
+
+    route::get('/provider/editMenu/{idMenu}', function($idMenu){
+        return view('provider.editMenu',compact('idMenu'));
+    });
+
+    route::get('/rider/viewMenu/{idProvider}', function($idProvider){
+        return view('rider.viewProvidersMenus',compact('idProvider'));
+    });
+
+
+    });
+
+
+
+
+
+
+
+    route::get('/provider/chart', function(){
+        return view('provider.chart');
+    });
+
+
+
+
+
