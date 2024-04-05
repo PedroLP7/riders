@@ -11,48 +11,48 @@ const dataSteps = {
 </script>
 <template>
 
-  <h1 id="titulo">Proveedores disponibles</h1>
-        <div class="restaurants-container">
+  <div class="row">
+    <div class="col-12">
+      <stepProgressBar :data="dataSteps" ref="stepProgress" />
+      <div v-if="this.showPreviousButton" @click="returnToInitialState()">
+        <button @click="stepProgress.previousStep">Previous Step</button>
+
+      </div>
+      <button @click="stepProgress.nextStep">Next Step</button>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div>
+        <div class="card">
+          <div class="card-body">
             <div v-if="providers !== null">
               <div v-for="prov in providers">
                 <div v-if="!idSelectedProvider || idSelectedProvider === prov.id_user">
                   <div @click="stepProgress.nextStep">
-                    <div class="card" id="restaurant-card" @click="viewMenu(prov.id_user)" :key="prov.id_user">
-                      <img v-if="!idSelectedProvider" src="../images/resto.jpeg" class="card-img-top" id="restaurant-img" alt="..."
-                           style=" border-top-left-radius: 22px; border-top-right-radius: 22px;"
-                      >
-                      <div class="card-body" id="restaurant-card-body">
-                        <h5 v-if="idSelectedProvider">provider:</h5>
-                        <h1 class="restaurant-name-card">{{ prov.real_name }}</h1>
-                        <p class="restaurant-adress-card" v-if="!idSelectedProvider">{{ prov.provider.adress }}</p>
+                    <div class="card" style="width: 18rem;" @click="viewMenu(prov.id_user)" :key="prov.id_user">
+                      <img v-if="!idSelectedProvider" src="../images/resto.jpeg" class="card-img-top" alt="...">
+                      <div v-if="!idSelectedProvider" class="card-body">
+                        <h5 v-if="!idSelectedProvider">provider:</h5>
+                        <h5 v-if="!idSelectedProvider"class="card-title">{{ prov.real_name }}</h5>
+                        <p class="card-text" v-if="!idSelectedProvider">Direccion: {{ prov.provider.adress }}</p>
 
-                      </div>
+                      </div v-if="!idSelectedProvider">
                     </div>
                   </div>
 
-                  <div v-if="showMenu" id="view-restaurant">
-                    <img id="restaurant-img-big" src="../images/resto.jpeg" alt="">
-                    <!-- <div>
-                        <stepProgressBar :data="dataSteps" ref="stepProgress" />
-                        <div v-if="this.showPreviousButton" @click="returnToInitialState()">
-                          <button @click="stepProgress.previousStep">Previous Step</button>
+                  <div v-if="showMenu">
+                    <div class="card">
+                      <div class="card-body">
+                        <h1>Seleccione el menu a recoger en bar/restaurante {{ prov.real_name }}</h1>
 
-                        </div>
-                        <button @click="stepProgress.nextStep">Next Step</button>
-                    </div> -->
-
-                    <div class="view-restaurant-content">
-                        <h1 id="view-restaurant-content-name">{{ prov.real_name }}</h1>
-
-                        <div class="provider-menus-container">
-                          <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu" />
-                        </div>
-                        
+                        <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu" />
                         <div v-if="showQuantity">
                           <p>Cantidad que desea recoger:</p>
                           <quantity @quantity-updated="handleQuantityUpdated" />
                         </div>
-
                         <form action="">
                           <input type="text" id="menu" @change="stepProgress.nextStep" style="hidden"> </input>
                           <div @click="hidePreviousButton()">
@@ -86,7 +86,7 @@ const dataSteps = {
                                     <h2>Restaurante seleccionado:</h2>
                                     <div v-for=" prov  in  providers ">
                                       <div v-if="this.idSelectedProvider == prov.id_user">
-                                        <div class="card" :key="prov.id_user">
+                                        <div class="card" :key="prov.id_user" style="width: 300px;">
                                           <img src="../images/resto.jpeg" class="card-img-top" alt="...">
                                           <div class="card-body">
                                             <h5 v-if="idSelectedProvider">provider:</h5>
@@ -113,7 +113,7 @@ const dataSteps = {
                                 </div>
 
                                 <div v-if="!showMessage" class="modal-footer">
-                                  <button @click="stepProgress.stepZero">
+                                  <button @click="stepProgress.stepZero" style="border: none; background-color: none;">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                       @click="returnToInitialState()">Cancelar</button>
                                   </button>
@@ -125,22 +125,25 @@ const dataSteps = {
                             </div>
                           </div>
                         </form>
-                        
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <navbar />
+          </div>
         </div>
-
-
-
-
-  <div class="container-parte-inferior">
-      <div class="container" id="navbar-showAvailableProviders" v-if="!this.id">
-          <navbar v-if="showComponente" />
       </div>
+
+    </div>
+
   </div>
+
+
+
+
+
 
 </template>
 
@@ -159,7 +162,6 @@ export default {
   },
   data() {
     return {
-      showComponente: true,
       providers: [],
       myModal: {},
       idSelectedProvider: null,
@@ -295,87 +297,6 @@ export default {
 };
 </script>
 
-<style>
-  #navbar-showAvailableProviders {
-    position: fixed;
-    top: 90%;
-    padding-left: 0px;
-    padding-right: 25px;
-  }
-
-  .restaurants-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 20px;
-  }
-
-  #restaurant-card {
-    background-color: #141414;
-    border: none;
-    border-radius: 22px;
-    width: 400px;
-  }
-
-  .card {
-    margin-bottom: 2%;
-  }
-
-  .card-img {
-    border-top-left-radius: 22px;
-    border-top-right-radius: 22px;
-  }
-
-  .card-img-top {
-    height: 150px;
-    object-fit: cover;
-  }
-
-  .restaurant-name-card {
-    color: #FFFFFF;
-    margin-bottom: 0;
-  }
-
-  .restaurant-adress-card {
-    color: #8F8F8F;
-  }
-
-  #restaurant-card-body {
-    height: 90px;
-  }
-
-  #restaurant-img-big {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-
-  #view-restaurant {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-  }
-
-  .view-restaurant-content {
-    background-color: #1E1E1E;
-    border-radius: 33px 33px 0 0;
-    position: relative;
-    top: -25px;
-    padding-top: 2%;
-  }
-
-  #view-restaurant-content-name {
-    color: #FFFFFF;
-    margin-top: 20px;
-    font-size: 40px;
-    font-weight: 500;
-    margin-left: 6%;
-  }
-
-  .provider-menus-container {
-    position: absolute;
-    left: 0;
-  }
+<style scoped>
+/* Your scoped CSS styles go here */
 </style>
