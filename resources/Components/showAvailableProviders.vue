@@ -11,16 +11,7 @@ const dataSteps = {
 </script>
 <template>
 
-  <div>
-      <stepProgressBar :data="dataSteps" ref="stepProgress" />
-      <div v-if="this.showPreviousButton" @click="returnToInitialState()">
-        <button @click="stepProgress.previousStep">Previous Step</button>
-
-      </div>
-      <button @click="stepProgress.nextStep">Next Step</button>
-  </div>
-
-
+  <h1 id="titulo">Proveedores disponibles</h1>
         <div class="restaurants-container">
             <div v-if="providers !== null">
               <div v-for="prov in providers">
@@ -30,7 +21,7 @@ const dataSteps = {
                       <img v-if="!idSelectedProvider" src="../images/resto.jpeg" class="card-img-top" id="restaurant-img" alt="..."
                            style=" border-top-left-radius: 22px; border-top-right-radius: 22px;"
                       >
-                      <div class="card-body">
+                      <div class="card-body" id="restaurant-card-body">
                         <h5 v-if="idSelectedProvider">provider:</h5>
                         <h1 class="restaurant-name-card">{{ prov.real_name }}</h1>
                         <p class="restaurant-adress-card" v-if="!idSelectedProvider">{{ prov.provider.adress }}</p>
@@ -39,16 +30,29 @@ const dataSteps = {
                     </div>
                   </div>
 
-                  <div v-if="showMenu">
-                    <div class="card">
-                      <div class="card-body">
-                        <h1>Seleccione el menu a recoger en bar/restaurante {{ prov.real_name }}</h1>
+                  <div v-if="showMenu" id="view-restaurant">
+                    <img id="restaurant-img-big" src="../images/resto.jpeg" alt="">
+                    <!-- <div>
+                        <stepProgressBar :data="dataSteps" ref="stepProgress" />
+                        <div v-if="this.showPreviousButton" @click="returnToInitialState()">
+                          <button @click="stepProgress.previousStep">Previous Step</button>
 
-                        <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu" />
+                        </div>
+                        <button @click="stepProgress.nextStep">Next Step</button>
+                    </div> -->
+
+                    <div class="view-restaurant-content">
+                        <h1 id="view-restaurant-content-name">{{ prov.real_name }}</h1>
+
+                        <div class="provider-menus-container">
+                          <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu" />
+                        </div>
+                        
                         <div v-if="showQuantity">
                           <p>Cantidad que desea recoger:</p>
                           <quantity @quantity-updated="handleQuantityUpdated" />
                         </div>
+
                         <form action="">
                           <input type="text" id="menu" @change="stepProgress.nextStep" style="hidden"> </input>
                           <div @click="hidePreviousButton()">
@@ -121,7 +125,7 @@ const dataSteps = {
                             </div>
                           </div>
                         </form>
-                      </div>
+                        
                     </div>
                   </div>
                 </div>
@@ -321,7 +325,6 @@ export default {
   .card-img {
     border-top-left-radius: 22px;
     border-top-right-radius: 22px;
-  
   }
 
   .card-img-top {
@@ -331,9 +334,48 @@ export default {
 
   .restaurant-name-card {
     color: #FFFFFF;
+    margin-bottom: 0;
   }
 
   .restaurant-adress-card {
     color: #8F8F8F;
+  }
+
+  #restaurant-card-body {
+    height: 90px;
+  }
+
+  #restaurant-img-big {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  #view-restaurant {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .view-restaurant-content {
+    background-color: #1E1E1E;
+    border-radius: 33px 33px 0 0;
+    position: relative;
+    top: -25px;
+    padding-top: 2%;
+  }
+
+  #view-restaurant-content-name {
+    color: #FFFFFF;
+    margin-top: 20px;
+    font-size: 40px;
+    font-weight: 500;
+    margin-left: 6%;
+  }
+
+  .provider-menus-container {
+    position: absolute;
+    left: 0;
   }
 </style>
