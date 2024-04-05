@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\RiderController;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\RiderController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +120,17 @@ Route::middleware(['auth'])->group(function () {
             route::put('admin/riders/reactivate/{rider}', [RiderController::class, 'reactivate']);
             route::get('admin/riders/create', [RiderController::class, 'create']);
             route::post('admin/riders/store', [RiderController::class, 'store']);
+
+
+
+            route::get('/admin/providers', [ProviderController::class, 'index']);
+            route::get('admin/providers/edit/{provider}', [ProviderController::class, 'edit']);
+            route::put('admin/providers/update/{provider}', [ProviderController::class, 'update']);
+            route::delete('admin/providers/delete/{provider}', [ProviderController::class, 'destroy']);
+            route::put('admin/providers/reactivate/{rider}', [ProviderController::class, 'reactivate']);
+            route::get('admin/providers/create', [ProviderController::class, 'create']);
+            route::post('admin/providers/store', [ProviderController::class, 'store']);
+
 
 
         });
