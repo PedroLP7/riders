@@ -11,7 +11,9 @@ const dataSteps = {
 </script>
 <template>
 
-  <div class="row">
+<h1 id="titulo">Proveedores disponibles</h1>
+
+  <!-- <div class="row">
     <div class="col-12">
       <stepProgressBar :data="dataSteps" ref="stepProgress" />
       <div v-if="this.showPreviousButton" @click="returnToInitialState()">
@@ -21,25 +23,24 @@ const dataSteps = {
       <button @click="stepProgress.nextStep">Next Step</button>
 
     </div>
-  </div>
+  </div> -->
 
-  <div class="row">
+  <div class="row" style=" margin-top: 10%;">
     <div class="col-12">
       <div>
-        <div class="card">
-          <div class="card-body">
+        <div class="card" id="card-providers">
+          <div class="card-body" id="card-body-providers">
             <div v-if="providers !== null">
               <div v-for="prov in providers">
                 <div v-if="!idSelectedProvider || idSelectedProvider === prov.id_user">
                   <div @click="stepProgress.nextStep">
-                    <div class="card" style="width: 18rem;" @click="viewMenu(prov.id_user)" :key="prov.id_user">
-                      <img v-if="!idSelectedProvider" src="../images/resto.jpeg" class="card-img-top" alt="...">
+                    <div v-if="!idSelectedProvider" class="card" @click="viewMenu(prov.id_user)" :key="prov.id_user" id="restaurant-card" style=" border-radius: 22px;">
+                      <img v-if="!idSelectedProvider" src="../images/resto.jpeg" class="card-img-top" alt="..." id="restaurant-card-img" style=" border-top-left-radius: 22px; border-top-right-radius: 22px;">
                       <div v-if="!idSelectedProvider" class="card-body">
-                        <h5 v-if="!idSelectedProvider">provider:</h5>
-                        <h5 v-if="!idSelectedProvider"class="card-title">{{ prov.real_name }}</h5>
-                        <p class="card-text" v-if="!idSelectedProvider">Direccion: {{ prov.provider.adress }}</p>
+                        <h5 v-if="!idSelectedProvider" class="card-title" id="card-title-restaurant">{{ prov.real_name }}</h5>
+                        <p class="card-text" id="card-text-restaurant" v-if="!idSelectedProvider">{{ prov.provider.adress }}</p>
 
-                      </div v-if="!idSelectedProvider">
+                      </div>
                     </div>
                   </div>
 
@@ -86,7 +87,7 @@ const dataSteps = {
                                     <h2>Restaurante seleccionado:</h2>
                                     <div v-for=" prov  in  providers ">
                                       <div v-if="this.idSelectedProvider == prov.id_user">
-                                        <div class="card" :key="prov.id_user" style="width: 300px;">
+                                        <div class="card" :key="prov.id_user">
                                           <img src="../images/resto.jpeg" class="card-img-top" alt="...">
                                           <div class="card-body">
                                             <h5 v-if="idSelectedProvider">provider:</h5>
@@ -113,7 +114,7 @@ const dataSteps = {
                                 </div>
 
                                 <div v-if="!showMessage" class="modal-footer">
-                                  <button @click="stepProgress.stepZero" style="border: none; background-color: none;">
+                                  <button @click="stepProgress.stepZero">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                       @click="returnToInitialState()">Cancelar</button>
                                   </button>
@@ -130,8 +131,7 @@ const dataSteps = {
                   </div>
                 </div>
               </div>
-            </div>
-            <navbar />
+            </div>                
           </div>
         </div>
       </div>
@@ -141,7 +141,11 @@ const dataSteps = {
   </div>
 
 
-
+  <div class="container-parte-inferior">
+      <div class="container" id="navbar-showAvailableProviders" v-if="!this.id">
+          <navbar v-if="showComponente" />
+      </div>
+  </div>
 
 
 
@@ -164,6 +168,7 @@ export default {
     return {
       providers: [],
       myModal: {},
+      showComponente: true,
       idSelectedProvider: null,
       idSelectedMenu: null,
       showMenu: false,
@@ -297,6 +302,47 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Your scoped CSS styles go here */
+<style>
+  #navbar-showAvailableProviders {
+    position: fixed;
+    top: 90%;
+    padding-left: 0px;
+    padding-right: 25px;
+  }
+
+  #card-providers {
+    background-color: #1E1E1E;
+    border: 0;
+  }
+
+  #card-body-providers {
+    background-color: #1E1E1E;
+    border: 0;
+    padding: 0;
+  }
+
+  #restaurant-card {
+    height: 250px;
+    border: 0;
+    background-color: #141414;
+    margin-bottom: 3%;
+    width: 100%;
+  }
+
+  #restaurant-card-img {
+    height: 150px;
+    object-fit: cover;
+    border: 0;
+  }
+
+  #card-title-restaurant {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+
+  #card-text-restaurant {
+    color: #8F8F8F;
+    font-size: 18px;
+  }
 </style>
