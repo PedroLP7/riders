@@ -12,36 +12,48 @@
 
 
 
-
+<a class="btn btn-primary" href="{{url('admin/riders/create')}}">Create Rider</a>
 <table class="table">
       <tr>
         <th scope="col">ID</th>
         <th scope="col">UserName</th>
         <th scope="col">RealName</th>
+        <th scope="col">Surname1</th>
+        <th scope="col">Surname2</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Phone Numberf</th>
 
-        <th scope="col">UserType</th>
+
+
+
+
 
 
         <th>Dni/Cif</th>
 
         <th>Active</th>
-        <th>Canceled</th>
+
 
       </tr>
 
     <tbody>
 
-        @foreach ($riders as $usuario)
-       <td>{{$usuario->id_user}}</td>
-       <td>{{$usuario->user_name}}</td>
-       <td>{{$usuario->real_name}}</td>
+        @foreach ($riders as $rider)
+       <td>{{$rider->id_rider}}</td>
+       <td>{{$rider->user->user_name}}</td>
+       <td>{{$rider->user->real_name}}</td>
+         <td>{{$rider->surname1}}</td>
+            <td>{{$rider->surname2}}</td>
+            <td>{{$rider->mail}}</td>
+            <td>{{$rider->phone_number}}</td>
 
-     <td>{{$usuario->user_type->type_name}}</td>
 
 
-        <td>{{$usuario->dni_cif}}</td>
 
-        <td> @if ($usuario->isActive == 1)
+
+        <td>{{$rider->user->dni_cif}}</td>
+
+        <td> @if ($rider->user->isActive == 1)
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="isActive" name="isActive" value="isActive" checked>
                 <label class="custom-control-label" for="isActive"></label>
@@ -59,51 +71,40 @@
         @endif
     </td>
 
+
         <td>
-
-            @if ($usuario->isCanceled == 1)
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="isCanceled" name="isCanceled" value="isCanceled" checked>
-                <label class="custom-control-label" for="isCanceled"></label>
-              </div>
-        @else
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="isCanceled" name="isCanceled" value="isCanceled" >
-            <label class="custom-control-label" for="isCanceled"></label>
-
-
-
-
-            </div>
-
-        @endif
-
-
- </td>
-        <td>{{$usuario->size}}</td>
-        <td>{{$usuario->location}}</td>
-        <td>{{$usuario->fed}}</td>
-        <td>
-            {{-- <form method="GET" action="{{action( [App\Http\Controllers\UsuarioController::class,'edit'],['usuario' => $usuario->id_user] )}}">
+            <form method="GET" action="{{action( [App\Http\Controllers\RiderController::class,'edit'],['rider' => $rider->id_rider] )}}">
                 @csrf
 
 
 
                 <button class="btn btn-primary" type="submit">Editar</button>
 
-            </form> --}}
+            </form>
 
         </td>
         <td>
-            {{-- <form method="POST" action=" {{ action( [App\Http\Controllers\UsuarioController::class,'destroy'],['usuario' => $usuario->user_id] )}}">
+            <form method="POST" action=" {{ action( [App\Http\Controllers\RiderController::class,'destroy'],['rider' => $rider->id_rider] )}}">
                 @csrf
 
                 @method('DELETE')
 
-                <button class="btn btn-danger" type="submit">Borrar</button>
-                </form> --}}
+                <button class="btn btn-danger" type="submit">Desactivar</button>
+                </form>
          </td>
 
+
+
+
+         <td>
+            <form method="POST" action=" {{ action( [App\Http\Controllers\RiderController::class,'reactivate'],['rider' => $rider->id_rider] )}}">
+                @csrf
+
+                @method('PUT')
+
+                <button class="btn btn-primary" type="submit">Reactivate</button>
+                </form>
+         </td>
     </tbody>
      @endforeach
     </table>

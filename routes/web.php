@@ -113,6 +113,13 @@ Route::middleware(['auth'])->group(function () {
         Route::middleware(['CheckAdmin'])->group(function () {
             route::get('/admin/home', [UsuarioController::class, 'index']);
             route::get('/admin/riders', [RiderController::class, 'index']);
+            route::get('admin/riders/edit/{rider}', [RiderController::class, 'edit']);
+            route::put('admin/riders/update/{rider}', [RiderController::class, 'update']);
+            route::delete('admin/riders/delete/{rider}', [RiderController::class, 'destroy']);
+            route::put('admin/riders/reactivate/{rider}', [RiderController::class, 'reactivate']);
+            route::get('admin/riders/create', [RiderController::class, 'create']);
+            route::post('admin/riders/store', [RiderController::class, 'store']);
+
 
         });
 
