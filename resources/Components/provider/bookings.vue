@@ -1,3 +1,7 @@
+<script setup>
+defineEmits(['found-booking'])
+</script>
+
 <template>
   <div v-if="bookings !== null && usuario !== null" class="container">
     <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
@@ -262,7 +266,8 @@ export default {
               me.bookings = response.data
 
               me.bookings.forEach(element => {
-                if(me.bookings.status.id_status == 1){
+                if(  element.status.id_status == 1){
+              
                   this.$emit('found-booking', true);
                 }
               });

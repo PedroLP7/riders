@@ -16,16 +16,17 @@
       </form>
     </div>
   </div>
- 
- 
-    <div class="modal-small" @click.stop>
-      <span class="close" @click="closeInitialModal()">&times;</span>
-      <div class="modal-content">
-        <booking :screen="2" @found-booking="handlePendingBookings"/>
 
-     
-      </div>
+
+
+  <div class="modal" @click.stop>
+    <span class="close" @click="closeInitialModal()">&times;</span>
+    <div class="modal-content">
+      <booking :screen="2" @found-booking="handlePendingBookings" />
+
+
     </div>
+  </div>
 
 
 
@@ -68,12 +69,13 @@ export default {
 
   methods: {
     handlePendingBookings(eventData) {
-      debugger;
+
       this.hasBookingsPending = eventData;
-     this.isInitialModalOpen = eventData
+      this.isInitialModalOpen = eventData
 
       console.log("found bookings" + this.hasBookingsPending)
     },
+
     closeInitialModal() {
       this.isInitialModalOpen = false;
       console.log("alert close");
@@ -284,7 +286,7 @@ button:hover {
 }
 
 .modal {
-  display: flex;
+  display: hidden;
   flex-direction: row;
   position: fixed;
   z-index: 1050;
