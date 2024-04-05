@@ -1,10 +1,10 @@
-@extends('Layouts.principal')
+@extends('Layouts.admin')
 
 @section('contenido')
 
 @include('php_partials.mensajes')
 
-<div class="card">
+{{-- <div class="card">
 
     <h5 class="card-title">Filter by</h5>
     <div class="card-body">
@@ -46,7 +46,7 @@
             </div>
                 </form>
 
-    </div>
+    </div> --}}
 
 
 
@@ -60,42 +60,35 @@
 
 
 </div>
-<table class="table">
 
+<table class="table">
       <tr>
         <th scope="col">ID</th>
         <th scope="col">UserName</th>
         <th scope="col">RealName</th>
-        <th scope="col">Surname1</th>
-        <th scope="col">Surname2</th>
+
         <th scope="col">UserType</th>
-        <th>PhoneNumber</th>
-        <th>ProfileImage</th>
+
+
         <th>Dni/Cif</th>
-        <th>Adress</th>
-        <th>PostCode</th>
+
         <th>Active</th>
         <th>Canceled</th>
-        <th>Size</th>
-        <th>Location</th>
-        <th>Fed</th>
 
       </tr>
 
     <tbody>
 
         @foreach ($usuarios as $usuario)
-       <td>{{$usuario->user_id}}</td>
-       <td>{{$usuario->userName}}</td>
-       <td>{{$usuario->realName}}</td>
-       <td>{{$usuario->surname1}}</td>
-       <td>{{$usuario->surname2}}</td>
+       <td>{{$usuario->id_user}}</td>
+       <td>{{$usuario->user_name}}</td>
+       <td>{{$usuario->real_name}}</td>
+
      <td>{{$usuario->user_type->type_name}}</td>
-        <td>{{$usuario->phoneNumber}}</td>
-        <td>{{$usuario->profileImage}}</td>
+
+
         <td>{{$usuario->dni_cif}}</td>
-        <td>{{$usuario->adress}}</td>
-        <td>{{$usuario->postCode}}</td>
+
         <td> @if ($usuario->isActive == 1)
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="isActive" name="isActive" value="isActive" checked>
@@ -139,24 +132,24 @@
         <td>{{$usuario->location}}</td>
         <td>{{$usuario->fed}}</td>
         <td>
-            <form method="GET" action="{{action( [App\Http\Controllers\UsuarioController::class,'edit'],['usuario' => $usuario->user_id] )}}">
+            {{-- <form method="GET" action="{{action( [App\Http\Controllers\UsuarioController::class,'edit'],['usuario' => $usuario->id_user] )}}">
                 @csrf
 
 
 
                 <button class="btn btn-primary" type="submit">Editar</button>
 
-            </form>
+            </form> --}}
 
         </td>
         <td>
-            <form method="POST" action=" {{ action( [App\Http\Controllers\UsuarioController::class,'destroy'],['usuario' => $usuario->user_id] )}}">
+            {{-- <form method="POST" action=" {{ action( [App\Http\Controllers\UsuarioController::class,'destroy'],['usuario' => $usuario->user_id] )}}">
                 @csrf
 
                 @method('DELETE')
 
                 <button class="btn btn-danger" type="submit">Borrar</button>
-                </form>
+                </form> --}}
          </td>
 
     </tbody>
