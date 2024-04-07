@@ -302,7 +302,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   #navbar-showAvailableProviders {
     position: fixed;
     top: 90%;
