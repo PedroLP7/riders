@@ -22,10 +22,10 @@
 
             <div class="bottom-container">
                 <input type="number" class="form-control" id="pack-quantity" name="quantity" v-model="menu.quantity" min="1" step="1" placeholder="nº Packs" required>
-                
+
                 <div class="button-container d-inline-block" id="boton-container-confirmar">
-                    <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar">Crear</button>
-                    <button type="button" @click="updateMenu()" class="btn btn-primary" id="boton-confirmar-sombra">Crear</button>
+                    <button type="button" @click="createMenu()" class="btn btn-primary" id="boton-confirmar">Crear</button>
+                    <button type="button" @click="createMenu()" class="btn btn-primary" id="boton-confirmar-sombra">Crear</button>
                 </div>
             </div>
         </form>
@@ -123,7 +123,7 @@ export default {
     object-fit: cover;
     height: 160px;
     width: 100%;
-}       
+}
 
 #pack-name {
     color: white;
