@@ -47,9 +47,9 @@ const dataSteps = {
                   <div v-if="showMenu">
                     <div class="card" id="card-provider-big">
                       <div class="card-body" id="card-body-provider-big">
-                        <h1>Seleccione el pack a recoger</h1>
+                        <h1 id="card-body-provider-big-title">Seleccione el pack a recoger</h1>
 
-                        <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu" />
+                        <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu"/>
                         <div v-if="showQuantity">
                           <p>Cantidad que desea recoger:</p>
                           <quantity @quantity-updated="handleQuantityUpdated" />
@@ -349,6 +349,7 @@ export default {
   #card-provider-big {
     background-color: #141414;
     border-radius: 26px;
+    margin-bottom: 5%;
   }
 
   #card-body-provider-big {
@@ -356,8 +357,12 @@ export default {
     border-radius: 26px;
   }
 
-  #card-body-provider-big h1 {
+  #card-body-provider-big-title {
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-bottom: 5%;
     color: white;
     font-size: 36px;
   }
+
 </style>
