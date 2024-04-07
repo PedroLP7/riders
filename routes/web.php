@@ -134,13 +134,13 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-            route::get('/admin/menus', [ProviderController::class, 'index']);
-            route::get('admin/menus/edit/{menu}', [ProviderController::class, 'edit']);
-            route::put('admin/menus/update/{menu}', [ProviderController::class, 'update']);
-            route::delete('admin/menus/delete/{menu}', [ProviderController::class, 'destroy']);
-            route::put('admin/menus/reactivate/{menu}', [ProviderController::class, 'reactivateP']);
-            route::get('admin/menus/create', [ProviderController::class, 'create']);
-            route::post('admin/menus/store', [ProviderController::class, 'store']);
+            // route::get('/admin/menus', [ProviderController::class, 'index']);
+            // route::get('admin/menus/edit/{menu}', [ProviderController::class, 'edit']);
+            // route::put('admin/menus/update/{menu}', [ProviderController::class, 'update']);
+            // route::delete('admin/menus/delete/{menu}', [ProviderController::class, 'destroy']);
+            // route::put('admin/menus/reactivate/{menu}', [ProviderController::class, 'reactivateP']);
+            // route::get('admin/menus/create', [ProviderController::class, 'create']);
+            // route::post('admin/menus/store', [ProviderController::class, 'store']);
 
 
 
