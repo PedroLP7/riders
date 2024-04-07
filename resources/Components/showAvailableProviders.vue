@@ -11,7 +11,8 @@ const dataSteps = {
 </script>
 <template>
 
-<h1 id="titulo">Proveedores disponibles</h1>
+
+<h1 id="titulo" v-if="!showMenu">Proveedores disponibles</h1>
 
   <!-- <div class="row">
     <div class="col-12">
@@ -45,13 +46,17 @@ const dataSteps = {
                   </div>
 
                   <div v-if="showMenu">
+                    <div v-if="this.showPreviousButton" @click="returnToInitialState()">
+                      <button type="button" @click="stepProgress.previousStep" id="previous-step-button"></button>
+                    </div>
+
                     <div class="card" id="card-provider-big">
                       <div class="card-body" id="card-body-provider-big">
                         <h1 id="card-body-provider-big-title">Seleccione el pack a recoger</h1>
 
                         <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu"/>
                         <div v-if="showQuantity">
-                          <p>Cantidad que desea recoger:</p>
+                          <p id="card-body-provider-big-title">Cantidad que desea recoger:</p>
                           <quantity @quantity-updated="handleQuantityUpdated" />
                         </div>
                         <form action="">
@@ -365,4 +370,15 @@ export default {
     font-size: 36px;
   }
 
+  #previous-step-button {
+    position: relative;
+    left: 2%;
+    top: 3%;
+    margin-bottom: 5%;
+    width: 40px;
+    height: 40px;
+    background-image: url("../images/mingcute_arrow-up-line.png");
+    background-color: transparent;
+    border: none;
+  }
 </style>
