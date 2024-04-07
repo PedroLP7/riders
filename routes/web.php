@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\RiderController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +22,15 @@ use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('landing');
-});
+})->name('home');
 
 
 
 
-route::get('/prueba', function(){
-    return view('adminZone.admin');
-});
 
 
 
-Route::middleware(['auth'])->group(function () {
-});
+
 
 
 
@@ -68,12 +66,12 @@ Route::middleware(['auth'])->group(function () {
         $user = Auth::user();
 
     return view('provider.homeProv', compact('user'));
-    });
+    })->name('providerHome');
 
 
     route::get('/rider/home', function(){
         return view('rider.homeRid');
-    });
+    })->name('riderHome');
 
 
     route::get('/rider/viewProviders', function(){
@@ -110,6 +108,44 @@ Route::middleware(['auth'])->group(function () {
     route::get('/rider/viewMenu/{idProvider}', function($idProvider){
         return view('rider.viewProvidersMenus',compact('idProvider'));
     });
+
+
+
+        Route::middleware(['CheckAdmin'])->group(function () {
+            route::get('/admin/home', [UsuarioController::class, 'index']);
+            route::get('/admin/riders', [RiderController::class, 'index']);
+            route::get('admin/riders/edit/{rider}', [RiderController::class, 'edit']);
+            route::put('admin/riders/update/{rider}', [RiderController::class, 'update']);
+            route::delete('admin/riders/delete/{rider}', [RiderController::class, 'destroy']);
+            route::put('admin/riders/reactivate/{rider}', [RiderController::class, 'reactivate']);
+            route::get('admin/riders/create', [RiderController::class, 'create']);
+            route::post('admin/riders/store', [RiderController::class, 'store']);
+
+
+
+            route::get('/admin/providers', [ProviderController::class, 'index']);
+            route::get('admin/providers/edit/{provider}', [ProviderController::class, 'edit']);
+            route::put('admin/providers/update/{provider}', [ProviderController::class, 'update']);
+            route::delete('admin/providers/delete/{provider}', [ProviderController::class, 'destroy']);
+            route::put('admin/providers/reactivate/{rider}', [ProviderController::class, 'reactivate']);
+            route::get('admin/providers/create', [ProviderController::class, 'create']);
+            route::post('admin/providers/store', [ProviderController::class, 'store']);
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     });
