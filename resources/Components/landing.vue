@@ -141,12 +141,11 @@ export default {
   },
   methods: {
     registrateRider() {
-      this.fadeOutRegisterButton();
-      /*      
+      this.fadeOutRegisterButton();d        
       this.showRiderForm = true;
       this.showEmpresaForm = false;
       this.showProviderForm = false;
-      */
+      
       
     },
     registroEmpresa() {
