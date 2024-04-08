@@ -87,6 +87,10 @@
               <div class="form-group mt-3">
                 <button  class="btn btn-secondary" type="submit">Aceptar</button>
               </div>
+
+              <div class="form-group mt-3">
+                <a class="btn btn-primary" href="{{url('admin/riders/')}}">Cancelar</a>
+              </div>
           </form>
 
             </div>
