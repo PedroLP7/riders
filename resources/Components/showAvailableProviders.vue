@@ -64,9 +64,7 @@ const dataSteps = {
                         </div>
 
                         <form action="">
-                            <label for="menu">Pack seleccionado:</label>
-                            <input type="text" id="menu" @change="stepProgress.nextStep" disabled/>
-                                                      
+                                                                                  
                             <div class="book-pack-container" @click="hidePreviousButton()">
                               <div class="button-container d-inline-block" id="boton-container-confirmar">
                                 <button type="button" id="boton-confirmar" class="btn btn-primary" data-bs-toggle="modal"
@@ -77,8 +75,11 @@ const dataSteps = {
                                   data-bs-target="#exampleModal" @click="stepProgress.nextStep">
                                   Reservar
                                 </button>
-                              </div>
+                              </div>                              
                             </div>
+
+                            <label for="menu" id="selected-pack-text">Pack seleccionado:</label>
+                            <input type="text" id="pack-number-show" @change="stepProgress.nextStep" disabled/>
 
                           <!-- Modal -->
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -411,7 +412,11 @@ export default {
   }
 
   .book-pack-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    margin-top: 5%;
   }
 
   #boton-confirmar {
@@ -444,6 +449,23 @@ export default {
     width: 100%;
     top: 1%;
     left: -1%;
+}
+
+#selected-pack-text {
+    color: white;
+    font-size: 18px;
+}
+
+#pack-number-show {
+    background-color: #1E1E1E;
+    width: 15%;
+    height: 30px;
+    border: none;
+    color: white;
+    font-size: 32px;
+    font-weight: 500;
+    border-radius: 50px;
+    text-align: center;
 }
 
 </style>
