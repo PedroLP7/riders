@@ -34,7 +34,7 @@
             </div>
 
 
-            <div class="form-group row mt-3 px-2">
+            {{-- <div class="form-group row mt-3 px-2">
                 <label for="Ycoord" class="col-sm-2 col-form-label">Ycoord</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="Ycoord" name="Ycoord" value="">
@@ -48,7 +48,7 @@
                 <div class="col-sm-10">
                   <input type="text" class="form-control" id="Xcoord" name="Xcoord" value="">
                 </div>
-            </div>
+            </div> --}}
 
 
 

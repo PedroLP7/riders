@@ -30,7 +30,11 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = new customer();
+        $customer->location = $request->location;
+        $customer->isActive = 1;
+        $customer->save();
+        return redirect('/admin/customers');
     }
 
     /**
@@ -54,7 +58,11 @@ class CustomerController extends Controller
      */
     public function update(Request $request, customer $customer)
     {
-        //
+        $customer->location = $request->location;
+        $customer->Xcoord = $request->Xcoord;
+        $customer->Ycoord = $request->Ycoord;
+        $customer->save();
+        return redirect('/admin/customers');
     }
 
     /**
