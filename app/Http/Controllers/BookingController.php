@@ -15,14 +15,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
-        try {
-            $booking = booking::with('provider.user', 'rider.user', 'menu', 'status')->get();
-            $response = BookingResource::collection($booking);
-        } catch (\Throwable $th) {
-            $response = response()->json(['error' => 'Error al mostrar la reserva: ' . $th->getMessage()], 500);
-        }
-        return $response;
+        $bookings = booking::all();
+        return view('adminZone.Bookings.index', compact('bookings'));
 
 
     }
