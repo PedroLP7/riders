@@ -26,7 +26,7 @@
 
 
 
-        <th>Dni/Cif</th>
+
 
         <th>Active</th>
 
@@ -40,8 +40,23 @@
        <td>{{$customer->location}}</td>
 
 
+       <td> @if ($customer->isActive == 1)
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="isActive" name="isActive" value="isActive" checked>
+            <label class="custom-control-label" for="isActive"></label>
+          </div>
+    @else
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="isActive" name="isActive" value="isActive" >
+        <label class="custom-control-label" for="isActive"></label>
 
 
+
+
+        </div>
+
+    @endif
+</td>
 
 
 
@@ -73,7 +88,7 @@
 
 
          <td>
-            <form method="POST" action=" {{ action( [App\Http\Controllers\CustomerrController::class,'reactivate'],['customer' => $customer->id_customer] )}}">
+            <form method="POST" action=" {{ action( [App\Http\Controllers\CustomerController::class,'reactivate'],['customer' => $customer->id_customer] )}}">
                 @csrf
 
                 @method('PUT')

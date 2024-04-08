@@ -134,6 +134,13 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+            route::get('/admin/customers', [CustomerController::class, 'index']);
+            route::get('admin/customers/edit/{customer}', [CustomerController::class, 'edit']);
+            route::put('admin/customers/update/{customer}', [CustomerController::class, 'update']);
+            route::delete('admin/customers/delete/{customer}', [CustomerController::class, 'destroy']);
+            route::put('admin/customers/reactivate/{customer}', [CustomerController::class, 'reactivate']);
+            route::get('admin/customers/create', [CustomerController::class, 'create']);
+            route::post('admin/customers/store', [CustomerController::class, 'store']);
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\usuario;
 use App\Models\customer;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminZone.Customers.create');
     }
 
     /**
@@ -45,7 +46,7 @@ class CustomerController extends Controller
      */
     public function edit(customer $customer)
     {
-        //
+        return view('adminZone.Customers.edit', compact('customer'));
     }
 
     /**
@@ -61,6 +62,18 @@ class CustomerController extends Controller
      */
     public function destroy(customer $customer)
     {
-        //
+        $customer->isActive = 0;
+        $customer->save();
+        return redirect('/admin/customers');
+    }
+
+
+    public function reactivate(customer $customer)
+    {
+
+        $customer->isActive = 1;
+
+        $customer->save();
+        return redirect('/admin/customers');
     }
 }
