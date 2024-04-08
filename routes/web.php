@@ -127,7 +127,7 @@ Route::middleware(['auth'])->group(function () {
             route::get('admin/providers/edit/{provider}', [ProviderController::class, 'edit']);
             route::put('admin/providers/update/{provider}', [ProviderController::class, 'update']);
             route::delete('admin/providers/delete/{provider}', [ProviderController::class, 'destroy']);
-            route::put('admin/providers/reactivate/{rider}', [ProviderController::class, 'reactivate']);
+            route::put('admin/providers/reactivate/{provider}', [ProviderController::class, 'reactivate']);
             route::get('admin/providers/create', [ProviderController::class, 'create']);
             route::post('admin/providers/store', [ProviderController::class, 'store']);
 
