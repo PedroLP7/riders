@@ -77,9 +77,8 @@ class DeliveryController extends Controller
 
         try {
             $delivery->save();
-            $response = response()->json(['bien insertado'], 200)
-                ->response()
-                ->setStatusCode(201);
+            $response = response()->json(['bien insertado'], 200);
+        
         } catch (QueryException $ex) {
             $mensaje = Utilidad::errorMessage($ex);
             $response = response()->json(['error' => $mensaje], 400);

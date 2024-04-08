@@ -20,7 +20,9 @@
     <div class="modal-small" @click.stop>
       <span class="close" @click="closeMarkerOptionsModal">&times;</span>
       <div class="modal-content">
-        <booking :screen="1"></booking>
+      
+        <booking :screen="1" :customer="mendigo.id_customer"></booking>
+        
       </div>
     </div>
   </div>
@@ -47,12 +49,14 @@ export default {
     return {
       showComponente: true,
       hasBookingsPending: false,
-      isInitialModalOpen: false
+      isInitialModalOpen: false,
+
+      
     }
   },
 
   methods: {
-   
+ 
   },
   created()
   {
@@ -138,6 +142,7 @@ export default {
         marker.getElement().addEventListener('click', (e) => {
           e.stopPropagation();
           selectedMarker.value = { marker, data: m };
+          mendigo.value.id_customer = selectedMarker.value.data.id_customer;
           isMarkerOptionsModalOpen.value = true;
         });
       } else {
@@ -152,6 +157,7 @@ export default {
       axios.delete('customer/' + selectedMarker.value.data.id_customer)
           .then(response => {
               me.idUser = response.data
+              
               console.log(response.data)                   
           })
           .catch(error => {

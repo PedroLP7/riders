@@ -7,7 +7,7 @@ defineEmits(['found-booking'])
     <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
     <h1 class="titulo-bookings" v-if="screen == 2">Pedidos pendientes</h1>
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
-    <div v-if="screen !== 1 && screen !==2">
+    <div v-if="screen !== 1 && screen !== 2">
       <div class="cards-container-bookings">
         <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
 
@@ -168,7 +168,7 @@ defineEmits(['found-booking'])
 
               <div v-else>No DATA</div>
             </div>
-           
+
 
             <div class="alerta-estado-rider">
               <!-- if rider  -->
@@ -196,7 +196,7 @@ defineEmits(['found-booking'])
               </div>
 
             </div>
-          
+
           </div>
 
         </div>
@@ -230,7 +230,7 @@ export default {
   },
   props: {
     screen: Number,
-    deliveryAdress: String,
+    customer: Number,
   },
   data() {
     return {
@@ -238,6 +238,13 @@ export default {
       usuario: null,
       type: null,
       showComponente: true,
+      delivery: {
+        id_booking_fk: "",
+        delivery_date: "",
+        delivery_hour: "",
+        id_customer_fk: "",
+        id_communityK_fk: "",
+      }
     };
   },
 
@@ -249,10 +256,29 @@ export default {
 
   },
   methods: {
-    viewAllBookings(){
-      
+    createDelivery(idBooking, id_customer) {
+      const me = this;
+      me.delivery.id_booking_fk = idBooking;
+      me.delivery.delivery_date = me.getCurrentDate();
+      me.delivery.delivery_hour = me.getCurrentTime();
+      me.delivery.id_customer_fk = id_customer;
+      me.delivery.id_communityK_fk = null;
+
+      axios.post('/delivery', me.delivery)
+        .then(response => {
+          console.log('Delivery created successfully:', response.data);
+          // Do something with the response if needed
+          
+        })
+        .catch(error => {
+          console.error('Error creating booking:', error)
+        
+        });
     },
-  
+    viewAllBookings() {
+
+    },
+
     fetchBookings() {
       const me = this;
 
@@ -267,8 +293,8 @@ export default {
               me.bookings = response.data
 
               me.bookings.forEach(element => {
-                if(  element.status.id_status == 1){
-              
+                if (element.status.id_status == 1) {
+
                   this.$emit('found-booking', true);
                 }
               });
@@ -284,6 +310,30 @@ export default {
         });
 
 
+    },
+    getCurrentDate() {
+      const currentDate = new Date();
+
+      // Extract year, month, and day
+      const year = currentDate.getFullYear();
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const day = String(currentDate.getDate()).padStart(2, '0');
+
+      // Format the date as YYYY-MM-DD
+      const formattedDate = `${year}-${month}-${day}`;
+      return formattedDate;
+    },
+    getCurrentTime() {
+      const currentDate = new Date();
+
+      // Extract hours, minutes, and seconds
+      const hours = String(currentDate.getHours()).padStart(2, '0');
+      const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+      const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+      // Format the time as HH:mm:ss
+      const formattedTime = `${hours}:${minutes}:${seconds}`;
+      return formattedTime;
     },
     sendPostRequest(id, cancelButton) {
       const me = this;
@@ -313,6 +363,9 @@ export default {
         .then(response => {
           console.log('PUT request successful', response);
           this.fetchBookings();
+         
+            me.createDelivery(id, me.customer);
+         
 
         })
         .catch(error => {
