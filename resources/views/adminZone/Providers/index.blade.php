@@ -1,4 +1,4 @@
-s@extends('Layouts.admin')
+@extends('Layouts.admin')
 
 @section('contenido')
 
