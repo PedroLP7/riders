@@ -12,7 +12,7 @@
 
 
 
-<a class="btn btn-primary" href="{{url('admin/customers/create')}}">Create Customer</a>
+<a class="btn btn-primary" href="{{url('admin/bookings/create')}}">Create Bookings</a>
 <table class="table">
       <tr>
         <th scope="col">ID</th>
