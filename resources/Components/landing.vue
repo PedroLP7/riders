@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="app-container" id="landing">
     <div class="row">
       <header class="col-12">
@@ -16,7 +15,7 @@
         <div class="button-container d-inline-block">
           <button id="register" @click="registrateRider">Regístrate Rider</button>
           <button id="sombraBoton" @click="registrateRider">Regístrate Rider</button>
-=======
+        </div>
     <div class="app-container" id="landing">
       <div class="row">
         <header class="col-12" v-if="!showRiderForm">
@@ -82,9 +81,7 @@
             </div>
             <button @click="insertRider()" class="btn btn-primary">Registrar</button>
             <button type="button" class="btn btn-secondary" @click="showRiderForm = false">Cancelar</button>
-
           </form>
->>>>>>> main
         </div>
         <div class="collaboration">
           <div id="empresa">
