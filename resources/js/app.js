@@ -27,6 +27,7 @@ createApp(landing).mount("#landing")
 createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")
+//createApp(viewAllBookings).mount("#viewBookings")
 
 
 //  createApp(bookings).mount("#updateBookingComponent")

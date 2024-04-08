@@ -5,7 +5,7 @@ defineEmits(['found-booking'])
 <template>
   <div v-if="bookings !== null && usuario !== null" class="container">
     <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
-    <h1 class="titulo-bookings" v-if="screen == 2">Pedidos pendientes</h1>
+    <h1 class="titulo-bookings" v-if="screen == 2">Pedidos pendientes de ser recogidos</h1>
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
     <div v-if="screen !== 1 && screen !== 2">
       <div class="cards-container-bookings">
@@ -208,6 +208,77 @@ defineEmits(['found-booking'])
 
 
   </div>
+  <div v-if="screen === 3 && bookings">
+
+
+<div class="cards-container-bookings">
+  <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
+    <div v-if="booking.status.id_status == 1">
+
+      <div class="card-header" id="booking-card-header">
+        <div v-if="booking.rider && booking.rider.user">
+          <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
+        </div>
+        <h5 id="subtitulo-card-booking">Booking {{ booking.id_booking }}</h5>
+      </div>
+
+      <div class="card-body" id="booking-card-body">
+        <div class="info-pack-tracking">
+          <!-- <div v-if="booking.provider && booking.provider.user">
+           <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
+         </div> -->
+
+          <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+            <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+            </div>
+          </div>
+
+          <div v-if="booking.status && booking.status.status_name">
+            <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+          </div>
+
+          <div v-else>No DATA</div>
+        </div>
+
+
+        <div class="alerta-estado-rider">
+          <!-- if rider  -->
+          <div v-if="usuario.user_type_id == 2">
+            <div
+              v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
+
+              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                {{ buttonContent(booking.status.id_status) }}
+              </button>
+            </div>
+            <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
+              <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
+                sin-techo</button>
+            </div>
+          </div>
+          <!-- if provider -->
+          <div v-else>
+            <div
+              v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
+
+              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                {{ buttonContent(booking.status.id_status) }}</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <button v-if="bookings.length > 3" @click="viewAllBookings">Ver los demás bookings</button>
+  --
+</div>
+
+
+</div>
 
   <!-- </div> -->
 
@@ -276,7 +347,7 @@ export default {
         });
     },
     viewAllBookings() {
-
+window.href =''
     },
 
     fetchBookings() {
