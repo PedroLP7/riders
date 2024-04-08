@@ -68,7 +68,6 @@ class ProviderController extends Controller
 
         }
         return $response;
-
     }
 
     /**
@@ -102,7 +101,7 @@ class ProviderController extends Controller
 
             $usuario->dni_cif=$request->dni_cif;
             $usuario->real_name=$request->real_name;
-             $usuario->isActive=1;
+
             $usuario->save();
             $provider->adress = $request->adress;
 
@@ -114,7 +113,6 @@ class ProviderController extends Controller
             $response = redirect('/admin/providers/edit/')->withInput();
         }
         return $response;
-
     }
 
     /**
@@ -137,4 +135,18 @@ class ProviderController extends Controller
         $usuario->save();
         return redirect('/admin/providers');
     }
+
+
+    public function reactivateP(provider $provider)
+    {
+        $usuario = usuario::find($provider->id_provider);
+        $usuario->isActive = 1;
+
+        $usuario->save();
+        return redirect('/admin/providers');
+    }
+
+
+
+
 }

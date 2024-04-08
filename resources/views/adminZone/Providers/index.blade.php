@@ -1,4 +1,4 @@
-@extends('Layouts.admin')
+s@extends('Layouts.admin')
 
 @section('contenido')
 
@@ -41,7 +41,6 @@
        <td>{{$provider->user->user_name}}</td>
        <td>{{$provider->user->real_name}}</td>
          <td>{{$provider->adress}}</td>
-
 
 
 

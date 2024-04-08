@@ -113,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::middleware(['CheckAdmin'])->group(function () {
             route::get('/admin/home', [UsuarioController::class, 'index']);
+
             route::get('/admin/riders', [RiderController::class, 'index']);
             route::get('admin/riders/edit/{rider}', [RiderController::class, 'edit']);
             route::put('admin/riders/update/{rider}', [RiderController::class, 'update']);
@@ -130,6 +131,16 @@ Route::middleware(['auth'])->group(function () {
             route::put('admin/providers/reactivate/{provider}', [ProviderController::class, 'reactivate']);
             route::get('admin/providers/create', [ProviderController::class, 'create']);
             route::post('admin/providers/store', [ProviderController::class, 'store']);
+
+
+
+            // route::get('/admin/menus', [ProviderController::class, 'index']);
+            // route::get('admin/menus/edit/{menu}', [ProviderController::class, 'edit']);
+            // route::put('admin/menus/update/{menu}', [ProviderController::class, 'update']);
+            // route::delete('admin/menus/delete/{menu}', [ProviderController::class, 'destroy']);
+            // route::put('admin/menus/reactivate/{menu}', [ProviderController::class, 'reactivateP']);
+            // route::get('admin/menus/create', [ProviderController::class, 'create']);
+            // route::post('admin/menus/store', [ProviderController::class, 'store']);
 
 
 

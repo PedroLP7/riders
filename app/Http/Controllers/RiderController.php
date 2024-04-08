@@ -108,7 +108,7 @@ class RiderController extends Controller
 
             $usuario->dni_cif=$request->dni_cif;
             $usuario->real_name=$request->real_name;
-             $usuario->isActive=1;
+            //  $usuario->isActive=1;
             $usuario->save();
             $rider->surname1 = $request->surname1;
             $rider->surname2 = $request->surname2;
