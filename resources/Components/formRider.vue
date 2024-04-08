@@ -1,103 +1,183 @@
 <template>
-    <div id="raiderForm">
-        <div class="registration-container">
-            <h1>Registrarse</h1>
-            <p>Primero rellena los datos que necesitarás para el momento en el que inicies sesión</p>
-            <form>
-                <input  type="text" placeholder="Nombre de Usuario" />
-                <input  type="password" placeholder="Contraseña" />
-                <input  type="password" placeholder="Repite la Contraseña" />
-                <button class="inputContainer" type="button">Siguiente paso</button>
-            </form>
-            <div class="social-login">
-                <button type="button" class="google-login">Continuar con Google</button>
-                <button type="button" class="facebook-login">Continuar con Facebook</button>
+    <h3 id="titulo">{{'Registrarse'}}</h3>
+    <div class="card"> 
+      <div class="card-body">
+          <div class="form-group row px-5">
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="user_name" placeholder="Nombre de Usuario">
+              </div>
+          </div>
+          <div class="form-group row mt-3 px-5">
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="password" name="pswd"  placeholder="Contraseña">
+              <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
+              <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
             </div>
+          </div>
+          <div class="form-group row mt-3 px-5">
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="password" name="pswd"  placeholder="Repite la contraseña">
+              <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
+              <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
             </div>
+          </div>
+          <div class="button-container d-inline-block">
+            <button id="signIn" type="submit">Siguiente paso</button>
+            <button id="sombraBoton" type="submit">Siguiente paso</button>
+          </div>
+      </div>
     </div>
   </template>
   
-  <style scoped>
-  .registration-container {
-    background-color: #393939;
-    color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    max-width: 400px;
-    margin: auto;
-  }
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-  .registration-container input {
-  margin-bottom: 1rem;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 20px; 
-  background-color: #333; 
-  color: white;
+* {
+    font-family: "Outfit", sans-serif;
 }
 
+*::selection {
+    background-color: #475941;
+}
 
-  .inputContainer{
+body {
+    background-color: #1E1E1E;
+}
+
+.card {
+    background-color: #393939;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100%;
+    height: 73%;
+    border: none;
+    border-radius: 60px 60px 0 0;
+    box-shadow: 0 -2px 26.9px 1px rgba(0, 0, 0, 0.17);
+}
+
+.card-title {
+    background-color: transparent;
+}
+
+.card-body {
+    background-color: transparent;
+    margin-top: 15%;
+}
+
+.col-sm-10 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-control {
+    width: 90%;
+    height: 65px;
+    border-radius: 50px;
+    border: none;
+    background-color: #444444;
+    line-height: 65px;
+    padding-left: 40px;
+    color: #8F8F8F;
+    font-size: 17px;
+    flex: 1;
+}
+
+.form-control::placeholder {
+    line-height: 65px;
+    color: #8F8F8F;
+    opacity: 38%;
+    font-size: 17px;
+}
+
+.form-control:focus {
+    background-color: rgba(103, 127, 97, 0.17);
+    color: #677F61;
+    font-weight: 400;
+    font-size: 17px;
+    border: none;
+    box-shadow: none;
+    transition: 0.2s;
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+    color: #a13232;
+}
+
+.eye-active, .eye-unactive {
+    position: absolute;
+    cursor: pointer;
+    right: 15%;
+    color: #1E1E1E;
+}
+
+.form-group row px-2 {
+    background-color: transparent;
+    height: 60px;
+}
+
+#titulo{
+  color: #393939;
+    font-weight: 680px;
+    font-size: 68px;
+    margin-top: 10%;
+    margin-left: 5%;
+
+}
+form h3 {
+    color: #393939;
+    font-weight: 700;
+    font-size: 80px;
+    margin-top: 10%;
+    margin-left: 5%;
+}
+
+.button-container {
+    position: fixed;
+    display: inline-block;
+    top: 87%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 75%;
+    min-width: 75%;
+}
+
+#signIn {    
+    background-color: #8BB481;       
+    max-width: 100%;
+    min-width: 100%;
+    height: 70px;
+    color: white;    
+    border: 3px solid #393939; 
     border-radius: 40px;
-  }
-  
-  .registration-container h1 {
-    margin-bottom: 1rem;
-  }
-  
-  .registration-container p {
-    margin-bottom: 2rem;
-    color: #aaa;
-  }
-  
-  .registration-container form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .registration-container input {
-    margin-bottom: 1rem;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
-  }
-  
-  .social-login {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .google-login,
-  .facebook-login {
-    margin-bottom: 1rem;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
+    font-family: 'Outfit', sans-serif;  
+    font-weight: bold;  
+    font-size: 20px;
+    padding: 1rem 2rem;
     cursor: pointer;
-  }
-  
-  .google-login {
-    background-color: #db4437;
-    color: white;
-  }
-  
-  .facebook-login {
-    background-color: #4267b2;
-    color: white;
-  }
-  
-  button {
-    background-color: #4caf50;
+    position: relative; 
+    z-index: 1; 
+}
+
+#sombraBoton {
+    position: absolute;
+    max-width: 100%;
+    min-width: 100%;
+    height: 70px;
+    top: 0.15rem; 
+    left: -0.15rem;
+    background-color: #677F61;
+    border-radius: 40px;
+    z-index: -1;
     border: none;
-    padding: 1rem;
-    color: white;
-    text-transform: uppercase;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    opacity: 0.8;
-  }
+}
   </style>
   
