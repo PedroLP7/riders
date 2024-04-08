@@ -11,6 +11,8 @@
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
       <main class="col-12 text-center" v-if="!showRiderForm && !showEmpresaForm && !showProviderForm">
         <h1 id="titulo">Food</h1>
+        <h1 id="link">Link</h1>
+        <h1 id="barra"></h1>
         <h2 id="subtitulo">Una red de solidaridad</h2>
         <div class="button-container d-inline-block">
           <button id="register" @click="registrateRider">Regístrate Rider</button>
