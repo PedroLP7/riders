@@ -4,9 +4,9 @@
     <div class="modal" @click.stop>
       <span class="close" @click="closeModal">&times;</span>
       <form @submit.prevent="confirmAddMarker">
-        <div class="form-group">
+        <div class="form-group">      
         </div>
-        <div class="form-group">
+        <div class="form-group">         
         </div>
         <div class="form-group">
           <label for="streetName">Calle:</label>
@@ -16,33 +16,17 @@
       </form>
     </div>
   </div>
-
-
-
-  <div class="modal" @click.stop>
-    <span class="close" @click="closeInitialModal()">&times;</span>
-    <div class="modal-content">
-      <booking :screen="2" @found-booking="handlePendingBookings" />
-
-
-    </div>
-  </div>
-
-
-
-
-
   <div v-if="isMarkerOptionsModalOpen" class="modal-overlay" @click="closeMarkerOptionsModal">
     <div class="modal-small" @click.stop>
       <span class="close" @click="closeMarkerOptionsModal">&times;</span>
       <div class="modal-content">
-        <booking :screen="1" />
-
+        <button type="button" class="modal-small-button" @click="removeMarker">Borrar Marcador</button>
+        <button type="button" class="modal-small-button" @click="createOrder">Crear Pedido</button>
       </div>
     </div>
   </div>
   <div class="container" id="navbar">
-    <navbar v-if="showComponente" />
+    <navbar v-if="showComponente"/>
   </div>
 </template>
 

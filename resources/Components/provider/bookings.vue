@@ -230,6 +230,7 @@ export default {
   },
   props: {
     screen: Number,
+    deliveryAdress: String,
   },
   data() {
     return {
