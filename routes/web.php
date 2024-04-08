@@ -52,6 +52,10 @@ route::get('/updateBooking', function(){
     return view('updateBookingStatus');
 });
 
+route::get('/recurringCustomer', function(){
+    return view('rider.recurringCustomer');
+});
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -80,7 +84,7 @@ Route::middleware(['auth'])->group(function () {
 
     route::get('/rider/addKitchen', function(){
         return view('rider.addCommunityK');
-    });    
+    });
 
   route::get('/provider/bookings', function(){
         return view('provider.bookings');
@@ -88,11 +92,26 @@ Route::middleware(['auth'])->group(function () {
 
     route::get('/provider/profile', function(){
         return view('provider.profile');
-
-    }); 
-
-});
+    });
 
 
+    route::get('/provider/edit', function(){
+        return view('provider.editProfile');
+    });
+
+    route::get('/provider/editMenu/{idMenu}', function($idMenu){
+        return view('provider.editMenu',compact('idMenu'));
+    });
 
 
+
+    });
+
+
+
+
+
+
+    route::get('/provider/chart', function(){
+        return view('provider.chart');
+    });

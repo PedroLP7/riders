@@ -64,7 +64,7 @@ CREATE TABLE `booking_status` (
 --
 
 
-INSERT INTO `booking_status` VALUES (1,'Booked'),(2,'Cumming'),(3,'Delivered'),(4,'Not deliveredd');
+INSERT INTO `booking_status` VALUES (1,'Booked'),(2,'On its way'),(3,'Delivered'),(4,'Not delivered');
 
 
 --
@@ -247,7 +247,7 @@ CREATE TABLE `booking` (
   `id_menu_fk` int DEFAULT NULL,
   `menu_quantity` int DEFAULT NULL,
   `id_status_fk` int DEFAULT NULL,
-  `curr_date` varchar(50) DEFAULT NULL,
+  `curr_date` DATE DEFAULT NULL,
   PRIMARY KEY (`id_booking`),
   UNIQUE KEY `id_rider_fk` (`id_rider_fk`,`id_provider_fk`,`id_menu_fk`,`curr_date`),
   KEY `id_provider_fk` (`id_provider_fk`),
@@ -258,7 +258,7 @@ CREATE TABLE `booking` (
   CONSTRAINT `booking_ibfk_3` FOREIGN KEY (`id_menu_fk`) REFERENCES `charity_menu` (`id_menu`),
   CONSTRAINT `booking_ibfk_4` FOREIGN KEY (`id_status_fk`) REFERENCES `booking_status` (`id_status`)
 ); 
-INSERT INTO `booking` VALUES (1,24,2,1,1,1,'HOY'),(2,24,2,2,1,1,'AYER');
+INSERT INTO `booking` VALUES (1,24,2,1,1,1,'2024-02-03'),(2,24,2,2,1,1,'2024-03-18');
 --
 -- Dumping data for table `usuario`
 --
@@ -268,8 +268,8 @@ DROP TABLE IF EXISTS `delivery`;
 CREATE TABLE `delivery` (
   `id_delivery` int NOT NULL AUTO_INCREMENT,
   `id_booking_fk` int DEFAULT NULL,
-  `delivery_date` varchar(200) DEFAULT NULL,
-  `delivery_hour` varchar(200) DEFAULT NULL,
+  `delivery_date`DATE DEFAULT NULL,
+  `delivery_hour` TIME DEFAULT NULL,
   `id_customer_fk` int DEFAULT NULL,
   `id_communityK_fk` int DEFAULT NULL,
   PRIMARY KEY (`id_delivery`),
@@ -285,5 +285,5 @@ CREATE TABLE `delivery` (
 -- Dumping data for table `delivery`
 --
 
-INSERT INTO `delivery` VALUES (1,1,'HOY HAS','ahora',3,NULL),(2,2,'a','ahora2',NULL,4);
+INSERT INTO `delivery` VALUES (1,1,'2024-02-28','16:53:02',3,NULL),(2,2,'2024-02-22','10:02:43',NULL,4);
 -- Dump completed on 2024-02-27 13:01:31

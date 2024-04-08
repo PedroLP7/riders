@@ -1,9 +1,6 @@
 <template>
     <div>
-
         <form >
-
-
             <div class="mb-3">
                 <label for="item1" class="form-item1">item1</label>
                 <input type="text" v-model="menu.item1" class="form-control" id="item1" name="item1">
@@ -23,28 +20,26 @@
             <button  type="button" @click="goBack()" class="btn btn-danger">Cancelar</button>
             <button type="button" @click="createMenu()" class="btn btn-primary">Submit</button>
         </form>
+    </div>
 
-
-
-
-
-
+    <div class="container" id="navbar">
+        <navbar v-if="showComponente" />
     </div>
 </template>
 <script>
 import axios from 'axios';
+import navbar from '../../Components/navbar.vue'
 
 export default {
     name: "createMenu",
+    components: {
+        navbar
+    },
     data() {
         return {
             menu: {},
             provider_id:{},
-
-
-
-
-
+            showComponente: true,
         };
     },
     methods: {
@@ -56,7 +51,7 @@ export default {
         item2: me.menu.item2,
         item3: me.menu.item3,
         quantity: me.menu.quantity,
-        provider_id: me.provider_id
+        provider_id: me.provider_id.id_user,
     };
 
             console.log(me.menu);
@@ -76,7 +71,7 @@ export default {
         axios.get('usuario/getUsuario')
             .then(response => {
                 me.provider_id = response.data
-                // console.log(response.data)
+                console.log(response.data)
 
             })
             .catch(error => {
@@ -95,4 +90,5 @@ export default {
 }
 
 </script>
-<style></style>
+<style>
+</style>
