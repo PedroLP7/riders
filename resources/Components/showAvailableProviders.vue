@@ -55,18 +55,30 @@ const dataSteps = {
                         <h1 id="card-body-provider-big-title">Seleccione el pack a recoger</h1>
 
                         <provider :id="this.idSelectedProvider" :find="false" @selectedM="handleSelectedMenu"/>
-                        <div v-if="showQuantity">
-                          <p id="card-body-provider-big-title">Cantidad que desea recoger:</p>
+                        <div>
+                          <h1 id="card-body-provider-big-title2">Cantidad que desea recoger:</h1>                          
+                        </div>
+
+                        <div class="quantity-selection-container">                        
                           <quantity @quantity-updated="handleQuantityUpdated" />
                         </div>
+
                         <form action="">
-                          <input type="text" id="menu" @change="stepProgress.nextStep" style="hidden"> </input>
-                          <div @click="hidePreviousButton()">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                              data-bs-target="#exampleModal" @click="stepProgress.nextStep">
-                              Reservar
-                            </button>
-                          </div>
+                            <label for="menu">Pack seleccionado:</label>
+                            <input type="text" id="menu" @change="stepProgress.nextStep" disabled/>
+                                                      
+                            <div class="book-pack-container" @click="hidePreviousButton()">
+                              <div class="button-container d-inline-block" id="boton-container-confirmar">
+                                <button type="button" id="boton-confirmar" class="btn btn-primary" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal" @click="stepProgress.nextStep">
+                                  Reservar
+                                </button>
+                                <button type="button" id="boton-confirmar-sombra" class="btn btn-primary" data-bs-toggle="modal"
+                                  data-bs-target="#exampleModal" @click="stepProgress.nextStep">
+                                  Reservar
+                                </button>
+                              </div>
+                            </div>
 
                           <!-- Modal -->
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -272,7 +284,7 @@ export default {
         .then(response => {
           console.log(response);
           this.providers = response.data;
-
+          
         })
         .catch(error => {
           console.error('Error fetching user type', error);
@@ -294,6 +306,10 @@ export default {
       console.log("show quantity: " + this.showQuantity);
 
       // Do whatever you want with the selectedMenu data here
+
+      // Scroll to the desired element
+      let quantityElement = document.getElementById("card-body-provider-big-title2");
+      quantityElement.scrollIntoView({ behavior: "smooth" });
     },
     viewMenu(providerId) {
       this.idSelectedProvider = providerId
@@ -370,6 +386,14 @@ export default {
     font-size: 36px;
   }
 
+  #card-body-provider-big-title2 {
+    margin-top: -35%;
+    margin-left: 2%;
+    margin-bottom: 5%;
+    color: white;
+    font-size: 36px;
+  }
+
   #previous-step-button {
     position: relative;
     left: 2%;
@@ -381,4 +405,45 @@ export default {
     background-color: transparent;
     border: none;
   }
+
+  .quantity-selection-container {
+    width: 100%;
+  }
+
+  .book-pack-container {
+    width: 100%;
+  }
+
+  #boton-confirmar {
+    background-color: #8BB481;
+    height: 67px;
+    color: white;
+    border: 3px solid #000000;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+#boton-confirmar-sombra {
+    position: absolute;
+    background-color: #677F61;
+    height: 70px;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 0;
+    width: 100%;
+    top: 1%;
+    left: -1%;
+}
+
 </style>
