@@ -13,6 +13,7 @@ import recurringCustomer from '../Components/recurringCustomer.vue';
 
 import editProfile from '../Components/provider/editProfile.vue';
 import editMenu from '../Components/provider/editMenu.vue';
+import formRider from '../Components/formRider.vue';
 
 
 
@@ -24,6 +25,7 @@ import viewProvider from '../Components/showAvailableProviders.vue'
 
 
 createApp(landing).mount("#landing")
+createApp(formRider).mount("#raiderForm")
 createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")

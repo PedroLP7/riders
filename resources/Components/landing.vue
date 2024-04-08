@@ -15,8 +15,8 @@
         <h1 id="barra"></h1>
         <h2 id="subtitulo">Una red de solidaridad</h2>
         <div class="button-container d-inline-block">
-          <button id="register" @click="registrateRider">Regístrate Rider</button>
-          <button id="sombraBoton" @click="registrateRider">Regístrate Rider</button>
+          <button id="register" @click="registrateRider">Regístrate Rider!</button>
+          <button id="sombraBoton" @click="registrateRider">Regístrate Rider!</button>
         </div>
         <div class="collaboration">
           <div id="empresa">
@@ -141,9 +141,13 @@ export default {
   },
   methods: {
     registrateRider() {
+      this.fadeOutRegisterButton();
+      /*      
       this.showRiderForm = true;
       this.showEmpresaForm = false;
       this.showProviderForm = false;
+      */
+      
     },
     registroEmpresa() {
       this.showEmpresaForm = true;
@@ -158,7 +162,7 @@ export default {
     login() {
       window.location.href = "/riders/public/usuario/create";
     },
-    insertRider() {
+    insertRider() {    
       alert('Formulario enviado para Rider!');
       axios.post('/api/rider', this.usuario)
         .then(response => {
@@ -193,8 +197,14 @@ export default {
         .catch(error => {
           console.log(error.response.data.error);
         });
-    },
+    },  
+    fadeOutRegisterButton() {
+      
+      const registerBtn = document.getElementById('register');    
+      registerBtn.classList.add('disappear');
+    }
   }
+  
 }
 </script>
   

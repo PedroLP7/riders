@@ -46,44 +46,40 @@ body {
   color: white;
   position: fixed;
   font-weight: bolder;
-  font-size: 80px;
+  font-size: 81px;
   top: 52%;
   left: 32%;
   transform: translate(-50%, -50%);
   overflow: hidden;
   white-space: nowrap;
-  animation: revealText 0.5s linear forwards;
+  animation: revealText 0.3s linear forwards; /* Animación más rápida */
 }
 
-/* Modificación para #barra con nueva animación */
 #barra {
   position: fixed;
   background-image: url("../images/barra.png");
   background-repeat: no-repeat;
   background-size: contain;
-  top: 54.8%;
+  top: 54.5%;
   left: 56%;
-  width: 0; /* Iniciar con ancho 0 para la animación */
-  height: 18px;
-  animation: drawBar 1s linear 0.3s forwards; /* Inicia después de la animación del título */
+  width: 0;
+  height: 150px;
+  animation: drawBar 0.5s linear 0.3s forwards; /* Animación más rápida con retraso después del título */
 }
 
-/* Estilos originales para #link con modificaciones para animación */
 #link {
   color: white;
   position: fixed;
   font-weight: bolder;
   font-size: 65px;
-  top: 51.1%;
-  left: 70.25%;
-  transform: translate(-50%, -50%) scaleY(0); /* Iniciar con escala vertical 0 */
+  top: 51.2%;
+  left: 70.6%;
+  transform: translate(-50%, -50%) scaleY(0);
   overflow: hidden;
   white-space: nowrap;
-  animation: scaleLinkVertical 1.5s ease 0.25s forwards; /* Inicia después de la animación de la barra */
+  animation: scaleLinkVertical 0.7s ease 0.8s forwards; /* Animación más rápida con retraso después de la barra */
 }
 
-
-/* Animación existente para revelar texto */
 @keyframes revealText {
   from {
       clip-path: polygon(0 0, 0% 0, 0% 100%, 0 100%);
@@ -93,26 +89,24 @@ body {
   }
 }
 
-/* Nueva animación para dibujar la barra */
 @keyframes drawBar {
   from {
       width: 0;
   }
   to {
-      width: 132px; /* Tamaño final de la barra */
+      width: 132px;
   }
 }
 
-/* Nueva animación para escalar el link */
 @keyframes scaleLinkVertical {
   0% {
       transform: translate(-50%, -50%) scaleY(0);
   }
   50% {
-      transform: translate(-50%, -50%) scaleY(1.1); /* Escala ligeramente mayor solo verticalmente */
+      transform: translate(-50%, -50%) scaleY(1.1);
   }
   100% {
-      transform: translate(-50%, -50%) scaleY(1); /* Vuelve al tamaño original vertical */
+      transform: translate(-50%, -50%) scaleY(1);
   }
 }
 
@@ -122,7 +116,7 @@ body {
     font-weight: 500;   
     font-size: 25px;
     width: 500px; 
-    top: 56%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -152,6 +146,21 @@ body {
   z-index: 1;
 }
 
+.disappear {
+  animation: fadeOut 0.2s forwards, fadeIn 0.2s forwards 0.1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 #sombraBoton {
   position: absolute;
   max-width: 100%;
@@ -160,6 +169,10 @@ body {
   top: 0.15rem;
   left: -0.15rem;
   background-color: #677F61;
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
   border-radius: 40px;
   z-index: -1;
   border: none;
