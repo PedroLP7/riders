@@ -113,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::middleware(['CheckAdmin'])->group(function () {
             route::get('/admin/home', [UsuarioController::class, 'index']);
+
             route::get('/admin/riders', [RiderController::class, 'index']);
             route::get('admin/riders/edit/{rider}', [RiderController::class, 'edit']);
             route::put('admin/riders/update/{rider}', [RiderController::class, 'update']);
@@ -127,9 +128,20 @@ Route::middleware(['auth'])->group(function () {
             route::get('admin/providers/edit/{provider}', [ProviderController::class, 'edit']);
             route::put('admin/providers/update/{provider}', [ProviderController::class, 'update']);
             route::delete('admin/providers/delete/{provider}', [ProviderController::class, 'destroy']);
-            route::put('admin/providers/reactivate/{rider}', [ProviderController::class, 'reactivate']);
+            route::put('admin/providers/reactivate/{provider}', [ProviderController::class, 'reactivate']);
             route::get('admin/providers/create', [ProviderController::class, 'create']);
             route::post('admin/providers/store', [ProviderController::class, 'store']);
+
+
+
+            route::get('/admin/customers', [CustomerController::class, 'index']);
+            route::get('admin/customers/edit/{customer}', [CustomerController::class, 'edit']);
+            route::put('admin/customers/update/{customer}', [CustomerController::class, 'update']);
+            route::delete('admin/customers/delete/{customer}', [CustomerController::class, 'destroy']);
+            route::put('admin/customers/reactivate/{customer}', [CustomerController::class, 'reactivate']);
+            route::get('admin/customers/create', [CustomerController::class, 'create']);
+            route::post('admin/customers/store', [CustomerController::class, 'store']);
+
 
 
 

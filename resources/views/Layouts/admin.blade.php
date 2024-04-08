@@ -42,7 +42,7 @@
                       <li><a class="dropdown-item" href="{{url('/admin/home')}}">All users</a></li>
                       <li><a class="dropdown-item" href="{{url('/admin/riders')}}">Riders</a></li>
                       <li><a class="dropdown-item" href="{{url('admin/providers')}}">Providers</a></li>
-                        <li><a class="dropdown-item" href="{{url('admin/pointers')}}">Pointers</a></li>
+                        <li><a class="dropdown-item" href="{{url('admin/customers')}}">Customers</a></li>
                         <li><a class="dropdown-item" href="{{url('admin/communityK')}}">CommunityKitchens</a></li>
                       <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{url('admin/bookings')}}">Bookings</a></li>
