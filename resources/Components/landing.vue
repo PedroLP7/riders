@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     registrateRider() {
-      this.fadeOutRegisterButton();d        
+      this.fadeOutRegisterButton();     
       this.showRiderForm = true;
       this.showEmpresaForm = false;
       this.showProviderForm = false;
