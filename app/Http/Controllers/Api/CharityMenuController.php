@@ -87,10 +87,10 @@ class CharityMenuController extends Controller
     public function destroy(charity_menu $charity_menu)
     {
         try {
-            $charity_menu->delete();
+            $charity_menu->isActive=0;
             $response = response()->json(['message' => 'Menu eliminado correctamente']);
         } catch (\Throwable $th) {
-            $response = response()->json(['error' => 'Error al eliminar el menu'], 500);
+            $response = response()->json(['error' =>  'Error al eliminar el menu',$th], 500);
         }
         return $response;
 

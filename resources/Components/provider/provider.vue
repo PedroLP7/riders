@@ -35,7 +35,7 @@
 
                             <button v-if="!this.id" @click="editMenu(menu.id_menu)" class="btn btn-primary"
                                 id="botonEditar">Editar</button>
-                            <button v-if="!this.id" class="btn btn-primary" id="botonEliminar">Eliminar</button>
+                            <button v-if="!this.id" @click="deleteMenu(menu.id_menu)" class="btn btn-primary" id="botonEliminar">Eliminar</button>
 
 
                         </div>
@@ -135,6 +135,17 @@ export default {
             window.location.href = `editMenu/${menuId}`;
             console.log('editar menu');
         },
+        deleteMenu(menuId) {
+            const me = this;
+            axios.delete('/charity_menu/' + menuId)
+                .then(response => {
+                    console.log(response)
+                    me.getProvider()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
 
 
     },
