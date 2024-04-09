@@ -67,7 +67,7 @@ export default {
 
   methods: {
     closeInitialModal() {
-      debugger;
+
       this.isInitialModalOpen = false;
     }
   },
