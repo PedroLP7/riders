@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div v-if="!formParte2Enviado">
+      
         <header>
           <div class="progress-bar-container">
             <div class="progress-bar" role="progressbar" style="width: 66.66%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
@@ -32,47 +32,34 @@
               </div>
             </div>
             <div class="button-container d-inline-block">
-              <button id="submitParte2" @click="verificarFormularioParte2" type="button">Siguiente paso</button>
+              <button id="submitParte2" @click="enviar" type="button">Siguiente paso</button>
               <button id="sombraBotonParte2" type="button"></button>
             </div>
           </div>
         </div>
-      </div>
-  
-      <form-rider-parte3 v-if="formParte2Enviado"></form-rider-parte3>
-    </div>
-  </template>
+      </div> 
+</template>
 
 <script>
-import formRiderParte3 from '../Components/formRiderParte3.vue';
 
-export default {
-  components: {
-    formRiderParte3,
-  },
+export default { 
   data() {
     return {
-      formParte2Enviado: false,
+      
+      usuario: {
+        real_name: '',
+        surname1: '',
+        surname2: '',
+        dni_cif: ''
+      }
     };
   },
   methods: {
-    verificarFormularioParte2() {    
-      const nombre = document.getElementById('nombre').value.trim();
-      const apellido1 = document.getElementById('apellido1').value.trim();
-      const apellido2 = document.getElementById('apellido2').value.trim();
-      const dni = document.getElementById('dni').value.trim();
-
-
-      this.$refs.alertContainer.innerHTML = '';
-
-      if (!nombre || !apellido1 || !apellido2 || !dni) {
-        const alertHTML = '<div class="alert" role="alert">Por favor, rellena todos los campos.</div>';
-        this.$refs.alertContainer.innerHTML = alertHTML;
-      } else {        
-        this.formParte2Enviado = true;
-      }
-    },
-  },
+    enviar() {      
+      this.$emit('actualizar-datos', this.usuario);  
+      this.$emit('enviar');   
+    }
+  }
 };
 </script>
   

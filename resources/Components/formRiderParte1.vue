@@ -1,59 +1,60 @@
-<template>    
-    <header>
-        <div class="progress-bar-container">
-        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div class="alerta"></div>
-    </header>
-    <h3 id="titulo">{{'Registrarse'}}</h3>
-    <h3 id="subtitulo">{{'Ahora necesitamos saber un poco mas de ti'}}</h3>    
-    <div class="card"> 
-      <div class="card-body">       
-        <div class="form-group row mt-4 px-5">
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Telefono" placeholder="Telefono" v-model="usuario.phone">
-              </div>
-            </div>
-            <div class="form-group row mt-4 px-5">
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="mail" placeholder="Mail"  v-model="usuario.mail">
-              </div>
-            </div>
-            <div class="form-group row mt-4 px-5">
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="Direccion" placeholder="Direccion"  v-model="usuario.adress">
-              </div>
-            </div>
-          <div class="button-container d-inline-block">
-            <button id="signIn" @click="enviar">Siguiente paso</button>
-            <button id="sombraBoton" type="submit">Siguiente paso</button>
+<template>
+    <div>      
+      <div>
+        <header>
+          <div class="progress-bar-container">
+            <div class="progress-bar" role="progressbar" style="width: 33.33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-      </div>
+          <div class="alerta" ref="alertContainer"></div>
+        </header>
+        <h3 id="titulo">Registrarse</h3>
+        <h3 id="subtitulo">Primero rellena los datos que necesitarás para el momento en el que inicies sesión</h3>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group row px-5">
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="user_name" placeholder="Nombre de Usuario" v-model="usuario.user_name">
+              </div>
+            </div>
+            <div class="form-group row mt-4 px-5">
+              <div class="col-sm-10">
+                <input type="password" class="form-control" ref="password" id="password" name="pswd" placeholder="Contraseña" v-model="usuario.password">
+                <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
+                <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
+              </div>
+            </div>
+            <div class="form-group row mt-4 px-5">
+              <div class="col-sm-10">
+                <input type="password" class="form-control" ref="confirmPassword" id="confirmPassword" name="pswd" placeholder="Repite la contraseña">
+                <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
+                <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
+              </div>
+            </div>
+            <div class="button-container d-inline-block">
+              <button id="signIn" @click="enviar" type="button">Siguiente paso</button>
+              <button id="sombraBoton" type="button"></button>
+            </div>
+          </div>
+        </div>
+      </div>      
     </div>
-</template>
+  </template>
 
 <script>
-
-export default { 
+export default {
   data() {
     return {
-      
-      usuario: {
-        phone: '',
-        mail: '',
-        adress: '',       
-      }
+      usuario: { user_name: '', password: '' },
     };
   },
   methods: {
-    enviar() {      
-      this.$emit('actualizar-datos', this.usuario);  
-      this.$emit('enviar');   
-    }
-  }
+    enviar() {
+      this.$emit('actualizar-datos', this.usuario);
+      this.$emit('enviar');
+    },
+  },
 };
 </script>
-  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
@@ -76,7 +77,7 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
-    height: 60%;
+    height: 73%;
     border: none;
     border-radius: 60px 60px 0 0;
     box-shadow: 0 -2px 26.9px 1px rgba(0, 0, 0, 0.17);
@@ -202,7 +203,7 @@ form h3 {
     z-index: 1; 
 }
 
-#sombraBotonParte2 {
+#sombraBoton {
     position: absolute;
     max-width: 100%;
     min-width: 100%;
@@ -248,4 +249,3 @@ form h3 {
     background-color: #8BB481;    
 }
   </style>
-  
