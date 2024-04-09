@@ -68,14 +68,14 @@
 
 
         <td>
-            {{-- <form method="GET" action="{{action( [App\Http\Controllers\CustomerController::class,'edit'],['customer' => $customer->id_customer] )}}">
+            <form method="GET" action="{{action( [App\Http\Controllers\CustomerController::class,'edit'],['booking' => $booking->id_booking] )}}">
                 @csrf
 
 
 
                 <button class="btn btn-primary" type="submit">Editar</button>
 
-            </form> --}}
+            </form>
 
         </td>
         <td>

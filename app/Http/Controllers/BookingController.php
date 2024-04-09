@@ -73,7 +73,9 @@ class BookingController extends Controller
      */
     public function edit(booking $booking)
     {
-        //
+
+
+        return view('adminZone.Bookings.edit', compact('booking'));
     }
 
     /**
