@@ -79,65 +79,67 @@ const dataSteps = {
                             </div>
 
                             <label for="menu" id="selected-pack-text">Pack seleccionado:</label>
-                            <input type="text" id="pack-number-show" @change="stepProgress.nextStep" disabled/>
+                            <input type="text" class="pack-number-show" id="menu" @change="stepProgress.nextStep" disabled/>
 
                           <!-- Modal -->
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="!showMessage">Confirmación
-                                    de su reserva</h1>
-                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="showMessage">Estado de su
-                                    reserva</h1>
+                              <div class="modal-content" id="modal-content-confirm-booking">
+                                <div class="modal-header" id="modal-header-confirm-booking">
                                   <div @click="stepProgress.stepZero">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    <button type="button" id="modal-close-button" data-bs-dismiss="modal" aria-label="Close"
                                       @click="returnToInitialState()"></button>
                                   </div>
+
+                                  <!-- <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="!showMessage">Confirmación
+                                    de su reserva</h1>
+
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel" v-if="showMessage">Estado de su
+                                    reserva</h1>                                   -->
                                 </div>
                                 <div class="modal-body">
                                   <div v-if="!this.showMessage">
-                                    <h2>Su reserva está a punto de ser confirmada</h2>
-                                    <h2>Pack seleccionado:</h2>
+                                    <h2 id="modal-body-heading">Su reserva está a punto de ser confirmada</h2>
+                                    <h2 id="modal-body-heading2">Pack seleccionado:</h2>
                                     <provider :id="this.idSelectedProvider" :id_menu_selected="this.idSelectedMenu"
                                       :find="true" @selectedM="handleSelectedMenu" />
-                                    <h2>Restaurante seleccionado:</h2>
+                                    <h2 id="modal-body-heading3">Restaurante seleccionado:</h2>
                                     <div v-for=" prov  in  providers ">
                                       <div v-if="this.idSelectedProvider == prov.id_user">
-                                        <div class="card" :key="prov.id_user">
-                                          <img src="../images/resto.jpeg" class="card-img-top" alt="...">
+                                        <div class="card" :key="prov.id_user" id="restaurant-card" style=" border-radius: 22px;">
+                                          <img src="../images/resto.jpeg" class="card-img-top" alt="..." id="restaurant-card-img" style=" border-top-left-radius: 22px; border-top-right-radius: 22px;">
                                           <div class="card-body">
-                                            <h5 v-if="idSelectedProvider">provider:</h5>
-                                            <h5 class="card-title">{{ prov.real_name }}</h5>
-                                            <p class="card-text">Direccion: {{
-        prov.provider.adress }}</p>
+                                            <h5 class="card-title" id="card-title-restaurant">{{ prov.real_name }}</h5>
+                                            <p class="card-text" id="card-text-restaurant">{{ prov.provider.adress }}</p>
 
                                           </div>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                                  <div v-if="this.showMessage">
+                                  <div v-if="this.showMessage" style="text-align: center;">
 
-                                    <div v-if="this.messageType == 'i'" class="alert alert-success" role="alert">
+                                    <div v-if="this.messageType == 'i'" class="alert alert-success" id="alert-success-booking" role="alert">
                                       Su reserva ha sido tramitada correctamente
                                     </div>
 
-                                    <div v-if="this.messageType == 'e'" class="alert alert-danger" role="alert">
+                                    <div v-if="this.messageType == 'e'" class="alert alert-danger" id="alert-danger-booking" role="alert">
                                       Su reserva no ha podido ser tramitada, vuelva a probar mas tarde.
 
                                     </div>
                                   </div>
                                 </div>
 
-                                <div v-if="!showMessage" class="modal-footer">
-                                  <button @click="stepProgress.stepZero">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                      @click="returnToInitialState()">Cancelar</button>
-                                  </button>
-                                  <button type="button" class="btn btn-primary"
-                                    @click="createBooking()">Confirmar</button>
+                                <div v-if="!showMessage" class="modal-footer" id="modal-footer-confirm-booking">
+                                  <div class="button-container d-inline-block" id="boton-container-confirmar">
+                                    <button type="button" id="boton-confirmar2" class="btn btn-primary" @click="createBooking()">
+                                      Confirmar
+                                    </button>
+                                    <button type="button" id="boton-confirmar2-sombra" class="btn btn-primary" @click="createBooking()">
+                                      Confirmar
+                                    </button>
+                                  </div> 
                                 </div>
 
                               </div>
@@ -417,6 +419,12 @@ export default {
     align-items: center;
     width: 100%;
     margin-top: 5%;
+    margin-bottom: 10%;
+  }
+
+  #boton-container-confirmar {
+    position: relative;
+    width: 90%;
   }
 
   #boton-confirmar {
@@ -424,6 +432,21 @@ export default {
     height: 67px;
     color: white;
     border: 3px solid #000000;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+#boton-confirmar2 {
+    background-color: #8BB481;
+    height: 67px;
+    color: white;
+    border: 3px solid #1E1E1E;
     border-radius: 40px;
     font-family: 'Outfit', sans-serif;
     font-weight: bold;
@@ -451,21 +474,110 @@ export default {
     left: -1%;
 }
 
+#boton-confirmar2-sombra {
+    position: absolute;
+    background-color: #677F61;
+    height: 70px;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 0;
+    width: 100%;
+    top: 1%;
+    left: -1%;
+}
+
 #selected-pack-text {
     color: white;
     font-size: 18px;
+    margin-right: 10px;
 }
 
-#pack-number-show {
+.pack-number-show {
     background-color: #1E1E1E;
     width: 15%;
     height: 30px;
     border: none;
     color: white;
-    font-size: 32px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 400;
     border-radius: 50px;
     text-align: center;
 }
 
+#modal-content-confirm-booking {
+    background-color: #1E1E1E;
+    border-radius: 26px;
+}
+
+#modal-header-confirm-booking {
+    border: none;
+}
+
+#modal-body-heading {
+    color: white;
+    font-size: 36px;
+    margin-bottom: 5%;
+}
+
+#modal-body-heading2 {
+    color: #8F8F8F;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+#modal-body-heading3 {
+    color: #8F8F8F;
+    font-size: 24px;
+    font-weight: 500;
+    margin-top: -30%;
+}
+
+#modal-close-button {
+    position: relative;
+    left: 2%;
+    top: 3%;
+    margin-bottom: 5%;
+    width: 40px;
+    height: 40px;
+    background-image: url("../images/mingcute_arrow-up-line.png");
+    background-color: transparent;
+    border: none;
+}
+
+#modal-footer-confirm-booking {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+}
+
+#alert-success-booking {
+    margin-top: -8%;
+    padding: 0;
+    --bs-alert-color: #8BB481;
+    font-size: 32px;
+    font-weight: 500;
+    --bs-alert-bg: transparent;
+    --bs-alert-border-color: none;
+    --bs-alert-link-color: var(--bs-success-text-emphasis);
+    line-height: 1.3;
+}
+
+#alert-danger-booking {
+    margin-top: -8%;
+    padding: 0;
+    --bs-alert-color: #E46962;
+    font-size: 32px;
+    font-weight: 500;
+    --bs-alert-bg: transparent;
+    --bs-alert-border-color: none;
+    --bs-alert-link-color: var(--bs-success-text-emphasis);
+    line-height: 1.3;
+}
 </style>
