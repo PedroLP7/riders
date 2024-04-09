@@ -90,6 +90,7 @@ class CharityMenuController extends Controller
     {
         try {
             $charity_menu->isActive=0;
+            $charity_menu->save();
 
             $response = response()->json(['message' => 'Menu eliminado correctamente']);
         } catch (\Throwable $th) {
