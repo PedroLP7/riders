@@ -266,8 +266,7 @@ defineEmits(['found-booking'])
             <div
               v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
 
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
-                {{ buttonContent(booking.status.id_status) }}</button>
+              
             </div>
           </div>
 
