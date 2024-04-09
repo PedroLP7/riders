@@ -141,12 +141,12 @@ export default {
   },
   methods: {
     registrateRider() {
-      this.fadeOutRegisterButton();     
+      this.fadeOutRegisterButton();
       this.showRiderForm = true;
       this.showEmpresaForm = false;
       this.showProviderForm = false;
-      
-      
+
+
     },
     registroEmpresa() {
       this.showEmpresaForm = true;
@@ -161,9 +161,9 @@ export default {
     login() {
       window.location.href = "/riders/public/usuario/create";
     },
-    insertRider() {    
-      alert('Formulario enviado para Rider!');
-      axios.post('/api/rider', this.usuario)
+    insertRider() {
+
+      axios.post('/rider', this.usuario)
         .then(response => {
           console.log(response);
           this.usuario = { user_name: '', password: '', dni_cif: '', real_name: '', surname1: '', surname2: '', mail: '', phone: '' };
@@ -175,7 +175,7 @@ export default {
     },
     insertProvider() {
       alert('Formulario enviado para Comedor Social!');
-      axios.post('/api/provider', this.proveedor)
+      axios.post('/provider', this.proveedor)
         .then(response => {
           console.log(response);
           this.proveedor = { user_name: '', password: '', dni_cif: '', real_name: '', address: '' };
@@ -187,7 +187,7 @@ export default {
     },
     insertEmpresa() {
       alert('Formulario enviado para Empresa!');
-      axios.post('/api/empresa', this.empresa)
+      axios.post('/empresa', this.empresa)
         .then(response => {
           console.log(response);
           this.empresa = { user_name: '', password: '', dni_cif: '', real_name: '', address: '' };
@@ -196,16 +196,16 @@ export default {
         .catch(error => {
           console.log(error.response.data.error);
         });
-    },  
+    },
     fadeOutRegisterButton() {
-      
-      const registerBtn = document.getElementById('register');    
+
+      const registerBtn = document.getElementById('register');
       registerBtn.classList.add('disappear');
     }
   }
-  
+
 }
 </script>
-  
-   
+
+
 
