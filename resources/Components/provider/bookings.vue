@@ -3,9 +3,9 @@ defineEmits(['found-booking'])
 </script>
 
 <template>
-  <div v-if="bookings !== null && usuario !== null" class="container">
+  <div v-if="bookings !== null && usuario !== null" class="bookings-modal-container">
     <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
-    <h1 class="titulo-bookings" v-if="screen == 2">Pedidos pendientes de ser recogidos</h1>
+    <h1 class="titulo-bookings" v-if="screen == 2">No te olvides:</h1>
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
     <div v-if="screen !== 1 && screen !== 2 && screen !== 3">
       <div class="cards-container-bookings">
@@ -477,12 +477,18 @@ window.location.href ='./viewAllBookings'
   height: 100px;
 }
 
+.bookings-modal-container {
+  height: 0;
+  margin-bottom: 5%;
+  margin-top: 1%;
+}
+
 .titulo-bookings {
   width: 100%;
   color: #8F8F8F;
-  font-weight: bold;
-  margin-top: 20%;
-  margin-left: 2%;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
 #container-bookings {

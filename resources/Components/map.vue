@@ -256,16 +256,17 @@ export default {
   display: flex;
   flex-direction: column;
   position: fixed;
-  z-index: 1050;
+  z-index: 2;
   left: 50%;
-  top: 70%;
+  top: 74%;
   transform: translate(-50%, -50%);
-  width: 40%;
+  width: 95%;
   min-height: 2%;
-  background-color: black;
-  border-radius: 8px;
+  background-color: #1e1e1edb;
+  backdrop-filter: blur(9px);
+  border-radius: 33px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  padding: 20px;
+  padding: 2%;
   overflow: hidden;
   align-items: center;
 }
@@ -314,7 +315,7 @@ button:hover {
 
 .modal-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -379,5 +380,9 @@ button {
 
 .modal-small-button:hover {
   background-color: #8BB481;
+}
+
+#navbar {
+  width: 100%;
 }
 </style>
