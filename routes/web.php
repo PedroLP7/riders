@@ -21,7 +21,7 @@ use App\Http\Controllers\ProviderController;
 */
 
 Route::get('/', function () {
-    return view('landing');
+    return view('riderForm');
 })->name('home');
 
 
