@@ -34,7 +34,7 @@
               <div v-if="usuario.user_type_id == 2">
                 <div v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
 
-                <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success" >
                 {{ buttonContent(booking.status.id_status) }}
                 </button>
               </div>
