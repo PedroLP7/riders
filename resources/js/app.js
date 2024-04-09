@@ -20,14 +20,14 @@ import editMenu from '../Components/provider/editMenu.vue';
 
 import createCommunityKitchen from '../Components/addCommunityKForm.vue'
 import viewProvider from '../Components/showAvailableProviders.vue'
-
+import viewAllBookings from '../Components/provider/viewAllBookingsPendingToBeCollected.vue'
 
 
 createApp(landing).mount("#landing")
 createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")
-//createApp(viewAllBookings).mount("#viewBookings")
+createApp(viewAllBookings).mount("#viewAllBookings")
 
 
 //  createApp(bookings).mount("#updateBookingComponent")

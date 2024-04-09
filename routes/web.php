@@ -59,7 +59,9 @@ route::get('/updateBooking', function(){
 route::get('/recurringCustomer', function(){
     return view('rider.recurringCustomer');
 });
-
+route::get('rider/viewAllBookings', function(){
+    return view('rider.viewAllBookingsPendingCollection');
+});
 
 
 Route::middleware(['auth'])->group(function () {

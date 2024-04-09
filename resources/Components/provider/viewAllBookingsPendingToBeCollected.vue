@@ -1,19 +1,30 @@
 <template>
-    <booking :screen="3"> </booking>
-  </template>
-  
-  <script>
-  import booking from 'bookings.vue';
-  
-  export default {
-    components: {
-      booking
-    },
-  
-  }
-  </script>
-  
-  <style>
+  <div>
+    <button @click="goBack()" type="button" class="btn btn-success">Go Back</button>
+    <bookings :screen= "3" />
+  </div>
+</template>
 
-  </style>
-  
+<script>
+import bookings from './bookings.vue';
+
+export default {
+  components: {
+    bookings
+  },
+  methods:{
+    goBack(){
+      window.location.href = './home'
+    }
+  },
+  data() {
+    return {
+      
+     
+      
+    };
+  }
+}
+</script>
+
+<style></style>

@@ -7,7 +7,7 @@ defineEmits(['found-booking'])
     <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
     <h1 class="titulo-bookings" v-if="screen == 2">Pedidos pendientes de ser recogidos</h1>
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
-    <div v-if="screen !== 1 && screen !== 2">
+    <div v-if="screen !== 1 && screen !== 2 && screen !== 3">
       <div class="cards-container-bookings">
         <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
 
@@ -273,7 +273,7 @@ defineEmits(['found-booking'])
     </div>
   </div>
 
-  <button v-if="bookings.length > 3" @click="viewAllBookings">Ver los demás bookings</button>
+
   --
 </div>
 
@@ -347,7 +347,7 @@ export default {
         });
     },
     viewAllBookings() {
-window.href =''
+window.location.href ='./viewAllBookings'
     },
 
     fetchBookings() {
