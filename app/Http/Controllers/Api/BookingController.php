@@ -18,10 +18,10 @@ class BookingController extends Controller
     public function index()
     {
         try {
-            $bookings = Booking::whereNotIn('id_status', [3, 4])
+            $bookings = Booking::whereI('id_status_fk', [1, 2])
                 ->with('provider.user', 'rider.user', 'menu', 'status')
                 ->get();
-    
+
             $response = BookingResource::collection($bookings);
         } catch (\Throwable $th) {
             $response = response()->json(['error' => 'Error al mostrar la reserva: ' . $th->getMessage()], 500);
@@ -33,6 +33,8 @@ class BookingController extends Controller
     {
         $bookings = Booking::where('id_rider_fk', $id)
         ->orWhere('id_provider_fk', $id)
+        ->whereIn('id_status_fk', [1, 2])
+
         ->with('provider.user', 'rider.user', 'menu', 'status')
         ->get();
 
