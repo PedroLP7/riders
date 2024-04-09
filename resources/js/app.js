@@ -21,7 +21,7 @@ import formRider from '../Components/formRider.vue';
 
 import createCommunityKitchen from '../Components/addCommunityKForm.vue'
 import viewProvider from '../Components/showAvailableProviders.vue'
-
+import viewAllBookings from '../Components/provider/viewAllBookingsPendingToBeCollected.vue'
 
 
 createApp(landing).mount("#landing")
@@ -29,6 +29,7 @@ createApp(formRider).mount("#raiderForm")
 createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")
+createApp(viewAllBookings).mount("#viewAllBookings")
 
 
 //  createApp(bookings).mount("#updateBookingComponent")

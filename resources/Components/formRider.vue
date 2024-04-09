@@ -7,16 +7,16 @@
                 <input type="text" class="form-control" id="username" name="user_name" placeholder="Nombre de Usuario">
               </div>
           </div>
-          <div class="form-group row mt-3 px-5">
+          <div class="form-group row mt-4 px-5">
             <div class="col-sm-10">
               <input type="password" class="form-control" id="password" name="pswd"  placeholder="Contraseña">
               <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
               <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
             </div>
           </div>
-          <div class="form-group row mt-3 px-5">
+          <div class="form-group row mt-4 px-5">
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="password" name="pswd"  placeholder="Repite la contraseña">
+              <input type="password" class="form-control" id="confirmPassword" name="pswd"  placeholder="Repite la contraseña">
               <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
               <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
             </div>
@@ -27,7 +27,25 @@
           </div>
       </div>
     </div>
-  </template>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const submitButton = document.getElementById('signIn');
+    
+    submitButton.addEventListener('click', function (event) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value; 
+        
+        if (password !== confirmPassword) {
+            alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
+        } else {
+            alert('Registro completado correctamente.');
+            
+        }
+    });
+});
+</script>
   
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
@@ -63,7 +81,7 @@ body {
 
 .card-body {
     background-color: transparent;
-    margin-top: 15%;
+    margin-top: 7%;
 }
 
 .col-sm-10 {
@@ -75,7 +93,7 @@ body {
 
 .form-control {
     width: 90%;
-    height: 65px;
+    height: 75px;
     border-radius: 50px;
     border: none;
     background-color: #444444;
@@ -127,9 +145,9 @@ body {
 #titulo{
   color: #393939;
     font-weight: 680px;
-    font-size: 68px;
+    font-size: 66px;
     margin-top: 10%;
-    margin-left: 5%;
+    margin-left: 7%;
 
 }
 form h3 {
@@ -145,7 +163,7 @@ form h3 {
     display: inline-block;
     top: 87%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);    
     max-width: 75%;
     min-width: 75%;
 }
