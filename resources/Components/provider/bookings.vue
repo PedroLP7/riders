@@ -160,6 +160,11 @@ defineEmits(['found-booking'])
               <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
                 <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
                 </div>
+
+                <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success" >
+                {{ buttonContent(booking.status.id_status) }}
+                </button>
+
               </div>
 
               <div v-if="booking.status && booking.status.status_name">
