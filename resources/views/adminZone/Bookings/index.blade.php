@@ -68,7 +68,7 @@
 
 
         <td>
-            <form method="GET" action="{{action( [App\Http\Controllers\CustomerController::class,'edit'],['booking' => $booking->id_booking] )}}">
+            <form method="GET" action="{{action( [App\Http\Controllers\BookingController::class,'edit'],['booking' => $booking->id_booking] )}}">
                 @csrf
 
 
@@ -91,15 +91,7 @@
 
 
 
-         <td>
-            {{-- <form method="POST" action=" {{ action( [App\Http\Controllers\CustomerController::class,'reactivate'],['customer' => $customer->id_customer] )}}">
-                @csrf
 
-                @method('PUT')
-
-                <button class="btn btn-primary" type="submit">Reactivate</button>
-                </form>
-         </td> --}}
     </tbody>
      @endforeach
     </table>

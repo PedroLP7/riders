@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\booking_status;
+use App\Models\charity_menu;
+use App\Models\provider;
+use App\Models\rider;
+
+
 use App\Models\booking;
 use App\Clases\Utilidad;
 use Illuminate\Http\Request;
@@ -75,7 +81,22 @@ class BookingController extends Controller
     {
 
 
-        return view('adminZone.Bookings.edit', compact('booking'));
+        $riders = rider::all();
+        $providers = provider::with('menus')->get();
+        $status = booking_status::all();
+        foreach ($booking->provider->menus as $charity_menu) {
+            $quantity = $charity_menu->pivot->quantity;
+            dd($quantity);
+        }
+
+
+
+
+
+
+
+
+        return view('adminZone.Bookings.edit', compact('booking', 'riders', 'providers', 'status'));
     }
 
     /**
@@ -83,22 +104,23 @@ class BookingController extends Controller
      */
     public function update(Request $request, booking $booking)
     {
-        //
+
+        // $quantity = $booking->charity_menu->pivot.quantity;
+        // dd($quantity);
         $booking->id_rider_fk = $request->input('id_rider_fk');
-        $booking->id_provider_fk = $request->input('id_provider_fk');
-        $booking->id_menu_fk = $request->input('id_menu_fk');
+
+
         $booking->menu_quantity = $request->input('menu_quantity');
+        // if($request->input('menu_quantity'))
         $booking->id_status_fk = $request->input('id_status_fk');
-        $booking->curr_date = $request->input('curr_date');
+
         try {
             $booking->save();
-            $response = (new BookingResource($booking))
-                ->response()
-                ->setStatusCode(201);
-        } catch (QueryException $ex) {
-            $mensaje = Utilidad::errorMessage($ex);
-            $response = \response()
-                ->json(['error' => $mensaje], 400);
+            $response = redirect('/admin/bookings/');
+        } catch (\Throwable $th) {
+            session()->flash('error',"error al editar el booking: ".$th->getMessage());
+            $response = redirect('/admin/bookings/edit/')->withInput();
+
         }
         return $response;
     }
