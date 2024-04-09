@@ -86,9 +86,11 @@ class BookingController extends Controller
         $status = booking_status::all();
         foreach ($booking->provider->menus as $charity_menu) {
             $quantity = $charity_menu->pivot->quantity;
-            dd($quantity);
-        }
 
+        }
+            // este bucle me da la cantidad de menus del que estamos editando que tiene el proveedor,
+        // poner if que si lo que pones es superior a la cantidad que tiene el proveedor, no te deje hacerlo
+        // esto va en el update :)
 
 
 
