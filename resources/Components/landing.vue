@@ -187,7 +187,7 @@ export default {
     },
     insertEmpresa() {
       alert('Formulario enviado para Empresa!');
-      axios.post('/api/empresa', this.empresa)
+      axios.post('/empresa', this.empresa)
         .then(response => {
           console.log(response);
           this.empresa = { user_name: '', password: '', dni_cif: '', real_name: '', address: '' };
