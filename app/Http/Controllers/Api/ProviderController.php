@@ -76,7 +76,10 @@ class ProviderController extends Controller
     public function show(provider $provider)
     {
         try {
-            $provider = usuario::with('provider.menus')->find($provider->id_provider);
+            $provider = Usuario::with(['provider.menus' => function ($query) {
+                $query->where('isActive', '1');
+            }])->find($provider->id_provider);
+
             return  new ProviderResource($provider);
 
         } catch (\Throwable $th) {

@@ -15,7 +15,9 @@ class CharityMenuController extends Controller
     public function index()
     {
         try {
-            $charity_menu = charity_menu::with('providers')->get();
+            $charity_menu = charity_menu::with('providers')
+            ->where('isActive', 1)
+            ->get();
             $response  = CharityMenuResource::collection($charity_menu);
         } catch (\Throwable $th) {
             $response = response()->json(['message' => 'Error al obtener los datos'], 500);
@@ -88,6 +90,7 @@ class CharityMenuController extends Controller
     {
         try {
             $charity_menu->isActive=0;
+
             $response = response()->json(['message' => 'Menu eliminado correctamente']);
         } catch (\Throwable $th) {
             $response = response()->json(['error' =>  'Error al eliminar el menu',$th], 500);
