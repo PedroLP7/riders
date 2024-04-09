@@ -15,7 +15,11 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = booking::all();
+        $bookings = Booking::where('id_status_fk', 1)
+                  ->orWhere('id_status_fk', 2)
+
+                  ->get();
+
         return view('adminZone.Bookings.index', compact('bookings'));
 
 

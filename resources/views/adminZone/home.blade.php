@@ -73,7 +73,7 @@
         <th>Dni/Cif</th>
 
         <th>Active</th>
-        <th>Canceled</th>
+
 
       </tr>
 
@@ -107,27 +107,7 @@
         @endif
     </td>
 
-        <td>
 
-            @if ($usuario->isCanceled == 1)
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="isCanceled" name="isCanceled" value="isCanceled" checked>
-                <label class="custom-control-label" for="isCanceled"></label>
-              </div>
-        @else
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="isCanceled" name="isCanceled" value="isCanceled" >
-            <label class="custom-control-label" for="isCanceled"></label>
-
-
-
-
-            </div>
-
-        @endif
-
-
- </td>
         <td>{{$usuario->size}}</td>
         <td>{{$usuario->location}}</td>
         <td>{{$usuario->fed}}</td>
