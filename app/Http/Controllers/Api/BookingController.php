@@ -18,13 +18,15 @@ class BookingController extends Controller
     public function index()
     {
         try {
-            $booking = booking::with('provider.user', 'rider.user', 'menu', 'status')->get();
-            $response = BookingResource::collection($booking);
+            $bookings = Booking::whereNotIn('id_status', [3, 4])
+                ->with('provider.user', 'rider.user', 'menu', 'status')
+                ->get();
+    
+            $response = BookingResource::collection($bookings);
         } catch (\Throwable $th) {
             $response = response()->json(['error' => 'Error al mostrar la reserva: ' . $th->getMessage()], 500);
         }
         return $response;
-
     }
 
     public function showWithId($id)
