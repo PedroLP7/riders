@@ -27,13 +27,21 @@ class UsuarioController extends Controller
         }else if(Auth::user()->user_type->type_name == 'Admin'){
             $response = redirect('/admin/home');
 
-        } else {
-        $request->session()->flash('error',
-        'Usuari o contrasenya incorrectes');
-        $response = redirect('/usuario/create')->withInput();
+        // } else {
+        // $request->session()->flash('error',
+        // 'Usuari o contrasenya incorrectes');
+        // $response = redirect('/usuario/create')->withInput();
     }
-        return $response;
-    }
+    return $response;
+}else{
+    $request->session()->flash('error',
+    'Usuari o contrasenya incorrectes');
+    return redirect('/usuario/create')->withInput();
+
+
+}
+
+
     }
     /**
      * Display a listing of the resource.
