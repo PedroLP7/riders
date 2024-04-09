@@ -141,7 +141,7 @@ defineEmits(['found-booking'])
 
 
     <div class="cards-container-bookings">
-      <div class="card" id="booking-card" v-for="booking in bookings.slice(0, 3)" :key="booking.id_booking">
+      <div class="card" id="booking-card" v-for="booking in bookings.slice(0, 2)" :key="booking.id_booking">
         <div v-if="booking.status.id_status == 1">
 
           <div class="card-header" id="booking-card-header">
@@ -202,8 +202,7 @@ defineEmits(['found-booking'])
         </div>
       </div>
 
-      <button v-if="bookings.length > 3" @click="viewAllBookings">Ver los demás bookings</button>
-      --
+      <button v-if="bookings.length > 3" @click="viewAllBookings" id="view-more-bookings">Ver los demás bookings</button>
     </div>
 
 
@@ -551,5 +550,9 @@ window.location.href ='./viewAllBookings'
 #subtitulo-card-booking {
   color: #8F8F8F;
   font-size: 15px;
+}
+
+#view-more-bookings {
+  margin-top: 2%;
 }
 </style>
