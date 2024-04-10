@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -143,6 +144,19 @@ Route::middleware(['auth'])->group(function () {
             route::put('admin/customers/reactivate/{customer}', [CustomerController::class, 'reactivate']);
             route::get('admin/customers/create', [CustomerController::class, 'create']);
             route::post('admin/customers/store', [CustomerController::class, 'store']);
+
+
+
+
+
+            route::get('/admin/bookings', [BookingController::class, 'index']);
+            route::get('admin/bookings/edit/{booking}', [BookingController::class, 'edit']);
+            route::put('admin/bookings/update/{booking}', [BookingController::class, 'update']);
+            route::delete('admin/bookings/delete/{booking}', [BookingController::class, 'destroy']);
+
+            route::get('admin/bookings/create', [BookingController::class, 'create']);
+            route::post('admin/bookings/store', [BookingController::class, 'store']);
+            route::delete('admin/bookings/delete/{booking}', [BookingController::class, 'destroy']);
 
 
 
