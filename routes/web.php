@@ -150,10 +150,11 @@ Route::middleware(['auth'])->group(function () {
             route::get('/admin/bookings', [BookingController::class, 'index']);
             route::get('admin/bookings/edit/{booking}', [BookingController::class, 'edit']);
             route::put('admin/bookings/update/{booking}', [BookingController::class, 'update']);
-            route::delete('admin/bookings/delete/{booking}', [CustomerController::class, 'destroy']);
+            route::delete('admin/bookings/delete/{booking}', [BookingController::class, 'destroy']);
 
-            route::get('admin/bookings/create', [CustomerController::class, 'create']);
-            route::post('admin/bookings/store', [CustomerController::class, 'store']);
+            route::get('admin/bookings/create', [BookingController::class, 'create']);
+            route::post('admin/bookings/store', [BookingController::class, 'store']);
+            route::delete('admin/bookings/delete/{booking}', [BookingController::class, 'destroy']);
 
 
 

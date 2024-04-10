@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\booking_status;
-use App\Models\charity_menu;
-use App\Models\provider;
+use Carbon\Carbon;
+
 use App\Models\rider;
-
-
 use App\Models\booking;
 use App\Clases\Utilidad;
+
+
+use App\Models\provider;
+use App\Models\charity_menu;
 use Illuminate\Http\Request;
+use App\Models\booking_status;
 use App\Http\Resources\BookingResource;
 use Illuminate\Database\QueryException;
 
@@ -36,7 +38,12 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+         $riders = rider::all();
+        $providers = provider::with('menus')->get();
+        $status = booking_status::all();
+        $menus = charity_menu::all();
+
+        return view('adminZone.Bookings.create',compact('riders','providers','status','menus'));
     }
 
     /**
@@ -51,16 +58,18 @@ class BookingController extends Controller
         $booking->id_menu_fk = $request->input('id_menu_fk');
         $booking->menu_quantity = $request->input('menu_quantity');
         $booking->id_status_fk = $request->input('id_status_fk');
-        $booking->curr_date = $request->input('curr_date');
+        $fecha_actual = Carbon::now()->format('Y:m:d');
+
+        $booking->curr_date = $fecha_actual;
 
         try {
             $booking->save();
-            $response = response()->json(['bien insertado'], 200)
-                ->response()
-                ->setStatusCode(201);
-        } catch (QueryException $ex) {
-            $mensaje = Utilidad::errorMessage($ex);
-            $response = response()->json(['error' => $mensaje], 400);
+            $response = redirect('/admin/bookings/');
+
+
+        } catch (QueryException $th) {
+
+            $response = redirect('/admin/bookings/create');
         }
 
         return $response;
@@ -84,13 +93,7 @@ class BookingController extends Controller
         $riders = rider::all();
         $providers = provider::with('menus')->get();
         $status = booking_status::all();
-        foreach ($booking->provider->menus as $charity_menu) {
-            $quantity = $charity_menu->pivot->quantity;
 
-        }
-            // este bucle me da la cantidad de menus del que estamos editando que tiene el proveedor,
-        // poner if que si lo que pones es superior a la cantidad que tiene el proveedor, no te deje hacerlo
-        // esto va en el update :)
 
 
 
@@ -107,14 +110,39 @@ class BookingController extends Controller
     public function update(Request $request, booking $booking)
     {
 
-        // $quantity = $booking->charity_menu->pivot.quantity;
-        // dd($quantity);
-        $booking->id_rider_fk = $request->input('id_rider_fk');
+
+        $booking->id_rider_fk = $request->input('id_rider');
 
 
-        $booking->menu_quantity = $request->input('menu_quantity');
-        // if($request->input('menu_quantity'))
-        $booking->id_status_fk = $request->input('id_status_fk');
+
+
+        // foreach ($booking->provider->menus as $charity_menu) {
+        //     $quantity = $charity_menu->pivot->quantity;
+
+        //    $prueba = $booking->menu_quantity = $request->input('quantity');
+        //     if ($prueba > $quantity) {
+        //         // dd($quantity,$prueba);
+        //         session()->flash('error', 'No puedes pedir más menús de los que tiene el proveedor , se te han asignado todos los que tiene disponibles :)');
+        //         $booking->menu_quantity = $quantity;
+        //         $charity_menu->pivot->quantity = 0;
+        //         $charity_menu->pivot->save();
+
+
+        //     }else{
+        //         $booking->menu_quantity = $request->input('quantity');
+        //        $charity_menu->pivot->quantity = $quantity - $prueba;
+        //         $charity_menu->pivot->save();
+        //     }
+
+        // }
+
+
+
+        // $booking->menu_quantity = $request->input('quantity');
+
+
+
+        $booking->id_status_fk = $request->input('id_status');
 
         try {
             $booking->save();
@@ -126,12 +154,18 @@ class BookingController extends Controller
         }
         return $response;
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(booking $booking)
     {
-        //
+        try{
+            $booking->delete();
+            $response = redirect('/admin/bookings/');
+        }catch(\Throwable $th){
+            session()->flash('error',"error al eliminar el booking: ".$th->getMessage());
+            $response = redirect('/admin/bookings/');
+        }
+        return $response;
     }
 }

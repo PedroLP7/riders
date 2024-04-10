@@ -79,13 +79,13 @@
 
         </td>
         <td>
-            {{-- <form method="POST" action=" {{ action( [App\Http\Controllers\CustomerController::class,'destroy'],['customer' => $customer->id_customer] )}}">
+            <form method="POST" action=" {{ action( [App\Http\Controllers\BookingController::class,'destroy'],['booking' => $booking->id_booking] )}}">
                 @csrf
 
                 @method('DELETE')
 
-                <button class="btn btn-danger" type="submit">Desactivar</button>
-                </form> --}}
+                <button class="btn btn-danger" type="submit">Borrar booking</button>
+                </form>
          </td>
 
 
