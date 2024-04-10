@@ -5,7 +5,8 @@ defineEmits(['found-booking'])
 <template>
   <div v-if="bookings !== null && usuario !== null" class="bookings-modal-container">
     <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
-    <h1 class="titulo-bookings" v-if="screen == 2">No te olvides:</h1>
+    <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length > 0">No te olvides:</h1>
+    <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length == 0">No tienes packs reservados</h1>
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
     <div v-if="screen !== 1 && screen !== 2 && screen !== 3">
       <div class="cards-container-bookings">
@@ -202,7 +203,8 @@ defineEmits(['found-booking'])
         </div>
       </div>
 
-      <button v-if="bookings.length > 3" @click="viewAllBookings" id="view-more-bookings">Ver los demás bookings</button>
+      <button v-if="bookings.length > 1" @click="viewAllBookings" id="view-more-bookings">Ver los demás bookings</button>
+      <button v-if="bookings.length == 0" @click="viewProviders" id="make-bookings">Reservar un pack</button>
     </div>
 
 
@@ -347,6 +349,10 @@ export default {
     },
     viewAllBookings() {
 window.location.href ='./viewAllBookings'
+    },
+
+    viewProviders() {
+window.location.href ='/riders/public/rider/viewProviders'
     },
 
     fetchBookings() {
@@ -554,5 +560,11 @@ window.location.href ='./viewAllBookings'
 
 #view-more-bookings {
   margin-top: 2%;
+  text-decoration: underline;
+}
+
+#make-bookings {
+  margin-top: 2%;
+  text-decoration: underline;
 }
 </style>

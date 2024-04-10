@@ -269,7 +269,7 @@ export default {
   overflow: hidden;
   align-items: center;
   max-height: 30%;
-  min-width: 30%;
+  min-height: 30%;
 }
 
 .map-container {
