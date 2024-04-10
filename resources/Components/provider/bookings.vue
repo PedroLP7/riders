@@ -339,6 +339,7 @@ export default {
         .then(response => {
           console.log('Delivery created successfully:', response.data);
           // Do something with the response if needed
+
           
         })
         .catch(error => {
@@ -367,6 +368,7 @@ window.location.href ='./viewAllBookings'
                 if (element.status.id_status == 1) {
 
                   this.$emit('found-booking', true);
+                  this.$emit('loaded');
                 }
               });
 

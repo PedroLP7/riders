@@ -1,4 +1,6 @@
 <template>
+   <div v-if="isLoading" class="loading-screen">Cargando...</div>
+  <div>
   <div class="map-container" ref="mapContainer"></div>
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
@@ -31,13 +33,15 @@
   <div v-if="isInitialModalOpen" class="modal-overlay">
     <div class="modal-small-initial">
       <span class="close" @click="closeInitialModal">&times;</span>
-      <div class="modal-content">
-        <booking :screen="2" ></booking>
+      <div class="modal-content"> 
+               
+        <booking :screen="2" @loaded="onChildLoaded" ></booking>
       </div>
     </div>
   </div>
   <div class="container" id="navbar">
     <navbar v-if="showComponente" />
+  </div>
   </div>
 </template>
 
@@ -59,7 +63,8 @@ export default {
     return {
       showComponente: true,
       hasBookingsPending: false,
-      isInitialModalOpen: true,
+      isInitialModalOpen: true,  
+      
 
 
     }
@@ -69,14 +74,20 @@ export default {
     closeInitialModal() {
 
       this.isInitialModalOpen = false;
-    }
+    },
+    onChildLoaded() {
+      this.isLoading = false;    
+      console.log("cargado")
+  }
+
   },
   created() {
 
   },
   setup() {
-    const mapContainer = ref(null);
+    const mapContainer = ref(null);    
     const isModalOpen = ref(false);
+    const isLoading = ref(true);
     const isMarkerOptionsModalOpen = ref(false);
     const mendigo = ref({
       id_customer: '',
@@ -89,8 +100,9 @@ export default {
 
 
 
-    onMounted(async () => {
-      mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';
+    onMounted(async () => {    
+      isLoading.value = true;  
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';      
       map = new mapboxgl.Map({
         container: mapContainer.value,
         style: 'mapbox://styles/mapbox/dark-v10',
@@ -130,7 +142,7 @@ export default {
       });
     });
 
-    const selectMendigos = async () => {
+    const selectMendigos = async () => {      
       try {
         const response = await axios.get('customer');
         response.data.forEach((m) => {
@@ -139,6 +151,7 @@ export default {
         });
       } catch (error) {
         console.error('Error al obtener los mendigos:', error);
+       
       }
     };
 
@@ -236,8 +249,11 @@ export default {
       isMarkerOptionsModalOpen.value = false;
     };
 
+    isLoading.value = false;   
+
 
     return {
+      isLoading,
       mapContainer,
       isModalOpen,
       closeModal,
@@ -385,4 +401,19 @@ button {
 #navbar {
   width: 100%;
 }
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
 </style>
+

@@ -22,7 +22,7 @@ use App\Http\Controllers\ProviderController;
 */
 
 Route::get('/', function () {
-    return view('kitchenForm');
+    return view('landing');
 })->name('home');
 
 
