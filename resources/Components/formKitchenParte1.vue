@@ -13,12 +13,12 @@
           <div class="card-body">
             <div class="form-group row px-5">
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="username" name="user_name" placeholder="Nombre de Usuario" v-model="proveedor.user_name">
+                <input type="text" class="form-control" id="username" name="user_name" placeholder="Nombre de Usuario" v-model="empresa.user_name">
               </div>
             </div>
             <div class="form-group row mt-4 px-5">
               <div class="col-sm-10">
-                <input type="password" class="form-control" ref="password" id="password" name="pswd" placeholder="Contraseña" v-model="proveedor.password">
+                <input type="password" class="form-control" ref="password" id="password" name="pswd" placeholder="Contraseña" v-model="empresa.password">
                 <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
                 <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
               </div>
@@ -43,12 +43,12 @@
   export default {
     data() {
       return {
-        proveedor: { user_name: '', password: '' },
+        empresa: { user_name: '', password: '' },
       };
     },
     methods: {
       enviar() {
-        this.$emit('actualizar-datos', this.proveedor);
+        this.$emit('actualizar-datos', this.empresa);
         this.$emit('enviar');
       },
     },
