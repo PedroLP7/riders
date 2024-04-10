@@ -64,12 +64,7 @@ route::get('rider/viewAllBookings', function(){
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/provider/home', function (){
 
-        $user = Auth::user();
-
-    return view('provider.homeProv', compact('user'));
-    })->name('providerHome');
 
 
     route::get('/rider/home', function(){
@@ -115,7 +110,7 @@ Route::middleware(['auth'])->group(function () {
 
 
         Route::middleware(['CheckAdmin'])->group(function () {
-            route::get('/admin/home', [UsuarioController::class, 'index']);
+            route::get('/admin/home', [UsuarioController::class, 'index'])->name('adminHome');
 
             route::get('/admin/riders', [RiderController::class, 'index']);
             route::get('admin/riders/edit/{rider}', [RiderController::class, 'edit']);
@@ -169,7 +164,21 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+        Route::middleware(['CheckProvider'])->group(function () {
 
+
+            Route::get('/provider/home', function (){
+
+                $user = Auth::user();
+
+            return view('provider.homeProv', compact('user'));
+            })->name('providerHome');
+
+
+
+
+
+        });
 
 
 
