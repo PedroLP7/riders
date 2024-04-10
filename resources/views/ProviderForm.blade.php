@@ -9,6 +9,6 @@
   <title>Registro de Providers</title>
 </head>
 <body class="landing">
-  <div id="raiderForm"></div>
+  <div id="providerForm"></div>
 </body>
 </html>
