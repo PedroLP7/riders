@@ -67,9 +67,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    route::get('/rider/home', function(){
-        return view('rider.homeRid');
-    })->name('riderHome');
+
 
 
     route::get('/rider/viewProviders', function(){
@@ -184,7 +182,13 @@ Route::middleware(['auth'])->group(function () {
         });
 
 
+        Route::middleware(['CheckRider'])->group(function () {
+            route::get('/rider/home', function(){
+                return view('rider.homeRid');
+            })->name('riderHome');
 
+
+        });
 
 
 
