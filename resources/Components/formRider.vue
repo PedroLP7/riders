@@ -1,20 +1,20 @@
 <template>
   <div>
-    <!-- Primer formulario (si aún no se ha enviado) -->
+    
     <div v-if="!formEnviado">
       <form-rider-parte1 @actualizar-datos="actualizarDatosUsuario" @enviar="formEnviado = true"></form-rider-parte1>
     </div>
   
-    <!-- Segundo formulario (componente del segundo formulario) -->
+   
     <form-rider-parte2 v-if="formEnviado && !formParte2Enviado" @actualizar-datos="actualizarDatosUsuario" @enviar="formParte2Enviado = true"></form-rider-parte2>  
 
-    <!-- Tercer formulario -->
+ 
     <form-rider-parte3 v-if="formParte2Enviado" @actualizar-datos="actualizarDatosUsuario" @enviar="insertRider"></form-rider-parte3>
   </div>
 </template>
 
 <script>
-import axios from 'axios'; // Asegúrate de tener axios disponible
+import axios from 'axios'; 
 import FormRiderParte1 from '../Components/formRiderParte1.vue';
 import FormRiderParte2 from '../Components/formRiderParte2.vue';
 import FormRiderParte3 from '../Components/formRiderParte3.vue';
