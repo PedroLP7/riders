@@ -39,16 +39,21 @@ export default {
       this.usuario = { ...this.usuario, ...datos };
     },
     insertRider() {
-      axios.post('rider', this.usuario)
-      .then(response => {
-          console.log(response);
-          this.usuario = { user_name: '', password: '', dni_cif: '', real_name: '', surname1: '', surname2: '', mail: '', phone: '' };
-          this.showRiderForm = false;
-          
-      })
-      .catch(error => {
-          console.log(error.response.data.error);          
-      });
+        const me = this;
+      alert('Formulario enviado!');
+      axios
+      .post('rider', me.usuario)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            me.isError = true;
+                me.messageError = error.response.data.error;
+                console.log(error.response.data.error);
+        });
+
+
+    
     },
   }
 };
