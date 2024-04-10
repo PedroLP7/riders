@@ -85,6 +85,9 @@ Route::middleware(['auth'])->group(function () {
     route::get('/rider/addKitchen', function(){
         return view('rider.addCommunityK');
     });
+    route::get('/rider/bot', function(){
+        return view('rider.bot');
+    });
 
   route::get('/provider/bookings', function(){
         return view('provider.bookings');
