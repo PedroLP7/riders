@@ -22,7 +22,7 @@ use App\Http\Controllers\ProviderController;
 */
 
 Route::get('/', function () {
-    return view('kitchenForm');
+    return view('landing');
 })->name('home');
 
 
@@ -179,13 +179,51 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
 
 
         Route::middleware(['CheckRider'])->group(function () {
-            route::get('/rider/home', function(){
+
+             route::get('/rider/home', function(){
                 return view('rider.homeRid');
             })->name('riderHome');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         });
