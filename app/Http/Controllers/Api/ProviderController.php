@@ -147,22 +147,33 @@ class ProviderController extends Controller
     }
     public function updateQuantity($quantity, $providerId, $menuId)
     {
-      
-        // Find the provider and menu
-        $provider = Provider::findOrFail($providerId);
-        $menu = charity_menu::findOrFail($menuId);
-    
-        // Get the current quantity from the pivot table
-        $currentQuantity = $provider->menus()->where('menu_id', $menu->id)->first()->pivot->quantity;
-    
-        // Calculate the new quantity
-        $newQuantity = max($currentQuantity - $quantity, 0);
-    
-        // Update the quantity through the pivot table
-        $provider->menus()->updateExistingPivot($menu->id, ['quantity' => $newQuantity]);
-    
-        // Return a response
-        return response()->json(['message' => 'Quantity updated successfully']);
+        try {
+            // Find the provider and menu
+            $provider = Provider::findOrFail($providerId);
+            $menu = charity_menu::findOrFail($menuId);
+
+            if (!$provider->menus()->where('id_m', $menu->id_menu)->exists()) {
+                throw new \Exception('Menu not associated with the provider');
+            }
+            // Get the current quantity from the pivot table
+            $currentQuantity = $provider->menus()->where('id_m', $menu->id_menu)->first()->pivot->quantity;
+        
+            // Calculate the new quantity
+           
+            $newQuantity = $currentQuantity - $quantity;
+            if ($newQuantity < 0){
+                throw new \Exception('No puede reservar más paquetes de los que hay disponibles');
+            }
+            // Update the quantity through the pivot table
+            $provider->menus()->updateExistingPivot($menu->id_menu, ['quantity' => $newQuantity]);
+        
+            // Return a success response
+            return response()->json(['message' => 'Quantity updated successfully']);
+        } catch (\Exception $e) {
+            // Return an error response if an exception is caught
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+    
     
 }

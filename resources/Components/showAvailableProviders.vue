@@ -139,6 +139,11 @@ const dataSteps = {
                                       Su reserva no ha podido ser tramitada, vuelva a probar mas tarde.
 
                                     </div>
+                                    <div v-if="this.messageType == 'eb'" class="alert alert-danger"
+                                      id="alert-danger-booking" role="alert">
+                                      No se pueden reservar más paquetes de los disponibles.
+
+                                    </div>
                                   </div>
                                 </div>
 
@@ -260,7 +265,9 @@ export default {
       if (me.usuario) {
         me.booking.id_rider_fk = me.usuario.id_user;
       }
-
+      if (me.recievedQuantity == 0) {
+        me.recievedQuantity = 1;
+      }
       me.booking.id_provider_fk = me.idSelectedProvider;
       me.booking.id_menu_fk = me.idSelectedMenu;
       me.booking.menu_quantity = me.recievedQuantity;
@@ -271,14 +278,14 @@ export default {
         .then(response => {
           console.log('Booking created successfully:', response.data);
 
-          axios.put('/provider/updateQuantity/{quantity}/{provider_id}/{menu_id}')
+          axios.put('/provider/updateQuantity/' + me.recievedQuantity + '/'+ me.idSelectedProvider+'/'+ me.idSelectedMenu)
             .then(response => {
               console.log('Response:', response.data);
               // Handle the response data
             })
             .catch(error => {
               console.error('Error:', error);
-              // Handle errors
+              me.messageType = "eb";
             });
           // Do something with the response if needed
           me.messageType = "i";
