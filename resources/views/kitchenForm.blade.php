@@ -9,6 +9,6 @@
   <title>Registro de Providers</title>
 </head>
 <body class="landing">
-  <div id="providerForm"></div>
+  <div id="kitchenForm"></div>
 </body>
 </html>

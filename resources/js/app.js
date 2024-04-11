@@ -15,6 +15,7 @@ import editProfile from '../Components/provider/editProfile.vue';
 import editMenu from '../Components/provider/editMenu.vue';
 import formRider from '../Components/formRider.vue';
 import formProvider from '../Components/formProvider.vue';
+import formKitchen from '../Components/formKitchen.vue';
 
 
 
@@ -28,6 +29,7 @@ import viewAllBookings from '../Components/provider/viewAllBookingsPendingToBeCo
 createApp(landing).mount("#landing")
 createApp(formRider).mount("#raiderForm")
 createApp(formProvider).mount("#providerForm")
+createApp(formKitchen).mount("#kitchenForm")
 createApp(map).mount("#mapbox")
 createApp(navbar).mount("#navbar")
 createApp(provider).mount("#provider")
