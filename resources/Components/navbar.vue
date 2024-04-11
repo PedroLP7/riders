@@ -134,7 +134,7 @@ props:{
                 this.isRiderSearch = true;
             },
             riderSavedRoute() {
-                window.location.href = "/riders/public/rider/saved";
+                window.location.href = "/riders/public/rider/recurringCustomer";
                 this.isRiderSaved = true;
             },
             riderProfileRoute() {
