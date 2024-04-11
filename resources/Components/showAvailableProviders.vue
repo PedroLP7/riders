@@ -271,7 +271,7 @@ export default {
         .then(response => {
           console.log('Booking created successfully:', response.data);
 
-          axios.put('charity_menu/{charity_menu}/updateQuantity')
+          axios.put('/provider/updateQuantity/{quantity}/{provider_id}/{menu_id}')
             .then(response => {
               console.log('Response:', response.data);
               // Handle the response data

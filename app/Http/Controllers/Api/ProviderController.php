@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\usuario;
 use App\Models\provider;
+use App\Models\charity_menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -144,4 +145,24 @@ class ProviderController extends Controller
             return response()->json(['error' => 'Error al eliminar el usuario: ' . $th->getMessage()], 500);
         }
     }
+    public function updateQuantity($quantity, $providerId, $menuId)
+    {
+      
+        // Find the provider and menu
+        $provider = Provider::findOrFail($providerId);
+        $menu = charity_menu::findOrFail($menuId);
+    
+        // Get the current quantity from the pivot table
+        $currentQuantity = $provider->menus()->where('menu_id', $menu->id)->first()->pivot->quantity;
+    
+        // Calculate the new quantity
+        $newQuantity = max($currentQuantity - $quantity, 0);
+    
+        // Update the quantity through the pivot table
+        $provider->menus()->updateExistingPivot($menu->id, ['quantity' => $newQuantity]);
+    
+        // Return a response
+        return response()->json(['message' => 'Quantity updated successfully']);
+    }
+    
 }

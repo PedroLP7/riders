@@ -42,7 +42,7 @@ Route::get('booking/showBookingByUserId/{id}', [BookingController::class, 'showW
 Route::get('usuario/getUsuarioType/{id}', [ UsuarioController::class, 'getUsuarioType']);
 Route::get('usuario/getUsuariosWithType/{id}', [ UsuarioController::class, 'getUsuariosWithType']);
 
-route::put('charity_menu/{charity_menu}/updateQuantity', [CharityMenuController::class, 'updateQuantity']);
+route::put('provider/updateQuantity/{quantity}/{provider_id}/{menu_id}', [ProviderController::class, 'updateQuantity']);
 route::put('charity_menu/{charity_menu}/asignarProvider', [CharityMenuController::class, 'asignarProvider']);
 route::apiResource('charity_menu',CharityMenuController::class);
 route::apiResource('usuario', UsuarioController::class);
