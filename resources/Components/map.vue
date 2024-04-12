@@ -1,4 +1,7 @@
 <template>
+  <div id="hey">
+    <h1 id="cipoton">Hey, {{ userName }}</h1>
+  </div>
   <div class="map-container" ref="mapContainer"></div>
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
@@ -59,8 +62,8 @@ export default {
     return {
       showComponente: true,
       hasBookingsPending: false,
-      isInitialModalOpen: true,
-
+      isInitialModalOpen: true,      
+      user: {},
 
     }
   },
@@ -69,7 +72,7 @@ export default {
     closeInitialModal() {
 
       this.isInitialModalOpen = false;
-    }
+    }, 
   },
   created() {
 
@@ -86,6 +89,9 @@ export default {
     });
     const selectedMarker = ref(null);
     let map;
+    const userName = ref('Rider');
+    const userp = ref({ id_user: '' });    
+    
 
 
 
@@ -109,6 +115,20 @@ export default {
         }
       });
 
+      const getRider = async () => {
+      if (userp.value.id_user) {
+        try {
+          const response = await axios.get(`usuario/getUsuario${userp.value.id_user}`);
+          userName.value = response.data.name; // Suponiendo que la API responde con un campo 'name'
+          console.log("Rider's name fetched:", userName.value);
+        } catch (error) {
+          console.error('Failed to fetch rider details:', error);
+        }
+      } else {
+        console.error('User ID is not set in userp');
+      }
+    };
+
       map.addControl(geolocateControl);
 
       geolocateControl.on('geolocate', (e) => {
@@ -122,6 +142,8 @@ export default {
       map.on('load', () => {
         geolocateControl.trigger();
         selectMendigos();
+        getRider(); 
+
       });
 
       map.on('click', (e) => {
@@ -243,6 +265,8 @@ export default {
       isModalOpen,
       closeModal,
       confirmAddMarker,
+      userp,
+      userName,
       mendigo,
       isMarkerOptionsModalOpen,
       closeMarkerOptionsModal,
@@ -271,6 +295,32 @@ export default {
   align-items: center;
   max-height: 30%;
   min-height: 30%;
+}
+
+#hey{
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    color: white;
+    width: 35%;
+    height: 5%;    
+    background-color: #8f8f8f6e;
+    backdrop-filter: blur(6px);
+    z-index: 2;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+#cipoton
+{
+  margin: 0px;
+  color: #393939;
+  font-size: 25px;
+  font-weight: 80px;
+  
 }
 
 .map-container {
