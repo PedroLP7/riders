@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="container-parte-inferior">
+                <div class="container-parte-inferior-provider">
                     <div class="container" id="bookings" v-if="!this.id">
                         <bookings v-if="showBookings" :usuario="idUser" />
                     </div>
@@ -178,8 +178,11 @@ body {
     background-color: #1E1E1E;
 }
 
-.container-parte-inferior {
+.container-parte-inferior-provider {
     height: 200px;
+    display: flex; /* Added this line */
+    justify-content: center; /* This centers the navbar horizontally */
+    align-items: center; /* This centers the navbar vertically (optional) */
 }
 
 #navbar {
