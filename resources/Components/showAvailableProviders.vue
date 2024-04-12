@@ -179,7 +179,7 @@ const dataSteps = {
   </div>
 
 
-  <div class="container-parte-inferior">
+  <div class="container-parte-inferior-avalaible-providers">
     <div class="container" id="navbar-showAvailableProviders" v-if="!this.id">
       <navbar v-if="showComponente" />
     </div>
@@ -360,6 +360,10 @@ export default {
 </script>
 
 <style scoped>
+.container-parte-inferior-avalaible-providers {
+  height: 100px;
+}
+
 #navbar-showAvailableProviders {
   position: fixed;
   top: 90%;
@@ -543,7 +547,8 @@ export default {
 }
 
 #modal-content-confirm-booking {
-  background-color: #1E1E1E;
+  background-color: #1e1e1eb5;
+  backdrop-filter: blur(9px);
   border-radius: 26px;
 }
 

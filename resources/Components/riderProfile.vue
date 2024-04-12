@@ -52,13 +52,24 @@
         <h1 id="titulo-ajustes">Ajustes</h1>
         <div class="setting-card">
             <h1 class="setting-card-title">Cambiar idioma</h1>
+            <button type="button" class="language-button">
+                <img src="../images/iconamoon_arrow-up-2.png" alt="">
+            </button>
         </div>
         <div class="setting-card">
             <h1 class="setting-card-title">Notificaciones</h1>
+
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
         </div>
         <div class="setting-card">
             <h1 class="setting-card-title">Ayuda</h1>
-            <button  @click="openModal()" class="help-button">Ayuda</button>
+            <button  @click="openModal()" class="help-button">
+                <img src="../images/help.png" alt="">
+                <img src="../images/iconamoon_arrow-up-2.png" alt="">
+            </button>
         </div>
     </div>
 
@@ -88,7 +99,7 @@
 
 
 
-    <div class="container-parte-inferior">
+    <div class="container-parte-inferior-rider-profile">
         <div class="container" id="navbar">
             <navbar v-if="showComponente" />
         </div>
@@ -181,6 +192,10 @@ export default {
 }
 </script>
 <style>
+.container-parte-inferior-rider-profile {
+    height: 100px;
+}
+
 .ocultar {
     display: none;
 
@@ -347,6 +362,78 @@ export default {
     background-color: #8BB481;
     border: none;
     border-radius: 50px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #B4DAAA;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #43533E;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #8BB481;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.language-button {
+    width: 48px;
+    height: 48px;
+    background-color: #8BB481;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 </style>
