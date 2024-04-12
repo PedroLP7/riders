@@ -1,5 +1,8 @@
 <template>
-  <div>
+
+  <h1 id="saved-puas-title">PUAs más recurrentes</h1>
+
+  <div style="margin-top: 5%;">
     <div v-if="data != null">
       <div v-for="(user, index) in data.deliveries" :key="index">
         <div
@@ -9,11 +12,11 @@
           <div class="card-body" id="customer-card-body">
             <div id="card-body-text">
               <h5 id="customer-card-title">
-                User {{ user.id_customer_fk }}
+                Usuario {{ user.id_customer_fk }} <br> en
               </h5>
               <div v-if="user.customer">
                 <p id="customer-card-text" class="card-text">
-                  Adress: {{ user.customer.location }}
+                  {{ user.customer.location }}
                 </p>
               </div>
             </div>
@@ -28,7 +31,7 @@
     </div>
   </div>
 
-  <div class="container-parte-inferior">
+  <div class="container-parte-inferior-puas">
       <div class="container" id="navbar" v-if="!this.id">
           <navbar v-if="showComponente" />
       </div>
@@ -71,12 +74,38 @@ export default {
     assignRandomColor() {
       // Lista de colores predefinidos
       const colors = [
-        "#ff5733",
-        "#33ff57",
-        "#5733ff",
-        "#ff33a1",
-        "#33a1ff",
+        "#9747FF",
+        "#E9A859",
+        "#E9C159",
+        "#617F7D",
+        "#5B4A34",
+        "#FF6B6B",
+        "#FAA916",
+        "#1ABC9C",
+        "#3498DB",
+        "#9B59B6",
+        "#F39C12",
+        "#27AE60",
+        "#2980B9",
+        "#8E44AD",
+        "#E67E22",
+        "#2C3E50",
+        "#F1C40F",
+        "#16A085",
+        "#E74C3C",
+        "#34495E",
+        "#D35400",
+        "#7F8C8D",
+        "#8DB6A1",
+        "#6D214F",
+        "#F0E5CF",
+        "#B2DBBF",
+        "#BA5A31",
+        "#A09ABE",
+        "#E6B0AA",
+        "#1E90FF",
       ];
+
 
       this.data.deliveries.forEach((user) => {
         let randomColor;
@@ -94,20 +123,35 @@ export default {
 </script>
 
 <style scoped>
+#saved-puas-title {
+    color: #8F8F8F;
+    font-weight: bold;
+    margin-top: 20%;
+    margin-left: 2%;
+}
+
 .customer-card {
   width: 100%;
-  height: 16%;
+  height: 17%;
   border-radius: 22px;
   padding: 0;
   border: none;
+  margin-bottom: 2%;
 }
 
-#customer-card-img {
-  position: absolute;
-  width: 130px;
-  left: 65%;
-  bottom: 0;
-  object-fit: contain;
+#customer-card-title {
+  font-size: 42px;
+  font-weight: bold;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1;
+}
+
+#customer-card-text {
+  font-size: 18px;
+  font-weight: 300;
+  color: #FFFFFF;
+  margin: 0;
 }
 
 #customer-card-body {
@@ -116,13 +160,41 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0;
+  padding-left: 5%;
 }
 
 #times-eaten-container {
-  width: 30%;
+  width: 35%;
   height: 100%;
-  background-color: white;
-  opacity: 20%;
-  border-radius: 0 0 22px 22px;
+  background-color: #ffffff3b;
+  border-radius: 0 22px 22px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#times-eaten-heading {
+  font-size: 96px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+  line-height: 0.8;
+}
+
+#times-eaten-text {
+  font-size: 20px;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+}
+
+.container-parte-inferior-puas {
+  height: 200px;
+  display: flex; /* Added this line */
+  justify-content: center; /* This centers the navbar horizontally */
+  align-items: center; /* This centers the navbar vertically (optional) */
 }
 </style>
