@@ -71,9 +71,7 @@ route::get('/updateBooking', function(){
     return view('updateBookingStatus');
 });
 
-route::get('/recurringCustomer', function(){
-    return view('rider.recurringCustomer');
-});
+
 route::get('rider/viewAllBookings', function(){
     return view('rider.viewAllBookingsPendingCollection');
 });
@@ -106,9 +104,15 @@ Route::middleware(['auth'])->group(function () {
         return view('rider.bot');
     });
 
+
+    route::get('/rider/recurringCustomer', function(){
+        return view('rider.recurringCustomer');
+    });
+
     route::get('/provider/bookings', function(){
         return view('provider.bookings');
     });
+
 
     route::get('/provider/profile', function(){
         return view('provider.profile');
