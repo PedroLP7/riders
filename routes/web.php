@@ -103,6 +103,11 @@ Route::middleware(['auth'])->group(function () {
         return view('provider.editProfile');
     });
 
+    route::get('/rider/edit', function(){
+        return view('rider.editProfileRider');
+    });
+
+
     route::get('/provider/editMenu/{idMenu}', function($idMenu){
         return view('provider.editMenu',compact('idMenu'));
     });

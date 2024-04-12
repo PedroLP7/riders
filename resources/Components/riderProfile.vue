@@ -164,7 +164,7 @@ export default {
             window.location.href = "/riders/public/logout";
         },
         editarPerfil() {
-            window.location.href = "/riders/public/provider/edit";
+            window.location.href = "/riders/public/rider/edit";
         },
         openModal() {
             const myModal = new bootstrap.Modal(document.getElementById('modalAyuda'), {

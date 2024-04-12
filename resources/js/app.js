@@ -14,6 +14,7 @@ import recurringCustomer from '../Components/recurringCustomer.vue';
 
 import editProfile from '../Components/provider/editProfile.vue';
 import editMenu from '../Components/provider/editMenu.vue';
+import editProfileRider from '../Components/rider/editRiderProfile.vue';
 import formRider from '../Components/formRider.vue';
 import formProvider from '../Components/formProvider.vue';
 import formKitchen from '../Components/formKitchen.vue';
@@ -49,6 +50,7 @@ createApp(profileRider).mount("#riderProfile")
 createApp(recurringCustomer).mount("#recurringCustomer")
 
 createApp(editProfile).mount("#editProfile")
+createApp(editProfileRider).mount("#editProfileRider")
 createApp(editMenu).mount("#editMenu")
 
 
