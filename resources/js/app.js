@@ -8,6 +8,7 @@ import provider from '../Components/provider/provider.vue'
 import createMenu from '../Components/provider/createMenu.vue';
 import bookings from '../Components/provider/bookings.vue';
 import profile from '../Components/provider/profile.vue';
+import profileRider from '../Components/riderProfile.vue';
 
 import recurringCustomer from '../Components/recurringCustomer.vue';
 
@@ -38,6 +39,7 @@ createApp(viewProvider).mount("#viewProvider")
 
 createApp(createCommunityKitchen).mount("#createCommunityK")
 createApp(profile).mount("#profile")
+createApp(profileRider).mount("#riderProfile")
 
 createApp(recurringCustomer).mount("#recurringCustomer")
 

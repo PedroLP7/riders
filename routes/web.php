@@ -21,7 +21,7 @@ use App\Http\Controllers\ProviderController;
 */
 
 Route::get('/', function () {
-    return view('riderForm');
+    return view('landing');
 })->name('home');
 
 
@@ -78,17 +78,20 @@ Route::middleware(['auth'])->group(function () {
         return view('rider.viewProvider');
     });
 
+    route::get('/rider/profile', function(){
+        return view('rider.riderProfile');
+    });
 
     route::get('/provider/createMenu', function(){
         return view('provider.createMenu');
     });
-
+    
 
     route::get('/rider/addKitchen', function(){
         return view('rider.addCommunityK');
     });
 
-  route::get('/provider/bookings', function(){
+    route::get('/provider/bookings', function(){
         return view('provider.bookings');
     });
 
