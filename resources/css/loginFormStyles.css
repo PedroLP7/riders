@@ -101,7 +101,7 @@ form h3 {
 }
 
 .button-container {
-    position: fixed;
+    position: relative;
     display: inline-block;
     top: 55%;
     left: 50%;
