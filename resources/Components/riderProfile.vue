@@ -4,7 +4,7 @@
         <h1 id="titulo">Perfil</h1>
 
         <div class="profile-header">
-            <img src="../../images/profileImage.png" alt="profileimg" id="profileImg">
+            <img src="../images/profileImage.png" alt="profileimg" id="profileImg">
             <p>{{ user.user_name }}</p>
 
             <div class="profile-buttons-container">
