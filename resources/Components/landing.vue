@@ -8,6 +8,7 @@
         </nav>
       </header>
     </div>
+    <div id="logo"></div>
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
       <main class="col-12 text-center" v-if="!showRiderForm && !showEmpresaForm && !showProviderForm">
         <h1 id="titulo-food">Food</h1>
@@ -206,6 +207,3 @@ export default {
 
 }
 </script>
-
-
-
