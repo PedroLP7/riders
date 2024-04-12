@@ -94,7 +94,8 @@ export default {
       map = new mapboxgl.Map({
         container: mapContainer.value,
         style: 'mapbox://styles/mapbox/dark-v10',
-        zoom: 20
+        center: [2.1540, 41.3902], 
+        zoom: 12                  
       });
 
       const geolocateControl = new mapboxgl.GeolocateControl({

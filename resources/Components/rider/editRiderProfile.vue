@@ -33,7 +33,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="phone">phone</label>
-                <input type="text" class="form-control" id="adress" name="adress" v-model="user.rider.phone">
+                <input type="text" class="form-control" id="adress" name="adress" v-model="user.rider.phone_number">
             </div>
 
 
@@ -107,7 +107,7 @@ export default {
                 surname1: me.user.rider.surname1,
                 surname2: me.user.rider.surname2,
                 mail: me.user.rider.mail,
-                phone: me.user.rider.phone,
+                phone_number: me.user.rider.phone_number,
             }
             const idUser = me.userp.id_user
             axios.put('rider/' + idUser, data)
