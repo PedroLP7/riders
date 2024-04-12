@@ -35,8 +35,7 @@
       actualizarDatosUsuario(datos) {
         this.proveedor = { ...this.proveedor, ...datos };
       },
-      insertProvider() {
-      alert('Formulario enviado para Comedor Social!');
+      insertProvider() {     
       axios.post('/provider', this.proveedor)
         .then(response => {
           console.log(response);

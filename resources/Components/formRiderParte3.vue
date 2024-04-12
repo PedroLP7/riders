@@ -25,8 +25,8 @@
               </div>
             </div>
           <div class="button-container d-inline-block">
-            <button id="signIn" @click="enviar">Siguiente paso</button>
-            <button id="sombraBoton" type="submit">Siguiente paso</button>
+            <button id="signIn" @click="enviar">Registrarse!</button>
+            <button id="sombraBoton" type="submit">Registrarse!</button>
           </div>
       </div>
     </div>
@@ -48,7 +48,8 @@ export default {
   methods: {
     enviar() {      
       this.$emit('actualizar-datos', this.usuario);  
-      this.$emit('enviar');   
+      this.$emit('enviar'); 
+      window.location.href = "/riders/public/";
     }
   }
 };

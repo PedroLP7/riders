@@ -39,8 +39,7 @@ export default {
       this.usuario = { ...this.usuario, ...datos };
     },
     insertRider() {
-        const me = this;
-      alert('Formulario enviado!');
+        const me = this;     
       axios
       .post('rider', me.usuario)
         .then(response => {
