@@ -142,22 +142,16 @@ export default {
   },
   methods: {
     registrateRider() {
-      this.fadeOutRegisterButton();
-      this.showRiderForm = true;
-      this.showEmpresaForm = false;
-      this.showProviderForm = false;
+      this.fadeOutRegisterButton();      
+      window.location.href = "/riders/public/riderForm";
 
 
     },
-    registroEmpresa() {
-      this.showEmpresaForm = true;
-      this.showRiderForm = false;
-      this.showProviderForm = false;
+    registroEmpresa() {     
+      window.location.href = "/riders/public/providerForm";    
     },
-    registroComedor() {
-      this.showProviderForm = true;
-      this.showRiderForm = false;
-      this.showEmpresaForm = false;
+    registroComedor() {      
+      window.location.href = "/riders/public/kitchenForm";
     },
     login() {
       window.location.href = "/riders/public/usuario/create";

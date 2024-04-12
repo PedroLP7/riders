@@ -45,6 +45,22 @@ Route::get('/customerform', function () {
     return view('addHomelessForm.newHomelessPerson');
 });
 
+Route::get('/riderForm', function () {
+    return view('rider.riderForm');
+});
+Route::get('/riderForm', function () {
+    return view('rider.riderForm');
+});
+Route::get('/providerForm', function () {
+    return view('provider.ProviderForm');
+});
+Route::get('/kitchenForm', function () {
+    return view('kitchen.kitchenForm');
+});
+
+
+
+
 
 
 route::get('/notifTest', function(){
