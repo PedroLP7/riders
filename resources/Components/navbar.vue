@@ -115,7 +115,7 @@ props:{
             } else if (id === 3) {
                 this.riderSavedRoute();
             } else if (id === 4) {
-                this.profileRoute();
+                this.riderProfileRoute();
             } else if (id === 5) {
                 this.providerHomeRoute();
             } else if (id === 6) {

@@ -1,201 +1,60 @@
 <template>
-    <h3 id="titulo">{{'Registrarse'}}</h3>
-    <div class="card"> 
-      <div class="card-body">
-          <div class="form-group row px-5">
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="username" name="user_name" placeholder="Nombre de Usuario">
-              </div>
-          </div>
-          <div class="form-group row mt-4 px-5">
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="password" name="pswd"  placeholder="Contraseña">
-              <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
-              <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
-            </div>
-          </div>
-          <div class="form-group row mt-4 px-5">
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="confirmPassword" name="pswd"  placeholder="Repite la contraseña">
-              <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
-              <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
-            </div>
-          </div>
-          <div class="button-container d-inline-block">
-            <button id="signIn" type="submit">Siguiente paso</button>
-            <button id="sombraBoton" type="submit">Siguiente paso</button>
-          </div>
-      </div>
+  <div>
+    
+    <div v-if="!formEnviado">
+      <form-rider-parte1 @actualizar-datos="actualizarDatosUsuario" @enviar="formEnviado = true"></form-rider-parte1>
     </div>
+  
+   
+    <form-rider-parte2 v-if="formEnviado && !formParte2Enviado" @actualizar-datos="actualizarDatosUsuario" @enviar="formParte2Enviado = true"></form-rider-parte2>  
+
+ 
+    <form-rider-parte3 v-if="formParte2Enviado" @actualizar-datos="actualizarDatosUsuario" @enviar="insertRider"></form-rider-parte3>
+  </div>
 </template>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const submitButton = document.getElementById('signIn');
+import axios from 'axios'; 
+import FormRiderParte1 from '../Components/formRiderParte1.vue';
+import FormRiderParte2 from '../Components/formRiderParte2.vue';
+import FormRiderParte3 from '../Components/formRiderParte3.vue';
+
+export default {
+  components: {
+    'form-rider-parte1': FormRiderParte1,
+    'form-rider-parte2': FormRiderParte2,
+    'form-rider-parte3': FormRiderParte3,
+  },
+  data() {
+    return {
+      formEnviado: false,
+      formParte2Enviado: false,
+      usuario: {
+        user_name: '', password: '', dni_cif: '', real_name: '', surname1: '', surname2: '', mail: '', phone: ''
+      },
+    };
+  },
+  methods: {
+    actualizarDatosUsuario(datos) {
+      this.usuario = { ...this.usuario, ...datos };
+    },
+    insertRider() {
+        const me = this;
+      alert('Formulario enviado!');
+      axios
+      .post('rider', me.usuario)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            me.isError = true;
+                me.messageError = error.response.data.error;
+                console.log(error.response.data.error);
+        });
+
+
     
-    submitButton.addEventListener('click', function (event) {
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value; 
-        
-        if (password !== confirmPassword) {
-            alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
-        } else {
-            alert('Registro completado correctamente.');
-            
-        }
-    });
-});
+    },
+  }
+};
 </script>
-  
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-
-* {
-    font-family: "Outfit", sans-serif;
-}
-
-*::selection {
-    background-color: #475941;
-}
-
-body {
-    background-color: #1E1E1E;
-}
-
-.card {
-    background-color: #393939;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 100%;
-    height: 73%;
-    border: none;
-    border-radius: 60px 60px 0 0;
-    box-shadow: 0 -2px 26.9px 1px rgba(0, 0, 0, 0.17);
-}
-
-.card-title {
-    background-color: transparent;
-}
-
-.card-body {
-    background-color: transparent;
-    margin-top: 7%;
-}
-
-.col-sm-10 {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-.form-control {
-    width: 90%;
-    height: 75px;
-    border-radius: 50px;
-    border: none;
-    background-color: #444444;
-    line-height: 65px;
-    padding-left: 40px;
-    color: #8F8F8F;
-    font-size: 17px;
-    flex: 1;
-}
-
-.form-control::placeholder {
-    line-height: 65px;
-    color: #8F8F8F;
-    opacity: 38%;
-    font-size: 17px;
-}
-
-.form-control:focus {
-    background-color: rgba(103, 127, 97, 0.17);
-    color: #677F61;
-    font-weight: 400;
-    font-size: 17px;
-    border: none;
-    box-shadow: none;
-    transition: 0.2s;
-}
-
-.field-icon {
-    float: right;
-    margin-left: -25px;
-    margin-top: -25px;
-    position: relative;
-    z-index: 2;
-    color: #a13232;
-}
-
-.eye-active, .eye-unactive {
-    position: absolute;
-    cursor: pointer;
-    right: 15%;
-    color: #1E1E1E;
-}
-
-.form-group row px-2 {
-    background-color: transparent;
-    height: 60px;
-}
-
-#titulo{
-  color: #393939;
-    font-weight: 680px;
-    font-size: 66px;
-    margin-top: 10%;
-    margin-left: 7%;
-
-}
-form h3 {
-    color: #393939;
-    font-weight: 700;
-    font-size: 80px;
-    margin-top: 10%;
-    margin-left: 5%;
-}
-
-.button-container {
-    position: fixed;
-    display: inline-block;
-    top: 87%;
-    left: 50%;
-    transform: translate(-50%, -50%);    
-    max-width: 75%;
-    min-width: 75%;
-}
-
-#signIn {    
-    background-color: #8BB481;       
-    max-width: 100%;
-    min-width: 100%;
-    height: 70px;
-    color: white;    
-    border: 3px solid #393939; 
-    border-radius: 40px;
-    font-family: 'Outfit', sans-serif;  
-    font-weight: bold;  
-    font-size: 20px;
-    padding: 1rem 2rem;
-    cursor: pointer;
-    position: relative; 
-    z-index: 1; 
-}
-
-#sombraBoton {
-    position: absolute;
-    max-width: 100%;
-    min-width: 100%;
-    height: 70px;
-    top: 0.15rem; 
-    left: -0.15rem;
-    background-color: #677F61;
-    border-radius: 40px;
-    z-index: -1;
-    border: none;
-}
-  </style>
-  

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\charity_menu;
 use App\Models\usuario;
 use App\Models\provider;
 use Illuminate\Http\Request;
@@ -145,7 +146,7 @@ class ProviderController extends Controller
         $usuario->save();
         return redirect('/admin/providers');
     }
-
+  
 
 
 

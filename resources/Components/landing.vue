@@ -8,6 +8,7 @@
         </nav>
       </header>
     </div>
+    <div id="logo"></div>
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
       <main class="col-12 text-center" v-if="!showRiderForm && !showEmpresaForm && !showProviderForm">
         <h1 id="titulo-food">Food</h1>
@@ -141,22 +142,16 @@ export default {
   },
   methods: {
     registrateRider() {
-      this.fadeOutRegisterButton();
-      this.showRiderForm = true;
-      this.showEmpresaForm = false;
-      this.showProviderForm = false;
+      this.fadeOutRegisterButton();      
+      window.location.href = "/riders/public/riderForm";
 
 
     },
-    registroEmpresa() {
-      this.showEmpresaForm = true;
-      this.showRiderForm = false;
-      this.showProviderForm = false;
+    registroEmpresa() {     
+      window.location.href = "/riders/public/providerForm";    
     },
-    registroComedor() {
-      this.showProviderForm = true;
-      this.showRiderForm = false;
-      this.showEmpresaForm = false;
+    registroComedor() {      
+      window.location.href = "/riders/public/kitchenForm";
     },
     login() {
       window.location.href = "/riders/public/usuario/create";
@@ -206,6 +201,3 @@ export default {
 
 }
 </script>
-
-
-

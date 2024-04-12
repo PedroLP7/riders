@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,22 @@ Route::get('/customerform', function () {
     return view('addHomelessForm.newHomelessPerson');
 });
 
+Route::get('/riderForm', function () {
+    return view('rider.riderForm');
+});
+Route::get('/riderForm', function () {
+    return view('rider.riderForm');
+});
+Route::get('/providerForm', function () {
+    return view('provider.ProviderForm');
+});
+Route::get('/kitchenForm', function () {
+    return view('kitchen.kitchenForm');
+});
+
+
+
+
 
 
 route::get('/notifTest', function(){
@@ -61,40 +78,41 @@ route::get('rider/viewAllBookings', function(){
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/provider/home', function (){
-
-        $user = Auth::user();
-
-    return view('provider.homeProv', compact('user'));
-    })->name('providerHome');
 
 
-    route::get('/rider/home', function(){
-        return view('rider.homeRid');
-    })->name('riderHome');
+
+
 
 
     route::get('/rider/viewProviders', function(){
         return view('rider.viewProvider');
     });
 
+    route::get('/rider/profile', function(){
+        return view('rider.riderProfile');
+    });
 
     route::get('/provider/createMenu', function(){
         return view('provider.createMenu');
     });
-
+    
 
     route::get('/rider/addKitchen', function(){
         return view('rider.addCommunityK');
     });
+    route::get('/rider/bot', function(){
+        return view('rider.bot');
+    });
+
 
     route::get('/rider/recurringCustomer', function(){
         return view('rider.recurringCustomer');
     });
 
-  route::get('/provider/bookings', function(){
+    route::get('/provider/bookings', function(){
         return view('provider.bookings');
     });
+
 
     route::get('/provider/profile', function(){
         return view('provider.profile');
@@ -104,6 +122,11 @@ Route::middleware(['auth'])->group(function () {
     route::get('/provider/edit', function(){
         return view('provider.editProfile');
     });
+
+    route::get('/rider/edit', function(){
+        return view('rider.editProfileRider');
+    });
+
 
     route::get('/provider/editMenu/{idMenu}', function($idMenu){
         return view('provider.editMenu',compact('idMenu'));
@@ -116,7 +139,7 @@ Route::middleware(['auth'])->group(function () {
 
 
         Route::middleware(['CheckAdmin'])->group(function () {
-            route::get('/admin/home', [UsuarioController::class, 'index']);
+            route::get('/admin/home', [UsuarioController::class, 'index'])->name('adminHome');
 
             route::get('/admin/riders', [RiderController::class, 'index']);
             route::get('admin/riders/edit/{rider}', [RiderController::class, 'edit']);
@@ -149,6 +172,19 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+
+            route::get('/admin/bookings', [BookingController::class, 'index']);
+            route::get('admin/bookings/edit/{booking}', [BookingController::class, 'edit']);
+            route::put('admin/bookings/update/{booking}', [BookingController::class, 'update']);
+            route::delete('admin/bookings/delete/{booking}', [BookingController::class, 'destroy']);
+
+            route::get('admin/bookings/create', [BookingController::class, 'create']);
+            route::post('admin/bookings/store', [BookingController::class, 'store']);
+            route::delete('admin/bookings/delete/{booking}', [BookingController::class, 'destroy']);
+
+
+
+
         });
 
 
@@ -157,10 +193,68 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+        Route::middleware(['CheckProvider'])->group(function () {
+
+
+            Route::get('/provider/home', function (){
+
+                $user = Auth::user();
+
+            return view('provider.homeProv', compact('user'));
+            })->name('providerHome');
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+        Route::middleware(['CheckRider'])->group(function () {
+
+             route::get('/rider/home', function(){
+                return view('rider.homeRid');
+            })->name('riderHome');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
 
 
 

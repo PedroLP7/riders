@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\usuario;
 use App\Models\provider;
+use App\Models\charity_menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -144,4 +145,35 @@ class ProviderController extends Controller
             return response()->json(['error' => 'Error al eliminar el usuario: ' . $th->getMessage()], 500);
         }
     }
+    public function updateQuantity($quantity, $providerId, $menuId)
+    {
+        try {
+            // Find the provider and menu
+            $provider = Provider::findOrFail($providerId);
+            $menu = charity_menu::findOrFail($menuId);
+
+            if (!$provider->menus()->where('id_m', $menu->id_menu)->exists()) {
+                throw new \Exception('Menu not associated with the provider');
+            }
+            // Get the current quantity from the pivot table
+            $currentQuantity = $provider->menus()->where('id_m', $menu->id_menu)->first()->pivot->quantity;
+        
+            // Calculate the new quantity
+           
+            $newQuantity = $currentQuantity - $quantity;
+            if ($newQuantity < 0){
+                throw new \Exception('No puede reservar más paquetes de los que hay disponibles');
+            }
+            // Update the quantity through the pivot table
+            $provider->menus()->updateExistingPivot($menu->id_menu, ['quantity' => $newQuantity]);
+        
+            // Return a success response
+            return response()->json(['message' => 'Quantity updated successfully']);
+        } catch (\Exception $e) {
+            // Return an error response if an exception is caught
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
+    
 }

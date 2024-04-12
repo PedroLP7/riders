@@ -97,6 +97,8 @@ class BookingController extends Controller
         return $response;
     }
 
+    
+
     /**
      * Remove the specified resource from storage.
      */

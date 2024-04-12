@@ -440,8 +440,9 @@ window.location.href ='/riders/public/rider/viewProviders'
           console.log('PUT request successful', response);
           this.fetchBookings();
          
+         if(postData.id_status_fk === 3){
             me.createDelivery(id, me.customer);
-         
+          }
 
         })
         .catch(error => {

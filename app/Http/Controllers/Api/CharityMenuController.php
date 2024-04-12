@@ -118,15 +118,7 @@ class CharityMenuController extends Controller
 
 
 
-    public function updateQuantity(Request $request, charity_menu $charity_menu){
-        try {
-            $charity_menu->providers()->updateExistingPivot($request->provider_id, ['quantity' => $request->quantity]);
-            $response = response()->json(['message' => 'Cantidad actualizada correctamente']);
-        } catch (\Throwable $th) {
-            $response = response()->json(['error' => 'Error al actualizar la cantidad'], 500);
-        }
-        return $response;
-    }
+
 
 
 
