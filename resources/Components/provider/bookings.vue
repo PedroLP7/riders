@@ -8,7 +8,8 @@ defineEmits(['found-booking'])
     <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length > 0">No te olvides:</h1>
     <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length == 0">No tienes packs reservados</h1>
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
-    <div v-if="screen !== 1 && screen !== 2 && screen !== 3">
+    <div v-if="screen !== 1 && screen !== 2 && screen !== 3" class="container">
+      <h1 id="titulo">Pedidos en curso</h1>
       <div class="cards-container-bookings">
         <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
 
@@ -504,6 +505,13 @@ window.location.href ='/riders/public/rider/viewProviders'
   font-size: 24px;
   font-weight: 500;
   margin-bottom: 0;
+}
+
+#titulo {
+  color: #8F8F8F;
+  font-weight: bold;
+  margin-top: 20%;
+  margin-left: 2%;
 }
 
 #container-bookings {
