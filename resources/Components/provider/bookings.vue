@@ -29,6 +29,10 @@ defineEmits(['found-booking'])
                 <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
                 </div>
               </div>
+              <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+                <div> <b>Cantidad</b> {{ booking.menu_quantity }}
+                </div>
+              </div>
 
               <div v-if="booking.status && booking.status.status_name">
                 <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
@@ -162,6 +166,11 @@ defineEmits(['found-booking'])
                 <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
                 </div>
               </div>
+              <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+                <div> <b>Cantidad</b> {{ booking.menu_quantity }}
+                </div>
+              </div>
+
 
               <div v-if="booking.status && booking.status.status_name">
                 <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
@@ -340,11 +349,11 @@ export default {
         .then(response => {
           console.log('Delivery created successfully:', response.data);
           // Do something with the response if needed
-          
+
         })
         .catch(error => {
           console.error('Error creating booking:', error)
-        
+
         });
     },
     viewAllBookings() {
@@ -439,7 +448,7 @@ window.location.href ='/riders/public/rider/viewProviders'
         .then(response => {
           console.log('PUT request successful', response);
           this.fetchBookings();
-         
+
          if(postData.id_status_fk === 3){
             me.createDelivery(id, me.customer);
           }
