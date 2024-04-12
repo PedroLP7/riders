@@ -243,7 +243,7 @@ export default {
         this.showQuantity = false,
         this.recievedQuantity = null,
         this.showMessage = false,
-        this.messageType = 0
+        this.messageType = null
 
 
     },
@@ -282,14 +282,17 @@ export default {
             .then(response => {
               console.log('Response:', response.data);
               // Handle the response data
+              me.messageType = "i";
+              me.showMessage = true;
             })
             .catch(error => {
               console.error('Error:', error);
               me.messageType = "eb";
+              me.showMessage = true;
             });
           // Do something with the response if needed
-          me.messageType = "i";
-          me.showMessage = true;
+          
+          
         })
         .catch(error => {
           console.error('Error creating booking:', error);
