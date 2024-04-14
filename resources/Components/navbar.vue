@@ -213,12 +213,13 @@ props:{
     }
 
     .menu-indicator {
-    position: absolute;
-    height: 50px;
-    width: 140px;
-    border-radius: 50px;
-    background-color: var(--accent-color);
-    transition: all ease 0.5s;
+        position: absolute;
+        height: 50px;
+        width: 140px;
+        border-radius: 50px;
+        background-color: var(--accent-color);
+        transition: all ease 0.5s;
+        z-index: -1;
     }
 
     .menu-indicator.homepage-indicator {
@@ -239,6 +240,11 @@ props:{
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
+    }
+
+    .menu-link span {
+        font-size: 18px;
+        font-weight: 500;
     }
     </style>
 
