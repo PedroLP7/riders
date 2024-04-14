@@ -602,4 +602,12 @@ window.location.href ='/riders/public/rider/viewProviders'
     font-weight: bold;
     font-size: 20px;
 }
+
+.btn-success {
+    background-color: #8BB481;
+    border-color: transparent;
+    border-radius: 50px;
+    color: #1E1E1E;
+    font-weight: 600;
+}
 </style>
