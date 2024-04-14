@@ -67,15 +67,15 @@ body {
 
 #logo
 {
-  background-image: url("../images/PutoLogo7.png");
+  /*background-image: url("../images/PutoLogo7.png");*/
   position: fixed;  
   background-repeat: no-repeat;
   background-size: contain;
-  top: 30%;
-  left: 50%;
+  top: 26%;
+  left: 49%;
   transform: translate(-50%, -50%);
-  width: 250px;
-  height: 250px;
+  width: 280px;
+  height: 280px;
 
 }
 #barra {

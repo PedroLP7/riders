@@ -10,7 +10,7 @@
     </div>
     <div id="logo"></div>
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
-      <main class="col-12 text-center" v-if="!showRiderForm && !showEmpresaForm && !showProviderForm">
+      <main class="col-12 text-center">
         <h1 id="titulo-food">Food</h1>
         <h1 id="link">Link</h1>
         <h1 id="barra"></h1>
@@ -29,122 +29,35 @@
             <a class="hyperlink" @click="registroComedor">Regístrate ahora!</a>
           </div>
         </div>
-      </main>
-      <div v-if="showRiderForm" class="col-md-6 offset-md-3">
-        <h3>Registro para Rider</h3>
-        <form>
-          <div class="form-group">
-            <label for="userName">User Name</label>
-            <input type="text" class="form-control" id="userName" v-model="usuario.user_name">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" v-model="usuario.password">
-          </div>
-          <div class="form-group">
-            <label for="dni">DNI</label>
-            <input type="text" class="form-control" id="dni" v-model="usuario.dni_cif">
-          </div>
-          <div class="form-group">
-            <label for="realName">Real Name</label>
-            <input type="text" class="form-control" id="realName" v-model="usuario.real_name">
-          </div>
-          <div class="form-group">
-            <label for="surname1">Apellido 1</label>
-            <input type="text" class="form-control" id="surname1" v-model="usuario.surname1">
-          </div>
-          <div class="form-group">
-            <label for="surname2">Apellido 2</label>
-            <input type="text" class="form-control" id="surname2" v-model="usuario.surname2">
-          </div>
-          <div class="form-group">
-            <label for="mail">Correo Electrónico</label>
-            <input type="email" class="form-control" id="mail" v-model="usuario.mail">
-          </div>
-          <div class="form-group">
-            <label for="phoneNumber">Número de Teléfono</label>
-            <input type="tel" class="form-control" id="phoneNumber" v-model="usuario.phone">
-          </div>
-          <button @click="insertRider()" class="btn btn-primary">Registrar</button>
-          <button type="button" class="btn btn-secondary" @click="showRiderForm = false">Cancelar</button>
-        </form>
-      </div>
-      <div v-if="showProviderForm" class="col-md-6 offset-md-3">
-        <h3>Registro para Comedor Social</h3>
-        <form>
-          <div class="form-group">
-            <label for="providerUserName">User Name</label>
-            <input type="text" class="form-control" id="providerUserName" v-model="proveedor.user_name">
-          </div>
-          <div class="form-group">
-            <label for="providerPassword">Password</label>
-            <input type="password" class="form-control" id="providerPassword" v-model="proveedor.password">
-          </div>
-          <div class="form-group">
-            <label for="providerDni">DNI</label>
-            <input type="text" class="form-control" id="providerDni" v-model="proveedor.dni_cif">
-          </div>
-          <div class="form-group">
-            <label for="providerRealName">Real Name</label>
-            <input type="text" class="form-control" id="providerRealName" v-model="proveedor.real_name">
-          </div>
-          <div class="form-group">
-            <label for="providerAddress">Dirección</label>
-            <input type="text" class="form-control" id="providerAddress" v-model="proveedor.address">
-          </div>
-          <button @click="insertProvider()" class="btn btn-primary">Registrar</button>
-          <button type="button" class="btn btn-secondary" @click="showProviderForm = false">Cancelar</button>
-        </form>
-      </div>
-      <div v-if="showEmpresaForm" class="col-md-6 offset-md-3">
-        <h3>Registro para Empresa</h3>
-        <form>
-          <div class="form-group">
-            <label for="empresaUserName">User Name</label>
-            <input type="text" class="form-control" id="empresaUserName" v-model="empresa.user_name">
-          </div>
-          <div class="form-group">
-            <label for="empresaPassword">Password</label>
-            <input type="password" class="form-control" id="empresaPassword" v-model="empresa.password">
-          </div>
-          <div class="form-group">
-            <label for="empresaDni">DNI</label>
-            <input type="text" class="form-control" id="empresaDni" v-model="empresa.dni_cif">
-          </div>
-          <div class="form-group">
-            <label for="empresaRealName">Real Name</label>
-            <input type="text" class="form-control" id="empresaRealName" v-model="empresa.real_name">
-          </div>
-          <div class="form-group">
-            <label for="empresaDireccion">Dirección</label>
-            <input type="text" class="form-control" id="empresaDireccion" v-model="empresa.address">
-          </div>
-          <button @click="insertEmpresa()" class="btn btn-primary">Registrar</button>
-          <button type="button" class="btn btn-secondary" @click="showEmpresaForm = false">Cancelar</button>
-        </form>
+      </main>   
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data() {
-    return {
-      showRiderForm: false,
-      showEmpresaForm: false,
-      showProviderForm: false,
-      usuario: { user_name: '', password: '', dni_cif: '', real_name: '', surname1: '', surname2: '', mail: '', phone: '' },
-      proveedor: { user_name: '', password: '', dni_cif: '', real_name: '', address: '' },
-      empresa: { user_name: '', password: '', dni_cif: '', real_name: '', address: '' },
-    }
+    return {  
+      images: [
+        'animacion/ManzanaAni1.png',
+        'animacion/ManzanaAni2.png',
+        'animacion/ManzanaAni3.png',
+        'animacion/ManzanaAni4.png',
+        'animacion/ManzanaAni5.png',
+        'animacion/ManzanaAni6.png',
+      ],
+      currentImageIndex: 0,
+      animationInterval: null
+    }            
   },
-  methods: {
+  mounted() {
+    this.startAnimation();
+  },
+  methods: {   
     registrateRider() {
       this.fadeOutRegisterButton();      
       window.location.href = "/riders/public/riderForm";
-
 
     },
     registroEmpresa() {     
@@ -155,49 +68,27 @@ export default {
     },
     login() {
       window.location.href = "/riders/public/usuario/create";
-    },
-    insertRider() {
-
-      axios.post('/rider', this.usuario)
-        .then(response => {
-          console.log(response);
-          this.usuario = { user_name: '', password: '', dni_cif: '', real_name: '', surname1: '', surname2: '', mail: '', phone: '' };
-          this.showRiderForm = false;
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-        });
-    },
-    insertProvider() {
-      alert('Formulario enviado para Comedor Social!');
-      axios.post('/provider', this.proveedor)
-        .then(response => {
-          console.log(response);
-          this.proveedor = { user_name: '', password: '', dni_cif: '', real_name: '', address: '' };
-          this.showProviderForm = false;
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-        });
-    },
-    insertEmpresa() {
-      alert('Formulario enviado para Empresa!');
-      axios.post('/empresa', this.empresa)
-        .then(response => {
-          console.log(response);
-          this.empresa = { user_name: '', password: '', dni_cif: '', real_name: '', address: '' };
-          this.showEmpresaForm = false;
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-        });
-    },
+    },    
     fadeOutRegisterButton() {
 
       const registerBtn = document.getElementById('register');
       registerBtn.classList.add('disappear');
+    },
+    startAnimation() {
+      setInterval(() => {
+        let nextImageIndex = this.currentImageIndex + 1;
+        if (nextImageIndex >= this.images.length) {
+          clearInterval(this.animationInterval);
+          return;
+        }
+        this.currentImageIndex = nextImageIndex;
+        this.updateLogo();
+      }, 100); 
+    },
+    updateLogo() {
+      const logo = document.getElementById('logo');
+      logo.style.backgroundImage = `url(../../riders/resources/images/${this.images[this.currentImageIndex]})`;
     }
-  }
-
+  }  
 }
 </script>

@@ -178,7 +178,7 @@ export default {
             
         const userLocationPulse = document.querySelector('.mapboxgl-user-location-dot::before');
         if (userLocationPulse) {
-            userLocationPulse.style.display = 'none'; 
+            userLocationPulse.style.backgroundColor = 'none'; 
         }        
   
         const userLocationAccuracyCircle = document.querySelector('.mapboxgl-user-location-accuracy-circle');
