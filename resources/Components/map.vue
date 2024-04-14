@@ -356,10 +356,11 @@ button:hover {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 20%;
-  height: 20%;
+  width: 46%;
+  max-width: 58%;
+  height: 15%;
   background-color: #1E1E1E;
-  color: black;
+  color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 20px;

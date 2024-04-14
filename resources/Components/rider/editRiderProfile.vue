@@ -40,6 +40,8 @@
             <button  type="button" @click="goBack()"  class="btn btn-danger">Cancelar</button>
             <button type="button" @click="updateRider()"  class="btn btn-primary">Submit</button>
 
+            
+
 
         </form>
 
