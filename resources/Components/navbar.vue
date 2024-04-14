@@ -240,5 +240,10 @@ props:{
         padding: 14px 16px;
         text-decoration: none;
     }
+
+    .menu-link span {
+        font-size: 18px;
+        font-weight: 500;
+    }
     </style>
 
