@@ -171,7 +171,7 @@ body {
     color: #8F8F8F;
     font-weight: 12px;
     font-size: 12px;
-    margin-top: -100%;
+    margin-top: -97%;
     margin-left: 16%;
    
 }

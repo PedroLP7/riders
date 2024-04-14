@@ -35,7 +35,7 @@ class UsuarioController extends Controller
     return $response;
 }else{
     $request->session()->flash('error',
-    'Usuari o contrasenya incorrectes');
+    'Usuario o contraseña incorrectos');
     return redirect('/usuario/create')->withInput();
 
 

@@ -17,8 +17,8 @@
     <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
 
-                <a class="navbar-brand" href="{{url('/')}}">
-                  <img src="{{ asset('img/logo.png') }}" id="imglogo" alt="logia" width="30" height="24" class="d-inline-block align-text-top">
+                <a class="navbar-brand" href="{{url('/admin/home')}}">
+                  <img src="{{ asset('img/homeadmin.png') }}" id="imglogo" alt="logia" width="30" height="24" class="d-inline-block align-text-top">
 
                 </a>
 

@@ -13,7 +13,7 @@
 
 
 <a class="btn btn-primary" href="{{url('admin/bookings/create')}}">Create Bookings</a>
-<table class="table">
+<table class="table table-dark table-hover">
       <tr>
         <th scope="col">ID</th>
         <th scope="col">RIDER</th>
