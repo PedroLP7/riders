@@ -26,7 +26,7 @@
                                 <h5 class="card-title" id="card-title-showPack">Pack #{{ menu.id_menu }} </h5>
                                 <div class="contenedor-texto">
                                     <p class="card-text" id="card-text-showPack">
-                                        Este pack incluye: {{ menu.item1 }}, {{ menu.item2 }}, {{ menu.item3 }}
+                                        {{ menu.item1 }}, {{ menu.item2 }}, {{ menu.item3 }}
 
                                         <!-- id : {{  idUser }} -->
                                     </p>

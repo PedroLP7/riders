@@ -4,9 +4,9 @@ defineEmits(['found-booking'])
 
 <template>
   <div v-if="bookings !== null && usuario !== null" class="bookings-modal-container">
-    <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
+    <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles <br> para entregar</h1>
     <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length >= 1">No te olvides:</h1>
-    <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length < 1">No tienes packs reservados</h1>
+    <!-- <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length < 1">No tienes packs reservados</h1> -->
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
     <div v-if="screen !== 1 && screen !== 2 && screen !== 3" class="container">
       <h1 id="titulo">Pedidos en curso</h1>
@@ -215,8 +215,8 @@ defineEmits(['found-booking'])
         </div>
       </div>
 
-      <!-- <button v-if="bookings.length > 1" @click="viewAllBookings" id="view-more-bookings">Ver los demás bookings</button> -->
-      <button v-if="bookings.length > 1" @click="viewProviders" id="make-bookings">Reservar un pack</button>
+      <button v-if="bookings.length > 0" @click="viewAllBookings" id="view-more-bookings">Ver los demás bookings</button>
+      <button v-if="bookings.length < 1" @click="viewProviders" id="make-bookings">No tienes packs reservados, reserva un pack!</button>
     </div>
 
 
