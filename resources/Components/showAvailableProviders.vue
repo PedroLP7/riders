@@ -468,7 +468,7 @@ export default {
   background-color: #8BB481;
   height: 67px;
   color: white;
-  border: 3px solid #000000;
+  border: 3px solid #141414;
   border-radius: 40px;
   font-family: 'Outfit', sans-serif;
   font-weight: bold;

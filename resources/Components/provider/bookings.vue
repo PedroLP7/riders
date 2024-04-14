@@ -11,9 +11,14 @@ defineEmits(['found-booking'])
     <div v-if="screen !== 1 && screen !== 2 && screen !== 3" class="container">
       <h1 id="titulo">Pedidos en curso</h1>
       <div class="cards-container-bookings">
-        <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
-
+        <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">        
           <div class="card-header" id="booking-card-header">
+            <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+              <div class="quantityBubble">
+                {{ booking.menu_quantity }}
+              </div>
+            </div>
+
             <div v-if="booking.rider && booking.rider.user">
               <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
             </div>
@@ -27,16 +32,12 @@ defineEmits(['found-booking'])
               </div> -->
 
               <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
-                </div>
-              </div>
-              <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div> <b>Cantidad</b> {{ booking.menu_quantity }}
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
                 </div>
               </div>
 
               <div v-if="booking.status && booking.status.status_name">
-                <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+                <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
               </div>
 
               <div v-else>No DATA</div>
@@ -95,13 +96,13 @@ defineEmits(['found-booking'])
               </div> -->
 
                 <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                  <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3
+                  <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3
                     }}
                   </div>
                 </div>
 
                 <div v-if="booking.status && booking.status.status_name">
-                  <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+                  <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
                 </div>
 
                 <div v-else>No DATA</div>
@@ -151,6 +152,12 @@ defineEmits(['found-booking'])
         <div v-if="booking.status.id_status == 1">
 
           <div class="card-header" id="booking-card-header">
+            <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+              <div class="quantityBubble">
+                {{ booking.menu_quantity }}
+              </div>
+            </div>
+
             <div v-if="booking.rider && booking.rider.user">
               <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
             </div>
@@ -164,17 +171,12 @@ defineEmits(['found-booking'])
              </div> -->
 
               <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
                 </div>
               </div>
-              <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div> <b>Cantidad</b> {{ booking.menu_quantity }}
-                </div>
-              </div>
-
 
               <div v-if="booking.status && booking.status.status_name">
-                <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+                <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
               </div>
 
               <div v-else>No DATA</div>
@@ -240,12 +242,12 @@ defineEmits(['found-booking'])
          </div> -->
 
           <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-            <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+            <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
             </div>
           </div>
 
           <div v-if="booking.status && booking.status.status_name">
-            <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+            <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
           </div>
 
           <div v-else>No DATA</div>
@@ -584,5 +586,20 @@ window.location.href ='/riders/public/rider/viewProviders'
 #make-bookings {
   margin-top: 2%;
   text-decoration: underline;
+}
+
+.quantityBubble {
+    position: absolute;
+    background-color: #8BB481;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 100%;
+    right: -10px;
+    top: -10px;
+    font-weight: bold;
+    font-size: 20px;
 }
 </style>
