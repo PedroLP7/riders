@@ -74,6 +74,38 @@ export default {
       this.isInitialModalOpen = false;
     }, 
   },
+  applyMarkerStyles(element) {
+    element.style.backgroundColor = 'red';
+    element.style.width = '30px';
+    element.style.height = '30px';
+    element.style.borderRadius = '50%';
+    element.style.backgroundImage = "url('../images/puaM.png')";
+    element.style.backgroundSize = 'cover';
+    element.style.backgroundPosition = 'center';
+  },
+  addMarker(m) {
+    const lng = parseFloat(m.Xcoord);
+    const lat = parseFloat(m.Ycoord);
+    if (!isNaN(lng) && !isNaN(lat)) {
+      const el = document.createElement('div');
+      el.className = 'custom-marker';
+      this.applyMarkerStyles(el);  // Aplicar estilos definidos en la función
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat([lng, lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Calle: ${m.location}`))
+        .addTo(this.map);
+
+      marker.getElement().addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.selectedMarker = { marker, data: m };
+        this.mendigo.id_customer = this.selectedMarker.data.id_customer;
+        this.isMarkerOptionsModalOpen = true;
+      });
+    } else {
+      console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
+    }
+  },
   created() {
 
   },
@@ -119,7 +151,7 @@ export default {
       if (userp.value.id_user) {
         try {
           const response = await axios.get(`usuario/getUsuario${userp.value.id_user}`);
-          userName.value = response.data.name; // Suponiendo que la API responde con un campo 'name'
+          userName.value = response.data.name; 
           console.log("Rider's name fetched:", userName.value);
         } catch (error) {
           console.error('Failed to fetch rider details:', error);
@@ -137,6 +169,23 @@ export default {
           center: [e.coords.longitude, e.coords.latitude],
           zoom: 13
         });
+        setTimeout(() => {
+        const userLocationDot = document.querySelector('.mapboxgl-user-location-dot');
+        if (userLocationDot) {
+        userLocationDot.style.backgroundColor = '#8BB481';       
+
+        }
+            
+        const userLocationPulse = document.querySelector('.mapboxgl-user-location-dot::before');
+        if (userLocationPulse) {
+            userLocationPulse.style.display = 'none'; 
+        }        
+  
+        const userLocationAccuracyCircle = document.querySelector('.mapboxgl-user-location-accuracy-circle');
+        if (userLocationAccuracyCircle) {
+            userLocationAccuracyCircle.style.display = 'none';
+        }
+        }, 100); 
       });
 
       map.on('load', () => {
@@ -165,14 +214,28 @@ export default {
       }
     };
 
+    const applyMarkerStyles = (element) => {
+      //element.style.backgroundColor = 'red';
+      element.style.width = '60px';
+      element.style.height = '60px';
+      element.style.borderRadius = '50%';
+      element.style.backgroundImage = "url('../../resources/images/puaM2.png')";
+      element.style.backgroundSize = 'cover';
+      element.style.backgroundPosition = 'center';
+    };
+
     const addMarker = (m) => {
       const lng = parseFloat(m.Xcoord);
-      const lat = parseFloat(m.Ycoord);
-      if (!isNaN(lng) && !isNaN(lat)) {
-        const marker = new mapboxgl.Marker()
+      const lat = parseFloat(m.Ycoord); 
+      if (!isNaN(lng) && !isNaN(lat)) {      
+        const el = document.createElement('div');     
+        applyMarkerStyles(el)  
+               
+          
+          const marker = new mapboxgl.Marker(el)
           .setLngLat([lng, lat])
           .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Calle: ${m.location}`))
-          .addTo(map);
+          .addTo(map);      
 
         marker.getElement().addEventListener('click', (e) => {
           e.stopPropagation();
@@ -442,4 +505,16 @@ button {
   width: 100%;
 }
 
+.custom-marker {
+  background-color: red !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  background-image: url("../images/puaM.png");
+}
+
+.mapboxgl-user-location-dot {
+  background-color: green !important; /* Cambia el color a verde */
+  border: 2px solid white; /* Opcional: añade un borde blanco para mayor visibilidad */
+}
 </style>
