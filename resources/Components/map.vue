@@ -299,7 +299,7 @@ export default {
 
 #hey{
     position: fixed;
-    top: 10%;
+    top: 5%;
     left: 10%;
     color: white;
     width: 35%;
@@ -319,7 +319,8 @@ export default {
   margin: 0px;
   color: #393939;
   font-size: 25px;
-  font-weight: 80px;
+  font-weight: bolder; 
+
   
 }
 
