@@ -1,7 +1,7 @@
 <template>
     <nav id="navContainer">
         <ul>
-            <div class="menu-indicator homepage-indicator" :style="{ left: positionToMove, width: sliderWidth }"></div>
+            <!-- <div class="menu-indicator homepage-indicator" :style="{ left: positionToMove, width: sliderWidth }"></div> -->
             <li v-for="link in filteredLinks" :key="link.id" @click="sliderIndicator(link.id)" :ref="'menu-item_' + link.id" class="menu-item">
                 <a href="#" class="menu-link">
                     <i class="menu-icon" :class="link.icon"></i>
@@ -35,7 +35,7 @@ props:{
                     id: 1,
                     icon: "home",
                     text: "Inicio",
-                    userType: [2]
+                    userType: [2],
                 },
                 {
                     id: 2,
@@ -119,6 +119,7 @@ props:{
             switch (id) {
                 case 1:
                     this.riderHomeRoute();
+                    
                     break;
                 case 2:
                     this.riderSearchRoute();
@@ -143,7 +144,7 @@ props:{
             }
         },
 
-        riderHomeRoute() {
+            riderHomeRoute() {
                 window.location.href = "/riders/public/rider/home";
                 this.isRiderHome = true;
             },
@@ -201,6 +202,7 @@ props:{
                 return link.userType.includes(userType);
             });
         }
+        
     }
 }
 </script>
@@ -230,7 +232,7 @@ props:{
         overflow: hidden;
     }
 
-    .menu-indicator {
+    /* .menu-indicator {
         position: absolute;
         height: 50px;
         width: 140px;
@@ -238,14 +240,23 @@ props:{
         background-color: var(--accent-color);
         transition: all ease 0.5s;
         z-index: -1;
-    }
+    } */
 
-    .menu-indicator.homepage-indicator {
-        opacity: 1; /* Always visible on homepage */
-    }
+    
 
     .menu-item {
         display: inline-flex;
+        
+    }
+
+    .menu-item-active {
+        background-color: var(--accent-color);
+        position: absolute;
+        height: 50px;
+        width: 140px;
+        border-radius: 50px;
+        background-color: var(--accent-color);
+        z-index: -1;
     }
 
     #navContainer li:hover {
