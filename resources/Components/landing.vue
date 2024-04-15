@@ -24,10 +24,10 @@
             <p>¿Eres una empresa y quieres colaborar?</p>
             <a class="hyperlink" @click="registroEmpresa">Regístrate ahora!</a>
           </div>
-          <div id="comedor">
+          <!-- <div id="comedor">
             <p>¿Eres un comedor social?</p>
             <a class="hyperlink" @click="registroComedor">Regístrate ahora!</a>
-          </div>
+          </div> -->
         </div>
       </main>   
       </div>

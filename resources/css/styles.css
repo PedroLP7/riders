@@ -13,7 +13,7 @@ body {
 }
 
 .hyperlink {
-    color: inherit;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
@@ -45,6 +45,10 @@ body {
 #empresa
 {
   margin-bottom: 2%;
+}
+
+#empresa p {
+  color: #FFFFFF;
 }
 
 #comedor
