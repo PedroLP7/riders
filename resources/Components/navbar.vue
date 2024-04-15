@@ -5,7 +5,7 @@
             <li v-for="link in filteredLinks" :key="link.id" @click="sliderIndicator(link.id)" :ref="'menu-item_' + link.id" class="menu-item">
                 <a href="#" class="menu-link">
                     <i class="menu-icon" :class="link.icon"></i>
-                    <span>{{ link.text }}</span>
+                    <span class="navbar-text">{{ link.text }}</span>
                 </a>
             </li>
         </ul>
@@ -108,20 +108,38 @@ props:{
             this.selectedIndex = id;
             this.currentPageId = id;
 
-            if (id === 1) {
-                this.riderHomeRoute();
-            } else if (id === 2) {
-                this.riderSearchRoute();
-            } else if (id === 3) {
-                this.riderSavedRoute();
-            } else if (id === 4) {
-                this.riderProfileRoute();
-            } else if (id === 5) {
-                this.providerHomeRoute();
-            } else if (id === 6) {
-                this.providerTrackRoute();
-            } else if (id === 7) {
-                this.providerProfileRoute();
+            // Restablecer el color de todos los elementos de la barra de navegación
+            document.querySelectorAll('.navbar-text').forEach((el) => {
+                el.style.color = 'var(--text-unselected)';
+            });
+
+            // Cambiar el color solo del elemento clicado
+            el.querySelector('.navbar-text').style.color = 'var(--text-selected)';
+
+            switch (id) {
+                case 1:
+                    this.riderHomeRoute();
+                    break;
+                case 2:
+                    this.riderSearchRoute();
+                    break;
+                case 3:
+                    this.riderSavedRoute();
+                    break;
+                case 4:
+                    this.riderProfileRoute();
+                    break;
+                case 5:
+                    this.providerHomeRoute();
+                    break;
+                case 6:
+                    this.providerTrackRoute();
+                    break;
+                case 7:
+                    this.providerProfileRoute();
+                    break;
+                default:
+                    break;
             }
         },
 
