@@ -212,6 +212,17 @@ export default {
       } catch (error) {
         console.error('Error al obtener los mendigos:', error);
       }
+      try {
+        const response2 = await axios.get('provider');
+        response2.data.forEach((m) => {
+
+          console.log("proveedores")
+        });
+
+      } catch(error) {
+        console.error('Error al obtener los mendigos:', error);
+      }
+
     };
 
     const applyMarkerStyles = (element) => {
