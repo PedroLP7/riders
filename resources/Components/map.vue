@@ -432,11 +432,15 @@ export default {
 #hey:hover {
   background-position: right center; /* change the direction of the change here */
   cursor: pointer;
+  scale: 1.02; 
+  transition: 0.5s;
 }
 
 #hey:focus {
   background-position: right center; /* change the direction of the change here */
   cursor: pointer;
+  scale: 1.02; 
+  transition: 0.5s;
 }
 
 #hey{
