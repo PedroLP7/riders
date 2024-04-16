@@ -1,7 +1,7 @@
 <template>
-  <div id="hey">
-    <h1 id="cipoton">Hey, {{ userName }}</h1>
-  </div>
+  <a id="hey" @click="goToProfile()">
+    <h1 id="cipoton"><b>Hey, </b>{{ user.user_name }}</h1>
+  </a>
   <div class="map-container" ref="mapContainer"></div>
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
@@ -23,7 +23,10 @@
 
   <div v-if="isMarkerOptionsModalOpen" class="modal-overlay" @click="closeMarkerOptionsModal">
     <div class="modal-small" @click.stop>
-      <span class="close" @click="closeMarkerOptionsModal">&times;</span>
+      
+      <div class="toggle-modal-size">
+        <span class="close" @click="closeMarkerOptionsModal">&times;</span>
+      </div>
       <div class="modal-content">
 
         <booking :screen="1" :customer="mendigo.id_customer"></booking>
@@ -33,7 +36,17 @@
   </div>
   <div v-if="isInitialModalOpen" class="modal-overlay">
     <div class="modal-small-initial">
-      <span class="close" @click="closeInitialModal">&times;</span>
+      <div class="toggle-modal-size">
+
+        <button @click="minimizeModal()" id="minimize-modal-button">
+          <span>Minimizar</span>
+        </button>
+
+        <button @click="maximizeModal()" id="maximize-modal-button">
+          <span>Maximizar</span>
+        </button>
+
+      </div>
       <div class="modal-content">
         <booking :screen="2" ></booking>
       </div>
@@ -69,10 +82,54 @@ export default {
   },
 
   methods: {
+    goToProfile() {
+      window.location.href = '/riders/public/rider/profile';
+    },
+    getProvider() {
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('rider/' + idUser)
+                .then(response => {
+                    me.user = response.data
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+    getidUser() {
+            const me = this;
+
+            axios.get('usuario/getUsuario')
+                .then(response => {
+                    me.userp = response.data
+                    console.log(response.data)
+                    console.log(me.userp.id_user);
+
+                    me.getProvider()
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
     closeInitialModal() {
 
       this.isInitialModalOpen = false;
     }, 
+    minimizeModal() {
+      this.isMinimized = false;
+      document.querySelector('.modal-content').style.display = 'none';
+      document.querySelector('.modal-small-initial').style.minHeight = '10%';
+      document.querySelector('.modal-small-initial').style.top = '84%';
+    },
+    maximizeModal() {
+      this.isMinimized = true;
+      document.querySelector('.modal-content').style.display = 'flex';
+      document.querySelector('.modal-small-initial').style.minHeight = '30%';
+      document.querySelector('.modal-small-initial').style.top = '74%';
+    }
+
   },
   applyMarkerStyles(element) {
     element.style.backgroundColor = 'red';
@@ -107,7 +164,7 @@ export default {
     }
   },
   created() {
-
+    this.getidUser()
   },
   setup() {
     const mapContainer = ref(null);
@@ -344,7 +401,8 @@ export default {
       mendigo,
       isMarkerOptionsModalOpen,
       closeMarkerOptionsModal,
-      removeMarker
+      removeMarker,
+      isMinimized: false,
     };
   },
 };
@@ -371,31 +429,53 @@ export default {
   min-height: 30%;
 }
 
-#hey{
-    position: fixed;
-    top: 5%;
-    left: 10%;
-    color: white;
-    width: 35%;
-    height: 5%;    
-    background-color: #8f8f8f6e;
-    backdrop-filter: blur(6px);
-    z-index: 2;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
+#hey:hover {
+  background-position: right center; /* change the direction of the change here */
+  cursor: pointer;
+  scale: 1.02; 
+  transition: 0.5s;
 }
 
-#cipoton
-{
+#hey:focus {
+  background-position: right center; /* change the direction of the change here */
+  cursor: pointer;
+  scale: 1.02; 
+  transition: 0.5s;
+}
+
+#hey{
+  position: fixed;
+  top: 5%;
+  left: 2%;
+  color: white;
+  min-width: 45%;
+  height: 7%;
+  background-image: linear-gradient(to right, #8e8e8e99 0%, #5c5c5ca1 51%, #acacac9c 100%);
+  background-size: 200% auto;
+  backdrop-filter: blur(6px);
+  z-index: 2;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  padding: 3%;
+  transition: 0.5s;
+}
+
+@media (min-width: 500px){
+  #hey{
+    min-width: 10%;
+    padding: 2%;
+  }
+  
+}
+
+#cipoton {
   margin: 0px;
   color: #393939;
-  font-size: 25px;
-  font-weight: bolder; 
-
-  
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .map-container {
@@ -449,6 +529,12 @@ button:hover {
   text-align: center;
   width: 100%;
   color: #8BB481;
+}
+
+.toggle-modal-size {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 
@@ -528,4 +614,5 @@ button {
   background-color: green !important; /* Cambia el color a verde */
   border: 2px solid white; /* Opcional: añade un borde blanco para mayor visibilidad */
 }
+
 </style>
