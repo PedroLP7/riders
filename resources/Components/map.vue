@@ -652,4 +652,13 @@ button {
   color: #8F8F8F;
   text-align: center;
 }
+
+@media (min-width: 1024px) {
+  #navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los elementos */
+    align-items: center; /* Centra verticalmente los elementos */
+  }
+}
 </style>
