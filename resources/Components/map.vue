@@ -23,7 +23,10 @@
 
   <div v-if="isMarkerOptionsModalOpen" class="modal-overlay" @click="closeMarkerOptionsModal">
     <div class="modal-small" @click.stop>
-      <span class="close" @click="closeMarkerOptionsModal">&times;</span>
+      
+      <div class="toggle-modal-size">
+        <span class="close" @click="closeMarkerOptionsModal">&times;</span>
+      </div>
       <div class="modal-content">
 
         <booking :screen="1" :customer="mendigo.id_customer"></booking>
@@ -33,7 +36,17 @@
   </div>
   <div v-if="isInitialModalOpen" class="modal-overlay">
     <div class="modal-small-initial">
-      <span class="close" @click="closeInitialModal">&times;</span>
+      <div class="toggle-modal-size">
+
+        <button @click="minimizeModal()" id="minimize-modal-button">
+          <span>Minimizar</span>
+        </button>
+
+        <button @click="maximizeModal()" id="maximize-modal-button">
+          <span>Maximizar</span>
+        </button>
+
+      </div>
       <div class="modal-content">
         <booking :screen="2" ></booking>
       </div>
@@ -104,6 +117,19 @@ export default {
 
       this.isInitialModalOpen = false;
     }, 
+    minimizeModal() {
+      this.isMinimized = false;
+      document.querySelector('.modal-content').style.display = 'none';
+      document.querySelector('.modal-small-initial').style.minHeight = '10%';
+      document.querySelector('.modal-small-initial').style.top = '84%';
+    },
+    maximizeModal() {
+      this.isMinimized = true;
+      document.querySelector('.modal-content').style.display = 'flex';
+      document.querySelector('.modal-small-initial').style.minHeight = '30%';
+      document.querySelector('.modal-small-initial').style.top = '74%';
+    }
+
   },
   applyMarkerStyles(element) {
     element.style.backgroundColor = 'red';
@@ -375,7 +401,8 @@ export default {
       mendigo,
       isMarkerOptionsModalOpen,
       closeMarkerOptionsModal,
-      removeMarker
+      removeMarker,
+      isMinimized: false,
     };
   },
 };
@@ -495,6 +522,12 @@ button:hover {
   color: #8BB481;
 }
 
+.toggle-modal-size {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
 
 button {
   margin-top: 20px;
@@ -572,4 +605,5 @@ button {
   background-color: green !important; /* Cambia el color a verde */
   border: 2px solid white; /* Opcional: añade un borde blanco para mayor visibilidad */
 }
+
 </style>
