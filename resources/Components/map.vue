@@ -434,6 +434,11 @@ export default {
   cursor: pointer;
 }
 
+#hey:focus {
+  background-position: right center; /* change the direction of the change here */
+  cursor: pointer;
+}
+
 #hey{
   position: fixed;
   top: 5%;
