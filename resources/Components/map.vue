@@ -528,7 +528,7 @@ button:hover {
   height: 15%;
   background-color: #1E1E1E;
   color: white;
-  border-radius: 8px;
+  border-radius: 19px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 20px;
   overflow: hidden;
