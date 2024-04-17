@@ -6,16 +6,16 @@
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
       <span class="close" @click="closeModal">&times;</span>
-      <form @submit.prevent="confirmAddMarker">
+      <form @submit.prevent="confirmAddMarker" style="width: 100%;">
         <div class="form-group">
         </div>
         <div class="form-group">
         </div>
         <div class="form-group">
-          <label for="streetName">Calle:</label>
+          <!-- <label for="streetName">Calle:</label> -->
           <div id="streetName" class="street-name">{{ mendigo.location }}</div>
         </div>
-        <button type="button" @click="confirmAddMarker">Guardar</button>
+        <button type="button" @click="confirmAddMarker" id="save-pua-button">Guardar</button>
       </form>
     </div>
   </div>
@@ -613,6 +613,8 @@ button {
 
 #navbar {
   width: 100%;
+  left: 0%;
+  right: 0%;
 }
 
 .custom-marker {
@@ -632,7 +634,7 @@ button {
   background: transparent;
   height: 50px;
   width: 50px;
-  margin-top: 15%;
+  margin-top: 3rem;
   left: 85%;
   position: absolute;
   z-index: 999;
@@ -642,7 +644,7 @@ button {
   background: transparent;
   height: 50px;
   width: 50px;
-  margin-top: 15%;
+  margin-top: 3rem;
   left: 85%;
   position: absolute;
   z-index: 999;
@@ -653,12 +655,74 @@ button {
   text-align: center;
 }
 
+#save-pua-button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  background-color: #8BB481;
+  color: black;
+  border: none;
+  border-radius: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 600;
+  height: 50%;
+  margin-top: 10px;
+}
+
+#streetName {
+  font-weight: 500;
+  font-size: 20px;
+  margin-right: 5%;
+}
+
 @media (min-width: 1024px) {
   #navbar {
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Centra horizontalmente los elementos */
-    align-items: center; /* Centra verticalmente los elementos */
+    width: 38%;
+    left: 0%;
+    right: 0%;
   }
+
+  .modal {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 1050;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+    max-width: 58%;
+    height: 20%;
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 19px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  #minimize-modal-button {
+    background: transparent;
+    height: 50px;
+    width: 50px;
+    margin-top: 3rem;
+    left: 95%;
+    position: absolute;
+    z-index: 999;
+  }
+
+#maximize-modal-button {
+    background: transparent;
+    height: 50px;
+    width: 50px;
+    margin-top: 3rem;
+    left: 95%;
+    position: absolute;
+    z-index: 999;
+  }
+
 }
 </style>
