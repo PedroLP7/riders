@@ -1,4 +1,7 @@
 <template>
+   <div v-if="loading" class="loading-overlay"> 
+    <div id="manzanita"></div>
+  </div>
   <a id="hey" @click="goToProfile()">
     <h1 id="cipoton"><b>Hey, </b>{{ user.user_name }}</h1>
   </a>
@@ -11,8 +14,7 @@
         </div>
         <div class="form-group">
         </div>
-        <div class="form-group">
-          <!-- <label for="streetName">Calle:</label> -->
+        <div class="form-group">       
           <div id="streetName" class="street-name">{{ mendigo.location }}</div>
         </div>
         <button type="button" id="modalButton" @click="confirmAddMarker">Guardar</button>
@@ -84,13 +86,58 @@ export default {
       isMinimized: false,
       isMaximized: true,
       user: {},
+      loading: true,
+      images: [
+        'ManzanaAni1.png',
+        'ManzanaAni2.png',
+        'ManzanaAni3.png',
+        'ManzanaAni4.png',
+        'ManzanaAni5.png',
+        'ManzanaAni6.png',
+        'ManzanaAni7.png',
+        'ManzanaAni8.png',
+      ],      
+      currentImageIndex: 0,
+      imagesLoaded: []
+      
+      
 
     }
   },
 
-  methods: {
+  methods: {    
+    preloadImages() {
+    let loadCount = 0;
+    this.images.forEach(image => {
+      const img = new Image();
+      img.src = `../../resources/images/animacion/${image}`;
+      img.onload = () => {
+      this.imagesLoaded.push(img.src);
+      loadCount++;
+      if (loadCount === this.images.length) {
+        this.startAnimation(); 
+      }
+    };      
+    });
+    },
     goToProfile() {
       window.location.href = '/riders/public/rider/profile';
+    },    
+    startAnimation() {
+      setInterval(() => {
+        let nextImageIndex = this.currentImageIndex + 1;
+        if (nextImageIndex >= this.images.length) {
+          nextImageIndex = 0;        
+        }
+        this.currentImageIndex = nextImageIndex;
+        this.updateLogo();
+      },75); 
+    },
+    updateLogo() {
+    const logo = document.getElementById('manzanita');
+    if (logo && this.imagesLoaded[this.currentImageIndex]) { 
+      logo.style.backgroundImage = `url(${this.imagesLoaded[this.currentImageIndex]})`;      
+    }
     },
     getProvider() {
             const me = this;
@@ -99,11 +146,12 @@ export default {
                 .then(response => {
                     me.user = response.data
                     console.log(response.data)
+                    this.loading = false;
                 })
                 .catch(error => {
                     console.log(error)
                 })
-        },
+        },    
     getidUser() {
             const me = this;
 
@@ -121,7 +169,6 @@ export default {
         },
 
     closeInitialModal() {
-
       this.isInitialModalOpen = false;
     }, 
     minimizeModal() {
@@ -178,7 +225,8 @@ export default {
     }
   },
   created() {
-    this.getidUser()
+    this.preloadImages();
+    this.getidUser()   
   },
   setup() {
     const mapContainer = ref(null);
@@ -405,6 +453,7 @@ export default {
 
     const fetchStreetName = async (longitude, latitude) => {
       const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxgl.accessToken}&types=address`;
+      
       try {
         const response = await fetch(geocodingUrl);
         const data = await response.json();
@@ -771,4 +820,31 @@ button:hover {
   }
 
 }
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1E1E1E;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  z-index: 5000;
+}
+
+#manzanita
+{
+  top: 50%;
+  left: 50%;
+  background-image: url(../images/PutoLogo7.png);
+  background-size: cover;
+  width: 250px;
+  height: 250px;
+  transform: translate(0%, -25%); 
+}
+
 </style>
