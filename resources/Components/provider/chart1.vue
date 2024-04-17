@@ -3,7 +3,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     <div>
-      <canvas ref="chartCanvas"></canvas>
+      <canvas v-if="monthly" ref="chartCanvas"></canvas>
     </div>
   </template>
 
@@ -28,7 +28,7 @@ export default {
     const chartData = {
       labels: ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
       datasets: [{
-        data: [this.monthly], // Datos ficticios para cada mes
+        data: this.monthly, // Datos ficticios para cada mes
         backgroundColor: [
           '#B4DAAA'
 

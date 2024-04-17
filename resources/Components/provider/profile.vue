@@ -37,13 +37,13 @@
             </div>
         </div>
 
-        <div id="big-stat" v-if="isLoaded">
+        <div id="big-stat">
             <div class="card-body">
                 <h1 class="big-stat-title" >
                     {{ monthly }}Repartos</h1>
                 <p class="timerange-stat">este mes</p>
 
-                <div class="" id="chart" >
+                <div class="" id="chart" v-if="isLoaded" >
                     <chart1 :monthly="monthly" :isLoaded1="isLoaded" />
                 </div>
             </div>
@@ -162,7 +162,7 @@ export default {
                     me.getBookings()
                     me.getKG()
 
-                    me.isLoaded = true;
+
                 })
                 .catch(error => {
                     console.log(error)
@@ -177,7 +177,7 @@ export default {
                 .then(response => {
                     me.bookings = response.data
                     console.log(response.data)
-                    console.log(me.user.id_user)
+                    // console.log(me.user.id_user)
 
                 })
                 .catch(error => {
@@ -208,6 +208,7 @@ export default {
                     me.monthly = response.data
                     console.log(response.data)
                     console.log(me.user.id_user)
+                    me.isLoaded = true;
 
                 })
                 .catch(error => {
