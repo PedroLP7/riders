@@ -11,7 +11,7 @@ defineEmits(['found-booking'])
     <div v-if="screen !== 1 && screen !== 2 && screen !== 3" class="container">
       <h1 id="titulo">Pedidos en curso</h1>
       <div class="cards-container-bookings">
-        <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">        
+        <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
           <div class="card-header" id="booking-card-header">
             <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
               <div class="quantityBubble">
@@ -32,7 +32,8 @@ defineEmits(['found-booking'])
               </div> -->
 
               <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2
+                  }}, {{ booking.menu.item3 }}
                 </div>
               </div>
 
@@ -96,7 +97,8 @@ defineEmits(['found-booking'])
               </div> -->
 
                 <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                  <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3
+                  <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2
+                    }}, {{ booking.menu.item3
                     }}
                   </div>
                 </div>
@@ -146,9 +148,10 @@ defineEmits(['found-booking'])
   </div>
   <div v-if="screen === 2 && bookings">
 
-
-    <div class="cards-container-bookings">
-      <div class="card" id="booking-card" v-for="booking in bookings.slice(0, 2)" :key="booking.id_booking">
+    <div v-if="filteredBookings.length > 1">
+      <div class="cards-container-bookings">
+      <div class="card" id="booking-card" v-for="(booking, index) in filteredBookings.slice(0 , 1)" :key="index">
+       
         <div v-if="booking.status.id_status == 1">
 
           <div class="card-header" id="booking-card-header">
@@ -171,7 +174,161 @@ defineEmits(['found-booking'])
              </div> -->
 
               <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2
+                  }}, {{ booking.menu.item3 }}
+                </div>
+              </div>
+              <h1>Pizza</h1>
+              <div v-if="booking.status && booking.status.status_name">
+                <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+              </div>
+
+              <div v-else>No DATA</div>
+            </div>
+
+
+            <div class="alerta-estado-rider">
+              <!-- if rider  -->
+              <div v-if="usuario.user_type_id == 2">
+                <div
+                  v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
+
+                  <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                    {{ buttonContent(booking.status.id_status) }}
+                  </button>
+                </div>
+                <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
+                  <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
+                    sin-techo</button>
+                </div>
+              </div>
+              <!-- if provider -->
+              <div v-else>
+                <div
+                  v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
+
+                  <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                    {{ buttonContent(booking.status.id_status) }}</button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <button v-if="bookings.length > 0" @click="viewAllBookings" id="view-more-bookings">Ver los demás
+        bookings</button>
+      <button v-if="bookings.length < 1" @click="viewProviders" id="make-bookings">No tienes packs reservados, reserva
+        un pack!</button>
+    </div>
+    </div>
+    <div v-else>
+      <div class="cards-container-bookings">
+      <div class="card" id="booking-card" v-for="booking in bookings">
+       
+        <div v-if="booking.status.id_status == 1">
+
+          <div class="card-header" id="booking-card-header">
+            <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+              <div class="quantityBubble">
+                {{ booking.menu_quantity }}
+              </div>
+            </div>
+
+            <div v-if="booking.rider && booking.rider.user">
+              <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
+            </div>
+            <h5 id="subtitulo-card-booking">Booking {{ booking.id_booking }}</h5>
+          </div>
+
+          <div class="card-body" id="booking-card-body">
+            <div class="info-pack-tracking">
+              <!-- <div v-if="booking.provider && booking.provider.user">
+               <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
+             </div> -->
+
+              <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2
+                  }}, {{ booking.menu.item3 }}
+                </div>
+              </div>
+              <h1>Pizza</h1>
+              <div v-if="booking.status && booking.status.status_name">
+                <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+              </div>
+
+              <div v-else>No DATA</div>
+            </div>
+
+
+            <div class="alerta-estado-rider">
+              <!-- if rider  -->
+              <div v-if="usuario.user_type_id == 2">
+                <div
+                  v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
+
+                  <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                    {{ buttonContent(booking.status.id_status) }}
+                  </button>
+                </div>
+                <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
+                  <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
+                    sin-techo</button>
+                </div>
+              </div>
+              <!-- if provider -->
+              <div v-else>
+                <div
+                  v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
+
+                  <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
+                    {{ buttonContent(booking.status.id_status) }}</button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <button v-if="bookings.length > 0" @click="viewAllBookings" id="view-more-bookings">Ver los demás
+        bookings</button>
+      <button v-if="bookings.length < 1" @click="viewProviders" id="make-bookings">No tienes packs reservados, reserva
+        un pack!</button>
+    </div>
+    </div>
+   
+
+
+  </div>
+  <div v-if="screen === 3 && bookings">
+
+
+    <div class="cards-container-bookings">
+      <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
+        <div v-if="booking.status.id_status == 1">
+
+          <div class="card-header" id="booking-card-header">
+            <div v-if="booking.rider && booking.rider.user">
+              <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
+            </div>
+            <h5 id="subtitulo-card-booking">Booking {{ booking.id_booking }}</h5>
+          </div>
+
+          <div class="card-body" id="booking-card-body">
+            <div class="info-pack-tracking">
+              <!-- <div v-if="booking.provider && booking.provider.user">
+           <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
+         </div> -->
+
+              <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2
+                  }}, {{ booking.menu.item3 }}
                 </div>
               </div>
 
@@ -215,83 +372,12 @@ defineEmits(['found-booking'])
         </div>
       </div>
 
-      <button v-if="bookings.length > 0" @click="viewAllBookings" id="view-more-bookings">Ver los demás bookings</button>
-      <button v-if="bookings.length < 1" @click="viewProviders" id="make-bookings">No tienes packs reservados, reserva un pack!</button>
+
+      --
     </div>
 
 
   </div>
-  <div v-if="screen === 3 && bookings">
-
-
-<div class="cards-container-bookings">
-  <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
-    <div v-if="booking.status.id_status == 1">
-
-      <div class="card-header" id="booking-card-header">
-        <div v-if="booking.rider && booking.rider.user">
-          <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
-        </div>
-        <h5 id="subtitulo-card-booking">Booking {{ booking.id_booking }}</h5>
-      </div>
-
-      <div class="card-body" id="booking-card-body">
-        <div class="info-pack-tracking">
-          <!-- <div v-if="booking.provider && booking.provider.user">
-           <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
-         </div> -->
-
-          <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-            <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
-            </div>
-          </div>
-
-          <div v-if="booking.status && booking.status.status_name">
-            <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
-          </div>
-
-          <div v-else>No DATA</div>
-        </div>
-
-
-        <div class="alerta-estado-rider">
-          <!-- if rider  -->
-          <div v-if="usuario.user_type_id == 2">
-            <div
-              v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'Booked'">
-
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
-                {{ buttonContent(booking.status.id_status) }}
-              </button>
-            </div>
-            <div v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
-              <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
-                sin-techo</button>
-            </div>
-          </div>
-          <!-- if provider -->
-          <div v-else>
-            <div
-              v-if="booking.status && booking.status.status_name && booking.status.status_name !== 'Not delivered' && booking.status.status_name !== 'On its way'">
-
-              <button @click="sendPostRequest(booking.id_booking, false)" class="btn btn-success">
-                {{ buttonContent(booking.status.id_status) }}</button>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-
-  --
-</div>
-
-
-</div>
 
   <!-- </div> -->
 
@@ -331,6 +417,12 @@ export default {
       }
     };
   },
+  computed: {
+    filteredBookings() {
+      // Filter bookings where status_id == 1
+      return this.bookings.filter(booking => booking.status.id_status === 1);
+    }
+  },
 
   created() {
 
@@ -360,11 +452,11 @@ export default {
         });
     },
     viewAllBookings() {
-window.location.href ='./viewAllBookings'
+      window.location.href = './viewAllBookings'
     },
 
     viewProviders() {
-window.location.href ='/riders/public/rider/viewProviders'
+      window.location.href = '/riders/public/rider/viewProviders'
     },
 
     fetchBookings() {
@@ -452,7 +544,7 @@ window.location.href ='/riders/public/rider/viewProviders'
           console.log('PUT request successful', response);
           this.fetchBookings();
 
-         if(postData.id_status_fk === 3){
+          if (postData.id_status_fk === 3) {
             me.createDelivery(id, me.customer);
           }
 
@@ -589,25 +681,25 @@ window.location.href ='/riders/public/rider/viewProviders'
 }
 
 .quantityBubble {
-    position: absolute;
-    background-color: #8BB481;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 100%;
-    right: -10px;
-    top: -10px;
-    font-weight: bold;
-    font-size: 20px;
+  position: absolute;
+  background-color: #8BB481;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 100%;
+  right: -10px;
+  top: -10px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .btn-success {
-    background-color: #8BB481;
-    border-color: transparent;
-    border-radius: 50px;
-    color: #1E1E1E;
-    font-weight: 600;
+  background-color: #8BB481;
+  border-color: transparent;
+  border-radius: 50px;
+  color: #1E1E1E;
+  font-weight: 600;
 }
 </style>
