@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\booking;
+use App\Models\delivery;
 use App\Models\usuario;
 use App\Models\provider;
 use App\Models\charity_menu;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -157,16 +160,16 @@ class ProviderController extends Controller
             }
             // Get the current quantity from the pivot table
             $currentQuantity = $provider->menus()->where('id_m', $menu->id_menu)->first()->pivot->quantity;
-        
+
             // Calculate the new quantity
-           
+
             $newQuantity = $currentQuantity - $quantity;
             if ($newQuantity < 0){
                 throw new \Exception('No puede reservar más paquetes de los que hay disponibles');
             }
             // Update the quantity through the pivot table
             $provider->menus()->updateExistingPivot($menu->id_menu, ['quantity' => $newQuantity]);
-        
+
             // Return a success response
             return response()->json(['message' => 'Quantity updated successfully']);
         } catch (\Exception $e) {
@@ -174,6 +177,81 @@ class ProviderController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    
-    
+
+
+
+    public function bookingsByProvider($provider)
+    {
+        $now = Carbon::now();
+
+
+
+
+
+        $dateString = $now->format('Y-m-d');
+
+        $startDate = $now->subDays(30);
+
+
+        try {
+            $count = Booking::where('id_provider_fk', $provider)
+            ->whereBetween('curr_date', [$startDate, $dateString])
+            ->count();
+            $response = response()->json($count, 200);
+
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+
+        }
+
+        return $response;
+
+    }
+
+
+
+
+    public function getKG( $provider){
+
+        try {
+            $count = Booking::where('id_provider_fk', $provider)->count();
+            $kg = $count * 0.5;
+            $response = response()->json($kg, 200);
+
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+
+        }
+        return $response;
+    }
+
+
+
+    public function deliverysByProvider($provider)
+    {
+        try {
+            $bookingsByMonth = [];
+
+            // Iterar sobre cada mes del año
+            for ($month = 1; $month <= 12; $month++) {
+                // Obtener el número de reservas para el proveedor en ese mes
+                $bookingsCount = Booking::where('id_provider_fk', $provider)
+                ->whereRaw('MONTH(curr_Date) = ?', [$month])
+                                                  ->count();
+
+                // Agregar el resultado al array
+                $bookingsByMonth[$month] = $bookingsCount;
+            }
+
+            $response = response()->json($bookingsByMonth, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+        }
+
+        return $response;
+    }
+
+
+
+
 }

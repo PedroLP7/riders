@@ -11,12 +11,24 @@
 import { Chart } from 'chart.js/auto';
 
 export default {
+
+
+
+   props: {
+        monthly: {
+            type: Object, // Ajusta el tipo de datos según lo que esperas recibir
+            required: true // Si es necesario
+        },isLoaded1: {
+            type: Boolean, // Ajusta el tipo de datos según lo que esperas recibir
+            required: true // Si es necesario
+        }
+    },
   mounted() {
     // Datos para el gráfico
     const chartData = {
       labels: ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
       datasets: [{
-        data: [120, 200, 140, 300, 250, 180, 400, 280, 350, 320, 180, 250], // Datos ficticios para cada mes
+        data: [this.monthly], // Datos ficticios para cada mes
         backgroundColor: [
           '#B4DAAA'
 
@@ -35,7 +47,7 @@ export default {
         legend: {
           display: false // Desactiva la visualización de la leyenda
         },
-        
+
       },
       scales: {
         x :{
@@ -52,13 +64,13 @@ export default {
           ticks: {
             font: {
               family: 'Outfit',
-              weight: 'bold', 
-              size: 15 
+              weight: 'bold',
+              size: 15
             }
           },
         }
       },
-      
+
       elements: {
         bar: {
           borderRadius: 10, // Radio de borde general
