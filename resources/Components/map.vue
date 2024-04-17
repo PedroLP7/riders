@@ -15,7 +15,7 @@
           <!-- <label for="streetName">Calle:</label> -->
           <div id="streetName" class="street-name">{{ mendigo.location }}</div>
         </div>
-        <button type="button" @click="confirmAddMarker" id="save-pua-button">Guardar</button>
+        <button type="button" id="modalButton" @click="confirmAddMarker">Guardar</button>
       </form>
     </div>
   </div>
@@ -285,19 +285,37 @@ export default {
       }
       try {
         const response2 = await axios.get('provider');
-        response2.data.forEach((m) => {
+        response2.data.forEach((p) => {
 
-          console.log("proveedores")
+          console.log(p.provider.adress)
+          addMarkerWithAddress(p);
         });
 
       } catch(error) {
-        console.error('Error al obtener los mendigos:', error);
+        console.error('Error al obtener los providers:', error);
       }
 
     };
 
-    const applyMarkerStyles = (element) => {
-      //element.style.backgroundColor = 'red';
+    const getCoordinatesFromAddress = async (address) => {
+    const bbox = "2.0695,41.3200,2.2280,41.4696"; // Bounding box para Barcelona
+    const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxgl.accessToken}&bbox=${bbox}`;
+    try {
+        const response = await axios.get(geocodingUrl);
+        if (response.data.features.length > 0) {
+            const coords = response.data.features[0].center;
+            console.log(coords[0], coords[1]); // Log the coordinates
+            return { lng: coords[0], lat: coords[1] };
+        } else {
+            console.log("No se encontraron resultados en el área especificada.");
+            return null;
+        }
+    } catch (error) {
+        console.error('Error al obtener coordenadas:', error);
+        return null;
+    }
+};
+    const applyMarkerStyles = (element) => {     
       element.style.width = '60px';
       element.style.height = '60px';
       element.style.borderRadius = '50%';
@@ -306,18 +324,18 @@ export default {
       element.style.backgroundPosition = 'center';
     };
 
+
+
     const addMarker = (m) => {
       const lng = parseFloat(m.Xcoord);
       const lat = parseFloat(m.Ycoord); 
       if (!isNaN(lng) && !isNaN(lat)) {      
         const el = document.createElement('div');     
-        applyMarkerStyles(el)  
-               
-          
-          const marker = new mapboxgl.Marker(el)
-          .setLngLat([lng, lat])
-          .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Calle: ${m.location}`))
-          .addTo(map);      
+        applyMarkerStyles(el)             
+        const marker = new mapboxgl.Marker(el)
+        .setLngLat([lng, lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Calle: ${m.location}`))
+        .addTo(map);      
 
         marker.getElement().addEventListener('click', (e) => {
           e.stopPropagation();
@@ -327,6 +345,34 @@ export default {
         });
       } else {
         console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
+      }
+    };
+
+    const addProviderMarker = (m) => {
+      const lng = parseFloat(m.Xcoord);
+      const lat = parseFloat(m.Ycoord); 
+      if (!isNaN(lng) && !isNaN(lat)) {    
+        const marker = new mapboxgl.Marker()
+          .setLngLat([lng, lat])
+          .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Dirección: ${m.location}`))
+          .addTo(map);
+
+        marker.getElement().addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectedMarker.value = { marker, data: m };
+          mendigo.value.id_customer = selectedMarker.value.data.id_customer;
+          isMarkerOptionsModalOpen.value = true;
+        });
+      } else {
+        console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
+      }
+    };
+    
+    const addMarkerWithAddress = async (p) => {
+      const coords = await getCoordinatesFromAddress(p.provider.adress);     
+      if (coords) {
+        
+        addProviderMarker({ ...p, Xcoord: coords.lng, Ycoord: coords.lat, location: p.provider.adress });
       }
     };
 
@@ -551,7 +597,7 @@ button:hover {
 }
 
 
-button {
+#modalButton {
   margin-top: 20px;
   align-self: center;
 }
