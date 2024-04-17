@@ -15,7 +15,7 @@
           <!-- <label for="streetName">Calle:</label> -->
           <div id="streetName" class="street-name">{{ mendigo.location }}</div>
         </div>
-        <button type="button" id="modalButton" @click="confirmAddMarker">Guardar</button>
+        <button type="button" id="save-pua-button" @click="confirmAddMarker">Guardar</button>
       </form>
     </div>
   </div>
@@ -680,7 +680,6 @@ button:hover {
   background: transparent;
   height: 50px;
   width: 50px;
-  margin-top: 3rem;
   left: 85%;
   position: absolute;
   z-index: 999;
@@ -690,7 +689,6 @@ button:hover {
   background: transparent;
   height: 50px;
   width: 50px;
-  margin-top: 3rem;
   left: 85%;
   position: absolute;
   z-index: 999;
