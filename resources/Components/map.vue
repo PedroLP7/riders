@@ -137,8 +137,8 @@ export default {
       this.isMinimized = false;
       this.isMaximized = true;
       document.querySelector('.modal-content').style.display = 'flex';
-      document.querySelector('.modal-small-initial').style.minHeight = '30%';
-      document.querySelector('.modal-small-initial').style.top = '74%';
+      document.querySelector('.modal-small-initial').style.minHeight = '33%';
+      document.querySelector('.modal-small-initial').style.top = '72%';
       document.querySelector('.modal-small-initial').style.transition = '0.5s';
       console.log('Maximizado');
       
@@ -474,7 +474,7 @@ export default {
   position: fixed;
   z-index: 2;
   left: 50%;
-  top: 74%;
+  top: 72%;
   transform: translate(-50%, -50%);
   width: 95%;
   min-height: 2%;
@@ -484,8 +484,8 @@ export default {
   padding: 2%;
   overflow: hidden;
   align-items: center;
-  max-height: 30%;
-  min-height: 30%;
+  max-height: 33%;
+  min-height: 33%;
 }
 
 #hey:hover {
@@ -626,7 +626,7 @@ button:hover {
   position: fixed;
   z-index: 1050;
   left: 50%;
-  top: 74%;
+  top: 72%;
   transform: translate(-50%, -50%);
   width: 95%;
   min-height: 2%;
@@ -636,8 +636,8 @@ button:hover {
   padding: 2%;
   overflow: hidden;
   align-items: center;
-  max-height: 30%;
-  min-height: 30%;
+  max-height: 33%;
+  min-height: 33%;
 }
 
 .modal-small-button {
