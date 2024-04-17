@@ -444,11 +444,11 @@ export default {
         .then(response => {
           console.log('Delivery created successfully:', response.data);
           // Do something with the response if needed
-
+          this.$emit('successfull-delivery', true);
         })
         .catch(error => {
           console.error('Error creating booking:', error)
-
+          this.$emit('successfull-delivery', false);
         });
     },
     viewAllBookings() {

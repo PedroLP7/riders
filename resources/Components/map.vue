@@ -19,17 +19,37 @@
       </form>
     </div>
   </div>
+  <div v-if="isSuccessModalOpen" class="modal-overlay" @click="closeSuccessModal">
+    <div class="modal-message" @click.stop>
+      <span class="close" @click="closeSuccessModal">&times;</span>
+      <div class="modal-content">
+        <!-- Content for successful delivery modal -->
+        <h2>La entrega se ha realizado con exito!</h2>
+        <!-- Add any additional content here -->
+      </div>
+    </div>
+  </div>
 
+  <div v-if="isFailureModalOpen" class="modal-overlay" @click="closeFailureModal">
+    <div class="modal-message" @click.stop>
+      <span class="close" @click="closeFailureModal">&times;</span>
+      <div class="modal-content">
+        <!-- Content for unsuccessful delivery modal -->
+        <h2 style="color: red;">La entrega no ha podido ser registrada!</h2>
+        <!-- Add any additional content here -->
+      </div>
+    </div>
+  </div>
 
   <div v-if="isMarkerOptionsModalOpen" class="modal-overlay" @click="closeMarkerOptionsModal">
     <div class="modal-small" @click.stop>
-      
+
       <div class="toggle-modal-size">
         <span class="close" @click="closeMarkerOptionsModal">&times;</span>
       </div>
       <div class="modal-content">
 
-        <booking :screen="1" :customer="mendigo.id_customer"></booking>
+        <booking :screen="1" :customer="mendigo.id_customer" @successfull-delivery="handleDelivery"></booking>
 
       </div>
     </div>
@@ -40,19 +60,33 @@
 
         <button v-if="isMaximized && !isMinimized" @click="minimizeModal()" id="minimize-modal-button">
           <span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M6.293 6.293a1 1 0 0 1 1.414 0L12 10.586l4.293-4.293a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414m0 6a1 1 0 0 1 1.414 0L12 16.586l4.293-4.293a1 1 0 0 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414"/></g></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <g fill="none" fill-rule="evenodd">
+                <path
+                  d="M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
+                <path fill="white"
+                  d="M6.293 6.293a1 1 0 0 1 1.414 0L12 10.586l4.293-4.293a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414m0 6a1 1 0 0 1 1.414 0L12 16.586l4.293-4.293a1 1 0 0 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414" />
+              </g>
+            </svg>
           </span>
         </button>
 
         <button v-if="isMinimized" @click="maximizeModal()" id="maximize-modal-button">
           <span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M12 5a1 1 0 0 1 .707.293l5 5a1 1 0 0 1-1.414 1.414L12 7.414l-4.293 4.293a1 1 0 0 1-1.414-1.414l5-5A1 1 0 0 1 12 5m0 6a1 1 0 0 1 .707.293l5 5a1 1 0 0 1-1.414 1.414L12 13.414l-4.293 4.293a1 1 0 0 1-1.414-1.414l5-5A1 1 0 0 1 12 11"/></g></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <g fill="none" fill-rule="evenodd">
+                <path
+                  d="M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
+                <path fill="white"
+                  d="M12 5a1 1 0 0 1 .707.293l5 5a1 1 0 0 1-1.414 1.414L12 7.414l-4.293 4.293a1 1 0 0 1-1.414-1.414l5-5A1 1 0 0 1 12 5m0 6a1 1 0 0 1 .707.293l5 5a1 1 0 0 1-1.414 1.414L12 13.414l-4.293 4.293a1 1 0 0 1-1.414-1.414l5-5A1 1 0 0 1 12 11" />
+              </g>
+            </svg>
           </span>
         </button>
 
       </div>
       <div class="modal-content">
-       <booking :screen="2" ></booking>        
+        <booking :screen="2"></booking>
       </div>
       <p v-if="isMinimized" id="click-to-open-text">Despliega para mostrar <br> la informacion</p>
     </div>
@@ -80,50 +114,81 @@ export default {
     return {
       showComponente: true,
       hasBookingsPending: false,
-      isInitialModalOpen: true,      
+      isInitialModalOpen: true,
       isMinimized: false,
       isMaximized: true,
+      isSuccessModalOpen: false,
+      isFailureModalOpen: false,
       user: {},
 
     }
   },
 
   methods: {
+    openSuccessModalWithTimeout() {
+      this.isSuccessModalOpen = true;
+      setTimeout(() => {
+        this.isSuccessModalOpen = false;
+      }, 3000); // Adjust the timeout duration as needed
+    },
+    // Method to open failure modal with timeout
+    openFailureModalWithTimeout() {
+      this.isFailureModalOpen = true;
+      setTimeout(() => {
+        this.isFailureModalOpen = false;
+      }, 3000); // Adjust the timeout duration as needed
+    },
+    // Method to close success modal
+    closeSuccessModal() {
+      this.isSuccessModalOpen = false;
+    },
+    // Method to close failure modal
+    closeFailureModal() {
+      this.isFailureModalOpen = false;
+    },
+
+    handleDelivery(delivery) {
+      if (delivery) {
+        this.openSuccessModalWithTimeout();
+      } else {
+        this.openFailureModalWithTimeout();
+      }
+    },
     goToProfile() {
       window.location.href = '/riders/public/rider/profile';
     },
     getProvider() {
-            const me = this;
-            const idUser = me.userp.id_user
-            axios.get('rider/' + idUser)
-                .then(response => {
-                    me.user = response.data
-                    console.log(response.data)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
+      const me = this;
+      const idUser = me.userp.id_user
+      axios.get('rider/' + idUser)
+        .then(response => {
+          me.user = response.data
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     getidUser() {
-            const me = this;
+      const me = this;
 
-            axios.get('usuario/getUsuario')
-                .then(response => {
-                    me.userp = response.data
-                    console.log(response.data)
-                    console.log(me.userp.id_user);
+      axios.get('usuario/getUsuario')
+        .then(response => {
+          me.userp = response.data
+          console.log(response.data)
+          console.log(me.userp.id_user);
 
-                    me.getProvider()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
+          me.getProvider()
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
 
     closeInitialModal() {
 
       this.isInitialModalOpen = false;
-    }, 
+    },
     minimizeModal() {
       this.isMinimized = true;
       document.querySelector('.modal-content').style.display = 'none';
@@ -141,7 +206,7 @@ export default {
       document.querySelector('.modal-small-initial').style.top = '74%';
       document.querySelector('.modal-small-initial').style.transition = '0.5s';
       console.log('Maximizado');
-      
+
     }
 
   },
@@ -193,8 +258,8 @@ export default {
     const selectedMarker = ref(null);
     let map;
     const userName = ref('Rider');
-    const userp = ref({ id_user: '' });    
-    
+    const userp = ref({ id_user: '' });
+
 
 
 
@@ -203,8 +268,8 @@ export default {
       map = new mapboxgl.Map({
         container: mapContainer.value,
         style: 'mapbox://styles/mapbox/dark-v10',
-        center: [2.1540, 41.3902], 
-        zoom: 12                  
+        center: [2.1540, 41.3902],
+        zoom: 12
       });
 
       const geolocateControl = new mapboxgl.GeolocateControl({
@@ -219,18 +284,18 @@ export default {
       });
 
       const getRider = async () => {
-      if (userp.value.id_user) {
-        try {
-          const response = await axios.get(`usuario/getUsuario${userp.value.id_user}`);
-          userName.value = response.data.name; 
-          console.log("Rider's name fetched:", userName.value);
-        } catch (error) {
-          console.error('Failed to fetch rider details:', error);
+        if (userp.value.id_user) {
+          try {
+            const response = await axios.get(`usuario/getUsuario${userp.value.id_user}`);
+            userName.value = response.data.name;
+            console.log("Rider's name fetched:", userName.value);
+          } catch (error) {
+            console.error('Failed to fetch rider details:', error);
+          }
+        } else {
+          console.error('User ID is not set in userp');
         }
-      } else {
-        console.error('User ID is not set in userp');
-      }
-    };
+      };
 
       map.addControl(geolocateControl);
 
@@ -241,28 +306,28 @@ export default {
           zoom: 13
         });
         setTimeout(() => {
-        const userLocationDot = document.querySelector('.mapboxgl-user-location-dot');
-        if (userLocationDot) {
-        userLocationDot.style.backgroundColor = '#8BB481';       
+          const userLocationDot = document.querySelector('.mapboxgl-user-location-dot');
+          if (userLocationDot) {
+            userLocationDot.style.backgroundColor = '#8BB481';
 
-        }
-            
-        const userLocationPulse = document.querySelector('.mapboxgl-user-location-dot::before');
-        if (userLocationPulse) {
-            userLocationPulse.style.backgroundColor = 'none'; 
-        }        
-  
-        const userLocationAccuracyCircle = document.querySelector('.mapboxgl-user-location-accuracy-circle');
-        if (userLocationAccuracyCircle) {
+          }
+
+          const userLocationPulse = document.querySelector('.mapboxgl-user-location-dot::before');
+          if (userLocationPulse) {
+            userLocationPulse.style.backgroundColor = 'none';
+          }
+
+          const userLocationAccuracyCircle = document.querySelector('.mapboxgl-user-location-accuracy-circle');
+          if (userLocationAccuracyCircle) {
             userLocationAccuracyCircle.style.display = 'none';
-        }
-        }, 100); 
+          }
+        }, 100);
       });
 
       map.on('load', () => {
         geolocateControl.trigger();
         selectMendigos();
-        getRider(); 
+        getRider();
 
       });
 
@@ -291,31 +356,31 @@ export default {
           addMarkerWithAddress(p);
         });
 
-      } catch(error) {
+      } catch (error) {
         console.error('Error al obtener los providers:', error);
       }
 
     };
 
     const getCoordinatesFromAddress = async (address) => {
-    const bbox = "2.0695,41.3200,2.2280,41.4696"; // Bounding box para Barcelona
-    const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxgl.accessToken}&bbox=${bbox}`;
-    try {
+      const bbox = "2.0695,41.3200,2.2280,41.4696"; // Bounding box para Barcelona
+      const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxgl.accessToken}&bbox=${bbox}`;
+      try {
         const response = await axios.get(geocodingUrl);
         if (response.data.features.length > 0) {
-            const coords = response.data.features[0].center;
-            console.log(coords[0], coords[1]); // Log the coordinates
-            return { lng: coords[0], lat: coords[1] };
+          const coords = response.data.features[0].center;
+          console.log(coords[0], coords[1]); // Log the coordinates
+          return { lng: coords[0], lat: coords[1] };
         } else {
-            console.log("No se encontraron resultados en el área especificada.");
-            return null;
+          console.log("No se encontraron resultados en el área especificada.");
+          return null;
         }
-    } catch (error) {
+      } catch (error) {
         console.error('Error al obtener coordenadas:', error);
         return null;
-    }
-};
-    const applyMarkerStyles = (element) => {     
+      }
+    };
+    const applyMarkerStyles = (element) => {
       element.style.width = '60px';
       element.style.height = '60px';
       element.style.borderRadius = '50%';
@@ -328,14 +393,14 @@ export default {
 
     const addMarker = (m) => {
       const lng = parseFloat(m.Xcoord);
-      const lat = parseFloat(m.Ycoord); 
-      if (!isNaN(lng) && !isNaN(lat)) {      
-        const el = document.createElement('div');     
-        applyMarkerStyles(el)             
+      const lat = parseFloat(m.Ycoord);
+      if (!isNaN(lng) && !isNaN(lat)) {
+        const el = document.createElement('div');
+        applyMarkerStyles(el)
         const marker = new mapboxgl.Marker(el)
-        .setLngLat([lng, lat])
-        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Calle: ${m.location}`))
-        .addTo(map);      
+          .setLngLat([lng, lat])
+          .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Calle: ${m.location}`))
+          .addTo(map);
 
         marker.getElement().addEventListener('click', (e) => {
           e.stopPropagation();
@@ -350,8 +415,8 @@ export default {
 
     const addProviderMarker = (m) => {
       const lng = parseFloat(m.Xcoord);
-      const lat = parseFloat(m.Ycoord); 
-      if (!isNaN(lng) && !isNaN(lat)) {    
+      const lat = parseFloat(m.Ycoord);
+      if (!isNaN(lng) && !isNaN(lat)) {
         const marker = new mapboxgl.Marker()
           .setLngLat([lng, lat])
           .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Dirección: ${m.location}`))
@@ -367,11 +432,11 @@ export default {
         console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
       }
     };
-    
+
     const addMarkerWithAddress = async (p) => {
-      const coords = await getCoordinatesFromAddress(p.provider.adress);     
+      const coords = await getCoordinatesFromAddress(p.provider.adress);
       if (coords) {
-        
+
         addProviderMarker({ ...p, Xcoord: coords.lng, Ycoord: coords.lat, location: p.provider.adress });
       }
     };
@@ -461,7 +526,7 @@ export default {
       mendigo,
       isMarkerOptionsModalOpen,
       closeMarkerOptionsModal,
-      removeMarker,      
+      removeMarker,
     };
   },
 };
@@ -489,20 +554,22 @@ export default {
 }
 
 #hey:hover {
-  background-position: right center; /* change the direction of the change here */
+  background-position: right center;
+  /* change the direction of the change here */
   cursor: pointer;
-  scale: 1.02; 
+  scale: 1.02;
   transition: 0.5s;
 }
 
 #hey:focus {
-  background-position: right center; /* change the direction of the change here */
+  background-position: right center;
+  /* change the direction of the change here */
   cursor: pointer;
-  scale: 1.02; 
+  scale: 1.02;
   transition: 0.5s;
 }
 
-#hey{
+#hey {
   position: fixed;
   top: 5%;
   left: 2%;
@@ -522,12 +589,12 @@ export default {
   transition: 0.5s;
 }
 
-@media (min-width: 500px){
-  #hey{
+@media (min-width: 500px) {
+  #hey {
     min-width: 10%;
     padding: 2%;
   }
-  
+
 }
 
 #cipoton {
@@ -672,8 +739,10 @@ button:hover {
 }
 
 .mapboxgl-user-location-dot {
-  background-color: green !important; /* Cambia el color a verde */
-  border: 2px solid white; /* Opcional: añade un borde blanco para mayor visibilidad */
+  background-color: green !important;
+  /* Cambia el color a verde */
+  border: 2px solid white;
+  /* Opcional: añade un borde blanco para mayor visibilidad */
 }
 
 #minimize-modal-button {
@@ -760,7 +829,7 @@ button:hover {
     z-index: 999;
   }
 
-#maximize-modal-button {
+  #maximize-modal-button {
     background: transparent;
     height: 50px;
     width: 50px;
@@ -769,6 +838,23 @@ button:hover {
     position: absolute;
     z-index: 999;
   }
-
+.modal-message{
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+  width: 46%;
+  max-width: 58%;
+  height: 15%;
+  background-color: #1E1E1E;
+  color: white;
+  border-radius: 19px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  overflow: hidden;
+}
 }
 </style>
