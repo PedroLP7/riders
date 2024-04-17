@@ -739,7 +739,7 @@ export default {
 }
 
 .cards-container-bookings-deliver {
-  height: 1000px;
+  height: 300px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -747,5 +747,6 @@ export default {
   margin-top: 5%;
   overflow-x: hidden;
   overflow-y: auto;
+  padding-bottom: 5%;
 }
 </style>
