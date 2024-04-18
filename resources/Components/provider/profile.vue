@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loading" class="loading-overlay"> 
+    <div v-if="loading" class="loading-overlay">
         <div id="manzanita">
           <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
           <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="small-stat-text">
                     <h2 class="small-stat-title">Kg de comida salvada</h2>
-                    <p class="timerange-stat">este mes</p>
+
                 </div>
             </div>
 

@@ -1,4 +1,16 @@
 <template>
+  <div v-if="loading" class="loading-overlay"> 
+    <div id="manzanita">
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
+    </div>
+  </div>
 
   <h1 id="saved-puas-title">PUAs más recurrentes</h1>
 
@@ -51,6 +63,7 @@ export default {
       showComponente: true,
       data: null,
       usedColors: [], // Lista de colores utilizados
+      loading: true,
     };
   },
 
@@ -66,6 +79,7 @@ export default {
           console.log(response);
           this.data = response.data;
           this.assignRandomColor(); // Asignar colores aleatorios al cargar los datos
+          this.loading = false;
         })
         .catch((error) => {
           console.error("Error fetching user data", error);
