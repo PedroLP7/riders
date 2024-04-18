@@ -1,5 +1,5 @@
 <template>
-    <div v-if="loading" class="loading-overlay"> 
+    <div v-if="loading" class="loading-overlay">
         <div id="manzanita">
           <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
           <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
@@ -30,7 +30,7 @@
         <div class="first-stats-line">
             <div class="small-stat">
                 <div class="big-number-stat">
-                    <h1>33</h1>
+                    <h1>{{ deliverys }}</h1>
                 </div>
                 <div class="small-stat-text">
                     <h2 class="small-stat-title">Repartos</h2>
@@ -40,22 +40,22 @@
 
             <div class="small-stat">
                 <div class="big-number-stat">
-                    <h1>8</h1>
+                    <h1>{{ consecutive }}</h1>
                 </div>
                 <div class="small-stat-text">
-                    <h2 class="small-stat-title">Personas Añadidas</h2>
-                    <p class="timerange-stat">este mes</p>
+                    <h2 class="small-stat-title">Dias consecutivos</h2>
+                    <p class="timerange-stat">Entregando alegria</p>
                 </div>
             </div>
         </div>
 
         <div id="big-stat">
             <div class="card-body">
-                <h1 class="big-stat-title">+13% Pedidos</h1>
+                <h1 class="big-stat-title">{{increment}}  % Pedidos</h1>
                 <p class="timerange-stat">este mes</p>
 
-                <div class="" id="chart2">
-                    <chart2 />
+                <div class="" id="chart2" v-if="isLoaded">
+                    <chart2  :monthly="monthly"  />
                 </div>
             </div>
         </div>
@@ -141,6 +141,12 @@ export default {
             showComponente: true,
 
             userp: {},
+            consecutive: {},
+            deliverys: {},
+            monthly: {},
+            isLoaded: false,
+            loading: true,
+            increment: {}
 
         }
     },
@@ -171,11 +177,69 @@ export default {
                     console.log(me.userp.id_user);
 
                     me.getProvider()
+                    me.getConsecutive()
+                    me.getDeliverys()
+                    me.getMonthly()
+                    me.getIncrement()
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
+        getConsecutive(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('rider/consecutive/' + idUser)
+                .then(response => {
+                    me.consecutive = response.data
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
+        getDeliverys(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('rider/deliverys/' + idUser)
+                .then(response => {
+                    me.deliverys = response.data
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getMonthly(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('rider/totalDeliveries/' + idUser)
+                .then(response => {
+                    me.monthly = response.data
+                    console.log(response.data)
+                    me.isLoaded = true;
+                    me.loading = false;
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getIncrement(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('rider/monthlyR/' + idUser)
+                .then(response => {
+                    me.increment = response.data
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+
+        },
+
 
 
         showCreateMenu() {
