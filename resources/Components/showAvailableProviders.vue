@@ -10,17 +10,17 @@ const dataSteps = {
 };
 </script>
 <template>
-  <div v-if="loading" class="loading-overlay"> 
-      <div id="manzanita">
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
-        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
-      </div>
+  <div v-if="loading" class="loading-overlay">
+    <div id="manzanita">
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
+      <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
+    </div>
   </div>
 
 
@@ -208,11 +208,15 @@ import quantity from './quantity.vue'
 import navbar from './navbar.vue';
 
 export default {
+  name: 'reservation',
   components: {
     provider,
     stepProgressBar,
     quantity,
     navbar
+  },
+  props: {
+    selectedProvider: Number,
   },
   data() {
     return {
@@ -239,11 +243,18 @@ export default {
       loading: true,
 
     };
+  
   },
 
   created() {
     this.fetchProviders();
     this.fetchUser();
+  },
+
+  mounted() {
+    this.idSelectedProvider = this.selectedProvider;
+    console.log('Hola - ' + this.selectedProvider);
+    console.log(this.idSelectedProvider);
   },
 
   methods: {
@@ -292,12 +303,12 @@ export default {
         .then(response => {
           console.log('Booking created successfully:', response.data);
 
-          axios.put('/provider/updateQuantity/' + me.recievedQuantity + '/'+ me.idSelectedProvider+'/'+ me.idSelectedMenu)
+          axios.put('/provider/updateQuantity/' + me.recievedQuantity + '/' + me.idSelectedProvider + '/' + me.idSelectedMenu)
             .then(response => {
               console.log('Response:', response.data);
               // Handle the response data
               me.messageType = "i";
-              me.showMessage = true;           
+              me.showMessage = true;
             })
             .catch(error => {
               console.error('Error:', error);
@@ -305,8 +316,8 @@ export default {
               me.showMessage = true;
             });
           // Do something with the response if needed
-          
-          
+
+
         })
         .catch(error => {
           console.error('Error creating booking:', error);
@@ -335,7 +346,7 @@ export default {
           console.log(response);
           this.providers = response.data;
           this.loading = false;
-
+          
         })
         .catch(error => {
           console.error('Error fetching user type', error);
