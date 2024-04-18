@@ -40,7 +40,7 @@
         <div id="big-stat">
             <div class="card-body">
                 <h1 class="big-stat-title" >
-                    {{ monthly }}Repartos</h1>
+                      {{ difference }} % Repartos</h1>
                 <p class="timerange-stat">este mes</p>
 
                 <div class="" id="chart" v-if="isLoaded" >
@@ -124,6 +124,7 @@ export default {
             kg : {},
             monthly :{},
             isLoaded: false,
+            difference: {},
 
 
         }
@@ -161,6 +162,7 @@ export default {
                     me.getBookingsbyMonth()
                     me.getBookings()
                     me.getKG()
+                    me.getDifference()
 
 
                 })
@@ -209,6 +211,21 @@ export default {
                     console.log(response.data)
                     console.log(me.user.id_user)
                     me.isLoaded = true;
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getDifference(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('provider/getDifference/'+ idUser)
+
+                .then(response => {
+                    me.difference = response.data
+                    console.log(response.data)
+
 
                 })
                 .catch(error => {

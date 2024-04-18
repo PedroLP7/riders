@@ -232,15 +232,15 @@ class ProviderController extends Controller
         try {
             $bookingsByMonth = [];
 
-            // Iterar sobre cada mes del año
+
             for ($month = 1; $month <= 12; $month++) {
-                // Obtener el número de reservas para el proveedor en ese mes
+
                 $bookingsCount = Booking::where('id_provider_fk', $provider)
                 ->whereRaw('MONTH(curr_Date) = ?', [$month])
                                                   ->count();
 
                 // Agregar el resultado al array
-                $bookingsByMonth[$month] = $bookingsCount;
+                $bookingsByMonth[] = $bookingsCount;
             }
 
             $response = response()->json($bookingsByMonth, 200);
@@ -250,6 +250,56 @@ class ProviderController extends Controller
 
         return $response;
     }
+
+
+
+
+    public function calculateMonthlyChange($provider)
+    {
+        try {
+
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+
+
+            $previousMonth = $currentMonth - 1;
+            $previousYear = $currentYear;
+            if ($previousMonth == 0) {
+                $previousMonth = 12;
+                $previousYear--;
+            }
+
+
+            $currentMonthCount = booking::where('id_provider_fk', $provider)
+                                      ->whereRaw('MONTH(curr_date) = ?', [$currentMonth])
+                                      ->whereRaw('YEAR(curr_date) = ?', [$currentYear])
+                                      ->count();
+
+
+            $previousMonthCount = booking::where('id_provider_fk', $provider)
+                                       ->whereRaw('MONTH(curr_date) = ?', [$previousMonth])
+                                       ->whereRaw('YEAR(curr_date) = ?', [$previousYear])
+                                       ->count();
+
+
+            if ($previousMonthCount == 0) {
+                if ($currentMonthCount == 0) {
+                    $changePercentage = 0;
+                } else {
+                    $changePercentage = 100;
+                }
+            } else {
+                $changePercentage = (($currentMonthCount - $previousMonthCount) / $previousMonthCount) * 100;
+            }
+
+            $response = response()->json($changePercentage, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error calculating monthly change: ' . $th->getMessage()], 500);
+        }
+
+        return $response;
+    }
+
 
 
 
