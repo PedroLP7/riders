@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\booking;
 use App\Models\rider;
 use App\Models\usuario;
 use Illuminate\Http\Request;
@@ -149,5 +150,22 @@ class RiderController extends Controller
         }
     }
 
+
+
+
+    public function deliverysByRider($rider){
+        try {
+            $deliveryscount = booking::with('rider')->where('id_rider_fk', $rider)
+            ->where('id_status_fk', '3')->count();
+
+            return response()->json($deliveryscount, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Error al mostrar los deliverys: ' . $th->getMessage()], 500);
+        }
+
+
+
+
+    }
 
 }

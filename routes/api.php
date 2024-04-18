@@ -45,6 +45,7 @@ route::get('provider/getBookings/{provider}', [App\Http\Controllers\Api\Provider
 route::get('provider/getKG/{provider}', [App\Http\Controllers\Api\ProviderController::class, 'getKg']);
 route::get('provider/deliverysByProvider/{provider}', [App\Http\Controllers\Api\ProviderController::class, 'deliverysByProvider']);
 route::get('provider/getDifference/{provider}', [App\Http\Controllers\Api\ProviderController::class, 'calculateMonthlyChange']);
+route::get('rider/deliverys/{rider}', [App\Http\Controllers\Api\RiderController::class, 'deliverysByRider']);
 
 
 route::put('provider/updateQuantity/{quantity}/{provider_id}/{menu_id}', [ProviderController::class, 'updateQuantity']);
