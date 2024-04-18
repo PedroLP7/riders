@@ -145,6 +145,7 @@ export default {
             deliverys: {},
             monthly: {},
             isLoaded: false,
+            loading: true,
 
         }
     },
@@ -216,6 +217,7 @@ export default {
                     me.monthly = response.data
                     console.log(response.data)
                     me.isLoaded = true;
+                    me.loading = false;
                 })
                 .catch(error => {
                     console.log(error)
