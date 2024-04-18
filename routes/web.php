@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DeliveryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -129,6 +130,11 @@ Route::middleware(['auth'])->group(function () {
             route::get('admin/bookings/create', [BookingController::class, 'create']);
             route::post('admin/bookings/store', [BookingController::class, 'store']);
             route::delete('admin/bookings/delete/{booking}', [BookingController::class, 'destroy']);
+
+
+
+
+            route::get('/admin/deliverys', [DeliveryController::class, 'index']);
 
 
 
