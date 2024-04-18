@@ -51,7 +51,7 @@
 
         <div id="big-stat">
             <div class="card-body">
-                <h1 class="big-stat-title">+13% Pedidos</h1>
+                <h1 class="big-stat-title">{{increment}}  % Pedidos</h1>
                 <p class="timerange-stat">este mes</p>
 
                 <div class="" id="chart2" v-if="isLoaded">
@@ -146,6 +146,7 @@ export default {
             monthly: {},
             isLoaded: false,
             loading: true,
+            increment: {}
 
         }
     },
@@ -179,6 +180,7 @@ export default {
                     me.getConsecutive()
                     me.getDeliverys()
                     me.getMonthly()
+                    me.getIncrement()
                 })
                 .catch(error => {
                     console.log(error)
@@ -222,6 +224,20 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        getIncrement(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('rider/monthlyR/' + idUser)
+                .then(response => {
+                    me.increment = response.data
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+
         },
 
 

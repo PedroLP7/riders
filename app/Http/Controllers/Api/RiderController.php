@@ -240,5 +240,51 @@ class RiderController extends Controller
         return $response;
     }
 
+    public function calculateMonthlyChangeR($rider)
+    {
+        try {
+
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+
+
+            $previousMonth = $currentMonth - 1;
+            $previousYear = $currentYear;
+            if ($previousMonth == 0) {
+                $previousMonth = 12;
+                $previousYear--;
+            }
+
+
+            $currentMonthCount = booking::where('id_rider_fk', $rider)
+                                      ->whereRaw('MONTH(curr_date) = ?', [$currentMonth])
+                                      ->whereRaw('YEAR(curr_date) = ?', [$currentYear])
+                                      ->count();
+
+
+            $previousMonthCount = booking::where('id_rider_fk', $rider)
+                                       ->whereRaw('MONTH(curr_date) = ?', [$previousMonth])
+                                       ->whereRaw('YEAR(curr_date) = ?', [$previousYear])
+                                       ->count();
+
+
+            if ($previousMonthCount == 0) {
+                if ($currentMonthCount == 0) {
+                    $changePercentage = 0;
+                } else {
+                    $changePercentage = 100;
+                }
+            } else {
+                $changePercentage = (($currentMonthCount - $previousMonthCount) / $previousMonthCount) * 100;
+            }
+
+            $response = response()->json($changePercentage, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error calculating monthly change: ' . $th->getMessage()], 500);
+        }
+
+        return $response;
+    }
+
 
 }
