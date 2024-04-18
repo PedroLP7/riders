@@ -17,6 +17,7 @@ import axios from 'axios';
 
 
 export default {
+    name: 'navbar',
 props:{
 
 },
@@ -146,7 +147,7 @@ props:{
 
             providerHomeRoute() {
                 window.location.href = "/riders/public/provider/home";
-                
+
                 this.isProviderHome = true;
 
 

@@ -1,6 +1,6 @@
 
 <template>
-  <div v-if="loading" class="loading-overlay"> 
+  <div v-if="loading" class="loading-overlay">
     <div id="manzanita">
       <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
       <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
@@ -24,7 +24,7 @@
        </div>
        <div class="form-group">
        </div>
-       <div class="form-group">       
+       <div class="form-group">
          <div id="streetName" class="street-name">{{ mendigo.location }}</div>
        </div>
        <button type="button" id="modalButton" @click="confirmAddMarker">Guardar</button>
@@ -35,7 +35,7 @@
 
  <div v-if="isMarkerOptionsModalOpen" class="modal-overlay" @click="closeMarkerOptionsModal">
    <div class="modal-small" @click.stop>
-     
+
      <div class="toggle-modal-size">
        <span class="close" @click="closeMarkerOptionsModal">&times;</span>
      </div>
@@ -64,35 +64,35 @@
 
      </div>
      <div class="modal-content">
-      <booking :screen="2" ></booking>        
+      <booking :screen="2" ></booking>
      </div>
      <p v-if="isMinimized" id="click-to-open-text">Despliega para mostrar <br> la informacion</p>
    </div>
  </div>
- <div class="container" id="navbar">
+ <!-- <div class="container" id="navbar">
    <navbar v-if="showComponente" />
- </div>
+ </div> -->
 </template>
 
 <script>
 import mapboxgl from 'mapbox-gl';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import navbar from '../Components/navbar.vue';
-import booking from '../Components/provider/bookings.vue'
+// import navbar from '../Components/navbar.vue'
+//  import booking from '../Components/provider/bookings.vue'
 
 export default {
  name: 'Map',
  components: {
-   navbar,
-   booking
+//    navbar,
+//    booking
  },
 
  data() {
    return {
      showComponente: true,
      hasBookingsPending: false,
-     isInitialModalOpen: true,      
+     isInitialModalOpen: true,
      isMinimized: false,
      isMaximized: true,
      user: {},
@@ -106,19 +106,19 @@ export default {
        'ManzanaAni6.png',
        'ManzanaAni7.png',
        'ManzanaAni8.png',
-     ],      
+     ],
      currentImageIndex: 0,
      imagesLoaded: []
-     
-     
+
+
 
    }
  },
 
- methods: {   
+ methods: {
     goToProfile() {
      window.location.href = '/riders/public/rider/profile';
-    },      
+    },
     getProvider() {
            const me = this;
            const idUser = me.userp.id_user
@@ -131,7 +131,7 @@ export default {
                .catch(error => {
                    console.log(error)
                })
-       },    
+       },
    getidUser() {
            const me = this;
 
@@ -150,7 +150,7 @@ export default {
 
    closeInitialModal() {
      this.isInitialModalOpen = false;
-   }, 
+   },
    minimizeModal() {
      this.isMinimized = true;
      document.querySelector('.modal-content').style.display = 'none';
@@ -184,7 +184,7 @@ export default {
         console.log('Maximizado');
       }
       console.log('Maximizado');
-     
+
     }
 
  },
@@ -222,8 +222,8 @@ export default {
      console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
    }
  },
- created() { 
-   this.getidUser()   
+ created() {
+   this.getidUser()
  },
  setup() {
    const mapContainer = ref(null);
@@ -238,8 +238,8 @@ export default {
    const selectedMarker = ref(null);
    let map;
    const userName = ref('Rider');
-   const userp = ref({ id_user: '' });    
-   
+   const userp = ref({ id_user: '' });
+
 
 
 
@@ -248,8 +248,8 @@ export default {
      map = new mapboxgl.Map({
        container: mapContainer.value,
        style: 'mapbox://styles/mapbox/dark-v10',
-       center: [2.1540, 41.3902], 
-       zoom: 12                  
+       center: [2.1540, 41.3902],
+       zoom: 12
      });
 
      const geolocateControl = new mapboxgl.GeolocateControl({
@@ -267,7 +267,7 @@ export default {
      if (userp.value.id_user) {
        try {
          const response = await axios.get(`usuario/getUsuario${userp.value.id_user}`);
-         userName.value = response.data.name; 
+         userName.value = response.data.name;
          console.log("Rider's name fetched:", userName.value);
        } catch (error) {
          console.error('Failed to fetch rider details:', error);
@@ -288,26 +288,26 @@ export default {
        setTimeout(() => {
        const userLocationDot = document.querySelector('.mapboxgl-user-location-dot');
        if (userLocationDot) {
-       userLocationDot.style.backgroundColor = '#8BB481';       
+       userLocationDot.style.backgroundColor = '#8BB481';
 
        }
-           
+
        const userLocationPulse = document.querySelector('.mapboxgl-user-location-dot::before');
        if (userLocationPulse) {
-           userLocationPulse.style.backgroundColor = 'none'; 
-       }        
- 
+           userLocationPulse.style.backgroundColor = 'none';
+       }
+
        const userLocationAccuracyCircle = document.querySelector('.mapboxgl-user-location-accuracy-circle');
        if (userLocationAccuracyCircle) {
            userLocationAccuracyCircle.style.display = 'none';
        }
-       }, 100); 
+       }, 100);
      });
 
      map.on('load', () => {
        geolocateControl.trigger();
        selectMendigos();
-       getRider(); 
+       getRider();
 
      });
 
@@ -360,7 +360,7 @@ export default {
        return null;
    }
 };
-   const applyMarkerStyles = (element) => {     
+   const applyMarkerStyles = (element) => {
      element.style.width = '60px';
      element.style.height = '60px';
      element.style.borderRadius = '50%';
@@ -368,7 +368,7 @@ export default {
      element.style.backgroundSize = 'cover';
      element.style.backgroundPosition = 'center';
    };
-   const applyMarkerStylesPro = (element) => {     
+   const applyMarkerStylesPro = (element) => {
      element.style.width = '60px';
      element.style.height = '60px';
      element.style.borderRadius = '50%';
@@ -381,14 +381,14 @@ export default {
 
    const addMarker = (m) => {
      const lng = parseFloat(m.Xcoord);
-     const lat = parseFloat(m.Ycoord); 
-     if (!isNaN(lng) && !isNaN(lat)) {      
-       const el = document.createElement('div');     
-       applyMarkerStyles(el)             
+     const lat = parseFloat(m.Ycoord);
+     if (!isNaN(lng) && !isNaN(lat)) {
+       const el = document.createElement('div');
+       applyMarkerStyles(el)
        const marker = new mapboxgl.Marker(el)
        .setLngLat([lng, lat])
        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Calle: ${m.location}`))
-       .addTo(map);      
+       .addTo(map);
 
        marker.getElement().addEventListener('click', (e) => {
          e.stopPropagation();
@@ -403,10 +403,10 @@ export default {
 
    const addProviderMarker = (m) => {
      const lng = parseFloat(m.Xcoord);
-     const lat = parseFloat(m.Ycoord); 
-     if (!isNaN(lng) && !isNaN(lat)) {   
-      const lo = document.createElement('div');     
-      applyMarkerStylesPro(lo)      
+     const lat = parseFloat(m.Ycoord);
+     if (!isNaN(lng) && !isNaN(lat)) {
+      const lo = document.createElement('div');
+      applyMarkerStylesPro(lo)
       const marker = new mapboxgl.Marker(lo)
         .setLngLat([lng, lat])
         .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Dirección: ${m.location}`))
@@ -422,11 +422,11 @@ export default {
        console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
      }
    };
-   
+
    const addMarkerWithAddress = async (p) => {
-     const coords = await getCoordinatesFromAddress(p.provider.adress);     
+     const coords = await getCoordinatesFromAddress(p.provider.adress);
      if (coords) {
-       
+
        addProviderMarker({ ...p, Xcoord: coords.lng, Ycoord: coords.lat, location: p.provider.adress });
      }
    };
@@ -460,7 +460,7 @@ export default {
 
    const fetchStreetName = async (longitude, latitude) => {
      const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxgl.accessToken}&types=address`;
-     
+
      try {
        const response = await fetch(geocodingUrl);
        const data = await response.json();
@@ -517,7 +517,7 @@ export default {
      mendigo,
      isMarkerOptionsModalOpen,
      closeMarkerOptionsModal,
-     removeMarker,      
+     removeMarker,
    };
  },
 };
@@ -547,14 +547,14 @@ export default {
 #hey:hover {
  background-position: right center; /* change the direction of the change here */
  cursor: pointer;
- scale: 1.02; 
+ scale: 1.02;
  transition: 0.5s;
 }
 
 #hey:focus {
  background-position: right center; /* change the direction of the change here */
  cursor: pointer;
- scale: 1.02; 
+ scale: 1.02;
  transition: 0.5s;
 }
 
@@ -583,7 +583,7 @@ export default {
    min-width: 10%;
    padding: 2%;
  }
- 
+
 }
 
 #cipoton {
