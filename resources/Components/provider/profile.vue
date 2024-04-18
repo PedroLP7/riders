@@ -18,20 +18,20 @@
         <div class="first-stats-line">
             <div class="small-stat">
                 <div class="big-number-stat">
-                    <h1>33</h1>
+                    <h1>{{ kg }}</h1>
                 </div>
                 <div class="small-stat-text">
-                    <h2 class="small-stat-title">Repartos</h2>
+                    <h2 class="small-stat-title">Kg de comida salvada</h2>
                     <p class="timerange-stat">este mes</p>
                 </div>
             </div>
 
             <div class="small-stat">
                 <div class="big-number-stat">
-                    <h1>8</h1>
+                    <h1>{{bookings}}</h1>
                 </div>
                 <div class="small-stat-text">
-                    <h2 class="small-stat-title">Personas Añadidas</h2>
+                    <h2 class="small-stat-title">Pedidos</h2>
                     <p class="timerange-stat">este mes</p>
                 </div>
             </div>
@@ -39,11 +39,12 @@
 
         <div id="big-stat">
             <div class="card-body">
-                <h1 class="big-stat-title">+12% Pedidos</h1>
+                <h1 class="big-stat-title" >
+                      {{ difference }} % Repartos</h1>
                 <p class="timerange-stat">este mes</p>
 
-                <div class="" id="chart">
-                    <chart1 />
+                <div class="" id="chart" v-if="isLoaded" >
+                    <chart1 :monthly="monthly" :isLoaded1="isLoaded" />
                 </div>
             </div>
         </div>
@@ -119,11 +120,18 @@ export default {
             showComponente: true,
 
             userp: {},
+            bookings: {},
+            kg : {},
+            monthly :{},
+            isLoaded: false,
+            difference: {},
+
 
         }
     },
     created() {
         this.getidUser()
+
 
     },
     methods: {
@@ -145,15 +153,86 @@ export default {
             axios.get('usuario/getUsuario')
                 .then(response => {
                     me.userp = response.data
-                    console.log(response.data)
-                    console.log(me.userp.id_user);
+                    // console.log(response.data)
+                    // console.log(me.userp.id_user);
+                    this.id_user = me.userp.id_user;
+
 
                     me.getProvider()
+                    me.getBookingsbyMonth()
+                    me.getBookings()
+                    me.getKG()
+                    me.getDifference()
+
+
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
+
+        getBookings(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('provider/getBookings/'+ idUser)
+
+                .then(response => {
+                    me.bookings = response.data
+                    console.log(response.data)
+                    // console.log(me.user.id_user)
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getKG(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('provider/getKG/'+ idUser)
+
+                .then(response => {
+                    me.kg = response.data
+                    // console.log(response.data)
+                    // console.log(me.user.id_user)
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getBookingsbyMonth(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('provider/deliverysByProvider/'+ idUser)
+
+                .then(response => {
+                    me.monthly = response.data
+                    console.log(response.data)
+                    console.log(me.user.id_user)
+                    me.isLoaded = true;
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        getDifference(){
+            const me = this;
+            const idUser = me.userp.id_user
+            axios.get('provider/getDifference/'+ idUser)
+
+                .then(response => {
+                    me.difference = response.data
+                    console.log(response.data)
+
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+
 
 
         showCreateMenu() {
