@@ -232,7 +232,7 @@
         mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhYWNydWlpaXoiLCJhIjoiY2xzdW94NjlkMDd5azJrcWttem82M3RsNSJ9.5DxmiuHnmt9-z0I-eds7RQ';
         map = new mapboxgl.Map({
           container: mapContainer.value,
-          style: 'mapbox://styles/isaacruiiiz/clsup1pso003d01po8s6nf9ut',
+          style: 'mapbox://styles/mapbox/dark-v10',
           center: [2.1540, 41.3902],
           zoom: 12
         });
