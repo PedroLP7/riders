@@ -42,8 +42,8 @@
                 <h1 class="big-stat-title">+13% Pedidos</h1>
                 <p class="timerange-stat">este mes</p>
 
-                <div class="" id="chart">
-                    <chart1 />
+                <div class="" id="chart2">
+                    <chart2 />
                 </div>
             </div>
         </div>
@@ -110,14 +110,14 @@
 <script>
 import navbar from '../Components/navbar.vue';
 import axios from 'axios';
-import chart1 from '../Components/provider/chart1.vue';
+import chart2 from '../Components/chart2.vue';
 import * as bootstrap from 'bootstrap';
 
 export default {
 
     name: 'profile',
     components: {
-        chart1,
+        chart2,
 
 
 
@@ -371,7 +371,7 @@ export default {
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
