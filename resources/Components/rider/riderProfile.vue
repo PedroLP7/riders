@@ -4,7 +4,7 @@
         <h1 id="titulo">Perfil</h1>
 
         <div class="profile-header">
-            <img src="../images/profileImage.png" alt="profileimg" id="profileImg">
+            <img src="../../images/profileImage.png" alt="profileimg" id="profileImg">
             <p>{{ user.user_name }}</p>
 
             <div class="profile-buttons-container">
@@ -42,8 +42,8 @@
                 <h1 class="big-stat-title">+13% Pedidos</h1>
                 <p class="timerange-stat">este mes</p>
 
-                <div class="" id="chart">
-                    <chart1 />
+                <div class="" id="chart2">
+                    <chart2 />
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="setting-card">
             <h1 class="setting-card-title">Cambiar idioma</h1>
             <button type="button" class="language-button">
-                <img src="../images/iconamoon_arrow-up-2.png" alt="">
+                <img src="../../images/iconamoon_arrow-up-2.png" alt="">
             </button>
         </div>
         <div class="setting-card">
@@ -67,8 +67,8 @@
         <div class="setting-card">
             <h1 class="setting-card-title">Ayuda</h1>
             <button  @click="openModal()" class="help-button">
-                <img src="../images/help.png" alt="">
-                <img src="../images/iconamoon_arrow-up-2.png" alt="">
+                <img src="../../images/help.png" alt="">
+                <img src="../../images/iconamoon_arrow-up-2.png" alt="">
             </button>
         </div>
     </div>
@@ -108,16 +108,15 @@
 
 </template>
 <script>
-import navbar from '../Components/navbar.vue';
+import navbar from '../../Components/navbar.vue';
 import axios from 'axios';
-import chart1 from '../Components/provider/chart1.vue';
+import chart2 from './chart2.vue';
 import * as bootstrap from 'bootstrap';
-
 export default {
 
     name: 'profile',
     components: {
-        chart1,
+        chart2,
 
 
 
@@ -371,7 +370,7 @@ export default {
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
