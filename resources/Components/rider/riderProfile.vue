@@ -108,11 +108,10 @@
 
 </template>
 <script>
-import navbar from '../Components/navbar.vue';
+import navbar from '../../Components/navbar.vue';
 import axios from 'axios';
-import chart1 from '../Components/provider/chart1.vue';
+import chart1 from '../../Components/provider/chart1.vue';
 import * as bootstrap from 'bootstrap';
-
 export default {
 
     name: 'profile',

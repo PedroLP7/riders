@@ -345,7 +345,7 @@ export default {
      element.style.width = '60px';
      element.style.height = '60px';
      element.style.borderRadius = '50%';
-     element.style.backgroundImage = "url('../../resources/images/puaF.png')";
+     element.style.backgroundImage = "url('../../resources/images/F.png')";
      element.style.backgroundSize = 'cover';
      element.style.backgroundPosition = 'center';
    };

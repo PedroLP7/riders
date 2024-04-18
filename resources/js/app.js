@@ -8,15 +8,15 @@ import provider from '../Components/provider/provider.vue'
 import createMenu from '../Components/provider/createMenu.vue';
 import bookings from '../Components/provider/bookings.vue';
 import profile from '../Components/provider/profile.vue';
-import profileRider from '../Components/riderProfile.vue';
+import profileRider from '../Components/rider/riderProfile.vue';
 
 import recurringCustomer from '../Components/recurringCustomer.vue';
 
 import editProfile from '../Components/provider/editProfile.vue';
 import editMenu from '../Components/provider/editMenu.vue';
 import editProfileRider from '../Components/rider/editRiderProfile.vue';
-import formRider from '../Components/formRider.vue';
-import formProvider from '../Components/formProvider.vue';
+import formRider from '../Components/rider/formRider.vue';
+import formProvider from '../Components/provider/formProvider.vue';
 import formKitchen from '../Components/formKitchen.vue';
 
 

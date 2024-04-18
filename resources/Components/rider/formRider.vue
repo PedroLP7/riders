@@ -15,9 +15,9 @@
 
 <script>
 import axios from 'axios'; 
-import FormRiderParte1 from '../Components/formRiderParte1.vue';
-import FormRiderParte2 from '../Components/formRiderParte2.vue';
-import FormRiderParte3 from '../Components/formRiderParte3.vue';
+import FormRiderParte1 from '..//rider/formRiderParte1.vue';
+import FormRiderParte2 from '../rider/formRiderParte2.vue';
+import FormRiderParte3 from '../rider/formRiderParte3.vue';
 
 export default {
   components: {
