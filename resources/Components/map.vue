@@ -119,6 +119,7 @@
                   .then(response => {
                       me.user = response.data
                       console.log(response.data)
+                      me.loading= false;
                       
                   })
                   .catch(error => {
@@ -135,7 +136,7 @@
                       console.log(me.userp.id_user);
 
                       me.getProvider()
-                      me.loading= false;
+                      
                   })
                   .catch(error => {
                       console.log(error)
