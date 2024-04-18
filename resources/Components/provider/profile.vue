@@ -1,4 +1,16 @@
 <template>
+    <div v-if="loading" class="loading-overlay"> 
+        <div id="manzanita">
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
+        </div>
+     </div>
     <div class="container " id="profile">
 
         <h1 id="titulo">Perfil</h1>
@@ -125,6 +137,7 @@ export default {
             monthly :{},
             isLoaded: false,
             difference: {},
+            loading: true,
 
 
         }
@@ -211,6 +224,7 @@ export default {
                     console.log(response.data)
                     console.log(me.user.id_user)
                     me.isLoaded = true;
+                    this.loading = false;
 
                 })
                 .catch(error => {
@@ -427,5 +441,57 @@ export default {
     border: none;
     border-radius: 50px;
 }
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1E1E1E;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    z-index: 5000;
+   }
+   
+   #manzanita {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     width: 250px;
+     height: 250px;
+     transform: translate(-50%, -50%);
+     overflow: hidden;
+   }
+   
+   .image {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-size: cover;
+     opacity: 0;
+     animation: slideshow 1s infinite steps(1);
+   }
+   
+   
+   @keyframes slideshow {
+     0% { opacity: 1; }
+     12.5% { opacity: 0; }
+     100% { opacity: 0; }
+   }
+   
+   .image:nth-child(1) { animation-delay: 0s; }
+   .image:nth-child(2) { animation-delay: 0.125s; }
+   .image:nth-child(3) { animation-delay: 0.25s; }
+   .image:nth-child(4) { animation-delay: 0.375s; }
+   .image:nth-child(5) { animation-delay: 0.5s; }
+   .image:nth-child(6) { animation-delay: 0.625s; }
+   .image:nth-child(7) { animation-delay: 0.75s; }
+   .image:nth-child(8) { animation-delay: 0.875s; }
 
 </style>
