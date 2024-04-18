@@ -678,19 +678,46 @@ export default {
      document.querySelector('.modal-small-initial').style.transition = '0.5s';
      console.log('Minimizado');
 
-   },
-   maximizeModal() {
-     this.isMinimized = false;
-     this.isMaximized = true;
-     document.querySelector('.modal-content').style.display = 'flex';
-     document.querySelector('.modal-small-initial').style.minHeight = '30%';
-     document.querySelector('.modal-small-initial').style.top = '74%';
-     document.querySelector('.modal-small-initial').style.transition = '0.5s';
-     console.log('Maximizado');
+    },
+    maximizeModal() {
+      // var screenSize = window.matchMedia("(max-width: 1024px)")
+
+      // maximizeModal(screenSize);
+
+      // screenSize.addEventListener("change", function() {
+      //   maximizeModal(screenSize);
+      // });
+
+      this.isMinimized = false;
+      this.isMaximized = true;
+      document.querySelector('.modal-content').style.display = 'flex';
+      if (window.matchMedia("(max-width: 1024px)")) {
+        document.querySelector('.modal-small-initial').style.minHeight = '33%';
+        document.querySelector('.modal-small-initial').style.top = '72%';
+        document.querySelector('.modal-small-initial').style.transition = '0.5s';
+        console.log('Maximizado');
+      } else {
+        document.querySelector('.modal-small-initial').style.minHeight = '50%';
+        document.querySelector('.modal-small-initial').style.top = '72%';
+        document.querySelector('.modal-small-initial').style.transition = '0.5s';
+        console.log('Maximizado');
+      }
+      console.log('Maximizado');
      
-   }
+    }
 
  },
+
+ applyMarkerStyles(element) {
+    element.style.backgroundColor = 'red';
+    element.style.width = '30px';
+    element.style.height = '30px';
+    element.style.borderRadius = '50%';
+    element.style.backgroundImage = "url('../images/puaM.png')";
+    element.style.backgroundSize = 'cover';
+    element.style.backgroundPosition = 'center';
+  },
+
  addMarker(m) {
    const lng = parseFloat(m.Xcoord);
    const lat = parseFloat(m.Ycoord);
@@ -1018,23 +1045,23 @@ export default {
 
 <style scoped>
 .modal-small-initial {
- display: flex;
- flex-direction: column;
- position: fixed;
- z-index: 2;
- left: 50%;
- top: 74%;
- transform: translate(-50%, -50%);
- width: 95%;
- min-height: 2%;
- background-color: #1e1e1edb;
- backdrop-filter: blur(9px);
- border-radius: 33px;
- padding: 2%;
- overflow: hidden;
- align-items: center;
- max-height: 30%;
- min-height: 30%;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  top: 72%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  min-height: 2%;
+  background-color: #1e1e1edb;
+  backdrop-filter: blur(9px);
+  border-radius: 33px;
+  padding: 2%;
+  overflow: hidden;
+  align-items: center;
+  max-height: 33%;
+  min-height: 33%;
 }
 
 #hey:hover {
@@ -1214,23 +1241,23 @@ button:hover {
 }
 
 .modal-small {
- display: flex;
- flex-direction: column;
- position: fixed;
- z-index: 1050;
- left: 50%;
- top: 74%;
- transform: translate(-50%, -50%);
- width: 95%;
- min-height: 2%;
- background-color: #1e1e1edb;
- backdrop-filter: blur(9px);
- border-radius: 33px;
- padding: 2%;
- overflow: hidden;
- align-items: center;
- max-height: 30%;
- min-height: 30%;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 72%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  min-height: 2%;
+  background-color: #1e1e1edb;
+  backdrop-filter: blur(9px);
+  border-radius: 33px;
+  padding: 2%;
+  overflow: hidden;
+  align-items: center;
+  max-height: 33%;
+  min-height: 33%;
 }
 
 .modal-small-button {
@@ -1277,23 +1304,21 @@ button:hover {
 }
 
 #minimize-modal-button {
- background: transparent;
- height: 50px;
- width: 50px;
- margin-top: 3rem;
- left: 85%;
- position: absolute;
- z-index: 999;
+  background: transparent;
+  height: 50px;
+  width: 50px;
+  left: 85%;
+  position: absolute;
+  z-index: 999;
 }
 
 #maximize-modal-button {
- background: transparent;
- height: 50px;
- width: 50px;
- margin-top: 3rem;
- left: 85%;
- position: absolute;
- z-index: 999;
+  background: transparent;
+  height: 50px;
+  width: 50px;
+  left: 85%;
+  position: absolute;
+  z-index: 999;
 }
 
 #click-to-open-text {
@@ -1331,34 +1356,57 @@ button:hover {
    right: 0%;
  }
 
- .modal {
-   display: flex;
-   flex-direction: row;
-   position: fixed;
-   z-index: 1050;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
-   width: 15%;
-   max-width: 58%;
-   height: 20%;
-   background-color: #1E1E1E;
-   color: white;
-   border-radius: 19px;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-   padding: 20px;
-   overflow: hidden;
- }
+  .modal {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 1050;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+    max-width: 58%;
+    height: 20%;
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 19px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    overflow: hidden;
+  }
 
- #minimize-modal-button {
-   background: transparent;
-   height: 50px;
-   width: 50px;
-   margin-top: 3rem;
-   left: 95%;
-   position: absolute;
-   z-index: 999;
- }
+  .modal-small {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 2;
+    left: 84%;
+    top: 72%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    min-height: 2%;
+    background-color: #1e1e1edb;
+    backdrop-filter: blur(9px);
+    border-radius: 33px;
+    padding: 1%;
+    padding-top: 0;
+    overflow: hidden;
+    align-items: center;
+    max-height: 50%;
+    min-height: 50%;
+    z-index: 1050;
+  }
+
+  #minimize-modal-button {
+    background: transparent;
+    height: 50px;
+    width: 50px;
+    margin-top: 0.5rem;
+    left: 88%;
+    position: absolute;
+    z-index: 999;
+    padding-left: 5px;
+  }
 
 
   #maximize-modal-button {
@@ -1389,14 +1437,47 @@ button:hover {
   overflow: hidden;
 }
 #maximize-modal-button {
-   background: transparent;
-   height: 50px;
-   width: 50px;
-   margin-top: 3rem;
-   left: 95%;
-   position: absolute;
-   z-index: 999;
- }
+    background: transparent;
+    height: 50px;
+    width: 50px;
+    margin-top: 0.5rem;
+    left: 88%;
+    position: absolute;
+    z-index: 999;
+    padding-left: 5px;
+  }
+
+  .modal-small-initial {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 2;
+    left: 84%;
+    top: 72%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    min-height: 2%;
+    background-color: #1e1e1edb;
+    backdrop-filter: blur(9px);
+    border-radius: 33px;
+    padding: 1%;
+    padding-top: 0;
+    overflow: hidden;
+    align-items: center;
+    max-height: 50%;
+    min-height: 50%;
+}
+
+@media (min-width: 1700px){
+  #booking-card {
+    background-color: #393939;
+    border: none;
+    width: 95%;
+    /* margin-top: 10px; */
+    --bs-card-bg: none;
+    border-radius: 26px;
+}
+}
 
 }
 
