@@ -16,7 +16,7 @@ defineEmits(['found-booking'])
         </div>
   </div>
   <div v-if="bookings !== null && usuario !== null" class="bookings-modal-container">
-    <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles <br> para entregar</h1>
+    <h1 class="titulo-bookings" v-if="screen == 1">Packs a Entregar</h1>
     <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length >= 1">No te olvides:</h1>
     <!-- <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length < 1">No tienes packs reservados</h1> -->
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
@@ -92,8 +92,8 @@ defineEmits(['found-booking'])
     <div v-if="screen === 1">
 
 
-      <div class="cards-container-bookings">
-        <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
+      <div class="cards-container-bookings-deliver">
+        <div class="card" id="booking-card-deliver" v-for="booking in bookings" :key="booking.id_booking">
           <div v-if="booking.status.id_status == 2">
             <div class="card-header" id="booking-card-header">
               <div v-if="booking.rider && booking.rider.user">
@@ -102,7 +102,7 @@ defineEmits(['found-booking'])
               <h5 id="subtitulo-card-booking">Booking {{ booking.id_booking }}</h5>
             </div>
 
-            <div class="card-body" id="booking-card-body">
+            <div class="card-body" id="booking-card-body-deliver">
               <div class="info-pack-tracking">
                 <!-- <div v-if="booking.provider && booking.provider.user">
                 <div> <b> Restaurante: </b> {{ booking.provider.user.real_name }} </div>
@@ -132,11 +132,11 @@ defineEmits(['found-booking'])
                       {{ buttonContent(booking.status.id_status) }}
                     </button>
                   </div>
-                  <div
+                  <!-- <div
                     v-if="booking.status && booking.status.status_name && booking.status.status_name == 'On its way'">
                     <button @click="sendPostRequest(booking.id_booking, true)" class="btn btn-danger">No encuentro al
                       sin-techo</button>
-                  </div>
+                  </div> -->
                 </div>
                 <!-- if provider -->
                 <div v-else>
@@ -190,7 +190,6 @@ defineEmits(['found-booking'])
                   }}, {{ booking.menu.item3 }}
                 </div>
               </div>
-              <h1>Pizza</h1>
               <div v-if="booking.status && booking.status.status_name">
                 <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
               </div>
@@ -239,7 +238,7 @@ defineEmits(['found-booking'])
     </div>
     <div v-else>
       <div class="cards-container-bookings">
-      <div class="card" id="booking-card" v-for="booking in bookings">
+      <div class="card" id="booking-card-booked" v-for="booking in bookings">
        
         <div v-if="booking.status.id_status == 1">
 
@@ -267,7 +266,6 @@ defineEmits(['found-booking'])
                   }}, {{ booking.menu.item3 }}
                 </div>
               </div>
-              <h1>Pizza</h1>
               <div v-if="booking.status && booking.status.status_name">
                 <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
               </div>
@@ -638,6 +636,26 @@ export default {
   border-radius: 26px;
 }
 
+#booking-card-body-deliver {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-top-style: dashed;
+  border-width: 2px;
+  border-color: #8F8F8F;
+  padding: 20px;
+  padding-bottom: 10px;
+}
+
+#booking-card-deliver {
+  background-color: #393939;
+  border: none;
+  --bs-card-bg: none;
+  border-radius: 26px;
+  width: 95%;
+  margin-bottom: 2%;
+}
+
 #booking-card-header {
   background-color: transparent;
   display: flex;
@@ -680,10 +698,11 @@ export default {
 #subtitulo-card-booking {
   color: #8F8F8F;
   font-size: 15px;
+  margin-top: 2px;
 }
 
 #view-more-bookings {
-  margin-top: 2%;
+  margin-top: 4%;
   text-decoration: underline;
 }
 
@@ -713,5 +732,34 @@ export default {
   border-radius: 50px;
   color: #1E1E1E;
   font-weight: 600;
+}
+
+.btn-success {
+  background-color: #8BB481;
+  border-radius: 50px;
+  color: #1E1E1E;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#booking-card-booked {
+  background-color: #393939;
+  border: none;
+  width: 95%;
+  margin-top: 2px;
+  --bs-card-bg: none;
+  border-radius: 26px;
+}
+
+.cards-container-bookings-deliver {
+  height: 175px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 </style>
