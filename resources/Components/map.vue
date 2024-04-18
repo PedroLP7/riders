@@ -41,7 +41,7 @@
         </div>
         <div class="modal-content">
 
-          <booking :screen="1" :customer="mendigo.id_customer"></booking>
+          <booking :screen="1" :customer="mendigo.id_customer" @successfull-delivery="handleDelivery"></booking>
 
         </div>
       </div>
@@ -50,7 +50,7 @@
       <div class="modal-small-initial">
         <div class="toggle-modal-size">
 
-          <button v-if="isMaximized" @click="minimizeModal()" id="minimize-modal-button">
+          <button v-if="isMaximized && !isMinimized" @click="minimizeModal()" id="minimize-modal-button">
             <span>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M24 0v24H0V0zM12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036c-.01-.003-.019 0-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="white" d="M6.293 6.293a1 1 0 0 1 1.414 0L12 10.586l4.293-4.293a1 1 0 1 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414m0 6a1 1 0 0 1 1.414 0L12 16.586l4.293-4.293a1 1 0 0 1 1.414 1.414l-5 5a1 1 0 0 1-1.414 0l-5-5a1 1 0 0 1 0-1.414"/></g></svg>
             </span>
@@ -66,7 +66,7 @@
         <div class="modal-content">
          <booking :screen="2"  ></booking>
         </div>
-        <p v-if="isMinimized" style="color: aliceblue;">Despliega para mostrar la informacion acerca de tu reserva</p>
+        <p v-if="isMinimized" id="click-to-open-text">Despliega para mostrar <br> la informacion</p>
       </div>
     </div>
     <div class="container" id="navbar">
@@ -156,14 +156,23 @@
 
       },
       maximizeModal() {
-        this.isMinimized = false;
-        this.isMaximized = true;
-        document.querySelector('.modal-content').style.display = 'flex';
-        document.querySelector('.modal-small-initial').style.minHeight = '30%';
-        document.querySelector('.modal-small-initial').style.top = '74%';
+      this.isMinimized = false;
+      this.isMaximized = true;
+      document.querySelector('.modal-content').style.display = 'flex';
+      if (window.matchMedia("(max-width: 1024px)")) {
+        document.querySelector('.modal-small-initial').style.minHeight = '33%';
+        document.querySelector('.modal-small-initial').style.top = '72%';
+        document.querySelector('.modal-small-initial').style.transition = '0.5s';
         console.log('Maximizado');
-
+      } else {
+        document.querySelector('.modal-small-initial').style.minHeight = '50%';
+        document.querySelector('.modal-small-initial').style.top = '72%';
+        document.querySelector('.modal-small-initial').style.transition = '0.5s';
+        console.log('Maximizado');
       }
+      console.log('Maximizado');
+     
+    }
 
     },
     applyMarkerStyles(element) {
@@ -317,12 +326,40 @@
 
       };
 
+      const getCoordinatesFromAddress = async (address) => {
+        const bbox = "2.0695,41.3200,2.2280,41.4696"; // Bounding box para Barcelona
+        const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxgl.accessToken}&bbox=${bbox}`;
+        try {
+            const response = await axios.get(geocodingUrl);
+            if (response.data.features.length > 0) {
+                const coords = response.data.features[0].center;
+                console.log(coords[0], coords[1]); // Log the coordinates
+                return { lng: coords[0], lat: coords[1] };
+            } else {
+                console.log("No se encontraron resultados en el área especificada.");
+                return null;
+            }
+        } catch (error) {
+            console.error('Error al obtener coordenadas:', error);
+            return null;
+        }
+      };
+
       const applyMarkerStyles = (element) => {
         //element.style.backgroundColor = 'red';
         element.style.width = '60px';
         element.style.height = '60px';
         element.style.borderRadius = '50%';
         element.style.backgroundImage = "url('../../resources/images/puaM2.png')";
+        element.style.backgroundSize = 'cover';
+        element.style.backgroundPosition = 'center';
+      };
+
+      const applyMarkerStylesPro = (element) => {     
+        element.style.width = '60px';
+        element.style.height = '60px';
+        element.style.borderRadius = '50%';
+        element.style.backgroundImage = "url('../../resources/images/F.png')";
         element.style.backgroundSize = 'cover';
         element.style.backgroundPosition = 'center';
       };
@@ -348,6 +385,36 @@
           });
         } else {
           console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
+        }
+      };
+
+      const addProviderMarker = (m) => {
+        const lng = parseFloat(m.Xcoord);
+        const lat = parseFloat(m.Ycoord); 
+        if (!isNaN(lng) && !isNaN(lat)) {   
+          const lo = document.createElement('div');     
+          applyMarkerStylesPro(lo)      
+          const marker = new mapboxgl.Marker(lo)
+            .setLngLat([lng, lat])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Dirección: ${m.location}`))
+            .addTo(map);
+
+          marker.getElement().addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedMarker.value = { marker, data: m };
+            mendigo.value.id_customer = selectedMarker.value.data.id_customer;
+            isMarkerOptionsModalOpen.value = true;
+          });
+        } else {
+          console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
+        }
+      };
+      
+      const addMarkerWithAddress = async (p) => {
+        const coords = await getCoordinatesFromAddress(p.provider.adress);     
+        if (coords) {
+          
+          addProviderMarker({ ...p, Xcoord: coords.lng, Ycoord: coords.lat, location: p.provider.adress });
         }
       };
 
@@ -449,7 +516,7 @@
     position: fixed;
     z-index: 2;
     left: 50%;
-    top: 74%;
+    top: 72%;
     transform: translate(-50%, -50%);
     width: 95%;
     min-height: 2%;
@@ -459,8 +526,8 @@
     padding: 2%;
     overflow: hidden;
     align-items: center;
-    max-height: 30%;
-    min-height: 30%;
+    max-height: 33%;
+    min-height: 33%;
   }
 
   #hey:hover {
@@ -549,7 +616,7 @@
     height: 15%;
     background-color: #1E1E1E;
     color: white;
-    border-radius: 8px;
+    border-radius: 19px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     padding: 20px;
     overflow: hidden;
@@ -572,7 +639,7 @@
   }
 
 
-  button {
+  #modalButton {
     margin-top: 20px;
     align-self: center;
   }
@@ -601,7 +668,7 @@
     position: fixed;
     z-index: 1050;
     left: 50%;
-    top: 74%;
+    top: 72%;
     transform: translate(-50%, -50%);
     width: 95%;
     min-height: 2%;
@@ -611,8 +678,8 @@
     padding: 2%;
     overflow: hidden;
     align-items: center;
-    max-height: 30%;
-    min-height: 30%;
+    max-height: 33%;
+    min-height: 33%;
   }
 
   .modal-small-button {
@@ -634,6 +701,8 @@
 
   #navbar {
     width: 100%;
+    left: 0%;
+    right: 0%;
   }
 
   .custom-marker {
@@ -653,15 +722,201 @@
     background: transparent;
     height: 50px;
     width: 50px;
-    margin-top: 16%;
     left: 85%;
     position: absolute;
     z-index: 999;
+}
+
+#maximize-modal-button {
+  background: transparent;
+  height: 50px;
+  width: 50px;
+  left: 85%;
+  position: absolute;
+  z-index: 999;
+}
+
+#click-to-open-text {
+ color: #8F8F8F;
+ text-align: center;
+}
+
+#save-pua-button {
+ cursor: pointer;
+ padding: 0.5rem 1rem;
+ background-color: #8BB481;
+ color: black;
+ border: none;
+ border-radius: 50px;
+ width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 24px;
+ font-weight: 600;
+ height: 50%;
+ margin-top: 10px;
+}
+
+#streetName {
+ font-weight: 500;
+ font-size: 20px;
+ margin-right: 5%;
+}
+
+@media (min-width: 1024px) {
+ #navbar {
+   width: 38%;
+   left: 0%;
+   right: 0%;
+ }
+
+  .modal {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 1050;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+    max-width: 58%;
+    height: 20%;
+    background-color: #1E1E1E;
+    color: white;
+    border-radius: 19px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    overflow: hidden;
   }
 
-  #maximize-modal-button {
+  .modal-small {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 2;
+    left: 84%;
+    top: 72%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    min-height: 2%;
+    background-color: #1e1e1edb;
+    backdrop-filter: blur(9px);
+    border-radius: 33px;
+    padding: 1%;
+    padding-top: 0;
+    overflow: hidden;
+    align-items: center;
+    max-height: 50%;
+    min-height: 50%;
+    z-index: 1050;
+  }
+
+  #minimize-modal-button {
     background: transparent;
     height: 50px;
     width: 50px;
+    margin-top: 0.5rem;
+    left: 88%;
+    position: absolute;
+    z-index: 999;
+    padding-left: 5px;
   }
+
+#maximize-modal-button {
+    background: transparent;
+    height: 50px;
+    width: 50px;
+    margin-top: 0.5rem;
+    left: 88%;
+    position: absolute;
+    z-index: 999;
+    padding-left: 5px;
+  }
+
+  .modal-small-initial {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 2;
+    left: 84%;
+    top: 72%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    min-height: 2%;
+    background-color: #1e1e1edb;
+    backdrop-filter: blur(9px);
+    border-radius: 33px;
+    padding: 1%;
+    padding-top: 0;
+    overflow: hidden;
+    align-items: center;
+    max-height: 50%;
+    min-height: 50%;
+}
+
+@media (min-width: 1700px){
+  #booking-card {
+    background-color: #393939;
+    border: none;
+    width: 95%;
+    /* margin-top: 10px; */
+    --bs-card-bg: none;
+    border-radius: 26px;
+}
+}
+
+}
+
+.loading-overlay {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background-color: #1E1E1E;
+ color: white;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ font-size: 2em;
+ z-index: 5000;
+}
+
+#manzanita {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  opacity: 0;
+  animation: slideshow 1s infinite steps(1);
+}
+
+
+@keyframes slideshow {
+  0% { opacity: 1; }
+  12.5% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+.image:nth-child(1) { animation-delay: 0s; }
+.image:nth-child(2) { animation-delay: 0.125s; }
+.image:nth-child(3) { animation-delay: 0.25s; }
+.image:nth-child(4) { animation-delay: 0.375s; }
+.image:nth-child(5) { animation-delay: 0.5s; }
+.image:nth-child(6) { animation-delay: 0.625s; }
+.image:nth-child(7) { animation-delay: 0.75s; }
+.image:nth-child(8) { animation-delay: 0.875s; }
   </style>
