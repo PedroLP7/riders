@@ -315,9 +315,10 @@
         }
         try {
           const response2 = await axios.get('provider');
-          response2.data.forEach((m) => {
+          response2.data.forEach((p) => {
 
-            console.log("proveedores")
+            console.log(p.provider.adress)
+            addMarkerWithAddress(p)            
           });
 
         } catch(error) {
@@ -359,7 +360,7 @@
         element.style.width = '60px';
         element.style.height = '60px';
         element.style.borderRadius = '50%';
-        element.style.backgroundImage = "url('../../resources/images/F.png')";
+        element.style.backgroundImage = "url('../../resources/images/puaPro.png')";
         element.style.backgroundSize = 'cover';
         element.style.backgroundPosition = 'center';
       };
