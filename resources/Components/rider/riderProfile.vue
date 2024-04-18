@@ -1,16 +1,4 @@
 <template>
-    <div v-if="loading" class="loading-overlay"> 
-        <div id="manzanita">
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
-          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
-        </div>
-    </div>
     <div class="container " id="profile">
 
         <h1 id="titulo">Perfil</h1>
