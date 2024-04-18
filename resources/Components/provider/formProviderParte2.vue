@@ -256,5 +256,26 @@ form h3 {
     height: 100%; 
     background-color: #8BB481;    
 }
+
+@media (min-width: 1024px) {
+    form h3 {
+        color: #393939;
+        font-weight: 700;
+        font-size: 75px;
+        margin-top: 5%;
+        margin-left: 0%;
+    }
+
+    .card {
+        background-color: #393939;
+        position: absolute;
+        left: 75%;
+        width: 35%;
+        height: 75%;
+        border: none;
+        border-radius: 50px;
+        bottom: 10%;
+    }
+}
   </style>
   
