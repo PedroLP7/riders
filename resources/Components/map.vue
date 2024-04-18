@@ -172,15 +172,6 @@ export default {
    }
 
  },
- applyMarkerStyles(element) {
-   element.style.backgroundColor = 'red';
-   element.style.width = '30px';
-   element.style.height = '30px';
-   element.style.borderRadius = '50%';
-   element.style.backgroundImage = "url('../images/puaM.png')";
-   element.style.backgroundSize = 'cover';
-   element.style.backgroundPosition = 'center';
- },
  addMarker(m) {
    const lng = parseFloat(m.Xcoord);
    const lat = parseFloat(m.Ycoord);
@@ -350,6 +341,14 @@ export default {
      element.style.backgroundSize = 'cover';
      element.style.backgroundPosition = 'center';
    };
+   const applyMarkerStylesPro = (element) => {     
+     element.style.width = '60px';
+     element.style.height = '60px';
+     element.style.borderRadius = '50%';
+     element.style.backgroundImage = "url('../../resources/images/puaPro.png')";
+     element.style.backgroundSize = 'cover';
+     element.style.backgroundPosition = 'center';
+   };
 
 
 
@@ -378,11 +377,13 @@ export default {
    const addProviderMarker = (m) => {
      const lng = parseFloat(m.Xcoord);
      const lat = parseFloat(m.Ycoord); 
-     if (!isNaN(lng) && !isNaN(lat)) {    
-       const marker = new mapboxgl.Marker()
-         .setLngLat([lng, lat])
-         .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Dirección: ${m.location}`))
-         .addTo(map);
+     if (!isNaN(lng) && !isNaN(lat)) {   
+      const lo = document.createElement('div');     
+      applyMarkerStylesPro(lo)      
+      const marker = new mapboxgl.Marker(lo)
+        .setLngLat([lng, lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 }).setText(`Dirección: ${m.location}`))
+        .addTo(map);
 
        marker.getElement().addEventListener('click', (e) => {
          e.stopPropagation();
