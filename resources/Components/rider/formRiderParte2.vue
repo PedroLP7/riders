@@ -41,11 +41,9 @@
 </template>
 
 <script>
-
 export default { 
   data() {
     return {
-      
       usuario: {
         real_name: '',
         surname1: '',
@@ -55,9 +53,17 @@ export default {
     };
   },
   methods: {
-    enviar() {      
-      this.$emit('actualizar-datos', this.usuario);  
-      this.$emit('enviar');   
+    camposCompletos() {      
+      return this.usuario.real_name.trim() && this.usuario.surname1.trim() && 
+             this.usuario.surname2.trim() && this.usuario.dni_cif.trim();
+    },
+    enviar() {
+      if (this.camposCompletos()) {
+        this.$emit('actualizar-datos', this.usuario);  
+        this.$emit('enviar'); 
+      } else {       
+        alert('Por favor, completa todos los campos antes de continuar.');
+      }
     }
   }
 };

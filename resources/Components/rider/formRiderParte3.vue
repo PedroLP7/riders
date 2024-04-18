@@ -33,11 +33,9 @@
 </template>
 
 <script>
-
 export default { 
   data() {
     return {
-      
       usuario: {
         phone: '',
         mail: '',
@@ -46,10 +44,17 @@ export default {
     };
   },
   methods: {
-    enviar() {      
-      this.$emit('actualizar-datos', this.usuario);  
-      this.$emit('enviar'); 
-      window.location.href = "/riders/public/";
+    camposCompletos() {      
+      return this.usuario.phone.trim() && this.usuario.mail.trim() && this.usuario.adress.trim();
+    },
+    enviar() {
+      if (this.camposCompletos()) {
+        this.$emit('actualizar-datos', this.usuario);  
+        this.$emit('enviar'); 
+        window.location.href = "/riders/public/";
+      } else {       
+        alert('Por favor, completa todos los campos antes de continuar.');
+      }
     }
   }
 };

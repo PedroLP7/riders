@@ -25,7 +25,7 @@
             </div>
             <div class="form-group row mt-4 px-5">
               <div class="col-sm-10">
-                <input type="password" class="form-control" ref="confirmPassword" id="confirmPassword" name="pswd" placeholder="Repite la contraseña">
+                <input type="password" class="form-control" ref="confirmPassword" id="confirmPassword" name="pswd" placeholder="Repite la contraseña" v-model="usuario.confirmPassword">
                 <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
                 <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
               </div>
@@ -44,13 +44,21 @@
 export default {
   data() {
     return {
-      usuario: { user_name: '', password: '' },
+      usuario: { user_name: '', password: '', confirmPassword: '' },
     };
   },
   methods: {
+    verificarContraseñas() {
+      return this.usuario.password === this.usuario.confirmPassword;
+    },
     enviar() {
-      this.$emit('actualizar-datos', this.usuario);
-      this.$emit('enviar');
+      if (this.verificarContraseñas()) {
+        this.$emit('actualizar-datos', this.usuario);
+        this.$emit('enviar');
+      } else {      
+       
+        alert('Las contraseñas no coinciden. Por favor, inténtalo de nuevo.');
+      }
     },
   },
 };
