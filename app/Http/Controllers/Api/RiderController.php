@@ -155,17 +155,90 @@ class RiderController extends Controller
 
     public function deliverysByRider($rider){
         try {
-            $deliveryscount = booking::with('rider')->where('id_rider_fk', $rider)
-            ->where('id_status_fk', '3')->count();
 
-            return response()->json($deliveryscount, 200);
+            $currentMonth = date('m');
+            $currentYear = date('Y');
+
+
+            $bookingsCount = Booking::where('id_rider_fk', $rider)
+                ->whereYear('curr_Date', $currentYear)
+                ->whereMonth('curr_Date', $currentMonth)
+                ->where('id_status_fk', '3')
+                ->count();
+
+            $response = response()->json( $bookingsCount, 200);
         } catch (\Throwable $th) {
-            return response()->json(['error' => 'Error al mostrar los deliverys: ' . $th->getMessage()], 500);
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
         }
 
-
-
-
+        return $response;
     }
+
+
+
+
+    public function consecutiveDeliveries($rider){
+        try {
+            $bookings = Booking::where('id_rider_fk', $rider)
+                ->where('id_status_fk', '3')
+                ->orderBy('curr_Date', 'asc')
+                ->pluck('curr_Date')
+                ->toArray();
+
+            $consecutiveDays = 0;
+            $count = count($bookings);
+
+            $bookingmonths = array_map(function ($booking) {
+                return date('m', strtotime($booking));
+            }, $bookings);
+
+           $bookingdays = array_map(function ($booking) {
+                return date('d', strtotime($booking));
+            }, $bookings);
+
+            for ($i = 0; $i < $count - 1; $i++) {
+                $current = $bookingdays[$i];
+                $next = $bookingdays[$i + 1];
+
+                if ($next - $current == 1) {
+                    $consecutiveDays++;
+                }
+            }
+
+
+
+            $response = response()->json($consecutiveDays, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+        }
+
+        return $response;
+    }
+
+
+    public function deliverysxMonth($rider)
+    {
+        try {
+            $bookingsByMonth = [];
+
+
+            for ($month = 1; $month <= 12; $month++) {
+
+                $bookingsCount = Booking::where('id_rider_fk', $rider)
+                ->whereRaw('MONTH(curr_Date) = ?', [$month])
+                                                  ->count();
+
+                // Agregar el resultado al array
+                $bookingsByMonth[] = $bookingsCount;
+            }
+
+            $response = response()->json($bookingsByMonth, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+        }
+
+        return $response;
+    }
+
 
 }
