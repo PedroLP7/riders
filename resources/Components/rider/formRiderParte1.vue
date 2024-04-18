@@ -88,8 +88,8 @@ body {
     height: 73%;
     border: none;
     border-radius: 60px 60px 0 0;
-    box-shadow: 0 -2px 26.9px 1px rgba(0, 0, 0, 0.17);
 }
+
 
 .card-title {
     background-color: transparent;
@@ -276,5 +276,7 @@ form h3 {
         border-radius: 50px;
         bottom: 10%;
     }
+
+    
 }
   </style>
