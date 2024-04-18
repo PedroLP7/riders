@@ -34,13 +34,10 @@
         </div>
       </div> 
 </template>
-
 <script>
-
 export default { 
   data() {
     return {
-      
       provider: {
         real_name: '',
         adress: '',       
@@ -49,10 +46,18 @@ export default {
     };
   },
   methods: {
-    enviar() {      
-      this.$emit('actualizar-datos', this.provider);  
-      this.$emit('enviar');   
-      window.location.href = "/riders/public/";
+    camposCompletos() {
+      return this.provider.real_name.trim() && this.provider.adress.trim() && this.provider.dni_cif.trim();
+    },
+    enviar() {
+      if (this.camposCompletos()) {
+        this.$emit('actualizar-datos', this.provider);  
+        this.$emit('enviar');   
+        window.location.href = "/riders/public/";
+      } else {
+        // Alertar al usuario que todos los campos son obligatorios
+        alert('Todos los campos son obligatorios. Por favor, completa todos los campos antes de continuar.');
+      }
     }
   }
 };
