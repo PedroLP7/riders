@@ -3,6 +3,18 @@ defineEmits(['found-booking'])
 </script>
 
 <template>
+  <div v-if="loading" class="loading-overlay"> 
+        <div id="manzanita">
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
+        </div>
+  </div>
   <div v-if="bookings !== null && usuario !== null" class="bookings-modal-container">
     <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles <br> para entregar</h1>
     <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length >= 1">No te olvides:</h1>
@@ -414,7 +426,8 @@ export default {
         delivery_hour: "",
         id_customer_fk: "",
         id_communityK_fk: "",
-      }
+      },
+      loading : true,
     };
   },
   computed: {
@@ -465,13 +478,12 @@ export default {
       axios.get('/usuario/getUsuario')
         .then(response => {
           console.log(response)
-          me.usuario = response.data
-
+          me.usuario = response.data         
           axios.get('/booking/showBookingByUserId/' + me.usuario.id_user)
             .then(response => {
               console.log(response)
               me.bookings = response.data
-
+              me.loading = false;
               me.bookings.forEach(element => {
                 if (element.status.id_status == 1) {
 

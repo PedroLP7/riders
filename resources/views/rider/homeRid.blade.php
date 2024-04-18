@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="../../resources/css/loading.css">  
 <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
 <script src="https://mediafiles.botpress.cloud/90b0b64f-4607-4ba9-a543-41d7b7a589ed/webchat/config.js"
     defer></script>

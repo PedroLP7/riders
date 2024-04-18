@@ -1,4 +1,16 @@
 <template>
+    <div v-if="loading" class="loading-overlay"> 
+        <div id="manzanita">
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
+          <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
+        </div>
+    </div>
     <a id="hey" @click="goToProfile()">
       <h1 id="cipoton"><b>Hey, </b>{{ user.user_name }}</h1>
     </a>
@@ -52,7 +64,7 @@
 
         </div>
         <div class="modal-content">
-         <booking :screen="2" ></booking>
+         <booking :screen="2"  ></booking>
         </div>
         <p v-if="isMinimized" style="color: aliceblue;">Despliega para mostrar la informacion acerca de tu reserva</p>
       </div>
@@ -84,11 +96,19 @@
         isMinimized: false,
         isMaximized: true,
         user: {},
+        loading : true,
 
       }
     },
 
     methods: {
+      handleBookin(data)
+      {
+        if(data)
+        {
+          this.loading = false;
+        }
+      },
       goToProfile() {
         window.location.href = '/riders/public/rider/profile';
       },
@@ -99,6 +119,7 @@
                   .then(response => {
                       me.user = response.data
                       console.log(response.data)
+                      
                   })
                   .catch(error => {
                       console.log(error)
@@ -114,6 +135,7 @@
                       console.log(me.userp.id_user);
 
                       me.getProvider()
+                      me.loading= false;
                   })
                   .catch(error => {
                       console.log(error)
