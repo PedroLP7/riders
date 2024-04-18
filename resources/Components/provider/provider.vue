@@ -1,7 +1,17 @@
 <template>
     <div class="container " id="menus">
-
-
+        <div v-if="loading" class="loading-overlay"> 
+            <div id="manzanita">
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
+              <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
+            </div>
+        </div>
         <h1 id="titulo" v-if="!this.id_menu_selected">Packs disponibles</h1>
 
         <button v-if="!this.id" class="btn btn-primary" id="crearPack" @click="showCreateMenu()" type="button">Crear
@@ -81,6 +91,7 @@ export default {
             provider: null,
             menus: null,
             selectedMenu: null,
+            loading: true,
         }
     },
     created() {
@@ -93,15 +104,17 @@ export default {
             let idUser;
             if (me.id) {
                 console.log("child component provider id to search: " + me.id)
-                idUser = me.id
+                idUser = me.id                
             } else {
                 idUser = me.userp.id_user
+                
             }
 
             axios.get('provider/' + idUser)
                 .then(response => {
                     me.user = response.data
                     console.log(response.data)
+                    me.loading=false;
                 })
                 .catch(error => {
                     console.log(error)
@@ -114,16 +127,17 @@ export default {
                 .then(response => {
                     me.userp = response.data
                     console.log(response.data)
-                    console.log(me.userp.id_user);
-
+                    console.log(me.userp.id_user);                    
                     me.getProvider()
+                  
+                   
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
         selectMenu(id_menu) {
-            this.selectedMenu = id_menu;
+            this.selectedMenu = id_menu;         
             console.log("My selected menu:" + this.selectedMenu)
 
         },

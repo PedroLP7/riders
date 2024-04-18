@@ -8,7 +8,14 @@
         </nav>
       </header>
     </div>
-    <div id="logo"></div>
+    <div id="manzanita">
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni1.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni2.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni3.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni4.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni5.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni6.png');"></div> 
+    </div>
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
       <main class="col-12 text-center">
         <h1 id="titulo-food">Food</h1>
@@ -38,21 +45,10 @@
 <script>
 export default {
   data() {
-    return {  
-      images: [
-        'animacion/ManzanaAni1.png',
-        'animacion/ManzanaAni2.png',
-        'animacion/ManzanaAni3.png',
-        'animacion/ManzanaAni4.png',
-        'animacion/ManzanaAni5.png',
-        'animacion/ManzanaAni6.png',
-      ],
-      currentImageIndex: 0,
-      animationInterval: null
+    return {      
     }            
   },
-  mounted() {
-    this.startAnimation();
+  mounted() {   
   },
   methods: {   
     registrateRider() {
@@ -74,21 +70,53 @@ export default {
       const registerBtn = document.getElementById('register');
       registerBtn.classList.add('disappear');
     },
-    startAnimation() {
-      setInterval(() => {
-        let nextImageIndex = this.currentImageIndex + 1;
-        if (nextImageIndex >= this.images.length) {
-          clearInterval(this.animationInterval);
-          return;
-        }
-        this.currentImageIndex = nextImageIndex;
-        this.updateLogo();
-      }, 100); 
-    },
-    updateLogo() {
-      const logo = document.getElementById('logo');
-      logo.style.backgroundImage = `url(../../riders/resources/images/${this.images[this.currentImageIndex]})`;
-    }
   }  
 }
 </script>
+
+<style scoped>
+#manzanita {
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 26%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  opacity: 0; /* Inicia todas las imágenes con opacidad 0 */
+  animation: slideshow 1s steps(1) forwards; /* Aplica la animación a todas las imágenes */
+}
+
+@keyframes slideshow {
+  /* Define un único conjunto de keyframes */
+  0%, 100% { opacity: 0; }
+  16.6%, 33.3% { opacity: 1; }
+  33.4%, 100% { opacity: 0; }
+}
+
+/* Ajusta los delays para cada imagen de manera que solo la última permanezca visible */
+.image:nth-child(1) { animation-delay: 0s; }
+.image:nth-child(2) { animation-delay: 0.166s; }
+.image:nth-child(3) { animation-delay: 0.332s; }
+.image:nth-child(4) { animation-delay: 0.498s; }
+.image:nth-child(5) { animation-delay: 0.664s; }
+.image:nth-child(6) {
+  animation-delay: 0.83s;
+  animation: lastImage 1s steps(1) forwards; 
+}
+
+@keyframes lastImage {
+  0%, 83% { opacity: 0; }
+  83.1%, 100% { opacity: 1; } /* Solo hace visible la última imagen al final */
+}
+</style>

@@ -10,6 +10,18 @@ const dataSteps = {
 };
 </script>
 <template>
+  <div v-if="loading" class="loading-overlay"> 
+      <div id="manzanita">
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni3.png');"></div>
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni4.png');"></div>
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni5.png');"></div>
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni6.png');"></div>
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni7.png');"></div>
+        <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
+      </div>
+  </div>
 
 
   <h1 id="titulo" v-if="!showMenu">Proveedores disponibles</h1>
@@ -223,7 +235,9 @@ export default {
         menu_quantity: "",
         id_status_fk: "",
         curr_date: "",
-      }
+      },
+      loading: true,
+
     };
   },
 
@@ -283,7 +297,7 @@ export default {
               console.log('Response:', response.data);
               // Handle the response data
               me.messageType = "i";
-              me.showMessage = true;
+              me.showMessage = true;           
             })
             .catch(error => {
               console.error('Error:', error);
@@ -320,6 +334,7 @@ export default {
         .then(response => {
           console.log(response);
           this.providers = response.data;
+          this.loading = false;
 
         })
         .catch(error => {

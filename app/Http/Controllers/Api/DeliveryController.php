@@ -57,7 +57,7 @@ class DeliveryController extends Controller
         // Handling any database query exceptions
         $response = response()->json(['error' => 'Error al mostrar la reserva: ' . $e->getMessage()], 500);
     }
-    
+
     return $response; // Returning the response
 }
 
@@ -78,7 +78,7 @@ class DeliveryController extends Controller
         try {
             $delivery->save();
             $response = response()->json(['bien insertado'], 200);
-        
+
         } catch (QueryException $ex) {
             $mensaje = Utilidad::errorMessage($ex);
             $response = response()->json(['error' => $mensaje], 400);

@@ -15,8 +15,8 @@
   
   <script>
   import axios from 'axios'; 
-  import FormProviderParte1 from '../Components/formProviderParte1.vue';
-  import FormProviderParte2 from '../Components/formProviderParte2.vue';
+  import FormProviderParte1 from '../provider/formProviderParte1.vue';
+  import FormProviderParte2 from '../provider/formProviderParte2.vue';
 
   
   export default {
