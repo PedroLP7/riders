@@ -4,7 +4,7 @@ defineEmits(['found-booking'])
 
 <template>
   <div v-if="bookings !== null && usuario !== null" class="bookings-modal-container" style="width: 100%;">
-    <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles <br> para entregar</h1>
+    <h1 class="titulo-bookings" v-if="screen == 1">Packs a Entregar</h1>
     <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length >= 1">No te olvides:</h1>
     <!-- <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length < 1">No tienes packs reservados</h1> -->
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
@@ -641,6 +641,7 @@ export default {
   --bs-card-bg: none;
   border-radius: 26px;
   width: 95%;
+  margin-bottom: 2%;
 }
 
 #booking-card-header {
@@ -733,20 +734,20 @@ export default {
   background-color: #393939;
   border: none;
   width: 95%;
-  margin-top: 1%;
+  margin-top: 2px;
   --bs-card-bg: none;
   border-radius: 26px;
 }
 
 .cards-container-bookings-deliver {
-  height: 300px;
+  height: 220px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin-top: 5%;
   overflow-x: hidden;
-  overflow-y: auto;
-  padding-bottom: 5%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 </style>
