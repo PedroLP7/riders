@@ -13,7 +13,7 @@ body {
 }
 
 .hyperlink {
-    color: inherit;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
@@ -42,6 +42,20 @@ body {
     position: relative;
 }
 
+#empresa
+{
+  margin-bottom: 2%;
+}
+
+#empresa p {
+  color: #FFFFFF;
+}
+
+#comedor
+{
+  margin-bottom: 4%;
+}
+
 #titulo-food {
   color: white;
   position: fixed;
@@ -55,6 +69,19 @@ body {
   animation: revealText 0.3s linear forwards; /* Animación más rápida */
 }
 
+#logo
+{
+  /*background-image: url("../images/PutoLogo7.png");*/
+  position: fixed;  
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 26%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+
+}
 #barra {
   position: fixed;
   background-image: url("../images/barra.png");
@@ -69,6 +96,7 @@ body {
 
 #link {
   color: white;
+
   position: fixed;
   font-weight: bolder;
   font-size: 65px;

@@ -1,6 +1,5 @@
 <template>
-    <div>
-
+    <div>  
         <form >
 
             <div class="mb-3">
@@ -51,7 +50,7 @@ export default {
             showComponente: true,
 
             userp: {},
-
+           
         }
     },
     created() {
@@ -80,7 +79,7 @@ export default {
                     // console.log(response.data)
                     // console.log(me.userp.id_user);
 
-                    me.getProvider()
+                    me.getProvider()                    
                 })
                 .catch(error => {
                     console.log(error)

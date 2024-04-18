@@ -45,6 +45,22 @@ Route::get('/customerform', function () {
     return view('addHomelessForm.newHomelessPerson');
 });
 
+Route::get('/riderForm', function () {
+    return view('rider.riderForm');
+});
+Route::get('/riderForm', function () {
+    return view('rider.riderForm');
+});
+Route::get('/providerForm', function () {
+    return view('provider.ProviderForm');
+});
+Route::get('/kitchenForm', function () {
+    return view('kitchen.kitchenForm');
+});
+
+
+
+
 
 
 route::get('/notifTest', function(){
@@ -55,12 +71,8 @@ route::get('/updateBooking', function(){
     return view('updateBookingStatus');
 });
 
-route::get('/recurringCustomer', function(){
-    return view('rider.recurringCustomer');
-});
-route::get('rider/viewAllBookings', function(){
-    return view('rider.viewAllBookingsPendingCollection');
-});
+
+
 
 
 Route::middleware(['auth'])->group(function () {
@@ -70,43 +82,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    route::get('/rider/viewProviders', function(){
-        return view('rider.viewProvider');
-    });
 
-
-    route::get('/provider/createMenu', function(){
-        return view('provider.createMenu');
-    });
-
-
-    route::get('/rider/addKitchen', function(){
-        return view('rider.addCommunityK');
-    });
-    route::get('/rider/bot', function(){
-        return view('rider.bot');
-    });
-
-  route::get('/provider/bookings', function(){
-        return view('provider.bookings');
-    });
-
-    route::get('/provider/profile', function(){
-        return view('provider.profile');
-    });
-
-
-    route::get('/provider/edit', function(){
-        return view('provider.editProfile');
-    });
-
-    route::get('/provider/editMenu/{idMenu}', function($idMenu){
-        return view('provider.editMenu',compact('idMenu'));
-    });
-
-    route::get('/rider/viewMenu/{idProvider}', function($idProvider){
-        return view('rider.viewProvidersMenus',compact('idProvider'));
-    });
 
 
 
@@ -177,6 +153,30 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+            route::get('/provider/bookings', function(){
+                return view('provider.bookings');
+            });
+
+
+            route::get('/provider/profile', function(){
+                return view('provider.profile');
+            });
+
+
+            route::get('/provider/edit', function(){
+                return view('provider.editProfile');
+            });
+
+            route::get('/provider/editMenu/{idMenu}', function($idMenu){
+                return view('provider.editMenu',compact('idMenu'));
+            });
+
+            route::get('/provider/createMenu', function(){
+                return view('provider.createMenu');
+            });
+
+
+
 
 
 
@@ -206,6 +206,50 @@ Route::middleware(['auth'])->group(function () {
                 return view('rider.homeRid');
             })->name('riderHome');
 
+
+
+
+            route::get('/rider/viewProviders', function(){
+                return view('rider.viewProvider');
+            });
+
+            route::get('/rider/profile', function(){
+                return view('rider.riderProfile');
+            });
+
+
+
+
+            route::get('/rider/addKitchen', function(){
+                return view('rider.addCommunityK');
+            });
+            route::get('/rider/bot', function(){
+                return view('rider.bot');
+            });
+
+
+            route::get('/rider/recurringCustomer', function(){
+                return view('rider.recurringCustomer');
+            });
+
+
+
+            route::get('/rider/edit', function(){
+                return view('rider.editProfileRider');
+            });
+
+
+
+
+            route::get('/rider/viewMenu/{idProvider}', function($idProvider){
+                return view('rider.viewProvidersMenus',compact('idProvider'));
+            });
+
+
+
+            route::get('rider/viewAllBookings', function(){
+                return view('rider.viewAllBookingsPendingCollection');
+            });
 
 
 

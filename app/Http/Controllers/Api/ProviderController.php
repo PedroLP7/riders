@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\booking;
+use App\Models\delivery;
 use App\Models\usuario;
 use App\Models\provider;
+use App\Models\charity_menu;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -144,4 +148,160 @@ class ProviderController extends Controller
             return response()->json(['error' => 'Error al eliminar el usuario: ' . $th->getMessage()], 500);
         }
     }
+    public function updateQuantity($quantity, $providerId, $menuId)
+    {
+        try {
+            // Find the provider and menu
+            $provider = Provider::findOrFail($providerId);
+            $menu = charity_menu::findOrFail($menuId);
+
+            if (!$provider->menus()->where('id_m', $menu->id_menu)->exists()) {
+                throw new \Exception('Menu not associated with the provider');
+            }
+            // Get the current quantity from the pivot table
+            $currentQuantity = $provider->menus()->where('id_m', $menu->id_menu)->first()->pivot->quantity;
+
+            // Calculate the new quantity
+
+            $newQuantity = $currentQuantity - $quantity;
+            if ($newQuantity < 0){
+                throw new \Exception('No puede reservar más paquetes de los que hay disponibles');
+            }
+            // Update the quantity through the pivot table
+            $provider->menus()->updateExistingPivot($menu->id_menu, ['quantity' => $newQuantity]);
+
+            // Return a success response
+            return response()->json(['message' => 'Quantity updated successfully']);
+        } catch (\Exception $e) {
+            // Return an error response if an exception is caught
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
+
+    public function bookingsByProvider($provider)
+    {
+        $now = Carbon::now();
+
+
+
+
+
+        $dateString = $now->format('Y-m-d');
+
+        $startDate = $now->subDays(30);
+
+
+        try {
+            $count = Booking::where('id_provider_fk', $provider)
+            ->whereBetween('curr_date', [$startDate, $dateString])
+            ->count();
+            $response = response()->json($count, 200);
+
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+
+        }
+
+        return $response;
+
+    }
+
+
+
+
+    public function getKG( $provider){
+
+        try {
+            $count = Booking::where('id_provider_fk', $provider)->count();
+            $kg = $count * 0.5;
+            $response = response()->json($kg, 200);
+
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+
+        }
+        return $response;
+    }
+
+
+
+    public function deliverysByProvider($provider)
+    {
+        try {
+            $bookingsByMonth = [];
+
+
+            for ($month = 1; $month <= 12; $month++) {
+
+                $bookingsCount = Booking::where('id_provider_fk', $provider)
+                ->whereRaw('MONTH(curr_Date) = ?', [$month])
+                                                  ->count();
+
+                // Agregar el resultado al array
+                $bookingsByMonth[] = $bookingsCount;
+            }
+
+            $response = response()->json($bookingsByMonth, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los bookings: ' . $th->getMessage()], 500);
+        }
+
+        return $response;
+    }
+
+
+
+
+    public function calculateMonthlyChange($provider)
+    {
+        try {
+
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+
+
+            $previousMonth = $currentMonth - 1;
+            $previousYear = $currentYear;
+            if ($previousMonth == 0) {
+                $previousMonth = 12;
+                $previousYear--;
+            }
+
+
+            $currentMonthCount = booking::where('id_provider_fk', $provider)
+                                      ->whereRaw('MONTH(curr_date) = ?', [$currentMonth])
+                                      ->whereRaw('YEAR(curr_date) = ?', [$currentYear])
+                                      ->count();
+
+
+            $previousMonthCount = booking::where('id_provider_fk', $provider)
+                                       ->whereRaw('MONTH(curr_date) = ?', [$previousMonth])
+                                       ->whereRaw('YEAR(curr_date) = ?', [$previousYear])
+                                       ->count();
+
+
+            if ($previousMonthCount == 0) {
+                if ($currentMonthCount == 0) {
+                    $changePercentage = 0;
+                } else {
+                    $changePercentage = 100;
+                }
+            } else {
+                $changePercentage = (($currentMonthCount - $previousMonthCount) / $previousMonthCount) * 100;
+            }
+
+            $response = response()->json($changePercentage, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error calculating monthly change: ' . $th->getMessage()], 500);
+        }
+
+        return $response;
+    }
+
+
+
+
+
 }

@@ -1,62 +1,60 @@
 <template>
-    <div>
-      
+    <div>      
+      <div>
         <header>
           <div class="progress-bar-container">
-            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
           <div class="alerta" ref="alertContainer"></div>
         </header>
         <h3 id="titulo">Registrarse</h3>
-        <h3 id="subtitulo">Ahora necesitamos saber un poco más de ti</h3>
+        <h3 id="subtitulo">Primero rellena los datos que necesitarás para el momento en el que inicies sesión</h3>
         <div class="card">
           <div class="card-body">
             <div class="form-group row px-5">
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="nombre" placeholder="Nombre empresa" v-model="provider.real_name">
+                <input type="text" class="form-control" id="username" name="user_name" placeholder="Nombre de Usuario" v-model="proveedor.user_name">
               </div>
             </div>
             <div class="form-group row mt-4 px-5">
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="apellido1" placeholder="Direccion" v-model="provider.adress">
+                <input type="password" class="form-control" ref="password" id="password" name="pswd" placeholder="Contraseña" v-model="proveedor.password">
+                <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
+                <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
               </div>
-            </div>           
+            </div>
             <div class="form-group row mt-4 px-5">
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="dni" placeholder="CIF" v-model="provider.dni_cif">
+                <input type="password" class="form-control" ref="confirmPassword" id="confirmPassword" name="pswd" placeholder="Repite la contraseña">
+                <iconify-icon class="eye-active" icon="mdi:eye" height="24"></iconify-icon>
+                <iconify-icon class="eye-unactive" icon="ph:eye-closed" height="24"></iconify-icon>
               </div>
             </div>
             <div class="button-container d-inline-block">
-              <button id="submitParte2" @click="enviar" type="button">Siguiente paso</button>
-              <button id="sombraBotonParte2" type="button"></button>
+              <button id="signIn" @click="enviar" type="button">Siguiente paso</button>
+              <button id="sombraBoton" type="button"></button>
             </div>
           </div>
         </div>
-      </div> 
-</template>
+      </div>      
+    </div>
+  </template>
+  <script>
+  export default {
+    data() {
+      return {
+        proveedor: { user_name: '', password: '' },
+      };
+    },
+    methods: {
+      enviar() {
+        this.$emit('actualizar-datos', this.proveedor);
+        this.$emit('enviar');
+      },
+    },
+  };
+  </script>
 
-<script>
-
-export default { 
-  data() {
-    return {
-      
-      provider: {
-        real_name: '',
-        adress: '',       
-        dni_cif: ''
-      }
-    };
-  },
-  methods: {
-    enviar() {      
-      this.$emit('actualizar-datos', this.provider);  
-      this.$emit('enviar');   
-    }
-  }
-};
-</script>
-  
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
@@ -79,7 +77,7 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
-    height: 50%;
+    height: 73%;
     border: none;
     border-radius: 60px 60px 0 0;
     box-shadow: 0 -2px 26.9px 1px rgba(0, 0, 0, 0.17);
@@ -165,7 +163,7 @@ body {
     color: #8F8F8F;
     font-weight: 12px;
     font-size: 12px;
-    margin-top: -100%;
+    margin-top: -97%;
     margin-left: 16%;
    
 }
@@ -188,7 +186,7 @@ form h3 {
     min-width: 75%;
 }
 
-#submitParte2 {    
+#signIn {    
     background-color: #8BB481;       
     max-width: 100%;
     min-width: 100%;
@@ -205,7 +203,7 @@ form h3 {
     z-index: 1; 
 }
 
-#sombraBotonParte2 {
+#sombraBoton {
     position: absolute;
     max-width: 100%;
     min-width: 100%;
@@ -251,4 +249,3 @@ form h3 {
     background-color: #8BB481;    
 }
   </style>
-  

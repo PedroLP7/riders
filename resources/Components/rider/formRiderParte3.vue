@@ -25,8 +25,8 @@
               </div>
             </div>
           <div class="button-container d-inline-block">
-            <button id="signIn" @click="enviar">Siguiente paso</button>
-            <button id="sombraBoton" type="submit">Siguiente paso</button>
+            <button id="signIn" @click="enviar">Registrarse!</button>
+            <button id="sombraBoton" type="submit">Registrarse!</button>
           </div>
       </div>
     </div>
@@ -48,7 +48,8 @@ export default {
   methods: {
     enviar() {      
       this.$emit('actualizar-datos', this.usuario);  
-      this.$emit('enviar');   
+      this.$emit('enviar'); 
+      window.location.href = "/riders/public/";
     }
   }
 };
@@ -162,7 +163,7 @@ body {
     color: #8F8F8F;
     font-weight: 12px;
     font-size: 12px;
-    margin-top: -100%;
+    margin-top: -97%;
     margin-left: 16%;
    
 }

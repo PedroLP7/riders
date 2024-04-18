@@ -4,14 +4,21 @@ defineEmits(['found-booking'])
 
 <template>
   <div v-if="bookings !== null && usuario !== null" class="bookings-modal-container">
-    <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles para entregar</h1>
-    <h1 class="titulo-bookings" v-if="screen == 2">No te olvides:</h1>
+    <h1 class="titulo-bookings" v-if="screen == 1">Pedidos disponibles <br> para entregar</h1>
+    <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length >= 1">No te olvides:</h1>
+    <!-- <h1 class="titulo-bookings" v-if="screen == 2 && bookings.length < 1">No tienes packs reservados</h1> -->
     <!-- <div v-for="booking in bookings" :key="booking.id_booking"> -->
-    <div v-if="screen !== 1 && screen !== 2 && screen !== 3">
+    <div v-if="screen !== 1 && screen !== 2 && screen !== 3" class="container">
+      <h1 id="titulo">Pedidos en curso</h1>
       <div class="cards-container-bookings">
         <div class="card" id="booking-card" v-for="booking in bookings" :key="booking.id_booking">
-
           <div class="card-header" id="booking-card-header">
+            <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+              <div class="quantityBubble">
+                {{ booking.menu_quantity }}
+              </div>
+            </div>
+
             <div v-if="booking.rider && booking.rider.user">
               <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
             </div>
@@ -25,12 +32,12 @@ defineEmits(['found-booking'])
               </div> -->
 
               <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
                 </div>
               </div>
 
               <div v-if="booking.status && booking.status.status_name">
-                <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+                <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
               </div>
 
               <div v-else>No DATA</div>
@@ -794,13 +801,13 @@ export default {
               </div> -->
 
                 <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                  <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3
+                  <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3
                     }}
                   </div>
                 </div>
 
                 <div v-if="booking.status && booking.status.status_name">
-                  <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+                  <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
                 </div>
 
                 <div v-else>No DATA</div>
@@ -846,10 +853,16 @@ export default {
 
 
     <div class="cards-container-bookings">
-      <div class="card" id="booking-card" v-for="booking in bookings.slice(0, 3)" :key="booking.id_booking">
+      <div class="card" id="booking-card" v-for="booking in bookings.slice(0, 2)" :key="booking.id_booking">
         <div v-if="booking.status.id_status == 1">
 
           <div class="card-header" id="booking-card-header">
+            <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
+              <div class="quantityBubble">
+                {{ booking.menu_quantity }}
+              </div>
+            </div>
+
             <div v-if="booking.rider && booking.rider.user">
               <div id="titulo-card-booking">Rider: {{ booking.rider.user.user_name }} </div>
             </div>
@@ -863,12 +876,12 @@ export default {
              </div> -->
 
               <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-                <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+                <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
                 </div>
               </div>
 
               <div v-if="booking.status && booking.status.status_name">
-                <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+                <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
               </div>
 
               <div v-else>No DATA</div>
@@ -907,8 +920,8 @@ export default {
         </div>
       </div>
 
-      <button v-if="bookings.length > 3" @click="viewAllBookings">Ver los demás bookings</button>
-      --
+      <button v-if="bookings.length > 0" @click="viewAllBookings" id="view-more-bookings">Ver los demás bookings</button>
+      <button v-if="bookings.length < 1" @click="viewProviders" id="make-bookings">No tienes packs reservados, reserva un pack!</button>
     </div>
 
 
@@ -934,12 +947,12 @@ export default {
          </div> -->
 
           <div v-if="booking.menu && booking.menu.item1 && booking.menu.item2 && booking.menu.item3">
-            <div> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
+            <div style="text-align: left;"> <b>Contenido</b> <br> {{ booking.menu.item1 }}, {{ booking.menu.item2 }}, {{ booking.menu.item3 }}
             </div>
           </div>
 
           <div v-if="booking.status && booking.status.status_name">
-            <div> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
+            <div style="text-align: right;"> <b>Estado</b> <br> {{ booking.status.status_name }} </div>
           </div>
 
           <div v-else>No DATA</div>
@@ -1044,15 +1057,19 @@ export default {
         .then(response => {
           console.log('Delivery created successfully:', response.data);
           // Do something with the response if needed
-          
+
         })
         .catch(error => {
           console.error('Error creating booking:', error)
-        
+
         });
     },
     viewAllBookings() {
 window.location.href ='./viewAllBookings'
+    },
+
+    viewProviders() {
+window.location.href ='/riders/public/rider/viewProviders'
     },
 
     fetchBookings() {
@@ -1139,9 +1156,10 @@ window.location.href ='./viewAllBookings'
         .then(response => {
           console.log('PUT request successful', response);
           this.fetchBookings();
-         
+
+         if(postData.id_status_fk === 3){
             me.createDelivery(id, me.customer);
-         
+          }
 
         })
         .catch(error => {
@@ -1194,6 +1212,13 @@ window.location.href ='./viewAllBookings'
   font-size: 24px;
   font-weight: 500;
   margin-bottom: 0;
+}
+
+#titulo {
+  color: #8F8F8F;
+  font-weight: bold;
+  margin-top: 20%;
+  margin-left: 2%;
 }
 
 #container-bookings {
@@ -1256,5 +1281,38 @@ window.location.href ='./viewAllBookings'
 #subtitulo-card-booking {
   color: #8F8F8F;
   font-size: 15px;
+}
+
+#view-more-bookings {
+  margin-top: 2%;
+  text-decoration: underline;
+}
+
+#make-bookings {
+  margin-top: 2%;
+  text-decoration: underline;
+}
+
+.quantityBubble {
+    position: absolute;
+    background-color: #8BB481;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 100%;
+    right: -10px;
+    top: -10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.btn-success {
+    background-color: #8BB481;
+    border-color: transparent;
+    border-radius: 50px;
+    color: #1E1E1E;
+    font-weight: 600;
 }
 </style>

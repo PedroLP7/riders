@@ -8,8 +8,16 @@
         </nav>
       </header>
     </div>
+    <div id="manzanita">
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni1.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni2.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni3.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni4.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni5.png');"></div>
+      <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni6.png');"></div> 
+    </div>
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
-      <main class="col-12 text-center" v-if="!showRiderForm && !showEmpresaForm && !showProviderForm">
+      <main class="col-12 text-center">
         <h1 id="titulo-food">Food</h1>
         <h1 id="link">Link</h1>
         <h1 id="barra"></h1>
@@ -23,189 +31,92 @@
             <p>¿Eres una empresa y quieres colaborar?</p>
             <a class="hyperlink" @click="registroEmpresa">Regístrate ahora!</a>
           </div>
-          <div id="comedor">
+          <!-- <div id="comedor">
             <p>¿Eres un comedor social?</p>
             <a class="hyperlink" @click="registroComedor">Regístrate ahora!</a>
-          </div>
+          </div> -->
         </div>
-      </main>
-      <div v-if="showRiderForm" class="col-md-6 offset-md-3">
-        <h3>Registro para Rider</h3>
-        <form>
-          <div class="form-group">
-            <label for="userName">User Name</label>
-            <input type="text" class="form-control" id="userName" v-model="usuario.user_name">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" v-model="usuario.password">
-          </div>
-          <div class="form-group">
-            <label for="dni">DNI</label>
-            <input type="text" class="form-control" id="dni" v-model="usuario.dni_cif">
-          </div>
-          <div class="form-group">
-            <label for="realName">Real Name</label>
-            <input type="text" class="form-control" id="realName" v-model="usuario.real_name">
-          </div>
-          <div class="form-group">
-            <label for="surname1">Apellido 1</label>
-            <input type="text" class="form-control" id="surname1" v-model="usuario.surname1">
-          </div>
-          <div class="form-group">
-            <label for="surname2">Apellido 2</label>
-            <input type="text" class="form-control" id="surname2" v-model="usuario.surname2">
-          </div>
-          <div class="form-group">
-            <label for="mail">Correo Electrónico</label>
-            <input type="email" class="form-control" id="mail" v-model="usuario.mail">
-          </div>
-          <div class="form-group">
-            <label for="phoneNumber">Número de Teléfono</label>
-            <input type="tel" class="form-control" id="phoneNumber" v-model="usuario.phone">
-          </div>
-          <button @click="insertRider()" class="btn btn-primary">Registrar</button>
-          <button type="button" class="btn btn-secondary" @click="showRiderForm = false">Cancelar</button>
-        </form>
-      </div>
-      <div v-if="showProviderForm" class="col-md-6 offset-md-3">
-        <h3>Registro para Comedor Social</h3>
-        <form>
-          <div class="form-group">
-            <label for="providerUserName">User Name</label>
-            <input type="text" class="form-control" id="providerUserName" v-model="proveedor.user_name">
-          </div>
-          <div class="form-group">
-            <label for="providerPassword">Password</label>
-            <input type="password" class="form-control" id="providerPassword" v-model="proveedor.password">
-          </div>
-          <div class="form-group">
-            <label for="providerDni">DNI</label>
-            <input type="text" class="form-control" id="providerDni" v-model="proveedor.dni_cif">
-          </div>
-          <div class="form-group">
-            <label for="providerRealName">Real Name</label>
-            <input type="text" class="form-control" id="providerRealName" v-model="proveedor.real_name">
-          </div>
-          <div class="form-group">
-            <label for="providerAddress">Dirección</label>
-            <input type="text" class="form-control" id="providerAddress" v-model="proveedor.address">
-          </div>
-          <button @click="insertProvider()" class="btn btn-primary">Registrar</button>
-          <button type="button" class="btn btn-secondary" @click="showProviderForm = false">Cancelar</button>
-        </form>
-      </div>
-      <div v-if="showEmpresaForm" class="col-md-6 offset-md-3">
-        <h3>Registro para Empresa</h3>
-        <form>
-          <div class="form-group">
-            <label for="empresaUserName">User Name</label>
-            <input type="text" class="form-control" id="empresaUserName" v-model="empresa.user_name">
-          </div>
-          <div class="form-group">
-            <label for="empresaPassword">Password</label>
-            <input type="password" class="form-control" id="empresaPassword" v-model="empresa.password">
-          </div>
-          <div class="form-group">
-            <label for="empresaDni">DNI</label>
-            <input type="text" class="form-control" id="empresaDni" v-model="empresa.dni_cif">
-          </div>
-          <div class="form-group">
-            <label for="empresaRealName">Real Name</label>
-            <input type="text" class="form-control" id="empresaRealName" v-model="empresa.real_name">
-          </div>
-          <div class="form-group">
-            <label for="empresaDireccion">Dirección</label>
-            <input type="text" class="form-control" id="empresaDireccion" v-model="empresa.address">
-          </div>
-          <button @click="insertEmpresa()" class="btn btn-primary">Registrar</button>
-          <button type="button" class="btn btn-secondary" @click="showEmpresaForm = false">Cancelar</button>
-        </form>
+      </main>   
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data() {
-    return {
-      showRiderForm: false,
-      showEmpresaForm: false,
-      showProviderForm: false,
-      usuario: { user_name: '', password: '', dni_cif: '', real_name: '', surname1: '', surname2: '', mail: '', phone: '' },
-      proveedor: { user_name: '', password: '', dni_cif: '', real_name: '', address: '' },
-      empresa: { user_name: '', password: '', dni_cif: '', real_name: '', address: '' },
-    }
+    return {      
+    }            
   },
-  methods: {
+  mounted() {   
+  },
+  methods: {   
     registrateRider() {
-      this.fadeOutRegisterButton();
-      this.showRiderForm = true;
-      this.showEmpresaForm = false;
-      this.showProviderForm = false;
-
+      this.fadeOutRegisterButton();      
+      window.location.href = "/riders/public/riderForm";
 
     },
-    registroEmpresa() {
-      this.showEmpresaForm = true;
-      this.showRiderForm = false;
-      this.showProviderForm = false;
+    registroEmpresa() {     
+      window.location.href = "/riders/public/providerForm";    
     },
-    registroComedor() {
-      this.showProviderForm = true;
-      this.showRiderForm = false;
-      this.showEmpresaForm = false;
+    registroComedor() {      
+      window.location.href = "/riders/public/kitchenForm";
     },
     login() {
       window.location.href = "/riders/public/usuario/create";
-    },
-    insertRider() {
-
-      axios.post('/rider', this.usuario)
-        .then(response => {
-          console.log(response);
-          this.usuario = { user_name: '', password: '', dni_cif: '', real_name: '', surname1: '', surname2: '', mail: '', phone: '' };
-          this.showRiderForm = false;
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-        });
-    },
-    insertProvider() {
-      alert('Formulario enviado para Comedor Social!');
-      axios.post('/provider', this.proveedor)
-        .then(response => {
-          console.log(response);
-          this.proveedor = { user_name: '', password: '', dni_cif: '', real_name: '', address: '' };
-          this.showProviderForm = false;
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-        });
-    },
-    insertEmpresa() {
-      alert('Formulario enviado para Empresa!');
-      axios.post('/empresa', this.empresa)
-        .then(response => {
-          console.log(response);
-          this.empresa = { user_name: '', password: '', dni_cif: '', real_name: '', address: '' };
-          this.showEmpresaForm = false;
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-        });
-    },
+    },    
     fadeOutRegisterButton() {
 
       const registerBtn = document.getElementById('register');
       registerBtn.classList.add('disappear');
-    }
-  }
-
+    },
+  }  
 }
 </script>
 
+<style scoped>
+#manzanita {
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 26%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+}
 
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  opacity: 0; /* Inicia todas las imágenes con opacidad 0 */
+  animation: slideshow 1s steps(1) forwards; /* Aplica la animación a todas las imágenes */
+}
 
+@keyframes slideshow {
+  /* Define un único conjunto de keyframes */
+  0%, 100% { opacity: 0; }
+  16.6%, 33.3% { opacity: 1; }
+  33.4%, 100% { opacity: 0; }
+}
+
+/* Ajusta los delays para cada imagen de manera que solo la última permanezca visible */
+.image:nth-child(1) { animation-delay: 0s; }
+.image:nth-child(2) { animation-delay: 0.166s; }
+.image:nth-child(3) { animation-delay: 0.332s; }
+.image:nth-child(4) { animation-delay: 0.498s; }
+.image:nth-child(5) { animation-delay: 0.664s; }
+.image:nth-child(6) {
+  animation-delay: 0.83s;
+  animation: lastImage 1s steps(1) forwards; 
+}
+
+@keyframes lastImage {
+  0%, 83% { opacity: 0; }
+  83.1%, 100% { opacity: 1; } /* Solo hace visible la última imagen al final */
+}
+</style>

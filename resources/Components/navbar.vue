@@ -17,6 +17,7 @@ import axios from 'axios';
 
 
 export default {
+    name: 'navbar',
 props:{
 
 },
@@ -115,7 +116,7 @@ props:{
             } else if (id === 3) {
                 this.riderSavedRoute();
             } else if (id === 4) {
-                this.profileRoute();
+                this.riderProfileRoute();
             } else if (id === 5) {
                 this.providerHomeRoute();
             } else if (id === 6) {
@@ -134,7 +135,7 @@ props:{
                 this.isRiderSearch = true;
             },
             riderSavedRoute() {
-                window.location.href = "/riders/public/rider/saved";
+                window.location.href = "/riders/public/rider/recurringCustomer";
                 this.isRiderSaved = true;
             },
             riderProfileRoute() {
@@ -146,7 +147,7 @@ props:{
 
             providerHomeRoute() {
                 window.location.href = "/riders/public/provider/home";
-                
+
                 this.isProviderHome = true;
 
 
@@ -213,12 +214,13 @@ props:{
     }
 
     .menu-indicator {
-    position: absolute;
-    height: 50px;
-    width: 140px;
-    border-radius: 50px;
-    background-color: var(--accent-color);
-    transition: all ease 0.5s;
+        position: absolute;
+        height: 50px;
+        width: 140px;
+        border-radius: 50px;
+        background-color: var(--accent-color);
+        transition: all ease 0.5s;
+        z-index: -1;
     }
 
     .menu-indicator.homepage-indicator {
@@ -239,6 +241,11 @@ props:{
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
+    }
+
+    .menu-link span {
+        font-size: 18px;
+        font-weight: 500;
     }
     </style>
 
