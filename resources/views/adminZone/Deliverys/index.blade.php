@@ -12,7 +12,8 @@
 
 
 
-<a class="btn btn-warning mt-3" href="{{url('admin/providers/create')}}">Create Delivery</a>
+<a class="btn btn-warning mt-3" href="{{url('admin/delivery/create')}}">Create Delivery</a>
+
 <table class="table table-dark table-hover mt-3">
       <tr>
         <th scope="col">ID</th>
@@ -93,5 +94,6 @@
 
 
 @endsection
+
 
 

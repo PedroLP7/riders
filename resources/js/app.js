@@ -62,3 +62,8 @@ createApp(chart1).mount("#chart")
 import chart2 from '../Components/rider/chart2.vue' ;
 createApp(chart2).mount("#chart2")
 
+
+
+import adminChart from '../Components/admin/adminChart.vue'
+createApp(adminChart).mount("#adminChart")
+
