@@ -266,7 +266,14 @@ export default {
 
 }
 </script>
-<style>
+<style scoped>
+#titulo {
+    color: #8F8F8F;
+    font-weight: bold;
+    margin-top: 20%;
+    margin-left: 2%;
+}
+
 .container-parte-inferior-rider-profile {
     height: 100px;
 }
@@ -508,5 +515,32 @@ input:checked + .slider:before {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#navbar {
+  width: 100%;
+  left: 0%;
+  right: 0%;
+}
+
+@media (min-width: 950px) {
+    #titulo {
+    color: #8F8F8F;
+    font-weight: bold;
+    margin-top: 10%;
+    margin-left: 2%;
+}
+
+    #navbar {
+        width: 38%;
+        left: 0%;
+        right: 0%;
+    }
+
+    .profile-buttons-container {
+        display: flex;
+        justify-content: space-around;
+        width: 30%;
+    }
 }
 </style>
