@@ -12,6 +12,17 @@ body {
   color: #FFFEDE;
 }
 
+.button-container {
+  position: fixed;
+  display: inline-block;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);    
+  max-width: 75%;
+  min-width: 75%;
+}
+
+
 .hyperlink {
     color: #FFFFFF;
     text-decoration: none;
@@ -149,14 +160,6 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.button-container {
-  position: fixed;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 80%;
-  min-width: 80%;
-}
 
 #register {    
   background-color: #8BB481;
@@ -213,6 +216,124 @@ body {
     top: 87%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+
+@media (min-width: 1024px) {  
+
+  .button-container {
+    position: fixed;
+    display: inline-block;
+    top: 60%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    max-width: 20%;
+    min-width: 20%;
+}
+
+.collaboration {
+  margin-top: 1rem;
+  width: 250%;
+  position: fixed;
+  top: 95%;
+  left: 16%;
+  transform: translate(-50%, -50%);
+}
+
+#manzanita {
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 80%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+}
+
+#quienes {
+  position: fixed;
+  top: 2%;
+  left: 80%;
+}
+
+
+#sesion {
+  position: fixed;
+  top: 2%;
+  left: 90%;
+}
+  
+#titulo-food {
+  color: white;
+  position: fixed;
+  font-weight: bolder;
+  font-size: 240px;
+  top: 36%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  white-space: nowrap;
+  animation: revealText 0.3s linear forwards;
+}
+
+#logo
+{
+  /*background-image: url("../images/PutoLogo7.png");*/
+  position: fixed;  
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 26%;
+  left: 46%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+
+}
+#barra {
+  position: fixed;
+  background-image: url("../images/barra.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 42.5%;
+  left: 35.5%;
+  width: 0;
+  height: 40px;
+  animation: drawBar 0.5s linear 0.3s forwards; /* Animación más rápida con retraso después del título */
+}
+
+#link {
+  color: white;
+  position: fixed;
+  font-weight: bolder;
+  font-size: 200px;
+  top: 34.3%;
+  left: 45%;
+  transform: translate(-50%, -50%) scaleY(0);
+  overflow: hidden;
+  white-space: nowrap;
+  animation: scaleLinkVertical 0.7s ease 0.8s forwards;
+}
+
+#subtitulo {
+  color: white;
+  position: fixed;
+  font-weight: 500;
+  font-size: 53px;
+  width: 800px;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes drawBar {
+  from {
+      width: 0;
+  }
+  to {
+      width: 4000px;
+  }
+}
 }
 /*Estilo Formilarios Registro
 -------------------------------------------------------------------------------------------------------*/
