@@ -24,7 +24,7 @@ const dataSteps = {
   </div>
 
 
-  <h1 id="titulo" v-if="!showMenu">Proveedores disponibles</h1>
+  <h1 id="titulo" v-if="!showMenu">Proveedores disponibles {{ selectedProvider }}</h1>
 
   <!-- <div class="row">
     <div class="col-12">
@@ -119,7 +119,9 @@ const dataSteps = {
                                   <div v-if="!this.showMessage">
                                     <h2 id="modal-body-heading">Su reserva está a punto de ser confirmada</h2>
                                     <h2 id="modal-body-heading2">Pack seleccionado:</h2>
-                                    <provider :id="this.idSelectedProvider" :id_menu_selected="this.idSelectedMenu"
+                                    <provider v-if="!selectedProvider" :id="this.idSelectedProvider" :id_menu_selected="this.idSelectedMenu"
+                                      :find="true" @selectedM="handleSelectedMenu" />
+                                      <provider v-if="selectedProvider" :id="selectedProvider" :id_menu_selected="this.idSelectedMenu"
                                       :find="true" @selectedM="handleSelectedMenu" />
                                     <h2 id="modal-body-heading3">Restaurante seleccionado:</h2>
                                     <div v-for=" prov in providers ">
@@ -193,7 +195,7 @@ const dataSteps = {
 
   <div class="container-parte-inferior-avalaible-providers">
     <div class="container" id="navbar-showAvailableProviders" v-if="!this.id">
-      <navbar v-if="showComponente" />
+      <navbar v-if="showComponente && !selectedProvider" />
     </div>
   </div>
 
@@ -255,6 +257,9 @@ export default {
     this.idSelectedProvider = this.selectedProvider;
     console.log('Hola - ' + this.selectedProvider);
     console.log(this.idSelectedProvider);
+    if(this.idSelectedProvider){
+      this.showMenu = true;
+    }
   },
 
   methods: {

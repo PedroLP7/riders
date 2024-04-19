@@ -14,7 +14,7 @@
   <a id="hey" @click="goToProfile()">
     <h1 id="cipoton"><b>Hey, </b>{{ user.user_name }}</h1>
   </a>
-  <div class="map-container" ref="mapContainer"></div>
+  <div class="map-container" ref="mapContainer" @click="handleMapClick"></div>
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal" @click.stop>
       <span class="close" @click="closeModal">&times;</span>
@@ -46,8 +46,8 @@
       </div>
     </div>
   </div>
-  <div v-if="isProviderModalOpen" class="modal-overlay" @click="closeMarkerOptionsModal">
-    <div class="modal-small" @click.stop>
+  <div v-if="isProviderModalOpen" id="providerModal" class="modal-overlay">
+    <div class="modal-scrollable" @click.stop>
 
       <div class="toggle-modal-size">
         <span class="close" @click="closeMarkerOptionsModal">&times;</span>
@@ -56,7 +56,7 @@
 
 
 
-        <reservation :selectedProvider="provider.id_customer"> </reservation>
+        <reservation ref="modal" :selectedProvider="provider.id_customer"> </reservation>
       </div>
     </div>
   </div>
@@ -127,11 +127,20 @@ export default {
       isMaximized: true,
       user: {},
       loading: true,
-
+      isProviderModalOpen: false,
+      isMarkerOptionsModalOpen: false,
     }
   },
-
   methods: {
+
+    handleMapClick() {
+      this.isProviderModalOpen = false;
+      this.isMarkerOptionsModalOpen = false;
+      if (!this.isMinimized) {
+        this.minimizeModal();
+      }
+      console.log("map click");
+    },
     handleBookin(data) {
       if (data) {
         this.loading = false;
@@ -229,7 +238,9 @@ export default {
         e.stopPropagation();
         this.selectedMarker = { marker, data: m };
         this.mendigo.id_customer = this.selectedMarker.data.id_customer;
-        this.isMarkerOptionsModalOpen = true;
+        isProviderModalOpen.value = false;
+        isMarkerOptionsModalOpen.value = false;
+        isMarkerOptionsModalOpen.value = true;
       });
     } else {
       console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
@@ -414,7 +425,14 @@ export default {
           e.stopPropagation();
           selectedMarker.value = { marker, data: m };
           mendigo.value.id_customer = selectedMarker.value.data.id_customer;
-          isMarkerOptionsModalOpen.value = true;
+          isProviderModalOpen.value = false;
+          isMarkerOptionsModalOpen.value = false;
+          new Promise(resolve => setTimeout(resolve, 1000)); 
+
+          setTimeout(() => {
+        isMarkerOptionsModalOpen.value = true;
+      }, 500);
+          console.log("apple")
         });
       } else {
         console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
@@ -435,9 +453,15 @@ export default {
         marker.getElement().addEventListener('click', (e) => {
           e.stopPropagation();
           selectedMarker.value = { marker, data: m };
-          provider.value.id_customer = selectedMarker.value.data.id_provider;
+          provider.value.id_customer = selectedMarker.value.data.id;
           console.log("clicked")
-          isProviderModalOpen.value = true;
+          console.log("My prop:" + provider.value.id)
+          isProviderModalOpen.value = false;
+          isMarkerOptionsModalOpen.value = false;
+        
+          setTimeout(() => {
+            isProviderModalOpen.value = true;
+      }, 500);
         });
       } else {
         console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
@@ -448,7 +472,7 @@ export default {
       const coords = await getCoordinatesFromAddress(p.provider.adress);
       if (coords) {
 
-        addProviderMarker({ ...p, Xcoord: coords.lng, Ycoord: coords.lat, location: p.provider.adress });
+        addProviderMarker({ ...p, id: p.provider.id_provider, Xcoord: coords.lng, Ycoord: coords.lat, location: p.provider.adress });
       }
     };
 
@@ -507,6 +531,8 @@ export default {
     const confirmAddMarker = () => {
       addMarker(mendigo.value);
       isModalOpen.value = false;
+
+
       insertMendigo();
     };
 
@@ -561,6 +587,26 @@ export default {
   border-radius: 33px;
   padding: 2%;
   overflow: hidden;
+  align-items: center;
+  max-height: 33%;
+  min-height: 33%;
+}
+
+.modal-scrollable {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1050;
+  left: 50%;
+  top: 72%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  min-height: 2%;
+  background-color: #1e1e1edb;
+  backdrop-filter: blur(9px);
+  border-radius: 33px;
+  padding: 2%;
+  overflow-y: auto;
   align-items: center;
   max-height: 33%;
   min-height: 33%;
