@@ -14,7 +14,7 @@
 
 
 
-    <nav class="navbar navbar-expand-lg bg-primary">
+    <nav class="navbar navbar-expand-lg bg-warning">
         <div class="container-fluid">
 
                 <a class="navbar-brand" href="{{url('/admin/home')}}">
@@ -43,7 +43,7 @@
                       <li><a class="dropdown-item" href="{{url('/admin/riders')}}">Riders</a></li>
                       <li><a class="dropdown-item" href="{{url('admin/providers')}}">Providers</a></li>
                         <li><a class="dropdown-item" href="{{url('admin/customers')}}">Customers</a></li>
-                        <li><a class="dropdown-item" href="{{url('admin/communityK')}}">CommunityKitchens</a></li>
+
                       <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{url('admin/bookings')}}">Bookings</a></li>
                         <li><a class="dropdown-item" href="{{url('admin/deliverys')}}">Deliverys</a></li>

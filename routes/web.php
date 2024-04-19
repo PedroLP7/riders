@@ -135,6 +135,7 @@ Route::middleware(['auth'])->group(function () {
 
 
             route::get('/admin/deliverys', [DeliveryController::class, 'index']);
+            route::get('admin/stats', [UsuarioController::class, 'stats']);
 
 
 

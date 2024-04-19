@@ -18,10 +18,12 @@
     </div>
     <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
       <main class="col-12 text-center">
+        <div>
         <h1 id="titulo-food">Food</h1>
         <h1 id="link">Link</h1>
-        <h1 id="barra"></h1>
+        <div id="barra"></div>
         <h2 id="subtitulo">Una red de solidaridad</h2>
+        </div>
         <div class="button-container d-inline-block">
           <button id="register" @click="registrateRider">Regístrate Rider!</button>
           <button id="sombraBoton" @click="registrateRider">Regístrate Rider!</button>
@@ -118,5 +120,20 @@ export default {
 @keyframes lastImage {
   0%, 83% { opacity: 0; }
   83.1%, 100% { opacity: 1; } /* Solo hace visible la última imagen al final */
+}
+
+@media (min-width: 1024px) { 
+  #manzanita {
+  position: fixed;
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 70%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+}
+ 
+
 }
 </style>
