@@ -1,11 +1,9 @@
 <template>
     <nav id="navContainer">
         <ul>
-            <div class="menu-indicator homepage-indicator" :style="{ left: positionToMove, width: sliderWidth }"></div>
             <li v-for="link in filteredLinks" :key="link.id" @click="sliderIndicator(link.id)" :ref="'menu-item_' + link.id" class="menu-item">
                 <a href="#" class="menu-link">
-                    <i class="menu-icon" :class="link.icon"></i>
-                    <span>{{ link.text }}</span>
+                    <img class="menu-icon" :src="link.icon" alt="Icon">
                 </a>
             </li>
         </ul>
@@ -34,25 +32,25 @@ props:{
                 // rider data
                 {
                     id: 1,
-                    icon: "home",
+                    icon: "../../resources/images/home-icon.svg",
                     text: "Inicio",
                     userType: [2]
                 },
                 {
                     id: 2,
-                    icon: "search",
+                    icon: "../../resources/images/search-icon.svg",
                     text: "Buscar",
                     userType: [2]
                 },
                 {
                     id: 3,
-                    icon: "pin",
+                    icon: "../../resources/images/saved-icon.svg",
                     text: "Guardados",
                     userType: [2]
                 },
                 {
                     id: 4,
-                    icon: "profile",
+                    icon: "../../resources/images/profile-icon.svg",
                     text: "Perfil",
                     userType: [2]
                 },
@@ -108,6 +106,8 @@ props:{
             this.selectedElementWidth = el.offsetWidth;
             this.selectedIndex = id;
             this.currentPageId = id;
+
+
 
             if (id === 1) {
                 this.riderHomeRoute();
@@ -168,12 +168,6 @@ props:{
 
 
     computed: {
-        positionToMove() {
-            return this.sliderPosition + "px";
-        },
-        sliderWidth() {
-            return this.selectedElementWidth + "px";
-        },
         isHomePage() {
             return this.currentPageId === 1;
         },
@@ -211,6 +205,9 @@ props:{
         margin: 0;
         padding: 0;
         overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
     }
 
     .menu-indicator {
@@ -229,6 +226,34 @@ props:{
 
     .menu-item {
         display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menu-link:after {
+        content: "";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 22px;
+        width: 10%;
+        opacity: 0;
+        transition: all 0.5s;
+        box-shadow: 0 0 40px 40px #8BB481;
+        left: -50%;
+        position: relative;
+    }
+
+    .menu-link:active:after {
+        box-shadow: 0 0 0 0 #8BB481;
+        position: absolute;
+        border-radius: 22px;
+        opacity: 1;
+        transition: 0s;
+    }
+
+    .menu-link:active {
+        top: 1px;
     }
 
     #navContainer li:hover {
@@ -236,7 +261,9 @@ props:{
     }
 
     #navContainer li a {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: var(--text-unselected);
         text-align: center;
         padding: 14px 16px;
@@ -246,6 +273,18 @@ props:{
     .menu-link span {
         font-size: 18px;
         font-weight: 500;
+    }
+
+    .menu-link {
+        border-radius: 22px;
+        user-select: none;
+        cursor: pointer;
+        --webkit-transition-duration: 0.4s;
+    }
+    
+    .menu-icon {
+        width: 24px;
+        height: 24px;
     }
     </style>
 
