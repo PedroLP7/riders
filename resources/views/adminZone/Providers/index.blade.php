@@ -12,8 +12,8 @@
 
 
 
-<a class="btn btn-primary" href="{{url('admin/providers/create')}}">Create Provider</a>
-<table class="table table-dark table-hover">
+<a class="btn btn-warning mt-3" href="{{url('admin/providers/create')}}">Create Provider</a>
+<table class="table table-dark table-hover mt-3">
       <tr>
         <th scope="col">ID</th>
         <th scope="col">UserName</th>
@@ -73,7 +73,7 @@
 
 
 
-                <button class="btn btn-primary" type="submit">Editar</button>
+                <button class="btn btn-warning" type="submit">Editar</button>
 
             </form>
 
@@ -107,5 +107,15 @@
 
 
 @endsection
+
+<style>
+
+
+
+
+
+
+
+</style>
 
 

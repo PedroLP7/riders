@@ -1,4 +1,4 @@
-@extends('Layouts.principal')
+@extends('Layouts.admin')
 
 
 
@@ -11,10 +11,10 @@
 <form  action="{{action([App\Http\Controllers\CustomerController::class,'update'],$customer->id_customer)}}"  method="POST">
     @csrf
     @method('PUT')
-    <div class="card">
+    <div class="card mt-3 bg-success">
         <div class="card-title mt-3 px-3 ">
 
-            <H2>Creando un customer</H2>
+            <H2>Editando el customer {{$customer->id_customer}}</H2>
 
 
         </div>
@@ -59,10 +59,10 @@
 
 
               <div class="form-group mt-3">
-                <button  class="btn btn-secondary" type="submit">Aceptar</button>
+                <button  class="btn btn-warning" type="submit">Aceptar</button>
               </div>
               <div class="form-group mt-3">
-                <a class="btn btn-primary" href="{{url('admin/customers/')}}">Cancelar</a>
+                <a class="btn btn-danger" href="{{url('admin/customers/')}}">Cancelar</a>
               </div>
           </form>
 

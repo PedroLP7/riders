@@ -1,4 +1,4 @@
-@extends('Layouts.principal')
+@extends('Layouts.admin')
 
 
 
@@ -11,7 +11,7 @@
 <form  action="{{action([App\Http\Controllers\BookingController::class,'store'])}}"  method="POST">
     @csrf
     @method('POST')
-    <div class="card">
+    <div class="card mt-3 bg-success">
         <div class="card-title mt-3 px-3 ">
 
             <H2>Creating a booking</H2>
@@ -103,10 +103,10 @@
 
 
               <div class="form-group mt-3">
-                <button  class="btn btn-secondary" type="submit">Aceptar</button>
+                <button  class="btn btn-warning" type="submit">Aceptar</button>
               </div>
               <div class="form-group mt-3">
-                <a class="btn btn-primary" href="{{url('admin/bookings/')}}">Cancelar</a>
+                <a class="btn btn-danger" href="{{url('admin/bookings/')}}">Cancelar</a>
               </div>
           </form>
 
