@@ -83,12 +83,17 @@ const dataSteps = {
 
                           <div class="book-pack-container" @click="hidePreviousButton()">
                             <div class="button-container d-inline-block" id="boton-container-confirmar">
-                              <button type="button" id="boton-confirmar" class="btn btn-primary" data-bs-toggle="modal"
+                              <!-- <button type="button" id="boton-confirmar" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal" @click="stepProgress.nextStep">
                                 Reservar
+                              </button> -->
+                              <button v-if="!selectedProvider" type="button" id="boton-confirmar-sombra"
+                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                @click="stepProgress.nextStep">
+                                Reservar
                               </button>
-                              <button type="button" id="boton-confirmar-sombra" class="btn btn-primary"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal" @click="stepProgress.nextStep">
+                              <button v-if="selectedProvider" type="button" id="boton-confirmar-sombra"
+                                class="btn btn-primary" @click="createBooking()">
                                 Reservar
                               </button>
                             </div>
@@ -119,10 +124,12 @@ const dataSteps = {
                                   <div v-if="!this.showMessage">
                                     <h2 id="modal-body-heading">Su reserva está a punto de ser confirmada</h2>
                                     <h2 id="modal-body-heading2">Pack seleccionado:</h2>
-                                    <provider v-if="!selectedProvider" :id="this.idSelectedProvider" :id_menu_selected="this.idSelectedMenu"
-                                      :find="true" @selectedM="handleSelectedMenu" />
-                                      <provider v-if="selectedProvider" :id="selectedProvider" :id_menu_selected="this.idSelectedMenu"
-                                      :find="true" @selectedM="handleSelectedMenu" />
+                                    <provider v-if="!selectedProvider" :id="this.idSelectedProvider"
+                                      :id_menu_selected="this.idSelectedMenu" :find="true"
+                                      @selectedM="handleSelectedMenu" />
+                                    <provider v-if="selectedProvider" :id="selectedProvider"
+                                      :id_menu_selected="this.idSelectedMenu" :find="true"
+                                      @selectedM="handleSelectedMenu" />
                                     <h2 id="modal-body-heading3">Restaurante seleccionado:</h2>
                                     <div v-for=" prov in providers ">
                                       <div v-if="this.idSelectedProvider == prov.id_user">
@@ -156,6 +163,12 @@ const dataSteps = {
                                     <div v-if="this.messageType == 'eb'" class="alert alert-danger"
                                       id="alert-danger-booking" role="alert">
                                       No se pueden reservar más paquetes de los disponibles.
+
+                                    </div>
+                                    <div v-if="this.messageType == 'rd'" class="alert alert-danger"
+                                      id="alert-danger-booking" role="alert">
+                                      Registro duplicado, esta intentando reservar un paquete que ya ha reservado en las
+                                      ultimas 24 horas.
 
                                     </div>
                                   </div>
@@ -245,7 +258,7 @@ export default {
       loading: true,
 
     };
-  
+
   },
 
   created() {
@@ -257,7 +270,7 @@ export default {
     this.idSelectedProvider = this.selectedProvider;
     console.log('Hola - ' + this.selectedProvider);
     console.log(this.idSelectedProvider);
-    if(this.idSelectedProvider){
+    if (this.idSelectedProvider) {
       this.showMenu = true;
     }
   },
@@ -313,11 +326,13 @@ export default {
               console.log('Response:', response.data);
               // Handle the response data
               me.messageType = "i";
+              this.$emit('change-message-type', 'i');
               me.showMessage = true;
             })
             .catch(error => {
               console.error('Error:', error);
               me.messageType = "eb";
+              this.$emit('change-message-type', 'eb');
               me.showMessage = true;
             });
           // Do something with the response if needed
@@ -326,7 +341,16 @@ export default {
         })
         .catch(error => {
           console.error('Error creating booking:', error);
-          me.messageType = "e";
+
+          if (error.code === 'ER_DUP_ENTRY') {
+            // Handle the duplicate entry error (code 1062) here
+            me.messageType = "rd";
+            this.$emit('change-message-type', 'rd');
+            console.error('Duplicate entry error:', error.message);
+          } else {
+            this.$emit('change-message-type', 'e');
+            me.messageType = "e";
+          }
           me.showMessage = true;
         });
 
@@ -351,7 +375,7 @@ export default {
           console.log(response);
           this.providers = response.data;
           this.loading = false;
-          
+
         })
         .catch(error => {
           console.error('Error fetching user type', error);
