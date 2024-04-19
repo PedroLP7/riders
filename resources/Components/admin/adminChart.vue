@@ -1,79 +1,80 @@
 <template>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-      <div>
+    <div>
         <canvas ref="chartCanvas"></canvas>
-      </div>
-    </template>
+    </div>
+</template>
 
-  <script>
-  import { Chart } from 'chart.js/auto';
+<script>
+import { Chart } from 'chart.js/auto';
+import axios from 'axios';
 
-  export default {
+export default {
+    data() {
+        return {
+            chartData: []
+        };
+    },
 
+        methods : {
+            getChartData() {
+                const me = this;
+                axios.get('/admin/getStats1')
+                    .then(response => {
+
+                        me.chartData = response.data;
+                        console.log(this.chartData);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+        },
+        created() {
+            this.getChartData();
+        },
     mounted() {
-      // Datos para el gráfico
-      const chartData = {
-        labels: ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-        datasets: [{
-          data: [1,2,3,4,5,6,7,8,9,10,11,12], // Datos ficticios para cada mes
-          backgroundColor: [
-            '#B4DAAA'
+        // Datos para el gráfico
+        const chartData = {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+            datasets: [{
+                label: 'My Dataset',
+                data: [10, 20, 30, 40, 50], // Datos ficticios
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
 
-          ],
-          borderRadius: 10,
-          barThickness: 15
-        }]
-      };
+        // Opciones para el gráfico
+        const options = {
+            scales: {
+                // r: {
+                //     suggestedMin: 0, // Valor mínimo del radio
+                //     suggestedMax: 100 // Valor máximo del radio
+                // }
+            }
+        };
 
-      // Opciones para el gráfico
-      const options = {
-        plugins: {
-          title: {
-            display: false // Desactiva la visualización del título
-          },
-          legend: {
-            display: false // Desactiva la visualización de la leyenda
-          },
-
-        },
-        scales: {
-          x :{
-              ticks: {
-              font: {
-                family: 'Outfit', // Fuente de los meses
-                weight: 'bold', // Peso de la fuente de los meses
-                size: 15 // Tamaño de la fuente de los meses
-              }
-          }
-      },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              font: {
-                family: 'Outfit',
-                weight: 'bold',
-                size: 15
-              }
-            },
-          }
-        },
-
-        elements: {
-          bar: {
-            borderRadius: 10, // Radio de borde general
-            borderSkipped: '' // Aplica el radio de borde solo en la parte inferior de las barras
-          }
-        }
-      };
-
-      // Renderizamos el gráfico
-      new Chart(this.$refs.chartCanvas.getContext('2d'), {
-        type: 'bar', // Tipo de gráfico
-        data: chartData,
-        options: options
-      });
+        // Renderizamos el gráfico
+        new Chart(this.$refs.chartCanvas.getContext('2d'), {
+            type: 'polarArea',
+            data: chartData,
+            options: options
+        });
     }
-  };
-  </script>
+};
+</script>
+
+

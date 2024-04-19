@@ -49,6 +49,7 @@ route::get('rider/deliverys/{rider}', [App\Http\Controllers\Api\RiderController:
 route::get('rider/consecutive/{rider}', [App\Http\Controllers\Api\RiderController::class, 'consecutiveDeliveries']);
 route::get('rider/totalDeliveries/{rider}', [App\Http\Controllers\Api\RiderController::class, 'deliverysxMonth']);
 route::get('rider/monthlyR/{rider}', [App\Http\Controllers\Api\RiderController::class, 'calculateMonthlyChangeR']);
+route::get('admin/getStats1/', [App\Http\Controllers\Api\UsuarioController::class, 'getStats1']);
 
 
 route::put('provider/updateQuantity/{quantity}/{provider_id}/{menu_id}', [ProviderController::class, 'updateQuantity']);

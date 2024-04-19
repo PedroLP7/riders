@@ -164,15 +164,21 @@ class UsuarioController extends Controller
 
 
     public function getStats1(){
-            try {
-                $stats = booking::all()->count();
-                $response = response()->json(['stats' => $stats], 200);
-            } catch (\Throwable $th) {
-                $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
-            }
+        try {
+            $stats = Booking::where('id_status_fk', '=', 3)
+                           ->selectRaw('providers.name as provider_name, count(*) as total')
+                           ->join('providers', 'bookings.provider_id', '=', 'providers.id')
+                           ->groupBy('providers.name')
+                           ->get();
+            $response = response()->json(['stats' => $stats], 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
+        }
 
-            return $response;
-         }
+        return $response;
+    }
+
+
 
 
 
