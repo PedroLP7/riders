@@ -1,4 +1,4 @@
-@extends('Layouts.principal')
+@extends('Layouts.admin')
 
 
 
@@ -11,7 +11,7 @@
 <form  action="{{action([App\Http\Controllers\ProviderController::class,'update'],$provider->id_provider)}}"  method="POST">
     @csrf
     @method('PUT')
-    <div class="card">
+    <div class="card mt-3 bg-success">
         <div class="card-title mt-3 px-3 ">
 
             <H2>Editando el rider {{$provider->user->user_name}}</H2>
@@ -68,13 +68,13 @@
 
 
               <div class="form-group mt-3">
-                <button  class="btn btn-secondary" type="submit">Aceptar</button>
+                <button  class="btn btn-warning" type="submit">Aceptar</button>
               </div>
 
 
 
               <div class="form-group mt-3">
-                <a class="btn btn-primary" href="{{url('admin/providers/')}}">Cancelar</a>
+                <a class="btn btn-danger" href="{{url('admin/providers/')}}">Cancelar</a>
               </div>
           </form>
 

@@ -1,4 +1,4 @@
-@extends('Layouts.principal')
+@extends('Layouts.admin')
 
 
 
@@ -11,7 +11,7 @@
 <form  action="{{action([App\Http\Controllers\RiderController::class,'update'],$rider->id_rider)}}"  method="POST">
     @csrf
     @method('PUT')
-    <div class="card">
+    <div class="card mt-3 bg-success">
         <div class="card-title mt-3 px-3 ">
 
             <H2>Editando el rider {{$rider->user->user_name}}</H2>
@@ -20,7 +20,7 @@
         </div>
         @include('php_partials.mensajes')
 
-        <div class="card-body">
+        <div class="card-body ">
             <div class="form-group row px-2">
                 <label for="id" class="col-sm-2 col-form-label">ID</label>
                 <div class="col-sm-10">
@@ -85,11 +85,11 @@
 
 
               <div class="form-group mt-3">
-                <button  class="btn btn-secondary" type="submit">Aceptar</button>
+                <button  class="btn btn-warning" type="submit">Aceptar</button>
               </div>
 
               <div class="form-group mt-3">
-                <a class="btn btn-primary" href="{{url('admin/riders/')}}">Cancelar</a>
+                <a class="btn btn-danger" href="{{url('admin/riders/')}}">Cancelar</a>
               </div>
           </form>
 

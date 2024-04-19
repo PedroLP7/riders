@@ -105,4 +105,9 @@ class UsuarioController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+
+    public function stats(){
+        return view('adminZone.stats');
+    }
 }

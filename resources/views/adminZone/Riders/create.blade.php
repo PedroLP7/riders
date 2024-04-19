@@ -1,4 +1,4 @@
-@extends('Layouts.principal')
+@extends('Layouts.admin')
 
 
 
@@ -11,10 +11,10 @@
 <form  action="{{action([App\Http\Controllers\RiderController::class,'store'])}}"  method="POST">
     @csrf
     @method('POST')
-    <div class="card">
-        <div class="card-title mt-3 px-3 ">
+    <div class="card mt-3 bg-success">
+        <div class="card-title mt-3 px-3 success">
 
-            <H2>Creando un rider}</H2>
+            <H2>Creando un rider</H2>
 
 
         </div>
@@ -89,10 +89,10 @@
 
 
               <div class="form-group mt-3">
-                <button  class="btn btn-secondary" type="submit">Aceptar</button>
+                <button  class="btn btn-warning" type="submit">Aceptar</button>
               </div>
               <div class="form-group mt-3">
-                <a class="btn btn-primary" href="{{url('admin/riders/')}}">Cancelar</a>
+                <a class="btn btn-danger" href="{{url('admin/riders/')}}">Cancelar</a>
               </div>
           </form>
 
