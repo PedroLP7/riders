@@ -398,8 +398,9 @@ export default {
 #navbar-showAvailableProviders {
   position: fixed;
   top: 90%;
-  padding-left: 0px;
-  padding-right: 25px;
+  width: 100%;
+  left: 0%;
+  right: 0%;
 }
 
 #card-providers {
@@ -648,5 +649,48 @@ export default {
   --bs-alert-border-color: none;
   --bs-alert-link-color: var(--bs-success-text-emphasis);
   line-height: 1.3;
+}
+
+@media (min-width: 1024px) {
+  #titulo {
+    color: #8F8F8F;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-left: 0%;
+  }
+
+  #navbar-showAvailableProviders {
+  position: fixed;
+  top: 90%;
+  width: 38%;
+  left: 0%;
+  right: 0%;
+}
+
+#card-body-provider-big-title2 {
+    margin-top: -11%;
+    margin-left: 2%;
+    margin-bottom: 5%;
+    color: white;
+    font-size: 36px;
+}
+
+#card-body-provider-big-title {
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-bottom: -12%;
+    color: white;
+    font-size: 36px;
+}
+
+  @media (max-width: 650px) {
+    #card-body-provider-big-title2 {
+    margin-top: -18%;
+    margin-left: 2%;
+    margin-bottom: 5%;
+    color: white;
+    font-size: 36px;
+}
+  }
 }
 </style>
