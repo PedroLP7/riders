@@ -137,6 +137,12 @@ export default {
 </script>
 
 <style scoped>
+#navbar {
+  width: 100%;
+  left: 0%;
+  right: 0%;
+}
+
 #saved-puas-title {
     color: #8F8F8F;
     font-weight: bold;
@@ -210,5 +216,17 @@ export default {
   display: flex; /* Added this line */
   justify-content: center; /* This centers the navbar horizontally */
   align-items: center; /* This centers the navbar vertically (optional) */
+}
+
+@media (min-width: 950px) {
+  #saved-puas-title {
+    margin-top: 10%;
+  }
+
+  #navbar {
+    width: 38%;
+    left: 0%;
+    right: 0%;
+  }
 }
 </style>
