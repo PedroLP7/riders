@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas ref="chartCanvas"></canvas>
+        <canvas ref="chartCanvas" v-if="chartData"></canvas>
     </div>
 </template>
 
