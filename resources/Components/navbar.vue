@@ -58,19 +58,19 @@ props:{
                 // provider data
                 {
                     id: 5,
-                    icon: "home",
+                    icon: "../../resources/images/home-icon.svg",
                     text: "Inicio",
                     userType: [3]
                 },
                 {
                     id: 6,
-                    icon: "track",
+                    icon: "../../resources/images/track-icon.svg",
                     text: "Track",
                     userType: [3]
                 },
                 {
                     id: 7,
-                    icon: "profile",
+                    icon: "../../resources/images/profile-icon.svg",
                     text: "Profile",
                     userType: [3]
                 },
