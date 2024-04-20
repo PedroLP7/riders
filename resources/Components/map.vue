@@ -11,7 +11,34 @@
       <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
     </div>
   </div>
-  <a id="hey" @click="goToProfile()">
+  <div style="text-align: center; z-index: 2000000000;">
+
+    <div v-if="this.messageType == 'i'" class="alert alert-success" id="alert-success-booking" role="alert">
+      Su reserva ha sido tramitada correctamente
+    </div>
+
+    <div v-if="this.messageType == 'e'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+      Su reserva no ha podido ser tramitada, vuelva a probar mas tarde.
+
+    </div>
+    <div v-if="this.messageType == 'eb'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+      No se pueden reservar más paquetes de los disponibles.
+
+    </div>
+    <div v-if="this.messageType == 'ds'" class="alert alert-success" id="alert-success-booking" role="alert">
+      El delivery se realizo con exito
+
+    </div>
+    <div v-if="this.messageType == 'df'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+      El delivery no pudo ser registrado
+
+    </div>
+    <div v-if="this.messageType == 'rd'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+     Registro duplicado, esta intentando reservar un paquete que ya ha reservado en las ultimas 24 horas.
+
+    </div>
+  </div>
+  <a id="hey" @click="goToProfile()" style="z-index: 10;">
     <h1 id="cipoton"><b>Hey, </b>{{ user.user_name }}</h1>
   </a>
   <div class="map-container" ref="mapContainer" @click="handleMapClick"></div>
@@ -56,7 +83,8 @@
 
 
 
-        <reservation ref="modal" :selectedProvider="provider.id_customer"> </reservation>
+        <reservation ref="modal" :selectedProvider="provider.id_customer"
+          @change-message-type="handleMessageTypeChange"> </reservation>
       </div>
     </div>
   </div>
@@ -129,9 +157,35 @@ export default {
       loading: true,
       isProviderModalOpen: false,
       isMarkerOptionsModalOpen: false,
+      messageType: null,
     }
   },
   methods: {
+    handleMessageTypeChange(message) {
+      this.messageType = message;
+      console.log("prop response" + message);
+      this.isProviderModalOpen = false;
+      if (!this.isMinimized) {
+        this.minimizeModal();
+      }
+      setTimeout(() => {
+        this.messageType = null;
+          }, 4500);
+
+    },
+    handleDelivery(delivery) {
+      console.log("recieved emit delivery " +delivery);
+      if (delivery == 's') {
+        this.messageType = "ds";
+        setTimeout(() => {
+        this.messageType = null;
+          }, 4500);
+
+      } else if (delivery == 'e') {
+        this.messageType = "df";
+      }
+      this.isMarkerOptionsModalOpen = false;
+    },
 
     handleMapClick() {
       this.isProviderModalOpen = false;
@@ -186,6 +240,7 @@ export default {
     },
     minimizeModal() {
       this.isMinimized = true;
+      this.isMaximized = false;
       document.querySelector('.modal-content').style.display = 'none';
       document.querySelector('.modal-small-initial').style.minHeight = '10%';
       document.querySelector('.modal-small-initial').style.top = '84%';
@@ -427,11 +482,10 @@ export default {
           mendigo.value.id_customer = selectedMarker.value.data.id_customer;
           isProviderModalOpen.value = false;
           isMarkerOptionsModalOpen.value = false;
-          new Promise(resolve => setTimeout(resolve, 1000)); 
-
+         
           setTimeout(() => {
-        isMarkerOptionsModalOpen.value = true;
-      }, 500);
+            isMarkerOptionsModalOpen.value = true;
+          }, 500);
           console.log("apple")
         });
       } else {
@@ -458,10 +512,10 @@ export default {
           console.log("My prop:" + provider.value.id)
           isProviderModalOpen.value = false;
           isMarkerOptionsModalOpen.value = false;
-        
+
           setTimeout(() => {
             isProviderModalOpen.value = true;
-      }, 500);
+          }, 500);
         });
       } else {
         console.error('Coordenadas no válidas:', m.Xcoord, m.Ycoord);
