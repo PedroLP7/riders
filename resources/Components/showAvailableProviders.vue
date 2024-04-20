@@ -55,7 +55,7 @@ const dataSteps = {
                         <h5 v-if="!idSelectedProvider" class="card-title" id="card-title-restaurant">{{ prov.real_name
                           }}</h5>
                         <p class="card-text" id="card-text-restaurant" v-if="!idSelectedProvider">{{
-                          prov.provider.adress }}</p>
+    prov.provider.adress }}</p>
 
                       </div>
                     </div>
@@ -308,7 +308,7 @@ export default {
       if (me.usuario) {
         me.booking.id_rider_fk = me.usuario.id_user;
       }
-      if (me.recievedQuantity == 0) {
+      if (me.recievedQuantity == 0 || me.recievedQuantity == null) {
         me.recievedQuantity = 1;
       }
       me.booking.id_provider_fk = me.idSelectedProvider;
@@ -331,8 +331,10 @@ export default {
             })
             .catch(error => {
               console.error('Error:', error);
-              me.messageType = "eb";
-              this.$emit('change-message-type', 'eb');
+              if (error.response.data.error != 'Registro duplicado') {
+                me.messageType = "eb";
+                this.$emit('change-message-type', 'eb');
+              }
               me.showMessage = true;
             });
           // Do something with the response if needed
@@ -341,12 +343,12 @@ export default {
         })
         .catch(error => {
           console.error('Error creating booking:', error);
-
-          if (error.code === 'ER_DUP_ENTRY') {
+          console.log("pizza:" + error.response.data.error);
+          if ( error.response.data.error == 'Registro duplicado') {
             // Handle the duplicate entry error (code 1062) here
             me.messageType = "rd";
             this.$emit('change-message-type', 'rd');
-            console.error('Duplicate entry error:', error.message);
+           
           } else {
             this.$emit('change-message-type', 'e');
             me.messageType = "e";

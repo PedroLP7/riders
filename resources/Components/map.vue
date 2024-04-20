@@ -25,11 +25,11 @@
       No se pueden reservar más paquetes de los disponibles.
 
     </div>
-    <div v-if="this.messageType == 'ds'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+    <div v-if="this.messageType == 'ds'" class="alert alert-success" id="alert-success-booking" role="alert">
       El delivery se realizo con exito
 
     </div>
-    <div v-if="this.messageType == 'ds'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+    <div v-if="this.messageType == 'df'" class="alert alert-danger" id="alert-danger-booking" role="alert">
       El delivery no pudo ser registrado
 
     </div>
@@ -164,12 +164,24 @@ export default {
     handleMessageTypeChange(message) {
       this.messageType = message;
       console.log("prop response" + message);
-      isProviderModalOpen.value = false;
+      this.isProviderModalOpen = false;
+      if (!this.isMinimized) {
+        this.minimizeModal();
+      }
+      setTimeout(() => {
+        this.messageType = null;
+          }, 4500);
+
     },
     handleDelivery(delivery) {
-      if (delivery) {
+      console.log("recieved emit delivery " +delivery);
+      if (delivery == 's') {
         this.messageType = "ds";
-      } else {
+        setTimeout(() => {
+        this.messageType = null;
+          }, 4500);
+
+      } else if (delivery == 'e') {
         this.messageType = "df";
       }
       this.isMarkerOptionsModalOpen = false;
@@ -228,6 +240,7 @@ export default {
     },
     minimizeModal() {
       this.isMinimized = true;
+      this.isMaximized = false;
       document.querySelector('.modal-content').style.display = 'none';
       document.querySelector('.modal-small-initial').style.minHeight = '10%';
       document.querySelector('.modal-small-initial').style.top = '84%';
@@ -469,8 +482,7 @@ export default {
           mendigo.value.id_customer = selectedMarker.value.data.id_customer;
           isProviderModalOpen.value = false;
           isMarkerOptionsModalOpen.value = false;
-          new Promise(resolve => setTimeout(resolve, 1000));
-
+         
           setTimeout(() => {
             isMarkerOptionsModalOpen.value = true;
           }, 500);
