@@ -280,4 +280,53 @@ export default {
     background-color: transparent;
     border: none;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+@media (max-height: 730px) {
+    .bottom-container {
+    display: flex;
+    margin-top: 40px;
+    width: 35%;
+    height: 30%;
+    justify-content: space-between;
+    align-items: end;
+    position: relative;
+    left: 63%;
+    flex-direction: column;
+    bottom: 40%;
+}
+
+#items-container {
+    height: 40%;
+    width: 65%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-top: 30px;
+}
+}
+
+@media (max-height: 890px) {
+    #items-container {
+    height: 30%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin-top: 30px;
+}
+
+#createMenuImg {
+    border-radius: 15px;
+    object-fit: cover;
+    height: 100px;
+    width: 100%;
+}
+}
 </style>

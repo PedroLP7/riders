@@ -19,7 +19,7 @@
 
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
         <div id="cards-container-showPack">
-            <div v-if="user">
+            <div v-if="user" style="display: flex; max-width: 90%; flex-wrap: wrap; justify-content: center;">
                 <div v-for="menu in user.provider.menus">
                     <div class="card mt-3" id="card-showPack"
                         v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
