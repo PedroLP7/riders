@@ -101,7 +101,7 @@
 
 
 
-    <div class="container-parte-inferior">
+    <div class="container-parte-inferior-profile">
         <div class="container" id="navbar">
             <navbar v-if="showComponente" />
         </div>
@@ -274,6 +274,10 @@ export default {
 }
 </script>
 <style>
+.container-parte-inferior-profile {
+    height: 100px;
+}
+
 .ocultar {
     display: none;
 
@@ -440,5 +444,26 @@ export default {
     background-color: #8BB481;
     border: none;
     border-radius: 50px;
+}
+
+@media (min-width: 950px) {
+    #titulo {
+    color: #8F8F8F;
+    font-weight: bold;
+    margin-top: 10%;
+    margin-left: 2%;
+}
+
+    #navbar {
+        width: 38%;
+        left: 0%;
+        right: 0%;
+    }
+
+    .profile-buttons-container {
+        display: flex;
+        justify-content: space-around;
+        width: 30%;
+    }
 }
 </style>

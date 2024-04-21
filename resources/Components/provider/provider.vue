@@ -19,7 +19,7 @@
 
         <!-- <button class="btn btn-primary" @click="showBook()">Show bookings</button> -->
         <div id="cards-container-showPack">
-            <div v-if="user">
+            <div v-if="user" style="display: flex; max-width: 90%; flex-wrap: wrap; justify-content: center;">
                 <div v-for="menu in user.provider.menus">
                     <div class="card mt-3" id="card-showPack"
                         v-if="!this.id_menu_selected || this.id_menu_selected == menu.id_menu">
@@ -52,10 +52,12 @@
                     </div>
                 </div>
 
+                <div class="container" id="bookings" v-if="!this.id">
+                    <bookings v-if="showBookings" :usuario="idUser" />
+                </div>
+
                 <div class="container-parte-inferior-provider">
-                    <div class="container" id="bookings" v-if="!this.id">
-                        <bookings v-if="showBookings" :usuario="idUser" />
-                    </div>
+                    
                     <div class="container" id="navbar" v-if="!this.id">
                         <navbar v-if="showComponente" />
                     </div>
@@ -194,14 +196,15 @@ body {
 
 .container-parte-inferior-provider {
     height: 200px;
-    display: flex; /* Added this line */
-    justify-content: center; /* This centers the navbar horizontally */
-    align-items: center; /* This centers the navbar vertically (optional) */
+    
 }
 
 #navbar {
     position: fixed;
     top: 90%;
+    width: 100%;
+    left: 0%;
+    right: 0%;
 }
 
 #titulo {
@@ -405,6 +408,20 @@ body {
     color: #1E1E1E;
     background-color: #8BB481;
     border-color: none;
+}
 
+@media (min-width: 1024px) {
+    #titulo {
+    color: #8F8F8F;
+    font-weight: bold;
+    margin-top: 10%;
+    margin-left: 2%;
+}
+
+#navbar {
+    width: 38%;
+    left: 0%;
+    right: 0%;
+  }
 }
 </style>

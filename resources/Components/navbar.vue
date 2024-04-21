@@ -208,6 +208,7 @@ props:{
         display: flex;
         justify-content: space-around;
         width: 80%;
+        height: 100%;
     }
 
     .menu-indicator {
