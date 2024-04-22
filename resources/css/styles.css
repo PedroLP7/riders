@@ -55,7 +55,7 @@ body {
 
 #empresa
 {
-  margin-bottom: 2%;
+  margin-bottom: 2%; 
 }
 
 #empresa p {
@@ -154,7 +154,7 @@ body {
     position: absolute;
     font-weight: 500;   
     font-size: 25px;
-    width: 500px; 
+    width: 300px; 
     top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -211,7 +211,7 @@ body {
 
 .collaboration {
     margin-top: 1rem;
-    width: 250%;
+    width: 70%;
     position: absolute;
     top: 87%;
     left: 50%;
@@ -320,7 +320,7 @@ body {
   position: fixed;
   font-weight: 500;
   font-size: 53px;
-  width: 800px;
+  width: 600px;
   top: 50%;
   left: 20%;
   transform: translate(-50%, -50%);

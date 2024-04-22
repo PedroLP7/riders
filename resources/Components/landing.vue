@@ -1,6 +1,6 @@
 <template>
   <div class="app-container" id="landing">
-    <div class="row">
+    <div>
       <header class="col-12" style="margin-top: 5%;">
         <nav class="navbar justify-content-between">
           <a id="quienes" class="hyperlink" href="#quienes-somos-section">Quiénes somos?</a>
@@ -16,7 +16,17 @@
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni5.png');"></div>
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni6.png');"></div> 
     </div>
-    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="circle-button" @click="toggleModal">+</div>
+  
+    <div class="modal" v-if="showModal">
+    <div class="modal-content">
+      <span class="close" @click="toggleModal">&times;</span>
+      <a href="#" @click="option1">Opción 1</a>
+      <a href="#" @click="option2">Opción 2</a>
+      <a href="#" @click="option3">Opción 3</a>
+    </div>
+    </div>
+    <div>
       <main class="col-12 text-center">
         <div>
         <h1 id="titulo-food">Food</h1>
@@ -64,12 +74,16 @@
 <script>
 export default {
   data() {
-    return {      
+    return {  
+      showModal: false,    
     }            
   },
   mounted() {   
   },
-  methods: {   
+  methods: {  
+    toggleModal() {
+      this.showModal = !this.showModal;
+    }, 
     registrateRider() {
       this.fadeOutRegisterButton();      
       window.location.href = "/riders/public/riderForm";
@@ -155,7 +169,56 @@ export default {
   width: 340px;
   height: 340px;
 }
- 
-
 }
+
+.circle-button {
+    position: fixed;
+    top:90%;  
+    left: 82%;
+    width: 60px;
+    height: 60px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 5100;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+  }
+
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .modal-content a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
 </style>
