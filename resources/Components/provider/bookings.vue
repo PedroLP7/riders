@@ -591,6 +591,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 5%;
+  padding-bottom: 30%;
 }
 
 .container-parte-inferior-bookings {
