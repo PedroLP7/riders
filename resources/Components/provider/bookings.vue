@@ -392,7 +392,7 @@ defineEmits(['found-booking'])
   <!-- </div> -->
 
   <div class="container-parte-inferior-bookings">
-    <div class="container" id="navbar">
+    <div class="container" id="navbar" v-if="!screen">
       <navbar v-if="showComponente" />
     </div>
   </div>
