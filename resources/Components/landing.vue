@@ -158,6 +158,18 @@ export default {
   top: 100vh;
 }
 
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    top: 63%;
+    right: 4%;
+    height: 230px;
+    border-radius: 50px;
+    width: 60px;
+    position: fixed;
+}
+
 @media (min-width: 1024px) { 
   #manzanita {
   position: relative;
@@ -201,7 +213,7 @@ export default {
     z-index: 5000;
   }
 
-  .modal-content {
+  /* .modal-content {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -211,7 +223,7 @@ export default {
   .modal-content a {
     display: block;
     margin: 10px 0;
-  }
+  } */
 
   .close {
     position: absolute;
