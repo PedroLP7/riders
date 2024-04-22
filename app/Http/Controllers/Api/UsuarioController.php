@@ -204,6 +204,19 @@ class UsuarioController extends Controller
         return $response;
     }
 
+    public function getTotalKg(){
+        try {
+            $kg= booking::where('id_status_fk', '=', 3)->count();
+            $total = $kg * 0.5;
+            $response = response()->json($total, 200);
+        } catch (\Throwable $th) {
+            $response = response()->json(['error' => 'Error al mostrar los kg totales ' . $th->getMessage()], 500);
+        }
+        return $response;
+
+    }
+
+
 
 
 

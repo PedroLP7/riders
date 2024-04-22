@@ -51,6 +51,8 @@ route::get('rider/totalDeliveries/{rider}', [App\Http\Controllers\Api\RiderContr
 route::get('rider/monthlyR/{rider}', [App\Http\Controllers\Api\RiderController::class, 'calculateMonthlyChangeR']);
 route::get('admin/getStats1/', [App\Http\Controllers\Api\UsuarioController::class, 'getStats1']);
 route::get('admin/getActiveUsers/', [App\Http\Controllers\Api\UsuarioController::class, 'getActiveUsers']);
+route::get('admin/getTotalKg/', [App\Http\Controllers\Api\UsuarioController::class, 'getTotalKg']);
+
 
 
 route::put('provider/updateQuantity/{quantity}/{provider_id}/{menu_id}', [ProviderController::class, 'updateQuantity']);
