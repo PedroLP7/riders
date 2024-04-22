@@ -1,9 +1,9 @@
 <template>
   <div class="app-container" id="landing">
     <div class="row">
-      <header class="col-12">
+      <header class="col-12" style="margin-top: 5%;">
         <nav class="navbar justify-content-between">
-          <a id="quienes" class="hyperlink" href="#quienes-somos">Quiénes somos?</a>
+          <a id="quienes" class="hyperlink" href="#quienes-somos-section">Quiénes somos?</a>
           <a id="sesion" class="hyperlink" @click="login" href="#iniciar-sesion">Iniciar Sesión</a>
         </nav>
       </header>
@@ -38,6 +38,23 @@
             <a class="hyperlink" @click="registroComedor">Regístrate ahora!</a>
           </div> -->
         </div>
+
+        <section id="quienes-somos-section">
+          <div class="bienvenido-foodlink">
+            <h2>Bienvenido a FoodLink</h2>
+            <p>
+              En FoodLink, no solo estamos 
+              construyendo una plataforma, estamos 
+              forjando un movimiento hacia un mundo 
+              más justo y sostenible. Imagina un lugar 
+              donde cada acción cuenta, donde cada 
+              entrega de alimentos no solo reduce el 
+              desperdicio, sino que también alimenta
+              la esperanza y fortalece los lazos 
+              comunitarios.
+            </p>
+          </div>
+        </section>
       </main>   
       </div>
     </div>
@@ -78,7 +95,7 @@ export default {
 
 <style scoped>
 #manzanita {
-  position: fixed;
+  position: absolute;
   background-repeat: no-repeat;
   background-size: contain;
   top: 26%;
@@ -122,9 +139,14 @@ export default {
   83.1%, 100% { opacity: 1; } /* Solo hace visible la última imagen al final */
 }
 
+#quienes-somos-section {
+  position: relative;
+  top: 100vh;
+}
+
 @media (min-width: 1024px) { 
   #manzanita {
-  position: fixed;
+  position: relative;
   background-repeat: no-repeat;
   background-size: contain;
   top: 70%;
