@@ -1063,19 +1063,21 @@ button:hover {
 }
 
 .loading-overlay {
- position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- background-color: #1e1e1e;
- color: white;
- display: flex;
- justify-content: center;
- align-items: center;
- font-size: 2em;
- z-index: 5000;
-}
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 30, 30, 0.8); 
+    backdrop-filter: blur(9px);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    z-index: 5000;
+   }
+   
 
 #manzanita {
   position: fixed;
