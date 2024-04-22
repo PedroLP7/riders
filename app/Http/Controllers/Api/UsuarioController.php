@@ -192,7 +192,17 @@ class UsuarioController extends Controller
 
 
 
+    public function getActiveUsers(){
+        try {
+            $usuarios = usuario::where('isActive', '=', 1)->get();
+           $ActiveUsers =  $usuarios->count();
 
+            $response = response()->json($ActiveUsers, 200);
+        } catch (\Throwable $th) {
+           $response = response()->json(['error' => 'Error al mostrar los usuarios: ' . $th->getMessage()], 500);
+        }
+        return $response;
+    }
 
 
 
