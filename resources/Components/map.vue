@@ -11,30 +11,30 @@
       <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni8.png');"></div>
     </div>
   </div>
-  <div style="text-align: center; z-index: 2000000000;">
+  <div style="text-align: center; z-index: 9909999;" class="alerts-container">
 
-    <div v-if="this.messageType == 'i'" class="alert alert-success" id="alert-success-booking" role="alert">
+    <div v-if="this.messageType == 'i'"  id="alert-success-booking" role="alert">
       Su reserva ha sido tramitada correctamente
     </div>
 
-    <div v-if="this.messageType == 'e'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+    <div v-if="this.messageType == 'e'" id="alert-danger-booking" role="alert">
       Su reserva no ha podido ser tramitada, vuelva a probar mas tarde.
 
     </div>
-    <div v-if="this.messageType == 'eb'" class="alert alert-danger" id="alert-danger-booking" role="alert">
+    <div v-if="this.messageType == 'eb'" id="alert-danger-booking" role="alert">
       No se pueden reservar más paquetes de los disponibles.
 
     </div>
-    <div v-if="this.messageType == 'ds'" class="alert alert-success" id="alert-success-booking" role="alert">
-      El delivery se realizo con exito
+    <div v-if="this.messageType == 'ds'" id="alert-success-booking" role="alert">
+      La entrega se realizó con exito
 
     </div>
-    <div v-if="this.messageType == 'df'" class="alert alert-danger" id="alert-danger-booking" role="alert">
-      El delivery no pudo ser registrado
+    <div v-if="this.messageType == 'df'" id="alert-danger-booking" role="alert">
+      La entrega no pudo ser registrada
 
     </div>
-    <div v-if="this.messageType == 'rd'" class="alert alert-danger" id="alert-danger-booking" role="alert">
-     Registro duplicado, esta intentando reservar un paquete que ya ha reservado en las ultimas 24 horas.
+    <div v-if="this.messageType == 'rd'" id="alert-danger-booking" role="alert">
+     Registro duplicado, este paquete ya ha sido reservado en las ultimas 24h
 
     </div>
   </div>
@@ -158,6 +158,7 @@ export default {
       isProviderModalOpen: false,
       isMarkerOptionsModalOpen: false,
       messageType: null,
+      isAlertsContainerVisible: false,
     }
   },
   methods: {
@@ -902,6 +903,59 @@ button:hover {
   font-weight: 500;
   font-size: 20px;
   margin-right: 5%;
+}
+
+.alerts-container {
+  top: 30%;
+  position: absolute;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 18%;
+  line-height: 1.2;
+}
+
+#alert-success-booking {
+  background-color: #1e1e1eb5;
+  backdrop-filter: blur(9px);
+  border-radius: 26px;
+  color: white;
+  padding: 10px;
+  height: 20%;
+  width: 40%;
+  font-weight: 500;
+  color: #8BB481;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  margin-left: 0;
+}
+
+#alert-danger-booking {
+  background-color: #1e1e1eb5;
+  backdrop-filter: blur(9px);
+  border-radius: 26px;
+  color: white;
+  padding: 10px;
+  height: 20%;
+  width: 40%;
+  font-weight: 500;
+  color: #E46962;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  margin-left: 0;
 }
 
 @media (min-width: 1024px) {

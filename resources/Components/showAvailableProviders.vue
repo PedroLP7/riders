@@ -466,13 +466,13 @@ export default {
 }
 
 #card-provider-big {
-  background-color: #141414;
+  background-color: transparent;
   border-radius: 26px;
   margin-bottom: 5%;
 }
 
 #card-body-provider-big {
-  background-color: #141414;
+  background-color: transparent;
   border-radius: 26px;
 }
 
