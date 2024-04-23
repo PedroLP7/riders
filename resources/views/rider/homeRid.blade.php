@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="../../resources/css/loading.css">  
-<script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+<link rel="stylesheet" type="text/css" href="../../resources/css/loading.css">
+{{-- <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
 <script src="https://mediafiles.botpress.cloud/90b0b64f-4607-4ba9-a543-41d7b7a589ed/webchat/config.js"
-    defer></script>
+    defer></script> --}}
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.css" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -39,19 +39,19 @@ body { margin: 0; padding: 0; }
     /* Aligns the button to the right side of the container */
     float: left;
     background-color: red;
-    
+
     /* Sets the fill color of the button icon */
     fill: rgb(255, 255, 255);
     /* Changes the cursor to a pointer when hovering over the button */
     cursor: pointer;
     /* Removes the outline around the button when clicked */
     outline: none;
- 
+
     /* Centers the icon inside the button element */
     display: flex;
     align-items: center;
     justify-content: center;
- 
+
     /* Sets the z-index to ensure the button is on top of other elements */
     z-index: 10;
     /* Sets the width and height of the button */
@@ -65,29 +65,29 @@ body { margin: 0; padding: 0; }
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4);
     /* Clips any content that overflows the button */
     overflow: hidden;
- 
+
     /* Removes padding and borders from the button */
     padding: 0;
     border: none;
     background-clip: padding-box;
- 
+
     /* Adds a transition effect to the button when its size changes */
     transition: width 1s, height 1s;
 }
 
 </head>
 <body>
-    
+
 <style>
     .mapboxgl-popup {
         max-width: 400px;
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     }
-    
+
 </style>
 <script src="https://api.mapbox.com/mapbox-assembly/v1.3.0/assembly.js"></script>
 
-  
+
 <div id="mapbox"></div>
 
 
