@@ -67,22 +67,16 @@
         </div>
     </div>
 
-    <div class="modal" tabindex="-1" id="deleteModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Confirmacion de eliminar</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+<div class="modal" tabindex="-1" id="deleteModal">
+  <div class="modal-dialog" >
+    <div class="modal-content" id="alert-danger-delete">
       <div class="modal-body">
-        <p>Estas seguro que quieres eliminar el menú {{menu.id_menu  }} </p>
+        <p>Estas seguro que quieres eliminar el menú {{menu.id_menu  }}  ?</p>
        <span v-if="isError" class="badge text-bg-danger">{{ messageError }}</span>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" @click="deleteMenu(menu.id_menu)"><i class="bi bi-trash"></i>Eliminar</button>
-
-
+      <div class="modal-footer" id="alert-danger-delete-footer">
+        <button type="button" class="btn btn-secondary" id="alert-danger-delete-cancel" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" id="alert-danger-delete-confirm" @click="deleteMenu(menu.id_menu)"><i class="bi bi-trash"></i>Eliminar</button>
       </div>
     </div>
   </div>
@@ -445,6 +439,49 @@ body {
     color: #1E1E1E;
     background-color: #8BB481;
     border-color: none;
+}
+
+#alert-danger-delete {
+    background-color: #1e1e1eb5;
+    backdrop-filter: blur(9px);
+    border-radius: 26px;
+    color: white;
+    padding: 10px;
+    height: 20%;
+    width: 40%;
+    font-weight: 500;
+    color: #E46962;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    margin-left: 0;
+    text-align: center;
+}
+
+#alert-danger-delete-footer {
+    border: none;
+}
+
+#alert-danger-delete-confirm {
+    background-color: #E46962;
+    color: white;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 24px;
+    border: none;
+}
+
+#alert-danger-delete-cancel {
+    background-color: #8F8F8F;
+    color: white;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 24px;
+    border: none;
 }
 
 @media (min-width: 1024px) {
