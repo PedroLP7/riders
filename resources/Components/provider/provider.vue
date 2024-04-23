@@ -1,6 +1,6 @@
 <template>
     <div class="container " id="menus">
-        <div v-if="loading" class="loading-overlay"> 
+        <div v-if="loading" class="loading-overlay">
             <div id="manzanita">
               <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
               <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni2.png');"></div>
@@ -45,7 +45,8 @@
 
                             <button v-if="!this.id" @click="editMenu(menu.id_menu)" class="btn btn-primary"
                                 id="botonEditar">Editar</button>
-                            <button v-if="!this.id" @click="deleteMenu(menu.id_menu)" class="btn btn-primary" id="botonEliminar">Eliminar</button>
+                            <!-- <button v-if="!this.id" @click="deleteMenu(menu.id_menu)" class="btn btn-primary" id="botonEliminar">Eliminar</button> -->
+                            <button v-if="!this.id" @click="ConfirmDelete(menu)" class="btn btn-primary" id="botonEliminar">Eliminar</button>
 
 
                         </div>
@@ -57,7 +58,7 @@
                 </div>
 
                 <div class="container-parte-inferior-provider">
-                    
+
                     <div class="container" id="navbar" v-if="!this.id">
                         <navbar v-if="showComponente" />
                     </div>
@@ -66,6 +67,32 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmacion de eliminar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Estas seguro que quieres eliminar el menú {{menu.id_menu  }} </p>
+       <span v-if="isError" class="badge text-bg-danger">{{ messageError }}</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" @click="deleteMenu(menu.id_menu)"><i class="bi bi-trash"></i>Eliminar</button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 </template>
 <script>
 import bookings from './bookings.vue'
@@ -73,6 +100,7 @@ import bookings from './bookings.vue'
 import navbar from '../../Components/navbar.vue'
 import axios from 'axios'
 import editMenu from './editMenu.vue'
+import * as bootstrap from 'bootstrap';
 
 
 export default {
@@ -94,6 +122,7 @@ export default {
             menus: null,
             selectedMenu: null,
             loading: true,
+            menu: {},
         }
     },
     created() {
@@ -101,15 +130,22 @@ export default {
 
     },
     methods: {
+        ConfirmDelete(menu){
+            this.menu = menu;
+            this.myModal = new bootstrap.Modal('#deleteModal');
+            this.myModal.show();
+
+        },
+
         getProvider() {
             const me = this;
             let idUser;
             if (me.id) {
                 console.log("child component provider id to search: " + me.id)
-                idUser = me.id                
+                idUser = me.id
             } else {
                 idUser = me.userp.id_user
-                
+
             }
 
             axios.get('provider/' + idUser)
@@ -129,17 +165,17 @@ export default {
                 .then(response => {
                     me.userp = response.data
                     console.log(response.data)
-                    console.log(me.userp.id_user);                    
+                    console.log(me.userp.id_user);
                     me.getProvider()
-                  
-                   
+
+
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
         selectMenu(id_menu) {
-            this.selectedMenu = id_menu;         
+            this.selectedMenu = id_menu;
             console.log("My selected menu:" + this.selectedMenu)
 
         },
@@ -153,6 +189,7 @@ export default {
         },
         deleteMenu(menuId) {
             const me = this;
+            me.myModal.hide();
             axios.delete('/charity_menu/' + menuId)
                 .then(response => {
                     console.log(response)
@@ -196,7 +233,7 @@ body {
 
 .container-parte-inferior-provider {
     height: 200px;
-    
+
 }
 
 #navbar {
