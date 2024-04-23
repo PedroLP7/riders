@@ -662,6 +662,7 @@ export default {
   border-radius: 33px;
   padding: 2%;
   overflow-y: auto;
+  overflow-x: hidden;
   align-items: center;
   max-height: 33%;
   min-height: 33%;
