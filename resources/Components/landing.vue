@@ -15,8 +15,8 @@
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni4.png');"></div>
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni5.png');"></div>
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni6.png');"></div> 
-    </div>    
-    </div>
+    </div>   
+  
     <div>
       <main class="col-12 text-center">
         <div>
