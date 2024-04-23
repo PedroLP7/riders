@@ -15,17 +15,8 @@
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni4.png');"></div>
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni5.png');"></div>
       <div class="image" style="background-image: url('../resources/images/animacion/ManzanaAni6.png');"></div> 
-    </div>
-    <div class="circle-button" @click="toggleModal">+</div>
+    </div>   
   
-    <div class="modal" v-if="showModal">
-    <div class="modal-content">
-      <span class="close" @click="toggleModal">&times;</span>
-      <a href="#" @click="option1">Opción 1</a>
-      <a href="#" @click="option2">Opción 2</a>
-      <a href="#" @click="option3">Opción 3</a>
-    </div>
-    </div>
     <div>
       <main class="col-12 text-center">
         <div>

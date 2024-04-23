@@ -80,27 +80,49 @@ const dataSteps = {
                         </div>
 
                         <form action="">
-
-                          <div class="book-pack-container" @click="hidePreviousButton()">
+                          <div class="book-pack-container" v-if="selectedProvider" @click="hidePreviousButton()">
                             <div class="button-container d-inline-block" id="boton-container-confirmar">
                               <!-- <button type="button" id="boton-confirmar" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal" @click="stepProgress.nextStep">
                                 Reservar
                               </button> -->
-                              <button v-if="!selectedProvider" type="button" id="boton-confirmar-sombra"
+                              <button v-if="selectedProvider" type="button" id="boton-confirmar-sombra" style="background-color: #8BB481;"
                                 class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                 @click="stepProgress.nextStep">
                                 Reservar
                               </button>
-                              <button v-if="selectedProvider" type="button" id="boton-confirmar-sombra"
+                              <button v-if="selectedProvider" type="button" id="boton-confirmar-sombra" style="background-color: #8BB481;"
                                 class="btn btn-primary" @click="createBooking()">
                                 Reservar
                               </button>
                             </div>
                           </div>
 
-                          <label for="menu" id="selected-pack-text">Pack seleccionado:</label>
-                          <input type="text" class="pack-number-show" id="menu" @change="stepProgress.nextStep"
+                          <div class="book-pack-container-NotSelectedProvider" v-if="!selectedProvider" @click="hidePreviousButton()">
+                            <div class="button-container d-inline-block" id="boton-container-confirmar">
+                              <!-- <button type="button" id="boton-confirmar" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" @click="stepProgress.nextStep">
+                                Reservar
+                              </button> -->
+                              <button type="button" id="boton-confirmar"
+                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                @click="stepProgress.nextStep">
+                                Reservar
+                              </button>
+                              <button type="button" id="boton-confirmar-sombra"
+                                class="btn btn-primary" @click="createBooking()">
+                                Reservar
+                              </button>
+                            </div>
+                          </div>
+
+                          <label v-if="!selectedProvider" for="menu" id="selected-pack-text">Pack seleccionado:</label>
+                          <input v-if="!selectedProvider" type="text" class="pack-number-show" id="menu" @change="stepProgress.nextStep"
+                            disabled />
+
+                          <!-- en modal -->
+                          <label v-if="selectedProvider" for="menu" id="selected-pack-text" style="margin-top: 10%;">Pack seleccionado:</label>
+                          <input v-if="selectedProvider" type="text" class="pack-number-show" id="menu" @change="stepProgress.nextStep"
                             disabled />
 
                           <!-- Modal -->
@@ -466,13 +488,13 @@ export default {
 }
 
 #card-provider-big {
-  background-color: transparent;
+  background-color: #141414;
   border-radius: 26px;
   margin-bottom: 5%;
 }
 
 #card-body-provider-big {
-  background-color: transparent;
+  background-color: #141414;
   border-radius: 26px;
 }
 
@@ -509,6 +531,16 @@ export default {
 }
 
 .book-pack-container {
+
+
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.book-pack-container-NotSelectedProvider {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -568,6 +600,7 @@ export default {
   top: 1%;
   left: -1%;
 }
+
 
 #boton-confirmar2-sombra {
   position: absolute;
@@ -691,6 +724,7 @@ export default {
   width: 38%;
   left: 0%;
   right: 0%;
+  z-index: 999;
 }
 
 #card-body-provider-big-title2 {

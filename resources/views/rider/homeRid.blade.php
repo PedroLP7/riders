@@ -75,6 +75,11 @@ body { margin: 0; padding: 0; }
     transition: width 1s, height 1s;
 }
 
+.bp-widget-widget {
+    bottom: 85% !important;
+    right: 3em !important;
+}
+
 </head>
 <body>
 
