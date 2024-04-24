@@ -1,4 +1,6 @@
 <template>
+ 
+
   <div v-if="loading" class="loading-overlay">
     <div id="manzanita">
       <div class="image" style="background-image: url('../../resources/images/animacion/ManzanaAni1.png');"></div>
@@ -323,6 +325,7 @@ export default {
     let map;
     const userName = ref('Rider');
     const userp = ref({ id_user: '' });
+    const userLocation = ref(null);
 
 
 
@@ -364,6 +367,7 @@ export default {
       map.addControl(geolocateControl);
 
       geolocateControl.on('geolocate', (e) => {
+        userLocation.value = { longitude: e.coords.longitude, latitude: e.coords.latitude };
         map.easeTo({
           pitch: 45,
           center: [e.coords.longitude, e.coords.latitude],
@@ -455,6 +459,54 @@ export default {
       element.style.backgroundPosition = 'center';
     };
 
+    const calculateAndDisplayRoute = async (start, end) => {
+  if (!start || !end || !start.lng || !start.lat || !end.lng || !end.lat) {
+    console.error('Invalid start or end coordinates', {start, end});
+    return; // Termina la función si las coordenadas no son válidas
+  }
+
+  try {
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${start.lng},${start.lat};${end.lng},${end.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`;
+    const response = await axios.get(url);
+    const data = response.data.routes[0];
+    const route = data.geometry.coordinates;
+    const geojson = {
+      type: 'Feature',
+      properties: {},
+      geometry: {
+        type: 'LineString',
+        coordinates: route
+      }
+    };
+
+    // Agrega o actualiza la capa de la ruta en el mapa
+    if (map.getSource('route')) {
+      map.getSource('route').setData(geojson);
+    } else {
+      map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: geojson
+        },
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#8BB481',
+          'line-width': 7,
+          'line-opacity': 1
+        }
+      });
+    }
+  } catch (err) {
+    console.error('Error fetching the route:', err);
+  }
+};
+
+
     const applyMarkerStylesPro = (element) => {
       element.style.width = '60px';
       element.style.height = '60px';
@@ -478,8 +530,21 @@ export default {
           .addTo(map);
 
         marker.getElement().addEventListener('click', (e) => {
+          if (!userLocation.value) {
+          alert('Waiting for user location...');
+          return;
+          }
           e.stopPropagation();
           selectedMarker.value = { marker, data: m };
+          const start = {
+          lng: userLocation.value.longitude,
+          lat: userLocation.value.latitude                    
+          };          
+          console.log(userLocation.value.longitude);
+          console.log(userLocation.value.latitude); 
+          console.log("hola");  
+          const end = marker.getLngLat(); 
+          calculateAndDisplayRoute(start, end);
           mendigo.value.id_customer = selectedMarker.value.data.id_customer;
           isProviderModalOpen.value = false;
           isMarkerOptionsModalOpen.value = false;
