@@ -11,7 +11,7 @@
     <div  class="titulo"> Riders que mas han entregado </div>
 
 
-    <div class="" id="adminChart2"></div>
+    <div class="mt-3" id="adminChart2"></div>
 
 
 </div>
@@ -30,7 +30,9 @@
 
     #adminChart, #adminchart2,#adminChart3 {
         width: 500px;
-        height: 500px;
+        height: 435px;
+        border-radius:22px;
+        padding: 2%;
     }
 
     .titulo{
@@ -43,6 +45,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+
 
 
 
