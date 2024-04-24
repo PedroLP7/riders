@@ -22,17 +22,6 @@
         <th scope="col">delivery hour</th>
         <th scope="col">customer</th>
 
-
-
-
-
-
-
-
-
-
-
-
       </tr>
 
     <tbody>

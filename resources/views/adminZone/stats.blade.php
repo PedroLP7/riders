@@ -2,13 +2,13 @@
 
 @section('contenido')
 <div id="contenedor">
-    <div class="mt-3 titulo"> Proveedores que mas han donado</div>
+    <div class="mt-3 titulo"> Proveedores que más han donado</div>
 
 
     <div class="mt-3" id="adminChart"></div>
 
 
-    <div  class="titulo"> Riders que mas han entregado </div>
+    <div  class="titulo"> Riders que más han entregado </div>
 
 
     <div class="mt-3" id="adminChart2"></div>
