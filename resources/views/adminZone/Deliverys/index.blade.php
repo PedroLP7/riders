@@ -12,16 +12,15 @@
 
 
 
-<a class="btn btn-warning mt-3" href="{{url('admin/delivery/create')}}">Create Delivery</a>
+{{-- <a class="btn btn-warning mt-3" href="{{url('admin/delivery/create')}}">Create Delivery</a> --}}
 
 <table class="table table-dark table-hover mt-3">
       <tr>
-        <th scope="col">ID</th>
+        <th scope="col">ID Delivery</th>
         <th scope="col">ID booking</th>
         <th scope="col">delivery Date</th>
         <th scope="col">delivery hour</th>
         <th scope="col">customer</th>
-        <th scope="col">customer location </th>
 
 
 
@@ -48,8 +47,11 @@
 
 
 
-        <td>{{$delivery->customer->id_customer}}</td>7
-        <td>{{$delivery->customer->location}}</td>7
+
+         <td>{{$delivery->id_customer_fk}}</td>
+
+
+
 
 
 
