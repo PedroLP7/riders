@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { Chart, Legend } from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 import axios from 'axios';
 
 export default {
@@ -35,10 +35,10 @@ export default {
     mounted() {
         // Datos para el gráfico
         const chartData = {
-            labels: ['Knoweats', 'Wetaka', 'Koyo', 'Spacca', 'Hideout'],
+            labels: ['Alejandro', 'Brk', 'PipeBcn', 'Pedro', 'Francisco'],
             datasets: [{
-                label: 'Packs donados ',
-                data: [50, 24, 10, 30, 5], // Datos ficticios
+                label: 'Entregas realizadas',
+                data: [70, 14, 2, 20, 50], // Datos ficticios
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
                     'rgba(54, 162, 235, 0.5)',
@@ -60,18 +60,17 @@ export default {
         // Opciones para el gráfico
         const options = {
             plugins: {
-        legend: {
+            legend: {
             labels: {
                 color: 'white' // Cambiar el color del texto a blanco
             }
         }
-    }
-
+        }
         };
 
         // Renderizamos el gráfico
         new Chart(this.$refs.chartCanvas.getContext('2d'), {
-            type: 'doughnut',
+            type: 'pie',
             data: chartData,
             options: options
         });

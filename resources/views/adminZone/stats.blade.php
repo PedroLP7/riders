@@ -1,17 +1,21 @@
 @extends('Layouts.admin')
 
 @section('contenido')
-
-<div class="mt-3"> Stats 1</div>
+<div id="contenedor">
+    <div class="mt-3 titulo"> Proveedores que mas han donado</div>
 
 
     <div class="mt-3" id="adminChart"></div>
 
 
+    <div  class="titulo"> Riders que mas han entregado </div>
+
+
     <div class="" id="adminChart2"></div>
 
 
-    <div class="" id="adminChart3"></div>
+</div>
+
 
 
 
@@ -27,5 +31,29 @@
     #adminChart, #adminchart2,#adminChart3 {
         width: 500px;
         height: 500px;
+    }
+
+    .titulo{
+        color : white!important;
+        margin : 20px;
+    }
+
+    #contenedor{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+
+
+    }
+
+
+    #adminChart2{
+        background: linear-gradient(to right, #8e8e8e99 0%, #5c5c5ca1 51%, #acacac9c 100%)
+    }
+
+    #adminChart{
+        background: linear-gradient(to right, #8e8e8e99 0%, #5c5c5ca1 51%, #acacac9c 100%)
     }
  </style>

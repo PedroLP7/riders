@@ -67,3 +67,7 @@ createApp(chart2).mount("#chart2")
 import adminChart from '../Components/admin/adminChart.vue'
 createApp(adminChart).mount("#adminChart")
 
+
+import adminChart2 from '../Components/admin/adminChart2.vue'
+createApp(adminChart2).mount("#adminChart2")
+
