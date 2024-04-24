@@ -41,9 +41,9 @@
         </div>
 
         <section id="quienes-somos-section">
-          <div class="bienvenido-foodlink">
-            <h2>Bienvenido a FoodLink</h2>
-            <p>
+          <div class="bienvenido-foodlink" style="text-align: left; margin-bottom: 100px;">
+            <h2 class="section-heading">Bienvenido a FoodLink</h2>
+            <p class="section-p">
               En FoodLink, no solo estamos 
               construyendo una plataforma, estamos 
               forjando un movimiento hacia un mundo 
@@ -55,6 +55,65 @@
               comunitarios.
             </p>
           </div>
+
+          <div class="como-funciona-foodlink" style="text-align: right; margin-bottom: 100px;">
+            <h2 class="section-heading">¿Cómo Funciona<br>FoodLink?</h2>
+            <p class="section-p">
+              Nuestra plataforma de vanguardia 
+              está diseñada para conectar la 
+              generosidad de los donantes con las 
+              necesidades reales de la comunidad. 
+              A través de una red solidaria de riders 
+              voluntarios, aprovechamos los alimentos 
+              excedentes de manera efectiva, los 
+              recogemos y los distribuimos de manera 
+              eficiente a aquellos que más lo necesitan.
+            </p>
+          </div>
+
+          <div class="stats-container" style=" margin-bottom: 100px;">
+            <div class="stat">
+              <h3 class="counter-animate"><b>+</b>{{ activeUsers }}</h3>
+              <p class="counter-p">usuarios activos</p>
+            </div>
+            <div class="stat">
+              <h3 class="counter-animate"><b>+</b>{{ totalKg }}Kg</h3>
+              <p class="counter-p">de comida salvados</p>
+            </div>
+          </div>
+
+          <div class="nuestros-objetivos-foodlink" style="text-align: left; margin-bottom: 100px;">
+            <h2 class="section-heading">Nuestros Objetivos</h2>
+            <p class="section-p">
+              <b>Reducción del Desperdicio Alimentario:</b>
+              En FoodLink, cada entrega cuenta en 
+              nuestra misión de combatir el 
+              desperdicio alimentario, asegurando 
+              que cada recurso se utilice de manera 
+              significativa. <br> <br>
+
+              <b>Apoyo a las Comunidades Vulnerables:</b>
+              Nos dedicamos a proveer alimentos a 
+              aquellos en situaciones de necesidad, 
+              incluyendo personas sin hogar y 
+              familias en riesgo de exclusión social. <br> <br>
+
+              <b>Sensibilización Comunitaria:</b> Creamos 
+              conciencia sobre la problemática del 
+              desperdicio alimentario y la importancia 
+              de la solidaridad en nuestra sociedad, 
+              inspirando a otros a unirse a nuestra 
+              causa. <br> <br>
+
+              <b>Empoderamiento de Voluntarios:</b> En 
+              FoodLink, ofrecemos a nuestros riders 
+              voluntarios una plataforma donde pueden 
+              contribuir de manera significativa, 
+              sintiéndose parte de algo más grande 
+              que ellos mismos.
+            </p>
+          </div>
+
         </section>
       </main>   
       </div>
@@ -63,15 +122,47 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {  
       showModal: false,    
+      activeUsers: null,
+      totalKg: null,
+      scrolledToStats: false
     }            
   },
-  mounted() {   
+
+  created() {
+    this.fetchActiveUsers();
+    this.fetchTotalKg();
   },
+
+  mounted() {   
+    window.addEventListener('scroll', this.handleScroll);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+
   methods: {  
+    handleScroll() {
+      const statsSection = document.getElementById('quienes-somos-section');
+      if (!statsSection || this.scrolledToStats) return;
+
+      const statsSectionTop = statsSection.offsetTop;
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY || window.pageYOffset;
+
+      // Si el usuario ha desplazado lo suficiente para que la sección de estadísticas esté visible
+      if (scrollY + windowHeight >= statsSectionTop) {
+        this.scrolledToStats = true;
+        this.startCounterAnimation();
+      }
+    },
+
     toggleModal() {
       this.showModal = !this.showModal;
     }, 
@@ -93,6 +184,60 @@ export default {
 
       const registerBtn = document.getElementById('register');
       registerBtn.classList.add('disappear');
+    },
+
+    fetchActiveUsers() {
+      const me = this;
+
+      axios.get('admin/getActiveUsers')
+      .then((response) => {
+          console.log(response);
+          me.activeUsers = response.data;
+          console.log(response.data)
+        })
+      .catch((error) => {
+          console.error("Error fetching data", error);
+        });
+    },
+
+    fetchTotalKg() {
+      const me = this;
+
+      axios.get('admin/getTotalKg')
+      .then((response) => {
+          console.log(response);
+          me.totalKg = response.data;
+          console.log(response.data)
+        })
+      .catch((error) => {
+          console.error("Error fetching data", error);
+        });
+    },
+
+    startCounterAnimation() {
+      const incrementValue = 10; // Valor por el que incrementar en cada paso
+      const duration = 2000; // Duración total de la animación en milisegundos
+      const steps = Math.ceil(duration / incrementValue); // Número de pasos
+
+      let count = 0;
+      const interval = setInterval(() => {
+        count += incrementValue;
+        if (count >= this.activeUsers) {
+          count = this.activeUsers;
+          clearInterval(interval);
+        }
+        this.activeUsersAnimated = count; // Actualiza el valor para mostrar en la animación
+      }, incrementValue);
+
+      let countKg = 0;
+      const intervalKg = setInterval(() => {
+        countKg += incrementValue;
+        if (countKg >= this.totalKg) {
+          countKg = this.totalKg;
+          clearInterval(intervalKg);
+        }
+        this.totalKgAnimated = countKg; // Actualiza el valor para mostrar en la animación
+      }, incrementValue);
     },
   }  
 }
@@ -147,6 +292,8 @@ export default {
 #quienes-somos-section {
   position: relative;
   top: 100vh;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .modal-content {
@@ -224,4 +371,37 @@ export default {
     cursor: pointer;
   }
 
+  .counter-animate {
+    transition: all 1s ease; /* Duración de la transición y función de aceleración */
+    font-size: 96px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: -10px;
+  }
+
+  .counter-animate b {
+    color: #8BB481;
+  }
+
+  .counter-p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #8F8F8F;
+  }
+
+  .section-heading {
+    color: #8BB481;
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .section-p {
+    font-size: 20px;
+    font-weight: 400;
+    color: white;
+  }
+
+  .section-p b {
+    font-weight: 600;
+  }
 </style>
